@@ -1,0 +1,12 @@
+{
+  "name": "hongrong-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bilingual editorial portfolio website for HongRong",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "validate": "node scripts/validate.mjs"
+  }
+}
