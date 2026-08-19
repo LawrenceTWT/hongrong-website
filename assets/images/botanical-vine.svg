@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 920" role="img" aria-labelledby="title desc">
+  <title id="title">Decorative ivy vine</title>
+  <desc id="desc">An illustrated olive-green ivy branch for HongRong's portfolio.</desc>
+  <defs>
+    <linearGradient id="leafFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a7a66a"/>
+      <stop offset="0.48" stop-color="#78834a"/>
+      <stop offset="1" stop-color="#48552f"/>
+    </linearGradient>
+    <linearGradient id="leafLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c1bc78"/>
+      <stop offset="1" stop-color="#65713e"/>
+    </linearGradient>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#161710" flood-opacity="0.24"/>
+    </filter>
+    <g id="ivyLeaf">
+      <path d="M0 0C-15-25-42-31-62-18c17 7 28 17 31 30-18 5-34 18-39 36 22-3 39-12 52-25-2 23 6 43 25 58 10-19 11-38 4-57 17 10 36 13 56 5-10-18-25-29-44-33 8-12 12-25 10-40C25-38 10-22 0 0Z" fill="url(#leafFill)" stroke="#b8b47a" stroke-width="1.3"/>
+      <path d="M0 1 6 57M2 14l-32 1M5 28l29-8M4 39l-20 22M5 48l19 20" fill="none" stroke="#d0c98b" stroke-width="1.1" stroke-linecap="round" opacity="0.72"/>
+      <path d="M-44-14c18 10 31 28 48 66M34-35C22-15 13 7 5 55" fill="none" stroke="#525f36" stroke-width="1" opacity="0.5"/>
+    </g>
+  </defs>
+
+  <g fill="none" stroke-linecap="round" filter="url(#softShadow)">
+    <path d="M10 930C19 788 76 732 84 616c8-115-52-174-32-283 17-94 92-128 103-237 4-42-5-77-17-108" stroke="#54452d" stroke-width="7"/>
+    <path d="M12 928C30 789 88 726 95 615 101 512 51 439 69 342 88 240 156 205 167 100" stroke="#8a7648" stroke-width="2" opacity="0.9"/>
+    <path d="M72 696c47-27 84-65 94-111M59 475c-35-26-48-56-46-91M115 242c50-19 85-48 105-89M67 343c38 3 75-8 103-34" stroke="#625136" stroke-width="4"/>
+    <path d="M152 584c32-14 52 2 42 25-8 18-37 10-28-8 8-15 30-3 20 9" stroke="#8f7b4d" stroke-width="2" opacity="0.78"/>
+    <path d="M17 383c-22-24-2-48 17-31 14 13 1 34-13 23-10-9 1-23 10-13" stroke="#8f7b4d" stroke-width="2" opacity="0.72"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <use href="#ivyLeaf" transform="translate(21 835) rotate(-37) scale(.78)"/>
+    <use href="#ivyLeaf" transform="translate(62 742) rotate(22) scale(.96)"/>
+    <use href="#ivyLeaf" transform="translate(112 665) rotate(48) scale(.7)"/>
+    <use href="#ivyLeaf" transform="translate(76 595) rotate(-28) scale(1.08)"/>
+    <use href="#ivyLeaf" transform="translate(153 542) rotate(38) scale(.74)"/>
+    <use href="#ivyLeaf" transform="translate(54 482) rotate(-62) scale(.72)"/>
+    <use href="#ivyLeaf" transform="translate(52 402) rotate(-18) scale(1.02)"/>
+    <use href="#ivyLeaf" transform="translate(112 337) rotate(44) scale(.82)"/>
+    <use href="#ivyLeaf" transform="translate(95 278) rotate(-25) scale(.67)"/>
+    <use href="#ivyLeaf" transform="translate(168 219) rotate(37) scale(.9)"/>
+    <use href="#ivyLeaf" transform="translate(144 145) rotate(-14) scale(.64)"/>
+    <use href="#ivyLeaf" transform="translate(163 79) rotate(18) scale(.72)"/>
+    <use href="#ivyLeaf" transform="translate(136 19) rotate(-23) scale(.48)"/>
+  </g>
+
+  <g fill="#b5ad68" opacity="0.82">
+    <circle cx="15" cy="902" r="4"/><circle cx="82" cy="629" r="3"/><circle cx="54" cy="355" r="3.5"/><circle cx="154" cy="110" r="3"/>
+  </g>
+</svg>

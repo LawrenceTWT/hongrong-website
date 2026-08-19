@@ -9,10 +9,10 @@
     navWork: "作品",
     navContact: "聯絡",
     heroEyebrow: "網頁開發者 — 台灣",
-    heroHello: "Hi！我是 HongRong。",
-    heroTitle: "我用清晰的思考與",
-    heroTitleEm: "細膩的態度打造網頁。",
-    heroIntro: "我將想法轉化為有質感、具回應性且真正好用的數位體驗，從品牌網站到 AI 工具。",
+    heroHello: "嗨，我是 HongRong。",
+    heroTitle: "打造清晰、有個性的",
+    heroTitleEm: "數位體驗。",
+    heroIntro: "來自台灣的網頁開發者，專注於響應式網站與細膩互動。",
     letsTalk: "聊聊合作",
     seeWork: "看看我的作品",
     heroStat: "資訊管理學系<br>畢業",
@@ -338,6 +338,40 @@
   });
 
   const header = document.querySelector(".site-header");
+  const finePointer = window.matchMedia("(pointer: fine)");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (header && finePointer.matches) {
+    header.addEventListener("pointermove", (event) => {
+      const rect = header.getBoundingClientRect();
+      header.style.setProperty("--glass-x", `${event.clientX - rect.left}px`);
+      header.style.setProperty("--glass-y", `${event.clientY - rect.top}px`);
+    });
+    header.addEventListener("pointerleave", () => {
+      header.style.setProperty("--glass-x", "72%");
+      header.style.setProperty("--glass-y", "0%");
+    });
+  }
+
+  if (finePointer.matches && !reducedMotion.matches) {
+    document.querySelectorAll("[data-tilt-card]").forEach((card) => {
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+        card.style.setProperty("--tilt-x", `${(0.5 - y) * 5}deg`);
+        card.style.setProperty("--tilt-y", `${(x - 0.5) * 6}deg`);
+        card.style.setProperty("--shine-x", `${x * 100}%`);
+        card.style.setProperty("--shine-y", `${y * 100}%`);
+      });
+      card.addEventListener("pointerleave", () => {
+        card.style.setProperty("--tilt-x", "0deg");
+        card.style.setProperty("--tilt-y", "0deg");
+        card.style.setProperty("--shine-x", "62%");
+        card.style.setProperty("--shine-y", "20%");
+      });
+    });
+  }
+
   const parallaxItems = [...document.querySelectorAll("[data-parallax]")];
   let ticking = false;
   const updateScrollEffects = () => {
@@ -361,7 +395,7 @@
   updateScrollEffects();
 
   const cursor = document.querySelector(".cursor-orb");
-  if (cursor && window.matchMedia("(pointer: fine)").matches) {
+  if (cursor && finePointer.matches) {
     window.addEventListener("pointermove", (event) => {
       cursor.style.left = `${event.clientX}px`;
       cursor.style.top = `${event.clientY}px`;
