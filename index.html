@@ -7,9 +7,6 @@
   <meta name="theme-color" content="#ebe7da">
   <title>HongRong — Web Developer</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/main.js" defer></script>
 </head>
@@ -57,11 +54,11 @@
   </div>
 
   <main>
-    <section class="hero home-hero">
+    <section class="hero home-hero section-pad">
       <div class="hero-copy reveal">
         <p class="eyebrow" data-i18n="heroEyebrow">Web developer — Taiwan</p>
-        <h1><span data-i18n="heroHello">Hi! I'm HongRong.</span><br><span data-i18n="heroTitle">I build for the web with</span> <em data-i18n="heroTitleEm">clarity &amp; care.</em></h1>
-        <p class="hero-intro" data-i18n="heroIntro">I turn ideas into thoughtful, responsive digital experiences — from brand websites to AI-powered tools.</p>
+        <h1><span data-i18n="heroHello">Hi! I'm HongRong.</span><span class="hero-title-line"><span data-i18n="heroTitle">I build digital experiences with</span> <em data-i18n="heroTitleEm">clarity &amp; character.</em></span></h1>
+        <p class="hero-intro" data-i18n="heroIntro">Web developer based in Taiwan, crafting responsive websites and thoughtful interactions.</p>
         <div class="hero-actions">
           <a class="button button-dark transition-link" href="contact.html" data-i18n="letsTalk">Let's talk</a>
           <a class="text-link transition-link" href="work.html"><span data-i18n="seeWork">See my work</span><span aria-hidden="true">→</span></a>
@@ -71,9 +68,25 @@
           <span data-i18n="heroStat">Information Management<br>graduate</span>
         </div>
       </div>
-      <figure class="hero-portrait reveal" data-parallax="0.08">
-        <div class="portrait-halo"></div>
-        <img src="assets/images/hongrong-portrait.png" alt="HongRong by the sea under a blue sky">
+      <figure class="hero-portrait reveal" data-tilt-card>
+        <div class="portrait-backplate" aria-hidden="true"></div>
+        <div class="portrait-orbit" aria-hidden="true"></div>
+        <button class="portrait-frame" type="button" data-portrait-flip aria-pressed="false" aria-label="Flip portrait card">
+          <span class="portrait-card-inner">
+            <span class="portrait-face portrait-front">
+              <img src="assets/images/hongrong-portrait.png" alt="HongRong by the sea under a blue sky">
+              <span class="portrait-shine" aria-hidden="true"></span>
+              <span class="portrait-flip-hint"><span data-i18n="flipHint">Flip card</span><span aria-hidden="true">↻</span></span>
+            </span>
+            <span class="portrait-face portrait-back" aria-hidden="true">
+              <span class="portrait-back-index">HR / PROFILE 01</span>
+              <span class="portrait-back-mark" aria-hidden="true">HR</span>
+              <span class="portrait-back-copy"><strong>HongRong</strong><span data-i18n="flipRole">Web Developer</span><small>Taichung, Taiwan</small></span>
+              <span class="portrait-back-return"><span data-i18n="flipBack">Back to portrait</span><span aria-hidden="true">↺</span></span>
+            </span>
+          </span>
+        </button>
+        <span class="portrait-code portrait-code-top" aria-hidden="true">HR / 01</span>
         <figcaption><span>Taichung, Taiwan</span><span>24.1477° N</span></figcaption>
       </figure>
       <div class="hero-monogram" aria-hidden="true">HR</div>
@@ -96,9 +109,9 @@
 
     <section class="scroll-story" aria-label="Personal statement">
       <div class="story-sticky">
-        <div class="story-leaf leaf-left" aria-hidden="true">✦</div>
+        <div class="story-leaf leaf-left" aria-hidden="true"></div>
         <p class="scrub-text" data-scrub-en="I build digital experiences that feel clear to use, thoughtful to look at, and ready to grow." data-scrub-zh="我打造清楚好用、細節耐看，並且能持續成長的數位體驗。"></p>
-        <div class="story-leaf leaf-right" aria-hidden="true">✦</div>
+        <div class="story-leaf leaf-right" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -166,13 +179,19 @@
         <span>/ 3 / ©</span>
       </div>
       <div class="about-grid">
-        <figure class="editorial-card reveal" data-parallax="0.04">
-          <img src="assets/images/hongrong-portrait.png" alt="Portrait of HongRong">
-          <figcaption>
-            <strong>HongRong<sup>®</sup></strong>
-            <span data-i18n="aboutCardCaption">Building with curiosity</span>
-          </figcaption>
-        </figure>
+        <div class="about-portrait-stage reveal">
+          <span class="botanical-vine botanical-vine-left" aria-hidden="true"></span>
+          <span class="botanical-vine botanical-vine-right" aria-hidden="true"></span>
+          <span class="portrait-stage-label portrait-stage-label-top" aria-hidden="true">01 / PROFILE</span>
+          <figure class="editorial-card">
+            <img src="assets/images/hongrong-portrait.png" alt="Portrait of HongRong">
+            <figcaption>
+              <strong>HongRong<sup>®</sup></strong>
+              <span data-i18n="aboutCardCaption">Building with curiosity</span>
+            </figcaption>
+          </figure>
+          <span class="portrait-stage-label portrait-stage-label-bottom" aria-hidden="true">WEB / TAIWAN / 2026</span>
+        </div>
         <div class="about-copy reveal">
           <h3 data-i18n="aboutStatement">A web developer who likes turning messy requirements into clear, usable systems.</h3>
           <p data-i18n="aboutBody">I studied Information Management at Shih Hsin University, led an AI driving assistant project, and developed my adaptability through a work-and-travel experience in the United States.</p>
@@ -197,15 +216,23 @@
       </div>
 
       <div class="work-grid">
-        <a class="work-card transition-link reveal" href="jinhong-foods.html">
+        <a class="work-card reveal" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer">
           <div class="work-visual jinhong-visual">
-            <div class="mock-browser">
+            <div class="mock-browser jinhong-browser">
               <div class="mock-browser-bar"><span></span><span></span><span></span><b>金虹食品</b></div>
-              <div class="mock-hero">
-                <small>FOOD MACHINERY / TAIWAN</small>
-                <strong>Precision built<br>for production.</strong>
+              <div class="jinhong-site-shot">
+                <div class="jinhong-shot-nav"><strong>金虹食品</strong><span>產品介紹　關於我們　聯絡我們</span></div>
+                <div class="jinhong-shot-hero">
+                  <small>FOOD MACHINERY / TAIWAN</small>
+                  <strong>讓每一道加工流程<br>更穩定、更有效率</strong>
+                  <span>專業食品加工設備</span>
+                </div>
+                <div class="jinhong-products">
+                  <figure><img src="assets/images/jinhong-slicer.webp" alt="金虹全自動切片機"><figcaption>全自動切片機</figcaption></figure>
+                  <figure><img src="assets/images/jinhong-bone-saw.webp" alt="金虹高速鋸骨機"><figcaption>高速鋸骨機</figcaption></figure>
+                  <figure><img src="assets/images/jinhong-vacuum.webp" alt="金虹雙槽真空包裝機"><figcaption>真空包裝機</figcaption></figure>
+                </div>
               </div>
-              <div class="mock-products"><i></i><i></i><i></i></div>
             </div>
           </div>
           <div class="work-meta"><span>01</span><span>React / TypeScript / Cloudflare</span></div>

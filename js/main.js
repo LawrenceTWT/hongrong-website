@@ -9,10 +9,13 @@
     navWork: "作品",
     navContact: "聯絡",
     heroEyebrow: "網頁開發者 — 台灣",
-    heroHello: "Hi！我是 HongRong。",
-    heroTitle: "我用清晰的思考與",
-    heroTitleEm: "細膩的態度打造網頁。",
-    heroIntro: "我將想法轉化為有質感、具回應性且真正好用的數位體驗，從品牌網站到 AI 工具。",
+    heroHello: "嗨，我是 HongRong。",
+    heroTitle: "打造清晰、有個性的",
+    heroTitleEm: "數位體驗。",
+    heroIntro: "來自台灣的網頁開發者，專注於響應式網站與細膩互動。",
+    flipHint: "翻面看看",
+    flipRole: "網頁開發者",
+    flipBack: "回到正面",
     letsTalk: "聊聊合作",
     seeWork: "看看我的作品",
     heroStat: "資訊管理學系<br>畢業",
@@ -110,6 +113,7 @@
     jinhongLongSummary: "為台灣食品機械公司打造的完整產品與企業網站，讓大量技術產品更容易瀏覽、比較與詢價。",
     viewCaseStudy: "查看案例",
     liveWebsite: "瀏覽網站",
+    sourceCode: "查看原始碼",
     capstoneProject: "大學畢業專題",
     aiDriverLongSummary: "將導航、語音對話、即時路況與停車位資訊整合到單一駕駛介面的 Android 應用程式。",
     readReport: "閱讀報告",
@@ -233,6 +237,16 @@
     });
   };
 
+  const updatePortraitFlipLabel = (button, language) => {
+    const flipped = button.classList.contains("is-flipped");
+    const label = language === "zh"
+      ? (flipped ? "將名片翻回照片正面" : "翻轉照片查看個人名片")
+      : (flipped ? "Flip back to portrait" : "Flip portrait to view profile card");
+    button.setAttribute("aria-label", label);
+    button.setAttribute("aria-pressed", String(flipped));
+    button.querySelector(".portrait-back")?.setAttribute("aria-hidden", String(!flipped));
+  };
+
   const applyLanguage = (language) => {
     const resolved = language === "zh" ? "zh" : "en";
     document.documentElement.lang = resolved === "zh" ? "zh-Hant" : "en";
@@ -248,6 +262,7 @@
       button.textContent = resolved === "zh" ? "EN" : "中文";
       button.setAttribute("aria-label", resolved === "zh" ? "Switch to English" : "切換至繁體中文");
     });
+    document.querySelectorAll("[data-portrait-flip]").forEach((button) => updatePortraitFlipLabel(button, resolved));
 
     const message = document.querySelector('textarea[name="message"]');
     const name = document.querySelector('input[name="name"]');
@@ -338,6 +353,47 @@
   });
 
   const header = document.querySelector(".site-header");
+  const finePointer = window.matchMedia("(pointer: fine)");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (header && finePointer.matches) {
+    header.addEventListener("pointermove", (event) => {
+      const rect = header.getBoundingClientRect();
+      header.style.setProperty("--glass-x", `${event.clientX - rect.left}px`);
+      header.style.setProperty("--glass-y", `${event.clientY - rect.top}px`);
+    });
+    header.addEventListener("pointerleave", () => {
+      header.style.setProperty("--glass-x", "72%");
+      header.style.setProperty("--glass-y", "0%");
+    });
+  }
+
+  if (finePointer.matches && !reducedMotion.matches) {
+    document.querySelectorAll("[data-tilt-card]").forEach((card) => {
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+        card.style.setProperty("--tilt-x", `${(0.5 - y) * 5}deg`);
+        card.style.setProperty("--tilt-y", `${(x - 0.5) * 6}deg`);
+        card.style.setProperty("--shine-x", `${x * 100}%`);
+        card.style.setProperty("--shine-y", `${y * 100}%`);
+      });
+      card.addEventListener("pointerleave", () => {
+        card.style.setProperty("--tilt-x", "0deg");
+        card.style.setProperty("--tilt-y", "0deg");
+        card.style.setProperty("--shine-x", "62%");
+        card.style.setProperty("--shine-y", "20%");
+      });
+    });
+  }
+
+  document.querySelectorAll("[data-portrait-flip]").forEach((button) => {
+    button.addEventListener("click", () => {
+      button.classList.toggle("is-flipped");
+      updatePortraitFlipLabel(button, document.body.dataset.lang);
+    });
+  });
+
   const parallaxItems = [...document.querySelectorAll("[data-parallax]")];
   let ticking = false;
   const updateScrollEffects = () => {
@@ -361,7 +417,7 @@
   updateScrollEffects();
 
   const cursor = document.querySelector(".cursor-orb");
-  if (cursor && window.matchMedia("(pointer: fine)").matches) {
+  if (cursor && finePointer.matches) {
     window.addEventListener("pointermove", (event) => {
       cursor.style.left = `${event.clientX}px`;
       cursor.style.top = `${event.clientY}px`;
