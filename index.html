@@ -7,9 +7,6 @@
   <meta name="theme-color" content="#ebe7da">
   <title>HongRong — Web Developer</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/main.js" defer></script>
 </head>
@@ -74,10 +71,21 @@
       <figure class="hero-portrait reveal" data-tilt-card>
         <div class="portrait-backplate" aria-hidden="true"></div>
         <div class="portrait-orbit" aria-hidden="true"></div>
-        <div class="portrait-frame">
-          <img src="assets/images/hongrong-portrait.png" alt="HongRong by the sea under a blue sky">
-          <span class="portrait-shine" aria-hidden="true"></span>
-        </div>
+        <button class="portrait-frame" type="button" data-portrait-flip aria-pressed="false" aria-label="Flip portrait card">
+          <span class="portrait-card-inner">
+            <span class="portrait-face portrait-front">
+              <img src="assets/images/hongrong-portrait.png" alt="HongRong by the sea under a blue sky">
+              <span class="portrait-shine" aria-hidden="true"></span>
+              <span class="portrait-flip-hint"><span data-i18n="flipHint">Flip card</span><span aria-hidden="true">↻</span></span>
+            </span>
+            <span class="portrait-face portrait-back" aria-hidden="true">
+              <span class="portrait-back-index">HR / PROFILE 01</span>
+              <span class="portrait-back-mark" aria-hidden="true">HR</span>
+              <span class="portrait-back-copy"><strong>HongRong</strong><span data-i18n="flipRole">Web Developer</span><small>Taichung, Taiwan</small></span>
+              <span class="portrait-back-return"><span data-i18n="flipBack">Back to portrait</span><span aria-hidden="true">↺</span></span>
+            </span>
+          </span>
+        </button>
         <span class="portrait-code portrait-code-top" aria-hidden="true">HR / 01</span>
         <figcaption><span>Taichung, Taiwan</span><span>24.1477° N</span></figcaption>
       </figure>
@@ -208,7 +216,7 @@
       </div>
 
       <div class="work-grid">
-        <a class="work-card transition-link reveal" href="jinhong-foods.html">
+        <a class="work-card reveal" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer">
           <div class="work-visual jinhong-visual">
             <div class="mock-browser jinhong-browser">
               <div class="mock-browser-bar"><span></span><span></span><span></span><b>金虹食品</b></div>

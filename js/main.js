@@ -13,6 +13,9 @@
     heroTitle: "打造清晰、有個性的",
     heroTitleEm: "數位體驗。",
     heroIntro: "來自台灣的網頁開發者，專注於響應式網站與細膩互動。",
+    flipHint: "翻面看看",
+    flipRole: "網頁開發者",
+    flipBack: "回到正面",
     letsTalk: "聊聊合作",
     seeWork: "看看我的作品",
     heroStat: "資訊管理學系<br>畢業",
@@ -110,6 +113,7 @@
     jinhongLongSummary: "為台灣食品機械公司打造的完整產品與企業網站，讓大量技術產品更容易瀏覽、比較與詢價。",
     viewCaseStudy: "查看案例",
     liveWebsite: "瀏覽網站",
+    sourceCode: "查看原始碼",
     capstoneProject: "大學畢業專題",
     aiDriverLongSummary: "將導航、語音對話、即時路況與停車位資訊整合到單一駕駛介面的 Android 應用程式。",
     readReport: "閱讀報告",
@@ -233,6 +237,16 @@
     });
   };
 
+  const updatePortraitFlipLabel = (button, language) => {
+    const flipped = button.classList.contains("is-flipped");
+    const label = language === "zh"
+      ? (flipped ? "將名片翻回照片正面" : "翻轉照片查看個人名片")
+      : (flipped ? "Flip back to portrait" : "Flip portrait to view profile card");
+    button.setAttribute("aria-label", label);
+    button.setAttribute("aria-pressed", String(flipped));
+    button.querySelector(".portrait-back")?.setAttribute("aria-hidden", String(!flipped));
+  };
+
   const applyLanguage = (language) => {
     const resolved = language === "zh" ? "zh" : "en";
     document.documentElement.lang = resolved === "zh" ? "zh-Hant" : "en";
@@ -248,6 +262,7 @@
       button.textContent = resolved === "zh" ? "EN" : "中文";
       button.setAttribute("aria-label", resolved === "zh" ? "Switch to English" : "切換至繁體中文");
     });
+    document.querySelectorAll("[data-portrait-flip]").forEach((button) => updatePortraitFlipLabel(button, resolved));
 
     const message = document.querySelector('textarea[name="message"]');
     const name = document.querySelector('input[name="name"]');
@@ -371,6 +386,13 @@
       });
     });
   }
+
+  document.querySelectorAll("[data-portrait-flip]").forEach((button) => {
+    button.addEventListener("click", () => {
+      button.classList.toggle("is-flipped");
+      updatePortraitFlipLabel(button, document.body.dataset.lang);
+    });
+  });
 
   const parallaxItems = [...document.querySelectorAll("[data-parallax]")];
   let ticking = false;

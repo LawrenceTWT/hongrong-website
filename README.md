@@ -27,6 +27,7 @@ hongrong-portfolio/
 │  └─ main.js
 └─ assets/
    ├─ favicon.svg
+   ├─ fonts/
    ├─ images/
    └─ docs/
 ```
@@ -71,4 +72,5 @@ npm run validate
 
 - English is the default language. The language switch stores the visitor's preference in `localStorage`.
 - The contact form creates a pre-filled email in the visitor's email app. It does not store or transmit form data through a server.
-- Google Fonts are loaded from the web; local fallback fonts are included in the CSS.
+- English typography uses locally hosted Geist and Libre Caslon Condensed. Traditional Chinese uses a site-specific web subset of GenSen Rounded TW.
+- The corresponding SIL Open Font License files are included in `assets/fonts/licenses/`.
