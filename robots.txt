@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lawrencetwt.github.io/hongrong-website/sitemap.xml

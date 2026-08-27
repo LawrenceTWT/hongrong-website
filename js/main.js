@@ -4,6 +4,149 @@
   const zh = {
     availability: "可合作 — 台中",
     localTime: "當地時間：",
+    skipContent: "跳到主要內容",
+    navJourney: "旅程",
+    navProjects: "專案",
+    navLife: "生活",
+    navSkills: "技能",
+    storyHeroLine: "把想法做成真正有用的數位產品。",
+    storyHeroIntro: "我從問題出發，整理邏輯，再運用 AI、Web 與 API，把它做成真正有人能使用的產品。",
+    exploreProjects: "探索作品",
+    startStory: "從故事開始",
+    currentlyLearning: "正在學習",
+    currentlyBuilding: "正在打造",
+    currentlyWeb: "網頁體驗",
+    currentlyExploring: "正在探索",
+    currentlyBased: "所在地",
+    journeyHeading: "電腦一直讓我感到有趣。<br><em>但 Coding 並沒有。</em>",
+    journey2021Title: "因為從小喜歡電腦，我選擇了資訊管理。",
+    journey2021Body: "然後我真正接觸了程式。我常常知道自己想做什麼，卻不知道怎麼把想法變成程式碼。在感受到創造之前，Coding 先讓我感到挫折。",
+    journey2022Title: "一個球鞋網站，改變了這種感覺。",
+    journey2022Body: "大二第一次上網頁設計課，我做出第一個屬於自己的網站。那是我第一次看見程式碼變成一個能看到、能操作，也讓我感到驕傲的東西。",
+    journeyLost: "當時沒有留下備份，網站已經遺失。因此這裡保持誠實：沒有重製的截圖，只留下第一次創造它的記憶。",
+    gptChangedTitle: "後來，GPT 改變了我學習的方式。",
+    gptChangedBody: "很多以前不知道怎麼問、甚至不敢問的問題，終於可以被一步一步拆開。AI 讓我有方法進入問題。",
+    gptPrinciple: "AI 沒有取代思考。<br>它幫助我理解。",
+    gptResponsibility: "需求、資料流、邏輯邊界、架構與最後決策，仍然必須由我負責。",
+    aiStoryHeading: "一個我每天都會遇到的<br><em>問題。</em>",
+    aiStoryLede: "每天上下課的塞車，加上不斷看見台灣交通事故內容，成為五人畢業專題的起點。",
+    teamLabel: "團隊",
+    aiStepProblemTitle: "有用的資訊，分散在太多地方。",
+    aiStepProblemBody: "導航、路況攝影機、停車與搜尋存在不同 App。每一次切換都增加摩擦，而駕駛的注意力本來應該留在道路上。",
+    aiStepIdeaTitle: "把真正有用的部分，整合成一個行車助手。",
+    aiStepIdeaBody: "這個概念將即時路況、停車資料、導航、車輛位置、GPT 與語音互動，整合在駕駛任務周圍。",
+    aiStepNavigationTitle: "讓路線與需要的情境留在一起。",
+    aiStepNavigationBody: "Google Maps 提供路線情境，助手則把駕駛連接到其他資訊，不必再開啟另一個 App。",
+    aiStepParkingTitle: "用自然語言詢問附近停車位。",
+    aiStepParkingBody: "產品概念把語音請求轉成結構化查詢，再連接政府停車開放資料。",
+    aiStepTrafficTitle: "把交通開放資料變成快速決策。",
+    aiStepTrafficBody: "TDX 資料與路況攝影機畫面協助理解道路狀況，而不是再增加一個原始資料畫面。",
+    aiStepAiTitle: "只有連接到系統時，對話才真正有用。",
+    aiStepAiBody: "GPT、語音轉文字與文字轉語音是一層互動介面，而不是整個產品本身。",
+    aiStepModelTitle: "使用 ResNet-18 分類六種交通流量等級。",
+    aiStepModelBody: "結果具有潛力，但中間車流等級也暴露出資料量小、分布不平均的限制。",
+    prototypeTitle: "駕駛提出停車需求後，系統發生什麼事？",
+    prototypeBody: "這個原型示範預期的系統流程，不會呼叫即時 API。",
+    prototypeButton: "尋找附近停車位",
+    prototypeVoice: "駕駛提出需求",
+    prototypeStt: "語音轉成文字",
+    prototypeGpt: "理解使用意圖",
+    prototypeTdx: "查詢開放資料",
+    prototypeData: "取得剩餘車位",
+    prototypeResponse: "回覆查詢結果",
+    modelRealityTitle: "困難的不是讓模型跑起來。<br><em>而是讓整個系統對同一件事有一致理解。</em>",
+    failureDatasetTitle: "資料集不夠大",
+    failureDatasetBody: "模型沒有看過足夠多樣的道路、天候、距離與攝影機畫質。",
+    failureMiddleTitle: "中間等級辨識較弱",
+    failureMiddleBody: "相鄰車流等級看起來很接近，因此模型容易混淆介於明顯暢通與明顯壅塞之間的類別。",
+    failureConversionTitle: "轉換流程改變了結果",
+    failureConversionBody: ".pth 模型必須透過 ONNX 與 TensorFlow Lite 進入 Android，同時 PyTorch 與 Android 的 normalization 也必須一致。",
+    fixNormalization: "訓練端與 Android 使用同一套 normalization 定義。",
+    fixDataset: "增加、清理並重新平衡資料集。",
+    fixMetrics: "分析 Precision、Recall 與 confusion matrix，而不只看 accuracy。",
+    rebuildDataset: "更大且更平衡的資料集",
+    rebuildUx: "更清楚的交通資訊體驗",
+    rebuildAccident: "事故通知",
+    rebuildCamera: "測速資訊",
+    rebuildAi: "更流暢、更理解情境的 AI 互動",
+    openFullCase: "閱讀完整案例",
+    jinhongStoryHeading: "我的第一個真實客戶，<br><em>來自一位朋友。</em>",
+    jinhongStoryLede: "朋友家中經營食品機械工廠。當他準備承接家業，希望有一個網站能增加品牌曝光，也讓產品目錄更容易被看見。",
+    clientBeforeTitle: "一家擁有專業產品的真實企業，卻沒有清楚的數位入口。",
+    clientGoalTitle: "讓品牌被看見，也讓產品目錄更容易理解。",
+    clientResearchTitle: "先研究產業，再決定網站結構。",
+    clientResearchBody: "我研究同產業網站、產品分類、規格，以及採購者在做決定前需要回答的問題。",
+    clientDesignTitle: "把大量機械整理成可以理解與瀏覽的資訊架構。",
+    clientBuildBody: "我負責介面設計、前端開發、部署，並持續維護這個網站。",
+    clientNextBody: "這些是下一步計畫，不會被描述成已完成的工作。",
+    usaHeading: "我離開了自己的<br><em>舒適圈。</em>",
+    usaSubheading: "我的英文並不好。<br>這正是我想去的原因。",
+    usaPhotoPending: "這個編輯式版位已準備放入 HongRong 的五張 USA 原始照片；不會使用圖庫照片或捏造的回憶代替。",
+    usaPhotoOne: "抵達／陌生的新環境",
+    usaPhotoTwo: "工作／每天使用英文",
+    usaPhotoThree: "耐心／朋友／Kaytlin",
+    usaPhotoFour: "食物／適應／學會提問",
+    usaPhotoFive: "開始有勇氣探索",
+    usaArrivalTitle: "食物很重口味、很鹹也很甜，水甚至可能比汽水貴。",
+    usaArrivalBody: "這些小細節讓我明確感覺自己離家很遠。我必須學會陌生文化的節奏，而不是期待它立刻讓我感到舒服。",
+    usaSsnTitle: "申請 SSN 時，我幾乎聽不懂櫃台在說什麼。",
+    usaSsnBody: "困難的不只是英文。我甚至不知道該怎麼提出正確問題。最後在 employer 的協助下，我完成了流程。",
+    usaWorkTitle: "Hospitality 的工作，代表每天都必須用英文溝通。",
+    usaWorkBody: "Kaytlin 很有耐心理解我要表達的意思，也會糾正我的英文。她的善意改變了這段經驗，我一直很感激。",
+    courageStatement: "我回到家時，<br><em>帶回了更多勇氣。</em>",
+    outsideHeading: "那些讓我保持<br><em>好奇與行動的事。</em>",
+    natureBody: "服完兵役後，我和朋友到紐西蘭旅行。那裡的尺度與自然景色一直留在我心裡。我特別喜歡那些能讓人以最好的方式感覺自己很渺小的地方。",
+    natureQuote: "如果有一個景色值得被記住，<br><em>我大概會想親自站在那裡。</em>",
+    natureImpression: "我希望朋友看見一個值得探索的地方時，會想到：「洪戎一定會喜歡這裡。」",
+    skillsStoryHeading: "工具真正重要的時候，<br><em>是它幫助解決對的問題。</em>",
+    skillEvidenceLabel: "使用於",
+    nextDirection: "我希望往 AI 應用與產品開發前進，尤其是那些從真實使用者問題開始的產品。",
+    nextUnderstand: "理解使用者",
+    nextLogic: "設計邏輯",
+    nextBuild: "運用 AI / Web / API 實作",
+    nextUseful: "做出真正有用的產品",
+    usefulCta: "一起打造<br><em>真正有用的產品。</em>",
+    contactEndCopy: "我目前開放 Web、AI 應用與產品相關機會，也樂意聊聊一個值得解決的問題。",
+    contactFormLink: "聯絡表單 ↗",
+    footerStoryLine: "AI × Web × Product — 從好奇、問題與持續學習的勇氣開始。",
+    backToStory: "← 回到故事",
+    projectOriginLabel: "專案起點",
+    myRoleLabel: "我的角色",
+    aiDeepLede: "一個從日常問題開始的五人專題：交通資訊很有用，卻分散在太多不同工具裡。",
+    aiOriginTitle: "這個想法不是從 AI 開始，而是從每天上課的道路開始。",
+    aiOriginP1: "我每天都會遇到塞車，也常看到台灣道路事故的內容。我開始思考：駕駛本來就需要的資訊，能不能被整理成一個更清楚的體驗？",
+    aiOriginP2: "目標不是再增加一個儀表板，而是減少在導航、路況、停車與搜尋之間切換，同時保留駕駛當下的任務情境。",
+    aiRoleIntro: "我帶領團隊，也處理資料、模型、Android 與成員之間必須彼此一致的交界處。",
+    aiRoleTeam: "規劃、任務負責、進度追蹤，以及五人團隊的協調。",
+    aiRoleApi: "研究 TDX 開放資料、用 Postman 測試 token 與 API，並整理回傳資料。",
+    aiRoleData: "蒐集、清理並準備六個交通等級的路況攝影機圖片。",
+    aiRoleModel: "模型訓練、評估、類別分析與轉換問題排查。",
+    aiRoleAndroid: "把模型與資料服務連接到 Android 的使用體驗。",
+    aiSystemTitle: "一個需求，必須跨過多個系統，才會真正變得有用。",
+    aiSystemBody: "語音只是入口。當需求被轉成結構化意圖、送到正確資料來源，再以清楚方式回覆時，產品價值才真正出現。",
+    experimentRange: "實驗結果區間",
+    accuracyContext: "這是專題中的約略結果，不是正式產品宣稱。比起單一數字，我更在意各個類別的實際表現。",
+    middleClassNote: "中間的交通等級更容易彼此混淆。",
+    conversionProblem: "模型在 PyTorch 可以運作，但 Android 需要另一條轉換路徑，而且前處理必須完全一致。",
+    whatWeChanged: "我們調整了什麼",
+    rebuildQuestion: "什麼能讓這個原型，成為更好的產品？",
+    jinhongDeepLede: "我第一次為真實企業製作的網站——協助一位準備承接家中食品機械事業的朋友。",
+    jinhongOriginTitle: "我的第一個真實客戶，來自一位朋友。",
+    jinhongOriginP1: "朋友家中經營食品機械工廠。當他準備承接家業時，希望透過網站增加品牌曝光，也讓客戶能更清楚理解機械產品。",
+    jinhongOriginP2: "這改變了工作的責任。我不再只是在完成課堂題目；網站結構、內容與維護決策，都必須對真實企業與真實使用者有意義。",
+    beforeInterface: "在介面之前",
+    clientResearchDeepTitle: "先理解產業如何描述產品，以及採購者如何尋找產品。",
+    researchPeers: "研究同產業公司與產品分類方式",
+    researchContent: "整理產品型號、規格與服務內容",
+    researchPath: "定義從探索產品到提出詢價的清楚路徑",
+    clientDecisionBody: "視覺只有在訪客能從大分類找到正確機械、比較細節，並知道如何詢問時才真正有用。",
+    jinhongBuildDeepTitle: "技術支援企業需求，但技術本身不是故事。",
+    jinhongBuildDeepBody: "我使用 React 與 TypeScript 建立可重用的產品呈現、響應式版面與更清楚的維護邊界，再部署到 Cloudflare 並持續維護。",
+    buildReusable: "可重用、由資料驅動的產品呈現",
+    buildResponsive: "響應式版面與無障礙互動",
+    buildDeploy: "Cloudflare 部署與維護",
+    honestRoadmap: "誠實的後續路線",
+    clientSeoTitle: "網站已經上線，下一步是讓真正需要的人找到它。",
     navHome: "首頁",
     navAbout: "關於我",
     navWork: "作品",
@@ -296,16 +439,41 @@
 
   const menuButton = document.querySelector(".menu-toggle");
   const menuPanel = document.querySelector(".menu-panel");
+  menuPanel?.setAttribute("inert", "");
   const setMenu = (open) => {
     if (!menuButton || !menuPanel) return;
     document.body.classList.toggle("menu-open", open);
     menuPanel.classList.toggle("is-open", open);
     menuPanel.setAttribute("aria-hidden", String(!open));
+    menuPanel.toggleAttribute("inert", !open);
     menuButton.setAttribute("aria-expanded", String(open));
     menuButton.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    document.querySelector("main")?.toggleAttribute("inert", open);
+    document.querySelector("footer")?.toggleAttribute("inert", open);
+    if (open) window.setTimeout(() => menuPanel.querySelector("a")?.focus(), 40);
   };
   menuButton?.addEventListener("click", () => setMenu(menuButton.getAttribute("aria-expanded") !== "true"));
-  document.addEventListener("keydown", (event) => { if (event.key === "Escape") setMenu(false); });
+  menuPanel?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenu(false)));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menuButton?.getAttribute("aria-expanded") === "true") {
+      setMenu(false);
+      menuButton.focus();
+    }
+    if (event.key === "Tab" && menuButton?.getAttribute("aria-expanded") === "true") {
+      const focusable = [...document.querySelectorAll(".site-header a, .site-header button, .menu-panel a, .menu-panel button")]
+        .filter((element) => !element.hasAttribute("disabled") && element.getClientRects().length);
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  });
 
   const localTimeElements = document.querySelectorAll(".local-time");
   const updateTime = () => {
@@ -355,6 +523,92 @@
   const header = document.querySelector(".site-header");
   const finePointer = window.matchMedia("(pointer: fine)");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const growthRoute = document.querySelector(".growth-route");
+  const growthPath = document.querySelector("[data-growth-path]");
+  const growthStart = document.querySelector("[data-story-spine-start]");
+  const growthEnd = document.querySelector("[data-story-spine-end]");
+  const growthLeaves = [...document.querySelectorAll("[data-growth-threshold]")];
+  let growthLength = 0;
+  if (growthPath) {
+    growthLength = growthPath.getTotalLength();
+    growthPath.style.strokeDasharray = String(growthLength);
+    growthPath.style.strokeDashoffset = String(growthLength);
+  }
+
+  const updateGrowthRoute = () => {
+    if (!growthRoute || !growthPath || !growthStart || !growthEnd) return;
+    const start = growthStart.getBoundingClientRect().top + window.scrollY;
+    const end = growthEnd.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
+    const progress = reducedMotion.matches ? 1 : Math.max(0, Math.min(1, (window.scrollY - start) / Math.max(end - start, 1)));
+    growthPath.style.strokeDashoffset = String(growthLength * (1 - progress));
+    growthRoute.classList.toggle("is-active", window.scrollY >= start - window.innerHeight * .35 && window.scrollY <= end + window.innerHeight * .65);
+    growthLeaves.forEach((leaf) => leaf.classList.toggle("is-grown", progress >= Number(leaf.dataset.growthThreshold || 0)));
+  };
+
+  const aiSteps = [...document.querySelectorAll("[data-ai-step]")];
+  const aiPanels = [...document.querySelectorAll("[data-ai-panel]")];
+  const phoneState = document.querySelector("[data-phone-state]");
+  const aiStateNames = ["Problem", "Idea", "Navigation", "Parking", "Traffic", "AI", "Model"];
+  const setAiState = (index) => {
+    aiSteps.forEach((step) => step.classList.toggle("is-active", Number(step.dataset.aiStep) === index));
+    aiPanels.forEach((panel) => panel.classList.toggle("is-active", Number(panel.dataset.aiPanel) === index));
+    if (phoneState) phoneState.textContent = aiStateNames[index] || aiStateNames[0];
+  };
+  if (aiSteps.length) {
+    const aiObserver = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setAiState(Number(visible.target.dataset.aiStep));
+    }, { threshold: [.28, .48, .7], rootMargin: "-25% 0px -35%" });
+    aiSteps.forEach((step) => aiObserver.observe(step));
+  }
+
+  const prototypeButton = document.querySelector("[data-prototype-start]");
+  const prototypeFlow = document.querySelector(".prototype-flow");
+  const prototypeNodes = [...document.querySelectorAll(".prototype-flow li")];
+  let prototypeRun = 0;
+  prototypeButton?.addEventListener("click", () => {
+    prototypeRun += 1;
+    const run = prototypeRun;
+    prototypeNodes.forEach((node) => node.classList.remove("is-active"));
+    prototypeButton.disabled = true;
+    prototypeFlow?.setAttribute("aria-busy", "true");
+    prototypeNodes.forEach((node, index) => {
+      const delay = reducedMotion.matches ? 0 : index * 360;
+      window.setTimeout(() => {
+        if (run !== prototypeRun) return;
+        node.classList.add("is-active");
+        if (index === prototypeNodes.length - 1) {
+          prototypeButton.disabled = false;
+          prototypeFlow?.setAttribute("aria-busy", "false");
+        }
+      }, delay);
+    });
+  });
+
+  const skillEvidence = document.querySelector("[data-skill-evidence]");
+  const skillButtons = [...document.querySelectorAll("[data-skill-project]")];
+  const showSkillEvidence = (button) => {
+    skillButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+    if (skillEvidence) skillEvidence.textContent = button.dataset.skillProject;
+  };
+  skillButtons.forEach((button) => {
+    button.addEventListener("pointerenter", () => showSkillEvidence(button));
+    button.addEventListener("focus", () => showSkillEvidence(button));
+    button.addEventListener("click", () => showSkillEvidence(button));
+  });
+
+  if (finePointer.matches && !reducedMotion.matches) {
+    document.querySelectorAll(".magnetic-button").forEach((button) => {
+      button.addEventListener("pointermove", (event) => {
+        const rect = button.getBoundingClientRect();
+        const x = (event.clientX - rect.left - rect.width / 2) * .12;
+        const y = (event.clientY - rect.top - rect.height / 2) * .15;
+        button.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      });
+      button.addEventListener("pointerleave", () => { button.style.transform = ""; });
+    });
+  }
   if (header && finePointer.matches) {
     header.addEventListener("pointermove", (event) => {
       const rect = header.getBoundingClientRect();
@@ -399,6 +653,7 @@
   const updateScrollEffects = () => {
     header?.classList.toggle("is-scrolled", window.scrollY > 18);
     updateScrub();
+    updateGrowthRoute();
     parallaxItems.forEach((element) => {
       if (!element.classList.contains("is-visible")) return;
       const speed = Number(element.dataset.parallax || .05);
@@ -414,6 +669,7 @@
       ticking = true;
     }
   }, { passive: true });
+  window.addEventListener("resize", updateGrowthRoute, { passive: true });
   updateScrollEffects();
 
   const cursor = document.querySelector(".cursor-orb");
@@ -465,5 +721,6 @@
     visited = sessionStorage.getItem("hongrong-visited") === "yes";
     sessionStorage.setItem("hongrong-visited", "yes");
   } catch { /* file protocol privacy mode */ }
-  window.setTimeout(() => loader?.classList.add("is-hidden"), visited ? 360 : 1450);
+  const loaderDelay = reducedMotion.matches ? 0 : (visited ? 220 : 820);
+  window.setTimeout(() => loader?.classList.add("is-hidden"), loaderDelay);
 })();

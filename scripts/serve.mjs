@@ -15,7 +15,9 @@ const types = {
   ".woff": "font/woff",
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
-  ".pdf": "application/pdf"
+  ".pdf": "application/pdf",
+  ".txt": "text/plain; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8"
 };
 
 createServer(async (request, response) => {

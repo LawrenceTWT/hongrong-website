@@ -3,287 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="HongRong is a web developer in Taichung, Taiwan, building thoughtful websites, AI integrations, and useful digital products.">
+  <meta name="description" content="HongRong builds useful digital products with AI, web technology, APIs, and product thinking — from an AI driving assistant to a real client website.">
   <meta name="theme-color" content="#ebe7da">
-  <title>HongRong — Web Developer</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="HongRong — AI × Web × Product">
+  <meta property="og:description" content="A personal journey from struggling with code to building useful products with AI, web, and curiosity.">
+  <meta property="og:url" content="https://lawrencetwt.github.io/hongrong-website/">
+  <link rel="canonical" href="https://lawrencetwt.github.io/hongrong-website/">
+  <title>HongRong — AI × Web × Product</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/main.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "HongRong",
+    "url": "https://lawrencetwt.github.io/hongrong-website/",
+    "homeLocation": { "@type": "Place", "name": "Taichung, Taiwan" },
+    "sameAs": [
+      "https://github.com/LawrenceTWT",
+      "https://www.instagram.com/lawrence31_/"
+    ],
+    "knowsAbout": ["Web Development", "AI Applications", "Product Development", "REST APIs", "Android"]
+  }
+  </script>
 </head>
-<body data-page="home">
+<body data-page="home" class="story-home">
+  <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
+
   <div class="loader" aria-hidden="true">
     <div class="loader-mark">HongRong<sup>®</sup></div>
     <div class="loader-line"><span></span></div>
   </div>
-
   <div class="cursor-orb" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <a class="brand transition-link" href="index.html" aria-label="HongRong home">HongRong<sup>®</sup></a>
-    <div class="availability" aria-label="Availability and local time">
-      <span class="status-dot"></span>
-      <span data-i18n="availability">Available — Taichung</span>
-      <span class="availability-separator">/</span>
-      <span data-i18n="localTime">Local Time:</span>
-      <time class="local-time">--:--:--</time>
-    </div>
-    <nav class="desktop-nav" aria-label="Primary navigation">
-      <a class="transition-link" href="about.html" data-nav-page="about" data-i18n="navAbout">About</a>
-      <a class="transition-link" href="work.html" data-nav-page="work" data-i18n="navWork">Work</a>
-      <a class="transition-link" href="contact.html" data-nav-page="contact" data-i18n="navContact">Contact</a>
+  <header class="site-header story-header">
+    <a class="brand" href="#top" aria-label="HongRong home">HongRong<sup>®</sup></a>
+    <nav class="desktop-nav story-nav" aria-label="Primary navigation">
+      <a href="#journey" data-i18n="navJourney">Journey</a>
+      <a href="#projects" data-i18n="navProjects">Projects</a>
+      <a href="#life" data-i18n="navLife">Life</a>
+      <a href="#skills" data-i18n="navSkills">Skills</a>
+      <a href="#contact" data-i18n="navContact">Contact</a>
     </nav>
     <div class="header-actions">
       <button class="language-toggle" type="button" aria-label="Switch language">中文</button>
-      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span>
-      </button>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
     </div>
   </header>
 
-  <div class="menu-panel" aria-hidden="true">
+  <div class="menu-panel story-menu" aria-hidden="true">
     <nav aria-label="Mobile navigation">
-      <span class="menu-index">/ 01 /</span><a class="transition-link" href="index.html" data-i18n="navHome">Home</a>
-      <span class="menu-index">/ 02 /</span><a class="transition-link" href="about.html" data-i18n="navAbout">About</a>
-      <span class="menu-index">/ 03 /</span><a class="transition-link" href="work.html" data-i18n="navWork">Work</a>
-      <span class="menu-index">/ 04 /</span><a class="transition-link" href="contact.html" data-i18n="navContact">Contact</a>
+      <span class="menu-index">/ 01 /</span><a href="#top" data-i18n="navHome">Home</a>
+      <span class="menu-index">/ 02 /</span><a href="#journey" data-i18n="navJourney">Journey</a>
+      <span class="menu-index">/ 03 /</span><a href="#projects" data-i18n="navProjects">Projects</a>
+      <span class="menu-index">/ 04 /</span><a href="#life" data-i18n="navLife">Life</a>
+      <span class="menu-index">/ 05 /</span><a href="#skills" data-i18n="navSkills">Skills</a>
+      <span class="menu-index">/ 06 /</span><a href="#contact" data-i18n="navContact">Contact</a>
     </nav>
-    <div class="menu-panel-footer">
-      <a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a>
-      <a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a>
-    </div>
+    <div class="menu-panel-footer"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div>
   </div>
 
-  <main>
-    <section class="hero home-hero section-pad">
-      <div class="hero-copy reveal">
-        <p class="eyebrow" data-i18n="heroEyebrow">Web developer — Taiwan</p>
-        <h1><span data-i18n="heroHello">Hi! I'm HongRong.</span><span class="hero-title-line"><span data-i18n="heroTitle">I build digital experiences with</span> <em data-i18n="heroTitleEm">clarity &amp; character.</em></span></h1>
-        <p class="hero-intro" data-i18n="heroIntro">Web developer based in Taiwan, crafting responsive websites and thoughtful interactions.</p>
-        <div class="hero-actions">
-          <a class="button button-dark transition-link" href="contact.html" data-i18n="letsTalk">Let's talk</a>
-          <a class="text-link transition-link" href="work.html"><span data-i18n="seeWork">See my work</span><span aria-hidden="true">→</span></a>
-        </div>
-        <div class="hero-stat">
-          <strong>2025</strong>
-          <span data-i18n="heroStat">Information Management<br>graduate</span>
-        </div>
+  <div class="growth-route" aria-hidden="true">
+    <svg viewBox="0 0 92 760" role="presentation">
+      <path class="growth-route-shadow" d="M68 755C17 670 75 601 41 522C10 450 72 392 46 311C22 237 76 174 48 91C40 66 37 41 44 7" />
+      <path class="growth-route-stem" data-growth-path d="M68 755C17 670 75 601 41 522C10 450 72 392 46 311C22 237 76 174 48 91C40 66 37 41 44 7" />
+      <g class="growth-leaf" data-growth-threshold="0.13" transform="translate(41 646) rotate(-28)"><path d="M0 0C-22-17-39-5-38 17C-19 19-6 13 0 0Z"/><path d="M0 0-26 13"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.31" transform="translate(47 514) rotate(34)"><path d="M0 0C20-22 40-13 42 10C23 17 8 11 0 0Z"/><path d="M0 0 29 8"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.5" transform="translate(46 367) rotate(-36)"><path d="M0 0C-22-20-42-9-41 14C-21 19-7 12 0 0Z"/><path d="M0 0-29 11"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.7" transform="translate(49 219) rotate(30)"><path d="M0 0C21-23 42-13 42 11C23 18 8 11 0 0Z"/><path d="M0 0 29 9"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.9" transform="translate(44 71) rotate(-31)"><path d="M0 0C-20-22-41-12-40 12C-22 18-8 11 0 0Z"/><path d="M0 0-28 9"/></g>
+    </svg>
+  </div>
+
+  <main id="main-content">
+    <section class="story-hero section-pad" id="top">
+      <div class="story-hero-copy reveal">
+        <p class="story-index">01 — INTRODUCTION</p>
+        <p class="position-tag">AI × WEB × PRODUCT</p>
+        <h1>HONG<br>RONG.</h1>
+        <p class="story-hero-line" data-i18n="storyHeroLine">I turn ideas into useful digital products.</p>
+        <p class="story-hero-intro" data-i18n="storyHeroIntro">I start with the problem, shape the logic, and use AI, web, and APIs to build something people can actually use.</p>
+        <div class="story-hero-actions"><a class="button button-dark magnetic-button" href="#projects" data-i18n="exploreProjects">Explore the work</a><a class="text-link" href="#journey"><span data-i18n="startStory">Start the story</span><span aria-hidden="true">↓</span></a></div>
       </div>
-      <figure class="hero-portrait reveal" data-tilt-card>
-        <div class="portrait-backplate" aria-hidden="true"></div>
-        <div class="portrait-orbit" aria-hidden="true"></div>
+
+      <figure class="hero-portrait story-portrait reveal" data-tilt-card>
+        <div class="portrait-backplate" aria-hidden="true"></div><div class="portrait-orbit" aria-hidden="true"></div>
         <button class="portrait-frame" type="button" data-portrait-flip aria-pressed="false" aria-label="Flip portrait card">
           <span class="portrait-card-inner">
-            <span class="portrait-face portrait-front">
-              <img src="assets/images/hongrong-portrait.png" alt="HongRong by the sea under a blue sky">
-              <span class="portrait-shine" aria-hidden="true"></span>
-              <span class="portrait-flip-hint"><span data-i18n="flipHint">Flip card</span><span aria-hidden="true">↻</span></span>
-            </span>
-            <span class="portrait-face portrait-back" aria-hidden="true">
-              <span class="portrait-back-index">HR / PROFILE 01</span>
-              <span class="portrait-back-mark" aria-hidden="true">HR</span>
-              <span class="portrait-back-copy"><strong>HongRong</strong><span data-i18n="flipRole">Web Developer</span><small>Taichung, Taiwan</small></span>
-              <span class="portrait-back-return"><span data-i18n="flipBack">Back to portrait</span><span aria-hidden="true">↺</span></span>
-            </span>
+            <span class="portrait-face portrait-front"><img src="assets/images/hongrong-portrait.webp" width="499" height="738" fetchpriority="high" alt="HongRong sitting by the sea under a blue sky"><span class="portrait-shine" aria-hidden="true"></span><span class="portrait-flip-hint"><span data-i18n="flipHint">Flip card</span><span aria-hidden="true">↻</span></span></span>
+            <span class="portrait-face portrait-back" aria-hidden="true"><span class="portrait-back-index">CURRENTLY / 2026</span><span class="portrait-back-mark" aria-hidden="true">HR</span><span class="currently-list"><span><small data-i18n="currentlyLearning">Learning</small><strong>JavaScript / Product Thinking</strong></span><span><small data-i18n="currentlyBuilding">Building</small><strong data-i18n="currentlyWeb">Web experiences</strong></span><span><small data-i18n="currentlyExploring">Exploring</small><strong>AI Applications</strong></span><span><small data-i18n="currentlyBased">Based in</small><strong>Taichung, Taiwan</strong></span></span><span class="portrait-back-return"><span data-i18n="flipBack">Back to portrait</span><span aria-hidden="true">↺</span></span></span>
           </span>
         </button>
-        <span class="portrait-code portrait-code-top" aria-hidden="true">HR / 01</span>
-        <figcaption><span>Taichung, Taiwan</span><span>24.1477° N</span></figcaption>
+        <span class="portrait-code portrait-code-top" aria-hidden="true">HR / 01</span><figcaption><span>Taichung, Taiwan</span><span>24.1477° N</span></figcaption>
       </figure>
-      <div class="hero-monogram" aria-hidden="true">HR</div>
+
+      <div class="story-hero-meta reveal"><span><i class="status-dot"></i><span data-i18n="availability">Available — Taichung</span></span><span><span data-i18n="localTime">Local Time:</span> <time class="local-time">--:--:--</time></span><span>SCROLL TO GROW ↓</span></div>
     </section>
 
-    <section class="skills-strip section-pad">
-      <div class="section-heading compact reveal">
-        <h2 data-i18n="toolkit">My toolkit</h2>
-        <span>/ 2026 / ©</span>
+    <section class="journey-chapter story-section section-pad" id="journey" data-story-spine-start>
+      <header class="chapter-heading reveal"><p class="story-index">02 — MY JOURNEY</p><h2 data-i18n="journeyHeading">Computers always felt interesting to me.<br><em>Coding didn't.</em></h2></header>
+      <div class="journey-timeline">
+        <article class="journey-entry reveal"><div class="journey-year"><span>2021</span><small>INFORMATION MANAGEMENT</small></div><div class="journey-copy"><h3 data-i18n="journey2021Title">I chose Information Management because I had always liked computers.</h3><p data-i18n="journey2021Body">Then I met programming. I often knew what I wanted to make, but not how to turn that thought into code. Coding felt frustrating before it felt creative.</p></div></article>
+        <article class="journey-entry journey-entry-first-site reveal"><div class="journey-year"><span>2022</span><small>FIRST WEBSITE</small></div><div class="journey-copy"><h3 data-i18n="journey2022Title">A sneaker website changed the feeling.</h3><p data-i18n="journey2022Body">In my first web design class, I built a site that was mine. For the first time, the code became something I could see, use, and feel proud of.</p><div class="memory-404" role="img" aria-label="The first sneaker website is lost and exists only as a memory"><span class="memory-code">404</span><div><strong>MY FIRST WEBSITE</strong><small>MEMORY ONLY — NO BACKUP</small></div><p data-i18n="journeyLost">I did not back it up. The website is gone, so this space stays honest: no reconstructed screenshot, only the memory of making it.</p></div></div></article>
       </div>
-      <div class="skill-tiles reveal">
-        <div>HTML / CSS</div>
-        <div>JavaScript</div>
-        <div>React</div>
-        <div>TypeScript</div>
-        <div>Android</div>
-        <div>AI / APIs</div>
-      </div>
-    </section>
 
-    <section class="scroll-story" aria-label="Personal statement">
-      <div class="story-sticky">
-        <div class="story-leaf leaf-left" aria-hidden="true"></div>
-        <p class="scrub-text" data-scrub-en="I build digital experiences that feel clear to use, thoughtful to look at, and ready to grow." data-scrub-zh="我打造清楚好用、細節耐看，並且能持續成長的數位體驗。"></p>
-        <div class="story-leaf leaf-right" aria-hidden="true"></div>
+      <div class="gpt-turn reveal">
+        <div class="gpt-turn-visual" aria-hidden="true"><div class="code-chaos"><span>undefined is not a function</span><span>why?</span><span>???</span><span>scope</span><span>API 401</span><span>where do I start</span></div><div class="clarity-interface"><span class="clarity-dot"></span><div><small>01</small><strong>Ask a clearer question</strong></div><div><small>02</small><strong>Understand the flow</strong></div><div><small>03</small><strong>Make the decision</strong></div></div></div>
+        <div class="gpt-turn-copy"><p class="story-index">THE TURNING POINT</p><h3 data-i18n="gptChangedTitle">Then GPT changed how I learned.</h3><p data-i18n="gptChangedBody">Questions I did not know how to ask — or did not dare to ask — could be broken down one step at a time. AI gave me a way into the problem.</p><blockquote data-i18n="gptPrinciple">AI didn't replace thinking.<br>It helped me understand.</blockquote><p class="gpt-responsibility" data-i18n="gptResponsibility">I still have to define the requirement, data flow, boundaries, architecture, and final decision.</p></div>
       </div>
     </section>
 
-    <section class="capabilities section-pad" id="capabilities">
-      <div class="section-kicker reveal">
-        <span><i></i><span data-i18n="whatIDo">What I Do</span></span>
-        <span data-i18n="capabilitiesLabel">Capabilities — 2026</span>
-      </div>
-      <div class="section-heading reveal">
-        <h2 data-i18n="capabilitiesTitle">Capabilities</h2>
-        <span>/ 4 / ©</span>
-      </div>
-
-      <div class="accordion-list reveal">
-        <article class="accordion-item is-open">
-          <button type="button" class="accordion-trigger" aria-expanded="true">
-            <span class="accordion-title" data-i18n="capWebTitle">Web Development</span>
-            <span class="tag-row"><span>Responsive</span><span>React</span><span>TypeScript</span></span>
-            <span class="accordion-icon" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-            <p data-i18n="capWebBody">Fast, responsive websites with clean structure, considered interactions, and maintainable code.</p>
-          </div>
-        </article>
-        <article class="accordion-item">
-          <button type="button" class="accordion-trigger" aria-expanded="false">
-            <span class="accordion-title" data-i18n="capAiTitle">AI &amp; API Integration</span>
-            <span class="tag-row"><span>OpenAI</span><span>REST APIs</span><span>Automation</span></span>
-            <span class="accordion-icon" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-            <p data-i18n="capAiBody">Connecting products to useful intelligence, open data, and external services without adding unnecessary complexity.</p>
-          </div>
-        </article>
-        <article class="accordion-item">
-          <button type="button" class="accordion-trigger" aria-expanded="false">
-            <span class="accordion-title" data-i18n="capAppTitle">Application Development</span>
-            <span class="tag-row"><span>Android</span><span>Maps</span><span>STT / TTS</span></span>
-            <span class="accordion-icon" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-            <p data-i18n="capAppBody">Mobile experiences that combine practical features, real-time information, and simple interaction flows.</p>
-          </div>
-        </article>
-        <article class="accordion-item">
-          <button type="button" class="accordion-trigger" aria-expanded="false">
-            <span class="accordion-title" data-i18n="capUxTitle">UI / UX Thinking</span>
-            <span class="tag-row"><span>Flows</span><span>Prototyping</span><span>RWD</span></span>
-            <span class="accordion-icon" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-            <p data-i18n="capUxBody">Making complex information easier to understand through hierarchy, feedback, and intentional visual decisions.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="about-preview section-pad">
-      <div class="section-kicker reveal">
-        <span><i></i><span data-i18n="aboutKicker">Behind the work</span></span>
-        <span data-i18n="aboutLabel">About HongRong — 2026</span>
-      </div>
-      <div class="section-heading reveal">
-        <h2 data-i18n="aboutTitle">Curious by nature.<br>Practical by design.</h2>
-        <span>/ 3 / ©</span>
-      </div>
-      <div class="about-grid">
-        <div class="about-portrait-stage reveal">
-          <span class="botanical-vine botanical-vine-left" aria-hidden="true"></span>
-          <span class="botanical-vine botanical-vine-right" aria-hidden="true"></span>
-          <span class="portrait-stage-label portrait-stage-label-top" aria-hidden="true">01 / PROFILE</span>
-          <figure class="editorial-card">
-            <img src="assets/images/hongrong-portrait.png" alt="Portrait of HongRong">
-            <figcaption>
-              <strong>HongRong<sup>®</sup></strong>
-              <span data-i18n="aboutCardCaption">Building with curiosity</span>
-            </figcaption>
-          </figure>
-          <span class="portrait-stage-label portrait-stage-label-bottom" aria-hidden="true">WEB / TAIWAN / 2026</span>
+    <section class="ai-chapter story-section" id="projects" data-story-section="ai">
+      <div class="ai-chapter-intro section-pad reveal"><p class="story-index">03 — AI DRIVING ASSISTANT</p><h2 data-i18n="aiStoryHeading">A problem I saw<br><em>every day.</em></h2><p class="chapter-lede" data-i18n="aiStoryLede">Traffic on the way to class, plus the constant stream of road-accident stories in Taiwan, became the starting point for a five-person capstone.</p></div>
+      <div class="project-role-rail section-pad reveal" aria-label="Project facts"><span><small data-i18n="roleLabel">Role</small><strong>TEAM LEAD</strong></span><span><small data-i18n="teamLabel">Team</small><strong>5 PEOPLE</strong></span><span><small>CONNECT</small><strong>API / TDX</strong></span><span><small>MODEL</small><strong>RESNET-18</strong></span><span><small>BUILD</small><strong>ANDROID</strong></span></div>
+      <div class="ai-scroll-layout section-pad">
+        <div class="ai-steps">
+          <article class="ai-step is-active" data-ai-step="0"><span>01 / PROBLEM</span><h3 data-i18n="aiStepProblemTitle">Too much information in too many places.</h3><p data-i18n="aiStepProblemBody">Navigation, traffic cameras, parking, and search lived in separate apps. Every switch added friction while attention should stay on the road.</p></article>
+          <article class="ai-step" data-ai-step="1"><span>02 / IDEA</span><h3 data-i18n="aiStepIdeaTitle">Bring the useful parts into one driving assistant.</h3><p data-i18n="aiStepIdeaBody">The idea combined live traffic, parking data, navigation, vehicle location, GPT, and voice interaction around driving tasks.</p></article>
+          <article class="ai-step" data-ai-step="2"><span>03 / NAVIGATION</span><h3 data-i18n="aiStepNavigationTitle">Keep the route and the context together.</h3><p data-i18n="aiStepNavigationBody">Google Maps supported route context while the assistant connected the driver to other information without opening another app.</p></article>
+          <article class="ai-step" data-ai-step="3"><span>04 / PARKING</span><h3 data-i18n="aiStepParkingTitle">Ask for nearby parking in natural language.</h3><p data-i18n="aiStepParkingBody">The product concept translated a voice request into structured queries for government open parking data.</p></article>
+          <article class="ai-step" data-ai-step="4"><span>05 / TRAFFIC</span><h3 data-i18n="aiStepTrafficTitle">Turn open traffic data into a quick decision.</h3><p data-i18n="aiStepTrafficBody">TDX data and traffic-camera imagery supported road-condition awareness instead of becoming another raw data screen.</p></article>
+          <article class="ai-step" data-ai-step="5"><span>06 / AI</span><h3 data-i18n="aiStepAiTitle">Conversation was only useful when connected to the system.</h3><p data-i18n="aiStepAiBody">GPT, speech-to-text, and text-to-speech were designed as an interface layer — not as the whole product.</p></article>
+          <article class="ai-step" data-ai-step="6"><span>07 / MODEL</span><h3 data-i18n="aiStepModelTitle">A ResNet-18 model classified six traffic levels.</h3><p data-i18n="aiStepModelBody">The result was promising, but the middle traffic levels exposed the limits of a small and uneven dataset.</p></article>
         </div>
-        <div class="about-copy reveal">
-          <h3 data-i18n="aboutStatement">A web developer who likes turning messy requirements into clear, usable systems.</h3>
-          <p data-i18n="aboutBody">I studied Information Management at Shih Hsin University, led an AI driving assistant project, and developed my adaptability through a work-and-travel experience in the United States.</p>
-          <dl class="fact-list">
-            <div><dt>01</dt><dd><strong data-i18n="factOneTitle">Cross-disciplinary</strong><span data-i18n="factOneBody">Web, apps, AI, and digital tools</span></dd></div>
-            <div><dt>02</dt><dd><strong data-i18n="factTwoTitle">Team-minded</strong><span data-i18n="factTwoBody">Clear communication and ownership</span></dd></div>
-            <div><dt>03</dt><dd><strong data-i18n="factThreeTitle">Always learning</strong><span data-i18n="factThreeBody">Curious, adaptable, and hands-on</span></dd></div>
-          </dl>
-          <a class="text-link transition-link" href="about.html"><span data-i18n="moreAbout">More about me</span><span>→</span></a>
+        <div class="phone-story" aria-live="polite">
+          <div class="phone-device"><div class="phone-status"><span>09:31</span><span>AI DRIVER</span><span>●</span></div>
+            <div class="phone-panel is-active" data-ai-panel="0"><div class="phone-problem-grid"><span>MAPS</span><span>PARKING</span><span>TRAFFIC</span><span>SEARCH</span></div><p>4 APPS<br><strong>1 DRIVER</strong></p></div>
+            <div class="phone-panel phone-idea-panel" data-ai-panel="1"><small>ONE DRIVING CONTEXT</small><div class="idea-radar"><i></i><span>AI</span></div><ul><li>Navigation</li><li>Parking</li><li>Traffic</li><li>Voice</li></ul></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="2"><img src="assets/images/ai-driver-map.jpg" width="519" height="1090" loading="lazy" decoding="async" alt="AI Driving Assistant navigation screen"><span class="phone-screen-label">NAVIGATION</span></div>
+            <div class="phone-panel phone-parking-panel" data-ai-panel="3"><small>VOICE REQUEST</small><blockquote>“Find parking nearby.”</blockquote><div class="parking-result"><span>P</span><div><strong>Central Parking</strong><small>42 spaces · 0.8 km</small></div></div><div class="parking-result"><span>P</span><div><strong>Station Parking</strong><small>18 spaces · 1.2 km</small></div></div></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="4"><img src="assets/images/ai-driver-traffic.jpg" width="470" height="933" loading="lazy" decoding="async" alt="AI Driving Assistant traffic information screen"><span class="phone-screen-label">TRAFFIC / TDX</span></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="5"><img src="assets/images/ai-driver-home.jpg" width="520" height="1080" loading="lazy" decoding="async" alt="AI Driving Assistant voice and GPT home screen"><span class="phone-screen-label">GPT / STT / TTS</span></div>
+            <div class="phone-panel phone-model-panel" data-ai-panel="6"><small>RESNET-18 / 6 LEVELS</small><div class="traffic-levels" aria-label="Six traffic classification levels with weaker middle classes"><span style="--level:.9">L1</span><span style="--level:.76">L2</span><span class="is-weak" style="--level:.54">L3</span><span class="is-weak" style="--level:.58">L4</span><span style="--level:.74">L5</span><span style="--level:.86">L6</span></div><p>EXPERIMENT RANGE<br><strong>≈ 70–80%</strong></p></div>
+          </div><p class="phone-state-label"><span data-phone-state>Problem</span><small>SCROLL STORY</small></p>
         </div>
       </div>
+
+      <div class="prototype-lab section-pad reveal"><div class="prototype-copy"><p class="story-index">INTERACTIVE PROTOTYPE — SIMULATED</p><h3 data-i18n="prototypeTitle">What happens after the driver asks for parking?</h3><p data-i18n="prototypeBody">This prototype demonstrates the intended system flow. It does not call a live API.</p><button class="button button-light prototype-trigger" type="button" data-prototype-start><span data-i18n="prototypeButton">Find parking nearby</span><span aria-hidden="true">→</span></button></div><ol class="prototype-flow" aria-label="Simulated parking request flow"><li><span>01</span><strong>VOICE</strong><small data-i18n="prototypeVoice">Driver request</small></li><li><span>02</span><strong>STT</strong><small data-i18n="prototypeStt">Speech to text</small></li><li><span>03</span><strong>GPT</strong><small data-i18n="prototypeGpt">Understand intent</small></li><li><span>04</span><strong>TDX API</strong><small data-i18n="prototypeTdx">Request open data</small></li><li><span>05</span><strong>PARKING DATA</strong><small data-i18n="prototypeData">Available spaces</small></li><li><span>06</span><strong>RESPONSE</strong><small data-i18n="prototypeResponse">Speak the result</small></li></ol></div>
+
+      <div class="model-reality section-pad"><header class="model-heading reveal"><p class="story-index">WHAT DIDN'T WORK</p><h3 data-i18n="modelRealityTitle">The difficult part was not making a model run.<br><em>It was making the full system agree.</em></h3></header><div class="failure-lines"><article class="reveal"><span>01</span><h4 data-i18n="failureDatasetTitle">Dataset too small</h4><p data-i18n="failureDatasetBody">The model did not see enough variation in real road scenes, weather, distance, and camera quality.</p></article><article class="reveal"><span>02</span><h4 data-i18n="failureMiddleTitle">Middle levels were weak</h4><p data-i18n="failureMiddleBody">Adjacent traffic levels looked similar, so the model confused the classes between obvious empty and obvious congestion.</p></article><article class="reveal"><span>03</span><h4 data-i18n="failureConversionTitle">Conversion changed the result</h4><p data-i18n="failureConversionBody">The .pth model had to reach Android through ONNX and TensorFlow Lite, while PyTorch and Android normalization also needed to match.</p></article></div><div class="model-fix reveal"><div class="conversion-pipe" aria-label="Model conversion path"><span>.PTH</span><i>→</i><span>ONNX</span><i>→</i><span>TFLITE</span><i>→</i><span>ANDROID</span></div><ul><li data-i18n="fixNormalization">Use one normalization definition across training and Android.</li><li data-i18n="fixDataset">Add, clean, and rebalance the dataset.</li><li data-i18n="fixMetrics">Inspect Precision, Recall, and the confusion matrix — not accuracy alone.</li></ul></div></div>
+
+      <div class="rebuild-future section-pad reveal"><p class="story-index">IF I BUILT IT AGAIN</p><ul><li><span>01</span><strong data-i18n="rebuildDataset">A larger, better-balanced dataset</strong></li><li><span>02</span><strong data-i18n="rebuildUx">A clearer traffic experience</strong></li><li><span>03</span><strong data-i18n="rebuildAccident">Accident notifications</strong></li><li><span>04</span><strong data-i18n="rebuildCamera">Speed-camera information</strong></li><li><span>05</span><strong data-i18n="rebuildAi">Smoother, more contextual AI interaction</strong></li></ul><a class="text-link story-case-link transition-link" href="ai-driving-assistant.html"><span data-i18n="openFullCase">Open the full case study</span><span>↗</span></a></div>
     </section>
 
-    <section class="selected-work section-pad">
-      <div class="section-kicker reveal">
-        <span><i></i><span data-i18n="inPractice">In Practice</span></span>
-        <span data-i18n="caseStudiesLabel">Selected Work — 2026</span>
-      </div>
-      <div class="section-heading reveal">
-        <h2 data-i18n="selectedWork">Selected work</h2>
-        <span>/ 2 / ©</span>
-      </div>
-
-      <div class="work-grid">
-        <a class="work-card reveal" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer">
-          <div class="work-visual jinhong-visual">
-            <div class="mock-browser jinhong-browser">
-              <div class="mock-browser-bar"><span></span><span></span><span></span><b>金虹食品</b></div>
-              <div class="jinhong-site-shot">
-                <div class="jinhong-shot-nav"><strong>金虹食品</strong><span>產品介紹　關於我們　聯絡我們</span></div>
-                <div class="jinhong-shot-hero">
-                  <small>FOOD MACHINERY / TAIWAN</small>
-                  <strong>讓每一道加工流程<br>更穩定、更有效率</strong>
-                  <span>專業食品加工設備</span>
-                </div>
-                <div class="jinhong-products">
-                  <figure><img src="assets/images/jinhong-slicer.webp" alt="金虹全自動切片機"><figcaption>全自動切片機</figcaption></figure>
-                  <figure><img src="assets/images/jinhong-bone-saw.webp" alt="金虹高速鋸骨機"><figcaption>高速鋸骨機</figcaption></figure>
-                  <figure><img src="assets/images/jinhong-vacuum.webp" alt="金虹雙槽真空包裝機"><figcaption>真空包裝機</figcaption></figure>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="work-meta"><span>01</span><span>React / TypeScript / Cloudflare</span></div>
-          <h3 data-i18n="jinhongTitle">Jinhong Foods</h3>
-          <p data-i18n="jinhongSummary">A multi-page product website for a Taiwanese food machinery company.</p>
-        </a>
-
-        <a class="work-card transition-link reveal" href="ai-driving-assistant.html">
-          <div class="work-visual ai-visual">
-            <span class="ai-orbit orbit-one"></span><span class="ai-orbit orbit-two"></span>
-            <img src="assets/images/ai-driver-map.jpg" alt="AI driving assistant Android interface">
-            <div class="ai-label">AI / MAPS / VOICE</div>
-          </div>
-          <div class="work-meta"><span>02</span><span>Android / GPT / Google Maps</span></div>
-          <h3 data-i18n="aiDriverTitle">AI Driving Assistant</h3>
-          <p data-i18n="aiDriverSummary">A university capstone combining navigation, voice AI, parking data, and live traffic.</p>
-        </a>
-      </div>
-      <div class="section-end-link reveal"><a class="button button-outline transition-link" href="work.html" data-i18n="viewAllWork">View all work</a></div>
+    <section class="jinhong-story story-section section-pad" id="jinhong" data-story-section="jinhong">
+      <header class="jinhong-heading reveal"><p class="story-index">04 — JINHONG FOODS / REAL CLIENT</p><h2 data-i18n="jinhongStoryHeading">My first real client<br><em>came through a friend.</em></h2><p class="chapter-lede" data-i18n="jinhongStoryLede">His family runs a food-machinery factory. As he prepared to take over the business, he wanted a website that could make the brand and product catalog easier to discover.</p></header>
+      <a class="jinhong-browser-story reveal" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer" aria-label="Visit the live Jinhong Foods website"><div class="browser-story-bar"><span></span><span></span><span></span><strong>jinhong-foods.lucky1228.workers.dev</strong><small data-i18n="liveWebsite">Live website</small></div><div class="browser-story-page"><div class="browser-story-nav"><b>金虹食品</b><span>產品介紹　關於我們　服務維修　聯絡我們</span></div><div class="browser-story-hero"><small>FOOD MACHINERY / TAIWAN</small><h3>讓每一道加工流程<br>更穩定、更有效率</h3><p>專業食品加工設備</p></div><div class="browser-product-row"><figure><img src="assets/images/jinhong-slicer.webp" width="276" height="447" loading="lazy" decoding="async" alt="Jinhong automatic meat slicer"><figcaption>全自動切片機</figcaption></figure><figure><img src="assets/images/jinhong-bone-saw.webp" width="1019" height="1543" loading="lazy" decoding="async" alt="Jinhong high-speed bone saw"><figcaption>高速鋸骨機</figcaption></figure><figure><img src="assets/images/jinhong-vacuum.webp" width="440" height="283" loading="lazy" decoding="async" alt="Jinhong double-chamber vacuum packing machine"><figcaption>真空包裝機</figcaption></figure></div></div></a>
+      <div class="client-process"><article class="reveal"><span>01 / BEFORE</span><h3 data-i18n="clientBeforeTitle">A real business with technical products, but no clear digital home.</h3></article><article class="reveal"><span>02 / GOAL</span><h3 data-i18n="clientGoalTitle">Make the brand visible and the product catalog understandable.</h3></article><article class="reveal"><span>03 / RESEARCH</span><h3 data-i18n="clientResearchTitle">Study the industry before deciding the structure.</h3><p data-i18n="clientResearchBody">I reviewed other machinery websites, product categories, specifications, and the questions a buyer would need answered.</p></article><article class="reveal"><span>04 / DESIGN</span><h3 data-i18n="clientDesignTitle">Turn many machines into a navigable information architecture.</h3></article><article class="reveal"><span>05 / BUILD</span><h3>React · TypeScript · RWD · Cloudflare</h3><p data-i18n="clientBuildBody">I designed the interface, built the frontend, deployed it, and continue to maintain the website.</p></article><article class="client-next reveal"><span>06 / NEXT STEP</span><h3>SEO / Search Console / Structured Data / Content Optimization</h3><p data-i18n="clientNextBody">These items are planned next steps. They are not presented as completed work.</p></article></div>
+      <div class="jinhong-links reveal"><a class="button button-dark" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer"><span data-i18n="visitLiveSite">Visit live site</span> ↗</a><a class="text-link transition-link" href="jinhong-foods.html"><span data-i18n="openFullCase">Open the full case study</span><span>↗</span></a><a class="text-link" href="https://github.com/LawrenceTWT/jinhong-foods12" target="_blank" rel="noreferrer"><span data-i18n="sourceCode">Source code</span><span>↗</span></a></div>
     </section>
 
-    <section class="process section-pad">
-      <div class="section-kicker reveal">
-        <span><i></i><span data-i18n="methodKicker">The Method</span></span>
-        <span data-i18n="processLabel">My Process — 2026</span>
-      </div>
-      <div class="section-heading reveal">
-        <h2 data-i18n="processTitle">How I work</h2>
-        <span>/ 3 / ©</span>
-      </div>
-      <div class="process-grid">
-        <article class="process-card reveal"><span>01</span><p data-i18n="processOneTime">Start with context</p><h3 data-i18n="processOneTitle">Discover &amp; Define</h3><p data-i18n="processOneBody">Understand the audience, the real problem, and what success should feel like.</p></article>
-        <article class="process-card reveal"><span>02</span><p data-i18n="processTwoTime">Build the system</p><h3 data-i18n="processTwoTitle">Design &amp; Develop</h3><p data-i18n="processTwoBody">Shape the visual language and turn it into responsive, maintainable code.</p></article>
-        <article class="process-card reveal"><span>03</span><p data-i18n="processThreeTime">Make it better</p><h3 data-i18n="processThreeTitle">Test &amp; Refine</h3><p data-i18n="processThreeBody">Check the real experience, fix the rough edges, and keep improving what matters.</p></article>
-      </div>
+    <section class="usa-story story-section" id="life" data-story-section="usa">
+      <div class="usa-intro section-pad reveal"><p class="story-index">05 — USA / SOUTH DAKOTA</p><h2 data-i18n="usaHeading">I LEFT MY<br><em>COMFORT ZONE.</em></h2><p data-i18n="usaSubheading">My English wasn't good.<br>That was exactly why I wanted to go.</p></div>
+      <div class="usa-photo-note section-pad reveal" role="note"><span>PHOTO STORY / ASSET CHECKPOINT</span><p data-i18n="usaPhotoPending">This editorial space is ready for HongRong's five original USA photos. No stock images or invented memories will be used.</p></div>
+      <div class="usa-collage section-pad" aria-label="Five-photo South Dakota story awaiting original images"><figure class="usa-photo-slot slot-one reveal"><div><span>01</span><strong>SOUTH DAKOTA</strong></div><figcaption data-i18n="usaPhotoOne">Arrival / a new environment</figcaption></figure><figure class="usa-photo-slot slot-two reveal"><div><span>02</span><strong>WORK</strong></div><figcaption data-i18n="usaPhotoTwo">Hospitality / daily English</figcaption></figure><figure class="usa-photo-slot slot-three reveal"><div><span>03</span><strong>PEOPLE</strong></div><figcaption data-i18n="usaPhotoThree">Patience / friendship / Kaytlin</figcaption></figure><figure class="usa-photo-slot slot-four reveal"><div><span>04</span><strong>CULTURE</strong></div><figcaption data-i18n="usaPhotoFour">Food / adaptation / questions</figcaption></figure><figure class="usa-photo-slot slot-five reveal"><div><span>05</span><strong>TRAVEL</strong></div><figcaption data-i18n="usaPhotoFive">The courage to explore</figcaption></figure></div>
+      <div class="usa-field-notes section-pad"><article class="reveal"><span>01 / ARRIVAL</span><h3 data-i18n="usaArrivalTitle">The food felt heavy, salty, and sweet. Water could cost more than soda.</h3><p data-i18n="usaArrivalBody">Small details made it obvious that I was far from home. I had to learn the rhythm of an unfamiliar culture instead of expecting it to feel comfortable.</p></article><article class="reveal"><span>02 / SSN</span><h3 data-i18n="usaSsnTitle">At the SSN counter, I could barely understand what was being said.</h3><p data-i18n="usaSsnBody">The hardest part was not only the English. I did not know how to form the right question. With help from my employer, I completed the process.</p></article><article class="reveal"><span>03 / WORK</span><h3 data-i18n="usaWorkTitle">Hospitality meant communicating in English every day.</h3><p data-i18n="usaWorkBody">Kaytlin patiently tried to understand me and corrected my English. Her kindness changed the experience, and I remain grateful for it.</p></article></div>
+      <blockquote class="courage-statement section-pad reveal" data-i18n="courageStatement">I came home with<br><em>more courage.</em></blockquote>
     </section>
 
-    <section class="contact-cta section-pad">
-      <p class="eyebrow reveal" data-i18n="ctaEyebrow">Have an idea in mind?</p>
-      <h2 class="reveal" data-i18n="ctaTitle">Let's build something<br><em>clear and memorable.</em></h2>
-      <div class="cta-links reveal">
-        <a class="button button-light transition-link" href="contact.html" data-i18n="startConversation">Start a conversation</a>
-        <a href="mailto:zxc1031777@gmail.com">zxc1031777@gmail.com ↗</a>
-      </div>
+    <section class="outside-story story-section section-pad" data-story-section="outside">
+      <header class="outside-heading reveal"><p class="story-index">06 — OUTSIDE THE SCREEN</p><h2 data-i18n="outsideHeading">The things that keep me<br><em>curious and moving.</em></h2></header>
+      <div class="interest-constellation reveal" aria-label="HongRong's interests"><span class="interest-big">BASKETBALL</span><span>APEX LEGENDS</span><span>LEAGUE OF LEGENDS</span><span class="interest-serif">HIP-HOP / R&amp;B</span><span>PHOTOGRAPHY</span><span class="interest-big">TRAVEL</span><span class="interest-serif">NATURE / LANDSCAPE</span></div>
+      <div class="nature-manifesto"><div class="nature-frame reveal" role="img" aria-label="New Zealand landscape photo to be added"><span>NEW ZEALAND</span><small>ORIGINAL PHOTO PENDING</small></div><div class="nature-copy reveal"><p data-i18n="natureBody">After military service, I travelled to New Zealand with friends. Its scale and landscapes stayed with me. I especially like places that make a person feel small in the best way.</p><blockquote data-i18n="natureQuote">If there's a view worth remembering,<br><em>I probably want to be there.</em></blockquote><p data-i18n="natureImpression">I hope friends see a place worth exploring and think: “HongRong would love this.”</p></div></div>
     </section>
+
+    <section class="skills-story story-section section-pad" id="skills" data-story-section="skills">
+      <header class="skills-story-heading reveal"><p class="story-index">07 — SKILLS / HOW I BUILD</p><h2 data-i18n="skillsStoryHeading">Tools matter when they help<br><em>solve the right problem.</em></h2></header>
+      <div class="skill-lanes">
+        <article class="skill-lane reveal"><div><span>01</span><h3>BUILD</h3></div><div class="skill-words"><button type="button" data-skill-project="Jinhong Foods / AI Driving Assistant">HTML</button><button type="button" data-skill-project="Jinhong Foods / Portfolio">CSS</button><button type="button" data-skill-project="Portfolio / Web interactions">JavaScript</button><button type="button" data-skill-project="Jinhong Foods">React</button><button type="button" data-skill-project="Jinhong Foods">TypeScript</button></div></article>
+        <article class="skill-lane reveal"><div><span>02</span><h3>CONNECT</h3></div><div class="skill-words"><button type="button" data-skill-project="AI Driving Assistant / Jinhong Foods">REST API</button><button type="button" data-skill-project="AI Driving Assistant">TDX</button><button type="button" data-skill-project="AI Driving Assistant / Learning workflow">GPT</button><button type="button" data-skill-project="Application prototypes">Firebase</button></div></article>
+        <article class="skill-lane reveal"><div><span>03</span><h3>EXPLORE</h3></div><div class="skill-words"><button type="button" data-skill-project="AI Driving Assistant">AI</button><button type="button" data-skill-project="Learning / Product exploration">Prompt Design</button><button type="button" data-skill-project="Traffic classification">ResNet</button><button type="button" data-skill-project="Cloud certification / exploration">AWS</button><button type="button" data-skill-project="DP-900 / Azure learning">Azure</button></div></article>
+        <article class="skill-lane reveal"><div><span>04</span><h3>WORK</h3></div><div class="skill-words"><button type="button" data-skill-project="AI Driving Assistant / Team of five">Project Planning</button><button type="button" data-skill-project="Capstone / USA">Teamwork</button><button type="button" data-skill-project="Model conversion / Client work">Problem Solving</button><button type="button" data-skill-project="South Dakota Work & Travel">Cross-cultural Communication</button></div></article>
+      </div>
+      <p class="skill-evidence" aria-live="polite"><span data-i18n="skillEvidenceLabel">USED IN</span> <strong data-skill-evidence>Hover, focus, or tap a skill</strong></p>
+      <div class="certification-rail reveal" aria-label="Selected certifications"><span>CERTIFICATIONS</span><div><b>IBM</b><i></i><b>GOOGLE CLOUD</b><i></i><b>AWS</b><i></i><b>MICROSOFT</b><i></i><b>TQC+</b></div></div>
+    </section>
+
+    <section class="next-story story-section section-pad" data-story-section="next"><p class="story-index reveal">08 — WHAT'S NEXT?</p><h2 class="reveal">WHAT'S<br><em>NEXT?</em></h2><div class="next-direction"><p class="next-lede reveal" data-i18n="nextDirection">I want to work on AI applications and product development — especially products that begin with a real user problem.</p><ol class="next-flow reveal"><li><span>01</span><strong data-i18n="nextUnderstand">Understand the user</strong></li><li><span>02</span><strong data-i18n="nextLogic">Design the logic</strong></li><li><span>03</span><strong data-i18n="nextBuild">Build with AI / Web / API</strong></li><li><span>04</span><strong data-i18n="nextUseful">Make something useful</strong></li></ol></div></section>
+
+    <section class="story-contact section-pad" id="contact" data-story-spine-end><p class="story-index reveal">09 — CONTACT</p><h2 class="reveal" data-i18n="usefulCta">LET'S BUILD<br><em>SOMETHING USEFUL.</em></h2><div class="story-contact-row reveal"><a class="button button-light magnetic-button" href="mailto:zxc1031777@gmail.com">zxc1031777@gmail.com ↗</a><p data-i18n="contactEndCopy">Open to web, AI application, and product opportunities — or a thoughtful conversation about a problem worth solving.</p></div><div class="story-contact-links reveal"><a href="contact.html" class="transition-link" data-i18n="contactFormLink">Contact form ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="assets/docs/hongrong-resume.pdf" target="_blank" rel="noreferrer" data-i18n="resumeLink">Résumé ↗</a></div></section>
   </main>
 
-  <footer class="site-footer">
-    <div><a class="brand transition-link" href="index.html">HongRong<sup>®</sup></a><p data-i18n="footerLine">Web developer based in Taichung, Taiwan.</p></div>
-    <div class="footer-links"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a><a href="assets/docs/hongrong-resume.pdf" target="_blank" data-i18n="resumeLink">Résumé ↗</a></div>
-    <div class="footer-bottom"><span>© <span class="current-year"></span> HongRong</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div>
-  </footer>
+  <footer class="site-footer story-footer"><div><a class="brand" href="#top">HongRong<sup>®</sup></a><p data-i18n="footerStoryLine">AI × Web × Product — built from curiosity, problems, and the courage to keep learning.</p></div><div class="footer-links"><a href="#journey" data-i18n="navJourney">Journey</a><a href="#projects" data-i18n="navProjects">Projects</a><a href="#life" data-i18n="navLife">Life</a><a href="#skills" data-i18n="navSkills">Skills</a></div><div class="footer-bottom"><span>© <span class="current-year"></span> HongRong</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div></footer>
 </body>
 </html>

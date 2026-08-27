@@ -8,7 +8,7 @@ await mkdir(output, { recursive: true });
 
 const entries = await readdir(root, { withFileTypes: true });
 for (const entry of entries) {
-  if (entry.isFile() && entry.name.endsWith(".html")) {
+  if (entry.isFile() && /\.(?:html|txt|xml)$/.test(entry.name)) {
     await cp(join(root, entry.name), join(output, entry.name));
   }
 }
