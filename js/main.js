@@ -9,6 +9,14 @@
     navProjects: "專案",
     navLife: "生活",
     navSkills: "技能",
+    compactHeroLine: "用 AI、Web 與好奇心，打造真正有用的產品。",
+    viewSelectedWork: "查看精選作品",
+    portraitExplore: "關於 HongRong",
+    selectedWorkHeading: "兩個專案，都從真實需求開始。",
+    openCaseLabel: "查看案例 ↗",
+    homeAiSummary: "帶領五人團隊，將交通資料、語音互動與 ResNet-18 模型整合進 Android 體驗。",
+    homeJinhongSummary: "為真實的台灣食品機械企業完成研究、資訊架構、設計與響應式網站開發。",
+    capabilitiesHomeHeading: "我能帶進產品的能力。",
     storyHeroLine: "把想法做成真正有用的數位產品。",
     storyHeroIntro: "我從問題出發，整理邏輯，再運用 AI、Web 與 API，把它做成真正有人能使用的產品。",
     heroProofAi: "團隊組長 · 五人團隊",
@@ -113,7 +121,7 @@
     contactEndCopy: "我目前開放 Web、AI 應用與產品相關機會，也樂意聊聊一個值得解決的問題。",
     contactFormLink: "聯絡表單 ↗",
     footerStoryLine: "AI × Web × Product — 從好奇、問題與持續學習的勇氣開始。",
-    backToStory: "← 回到故事",
+    backToStory: "← 回到精選作品",
     projectOriginLabel: "專案起點",
     myRoleLabel: "我的角色",
     aiDeepLede: "一個從日常問題開始的五人專題：交通資訊很有用，卻分散在太多不同工具裡。",
@@ -215,7 +223,6 @@
     ctaTitle: "一起打造清楚、<br><em>令人記得的作品。</em>",
     startConversation: "開始聊聊",
     footerLine: "位於台中、台灣的網頁開發者。",
-    resumeLink: "履歷 ↗",
     backToTop: "回到頂端 ↑",
 
     aboutPageEyebrow: "關於我 — HongRong",
@@ -247,7 +254,6 @@
     matrixPeople: "工作方式",
     matrixPeopleBody: "專案規劃 · 團隊合作 · 快速學習 · 跨文化溝通",
     certTitle: "專業認證",
-    downloadResume: "下載履歷 ↗",
     nextChapter: "下一個篇章",
     aboutCtaTitle: "準備好學習、貢獻，<br><em>並做出好作品。</em>",
     getInTouch: "與我聯絡",
@@ -263,7 +269,6 @@
     sourceCode: "查看原始碼",
     capstoneProject: "大學畢業專題",
     aiDriverLongSummary: "將導航、語音對話、即時路況與停車位資訊整合到單一駕駛介面的 Android 應用程式。",
-    readReport: "閱讀報告",
     throughTheWork: "作品中的原則",
     principlesLabel: "設計原則 — 2026",
     principlesTitle: "每個作品都應該做到的事",
@@ -312,7 +317,6 @@
     aiCaseLede: "把導航、語音 AI、路況與停車資訊整合到單一介面，打造更專注於駕駛安全的體驗。",
     aiRole: "專題組長 / 開發 / UI UX",
     aiOutput: "可操作的 Android 原型",
-    readFullReport: "閱讀完整報告",
     challengeLabel: "挑戰",
     aiChallengeTitle: "減少駕駛分心，同時保留有用資訊。",
     aiChallengeP1: "駕駛常在地圖、路況攝影機、停車 App 與搜尋之間切換。這種碎片化體驗，會在最需要專注道路的時候增加認知負擔。",
@@ -336,7 +340,6 @@
     aiContributionFour: "系統測試與成果發表",
     keyLearning: "關鍵學習",
     learningQuote: "「一個實用的 AI 產品，不只有模型，更包含它周圍完整的系統：情境、資料、互動與信任。」",
-    downloadProjectReport: "下載專題報告 ↗",
     previousCase: "上一個案例",
 
     contactLabel: "聯絡 — 2026",
@@ -344,8 +347,6 @@
     contactIntro: "我目前開放網頁開發職缺、接案合作，以及和正在打造實用數位產品的團隊交流。",
     basedIn: "所在地",
     findMeOnline: "社群連結",
-    resumeLabel: "履歷",
-    downloadPdf: "下載 PDF ↗",
     contactNote: "只要是一個好想法、一個認真的團隊，或值得解決的問題，我通常都很樂意聊聊。",
     formName: "你的名字",
     formEmail: "電子郵件",
@@ -491,8 +492,10 @@
     }).format(new Date());
     localTimeElements.forEach((element) => { element.textContent = time; });
   };
-  updateTime();
-  window.setInterval(updateTime, 1000);
+  if (localTimeElements.length) {
+    updateTime();
+    window.setInterval(updateTime, 1000);
+  }
 
   document.querySelectorAll(".current-year").forEach((element) => {
     element.textContent = String(new Date().getFullYear());
@@ -502,6 +505,26 @@
   document.querySelectorAll("[data-nav-page]").forEach((link) => {
     if (link.dataset.navPage === currentPage) link.classList.add("is-active");
   });
+
+  const scrollSpyLinks = [...document.querySelectorAll("[data-scroll-link]")];
+  const scrollSpySections = [...document.querySelectorAll("[data-scroll-section][id]")];
+  const updateScrollSpy = () => {
+    if (!scrollSpyLinks.length || !scrollSpySections.length) return;
+    const marker = Math.min(window.innerHeight * .32, 280);
+    let activeSection = scrollSpySections[0];
+    scrollSpySections.forEach((section) => {
+      if (section.getBoundingClientRect().top <= marker) activeSection = section;
+    });
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+      activeSection = scrollSpySections[scrollSpySections.length - 1];
+    }
+    scrollSpyLinks.forEach((link) => {
+      const active = link.getAttribute("href") === `#${activeSection.id}`;
+      link.classList.toggle("is-active", active);
+      if (active) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+  };
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -657,6 +680,7 @@
   let ticking = false;
   const updateScrollEffects = () => {
     header?.classList.toggle("is-scrolled", window.scrollY > 18);
+    updateScrollSpy();
     updateScrub();
     updateGrowthRoute();
     parallaxItems.forEach((element) => {

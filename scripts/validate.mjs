@@ -5,9 +5,11 @@ const root = process.cwd();
 const htmlFiles = (await readdir(root)).filter((file) => file.endsWith(".html"));
 const errors = [];
 const translationKeys = new Set();
+const htmlByFile = new Map();
 
 for (const file of htmlFiles) {
   const html = await readFile(join(root, file), "utf8");
+  htmlByFile.set(file, html);
   if (!/<title>[^<]+<\/title>/.test(html)) errors.push(`${file}: missing title`);
   if (!/<meta name="viewport"/.test(html)) errors.push(`${file}: missing viewport`);
   if (!/<meta name="description" content="[^"]+"/.test(html)) errors.push(`${file}: missing meta description`);
@@ -33,6 +35,20 @@ for (const file of htmlFiles) {
     if (!reference || /^(?:https?:|mailto:|data:)/.test(reference)) continue;
     try { await access(join(root, reference)); }
     catch { errors.push(`${file}: missing local reference ${reference}`); }
+  }
+}
+
+for (const [file, html] of htmlByFile) {
+  for (const link of html.matchAll(/href="([^"#]+\.html)#([^"#]+)"/g)) {
+    const targetFile = link[1].replace(/^\.\//, "");
+    const targetHtml = htmlByFile.get(targetFile);
+    if (!targetHtml) {
+      errors.push(`${file}: hash link targets missing page ${targetFile}`);
+      continue;
+    }
+    if (!new RegExp(`\\bid="${link[2].replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`).test(targetHtml)) {
+      errors.push(`${file}: hash link has no target ${targetFile}#${link[2]}`);
+    }
   }
 }
 
