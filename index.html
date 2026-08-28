@@ -36,8 +36,6 @@
     <div class="loader-mark">HongRong<sup>®</sup></div>
     <div class="loader-line"><span></span></div>
   </div>
-  <div class="cursor-orb" aria-hidden="true"></div>
-
   <header class="site-header story-header">
     <a class="brand" href="#top" aria-label="HongRong home">HongRong<sup>®</sup></a>
     <nav class="desktop-nav story-nav" aria-label="Primary navigation">
@@ -80,9 +78,8 @@
   <main id="main-content">
     <section class="story-hero section-pad" id="top">
       <div class="story-hero-copy reveal">
-        <p class="story-index">01 — INTRODUCTION</p>
-        <p class="position-tag">AI × WEB × PRODUCT</p>
-        <h1>HONG<br>RONG.</h1>
+        <p class="position-tag"><span>01 /</span> AI × WEB × PRODUCT</p>
+        <h1 aria-label="Hong Rong"><span>HONG</span><span>RONG.</span></h1>
         <p class="story-hero-line" data-i18n="storyHeroLine">I turn ideas into useful digital products.</p>
         <p class="story-hero-intro" data-i18n="storyHeroIntro">I start with the problem, shape the logic, and use AI, web, and APIs to build something people can actually use.</p>
         <div class="story-hero-actions"><a class="button button-dark magnetic-button" href="#projects" data-i18n="exploreProjects">Explore the work</a><a class="text-link" href="#journey"><span data-i18n="startStory">Start the story</span><span aria-hidden="true">↓</span></a></div>
@@ -99,7 +96,12 @@
         <span class="portrait-code portrait-code-top" aria-hidden="true">HR / 01</span><figcaption><span>Taichung, Taiwan</span><span>24.1477° N</span></figcaption>
       </figure>
 
-      <div class="story-hero-meta reveal"><span><i class="status-dot"></i><span data-i18n="availability">Available — Taichung</span></span><span><span data-i18n="localTime">Local Time:</span> <time class="local-time">--:--:--</time></span><span>SCROLL TO GROW ↓</span></div>
+      <aside class="story-proof-rail reveal" aria-label="Story highlights">
+        <div class="story-proof-context"><span><i class="status-dot"></i><span data-i18n="availability">Available — Taichung</span></span><span><span data-i18n="localTime">Local Time:</span> <time class="local-time">--:--:--</time></span></div>
+        <a href="#projects"><small>CASE / 01</small><strong>AI DRIVING ASSISTANT</strong><span data-i18n="heroProofAi">Team lead · five people</span></a>
+        <a href="#jinhong"><small>CASE / 02</small><strong>JINHONG FOODS</strong><span data-i18n="heroProofClient">Real client · live website</span></a>
+        <a href="#life"><small>STORY / 03</small><strong>SOUTH DAKOTA</strong><span data-i18n="heroProofUsa">Work &amp; Travel · courage</span></a>
+      </aside>
     </section>
 
     <section class="journey-chapter story-section section-pad" id="journey" data-story-spine-start>
@@ -157,8 +159,14 @@
 
     <section class="usa-story story-section" id="life" data-story-section="usa">
       <div class="usa-intro section-pad reveal"><p class="story-index">05 — USA / SOUTH DAKOTA</p><h2 data-i18n="usaHeading">I LEFT MY<br><em>COMFORT ZONE.</em></h2><p data-i18n="usaSubheading">My English wasn't good.<br>That was exactly why I wanted to go.</p></div>
-      <div class="usa-photo-note section-pad reveal" role="note"><span>PHOTO STORY / ASSET CHECKPOINT</span><p data-i18n="usaPhotoPending">This editorial space is ready for HongRong's five original USA photos. No stock images or invented memories will be used.</p></div>
-      <div class="usa-collage section-pad" aria-label="Five-photo South Dakota story awaiting original images"><figure class="usa-photo-slot slot-one reveal"><div><span>01</span><strong>SOUTH DAKOTA</strong></div><figcaption data-i18n="usaPhotoOne">Arrival / a new environment</figcaption></figure><figure class="usa-photo-slot slot-two reveal"><div><span>02</span><strong>WORK</strong></div><figcaption data-i18n="usaPhotoTwo">Hospitality / daily English</figcaption></figure><figure class="usa-photo-slot slot-three reveal"><div><span>03</span><strong>PEOPLE</strong></div><figcaption data-i18n="usaPhotoThree">Patience / friendship / Kaytlin</figcaption></figure><figure class="usa-photo-slot slot-four reveal"><div><span>04</span><strong>CULTURE</strong></div><figcaption data-i18n="usaPhotoFour">Food / adaptation / questions</figcaption></figure><figure class="usa-photo-slot slot-five reveal"><div><span>05</span><strong>TRAVEL</strong></div><figcaption data-i18n="usaPhotoFive">The courage to explore</figcaption></figure></div>
+      <div class="usa-photo-note section-pad reveal"><span>FIVE FRAMES / ONE SUMMER</span><p data-i18n="usaPhotoStory">The photos begin with the scale of South Dakota, then move closer—to work, the people who met me halfway, and the courage I brought home.</p></div>
+      <div class="usa-collage section-pad" role="group" aria-label="Five-photo editorial story from HongRong's South Dakota Work and Travel experience">
+        <figure class="usa-photo-slot slot-one reveal"><div class="usa-photo-media" data-parallax=".012"><img src="assets/images/usa-badlands.webp" width="1200" height="1600" loading="lazy" decoding="async" alt="HongRong sitting with his arms open above the Badlands landscape in South Dakota"></div><div class="usa-photo-meta"><span>01</span><strong>BADLANDS</strong></div><figcaption data-i18n="usaPhotoOne">South Dakota / the scale of a new place</figcaption></figure>
+        <figure class="usa-photo-slot slot-two reveal"><div class="usa-photo-media" data-parallax=".018"><img src="assets/images/usa-mount-rushmore.webp" width="1050" height="1400" loading="lazy" decoding="async" alt="HongRong sitting in front of Mount Rushmore in South Dakota"></div><div class="usa-photo-meta"><span>02</span><strong>MOUNT RUSHMORE</strong></div><figcaption data-i18n="usaPhotoTwo">A landmark / a place becoming real</figcaption></figure>
+        <figure class="usa-photo-slot slot-three reveal"><div class="usa-photo-media" data-parallax="-.012"><img src="assets/images/usa-kaytlin-work.webp" width="1050" height="1400" loading="lazy" decoding="async" alt="HongRong with Kaytlin on the left and another coworker in a hotel corridor"></div><div class="usa-photo-meta"><span>03</span><strong>WORK / KAYTLIN</strong></div><figcaption data-i18n="usaPhotoThree">Patience / English / being understood</figcaption></figure>
+        <figure class="usa-photo-slot slot-four reveal"><div class="usa-photo-media" data-parallax=".01"><img src="assets/images/usa-street-friends.webp" width="1800" height="1013" loading="lazy" decoding="async" alt="HongRong and friends taking a group selfie on a street in South Dakota"></div><div class="usa-photo-meta"><span>04</span><strong>FRIENDS</strong></div><figcaption data-i18n="usaPhotoFour">Culture / friendship / belonging</figcaption></figure>
+        <figure class="usa-photo-slot slot-five reveal"><div class="usa-photo-media" data-parallax="-.016"><img src="assets/images/usa-hiking-friends.webp" width="1050" height="1400" loading="lazy" decoding="async" alt="HongRong hiking with two friends on a rocky forest trail in South Dakota"></div><div class="usa-photo-meta"><span>05</span><strong>TRAVEL</strong></div><figcaption data-i18n="usaPhotoFive">The courage to keep exploring</figcaption></figure>
+      </div>
       <div class="usa-field-notes section-pad"><article class="reveal"><span>01 / ARRIVAL</span><h3 data-i18n="usaArrivalTitle">The food felt heavy, salty, and sweet. Water could cost more than soda.</h3><p data-i18n="usaArrivalBody">Small details made it obvious that I was far from home. I had to learn the rhythm of an unfamiliar culture instead of expecting it to feel comfortable.</p></article><article class="reveal"><span>02 / SSN</span><h3 data-i18n="usaSsnTitle">At the SSN counter, I could barely understand what was being said.</h3><p data-i18n="usaSsnBody">The hardest part was not only the English. I did not know how to form the right question. With help from my employer, I completed the process.</p></article><article class="reveal"><span>03 / WORK</span><h3 data-i18n="usaWorkTitle">Hospitality meant communicating in English every day.</h3><p data-i18n="usaWorkBody">Kaytlin patiently tried to understand me and corrected my English. Her kindness changed the experience, and I remain grateful for it.</p></article></div>
       <blockquote class="courage-statement section-pad reveal" data-i18n="courageStatement">I came home with<br><em>more courage.</em></blockquote>
     </section>
@@ -166,7 +174,7 @@
     <section class="outside-story story-section section-pad" data-story-section="outside">
       <header class="outside-heading reveal"><p class="story-index">06 — OUTSIDE THE SCREEN</p><h2 data-i18n="outsideHeading">The things that keep me<br><em>curious and moving.</em></h2></header>
       <div class="interest-constellation reveal" aria-label="HongRong's interests"><span class="interest-big">BASKETBALL</span><span>APEX LEGENDS</span><span>LEAGUE OF LEGENDS</span><span class="interest-serif">HIP-HOP / R&amp;B</span><span>PHOTOGRAPHY</span><span class="interest-big">TRAVEL</span><span class="interest-serif">NATURE / LANDSCAPE</span></div>
-      <div class="nature-manifesto"><div class="nature-frame reveal" role="img" aria-label="New Zealand landscape photo to be added"><span>NEW ZEALAND</span><small>ORIGINAL PHOTO PENDING</small></div><div class="nature-copy reveal"><p data-i18n="natureBody">After military service, I travelled to New Zealand with friends. Its scale and landscapes stayed with me. I especially like places that make a person feel small in the best way.</p><blockquote data-i18n="natureQuote">If there's a view worth remembering,<br><em>I probably want to be there.</em></blockquote><p data-i18n="natureImpression">I hope friends see a place worth exploring and think: “HongRong would love this.”</p></div></div>
+      <div class="nature-manifesto"><div class="nature-frame nature-memory reveal"><span>NEW<br>ZEALAND</span><small data-i18n="natureMemory">A MEMORY I STILL CARRY</small></div><div class="nature-copy reveal"><p data-i18n="natureBody">After military service, I travelled to New Zealand with friends. Its scale and landscapes stayed with me. I especially like places that make a person feel small in the best way.</p><blockquote data-i18n="natureQuote">If there's a view worth remembering,<br><em>I probably want to be there.</em></blockquote><p data-i18n="natureImpression">I hope friends see a place worth exploring and think: “HongRong would love this.”</p></div></div>
     </section>
 
     <section class="skills-story story-section section-pad" id="skills" data-story-section="skills">
@@ -183,7 +191,7 @@
 
     <section class="next-story story-section section-pad" data-story-section="next"><p class="story-index reveal">08 — WHAT'S NEXT?</p><h2 class="reveal">WHAT'S<br><em>NEXT?</em></h2><div class="next-direction"><p class="next-lede reveal" data-i18n="nextDirection">I want to work on AI applications and product development — especially products that begin with a real user problem.</p><ol class="next-flow reveal"><li><span>01</span><strong data-i18n="nextUnderstand">Understand the user</strong></li><li><span>02</span><strong data-i18n="nextLogic">Design the logic</strong></li><li><span>03</span><strong data-i18n="nextBuild">Build with AI / Web / API</strong></li><li><span>04</span><strong data-i18n="nextUseful">Make something useful</strong></li></ol></div></section>
 
-    <section class="story-contact section-pad" id="contact" data-story-spine-end><p class="story-index reveal">09 — CONTACT</p><h2 class="reveal" data-i18n="usefulCta">LET'S BUILD<br><em>SOMETHING USEFUL.</em></h2><div class="story-contact-row reveal"><a class="button button-light magnetic-button" href="mailto:zxc1031777@gmail.com">zxc1031777@gmail.com ↗</a><p data-i18n="contactEndCopy">Open to web, AI application, and product opportunities — or a thoughtful conversation about a problem worth solving.</p></div><div class="story-contact-links reveal"><a href="contact.html" class="transition-link" data-i18n="contactFormLink">Contact form ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="assets/docs/hongrong-resume.pdf" target="_blank" rel="noreferrer" data-i18n="resumeLink">Résumé ↗</a></div></section>
+    <section class="story-contact section-pad" id="contact" data-story-spine-end><p class="story-index reveal">09 — CONTACT</p><h2 class="reveal" data-i18n="usefulCta">LET'S BUILD<br><em>SOMETHING USEFUL.</em></h2><div class="story-contact-row reveal"><a class="button button-light" href="mailto:zxc1031777@gmail.com">zxc1031777@gmail.com ↗</a><p data-i18n="contactEndCopy">Open to web, AI application, and product opportunities — or a thoughtful conversation about a problem worth solving.</p></div><div class="story-contact-links reveal"><a href="contact.html" class="transition-link" data-i18n="contactFormLink">Contact form ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="assets/docs/hongrong-resume.pdf" target="_blank" rel="noreferrer" data-i18n="resumeLink">Résumé ↗</a></div></section>
   </main>
 
   <footer class="site-footer story-footer"><div><a class="brand" href="#top">HongRong<sup>®</sup></a><p data-i18n="footerStoryLine">AI × Web × Product — built from curiosity, problems, and the courage to keep learning.</p></div><div class="footer-links"><a href="#journey" data-i18n="navJourney">Journey</a><a href="#projects" data-i18n="navProjects">Projects</a><a href="#life" data-i18n="navLife">Life</a><a href="#skills" data-i18n="navSkills">Skills</a></div><div class="footer-bottom"><span>© <span class="current-year"></span> HongRong</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div></footer>

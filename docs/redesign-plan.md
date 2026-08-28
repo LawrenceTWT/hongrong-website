@@ -3,7 +3,7 @@
 - Repository: LawrenceTWT/hongrong-website
 - Planning branch: feature/portfolio-story-redesign
 - Audited base: main at a373a2ce6276a43453496bbd1b91b1547682345e
-- Scope of this commit: planning only; no HTML, CSS, JavaScript, SEO file, or asset implementation
+- Status: plan approved; implementation is in progress on the feature branch
 - Product position: AI × WEB × PRODUCT
 - Narrative principle: every layout, motion, and visual element must explain HongRong's growth, work, or decisions. If it only looks impressive, it does not ship.
 
@@ -463,41 +463,44 @@ Static HTML remains the architecture. No Next.js migration is planned.
 - AI screens: ai-driver-home.jpg, ai-driver-map.jpg, ai-driver-traffic.jpg.
 - Jinhong products: jinhong-slicer.webp, jinhong-bone-saw.webp, jinhong-vacuum.webp.
 - Botanical source: botanical-vine.svg.
+- USA story set: usa-badlands.webp, usa-mount-rushmore.webp, usa-kaytlin-work.webp, usa-street-friends.webp, and usa-hiking-friends.webp. The approved order moves from place to work, friendship, and courage.
 - Documents: AI Driving Assistant report PDF and résumé PDF.
 - Fonts: Libre Caslon Condensed, Geist, GenSen Rounded TW, plus licenses.
 - Favicon: assets/favicon.svg.
 
-### Required before implementation can be complete
+### Approved asset and privacy decisions
 
-1. USA five-photo set  
-   The five photos referenced in the brief are not currently present in the repository. Re-import the original files and confirm preferred order/captions. Identify any people who should be cropped, blurred, or omitted.
+- All five supplied USA photos may appear publicly on the portfolio and in the public repository.
+- Kaytlin is the woman on the left in the hotel-corridor photo, and her name may appear publicly.
+- The five photos are exported as stripped, size-bounded WebP files; originals remain outside the served asset set.
+- The USA chapter uses truthful alt text and captions. It does not imply that the photos show the SSN interaction.
+- No New Zealand photograph has been supplied, so that memory remains a clearly labeled typographic/nature composition rather than a fabricated image.
 
-2. South Dakota story metadata  
-   Approximate dates, location names, which image maps to arrival/work/friends/travel, and whether Kaytlin's name may be public.
+### Remaining requirements for later evidence upgrades
 
-3. New Zealand / nature set  
+1. New Zealand / nature set
    Three to six original landscape/travel photos, location captions if known, and a preferred hero landscape.
 
-4. Outside-the-screen media  
+2. Outside-the-screen media
    Optional basketball, photography, travel, or personal images. Games and music can be handled typographically if original images would add clutter or licensing risk.
 
-5. AI Driving Assistant evidence  
+3. AI Driving Assistant evidence
    Prefer actual screens for parking, GPT/voice, vehicle location, and model output. Existing three screens are enough for an initial story but not all seven requested states.
 
-6. Model evidence  
+4. Model evidence
    Exact six class names, dataset size/split, selected final accuracy, Precision/Recall, and confusion matrix. If these are only in the report, verify them from the PDF before drawing visuals. Never infer missing values.
 
-7. Jinhong real screenshots  
+5. Jinhong real screenshots
    Current live desktop homepage, product/category page, product-detail/service page, and at least one mobile capture. The current CSS recreation is not a substitute for the real site.
 
-8. Client context  
+6. Client context
    Approved wording for the company relationship, launch/maintenance status, and whether business results exist. Do not invent traffic, leads, or SEO outcomes.
 
-9. Certifications  
+7. Certifications
    Exact issuer/title/year for IBM, Google Cloud, AWS, Microsoft, and TQC+. Use a text rail until approved badge/logo assets and names are verified.
 
-10. Social preview  
-    A 1200 × 630 Open Graph image built from the approved visual system.
+8. Social preview
+   A 1200 × 630 Open Graph image built from the approved visual system.
 
 ### Asset rules
 
@@ -548,7 +551,7 @@ Media:
 - Add width and height or aspect-ratio to prevent layout shift.
 - Use loading=lazy and decoding=async below the fold.
 - Give only the hero/LCP portrait appropriate eager/high priority.
-- Generate multiple sizes for USA and New Zealand images.
+- Keep the supplied USA photos size-bounded and compressed; add responsive source variants only if visual QA shows a material transfer-size benefit.
 - Avoid autoplay video and oversized full-resolution background images.
 - Keep PDFs downloadable but never preload them.
 
@@ -582,16 +585,36 @@ SEO foundation to implement in a later phase:
 - Person, WebSite, and project/CreativeWork structured data where accurate.
 - Stable internal links between story chapters and case studies.
 
-## 10. Implementation phases
+## 10. Selective design-method application
 
-No phase begins until this plan is approved.
+The four external repositories are treated as review lenses, not as visual templates. HongRong's approved Nature × Growth × Technology system, warm palette, bilingual content, and personal story remain authoritative.
+
+| Source | Applied here | Deliberately not imported |
+|---|---|---|
+| Taste Skill | Brief inference, anti-template audit, asymmetric editorial composition, and explicit design dials: variance 8 / motion 6 / density 4 | Mandatory dark mode, one-theme rules, and restrictions that conflict with the approved numbered story chapters |
+| Impeccable | Typesetting, hierarchy, spacing rhythm, squint test, localization review, 200% zoom, and bounded critique/polish passes | “Overdrive” or delight passes that add spectacle without improving the story |
+| UI UX Pro Max | Responsive text reflow, contrast, focus states, 44px touch targets, reduced motion, performance, and 375/768/1024/1440 checks | Generated style presets or database recommendations that would replace the existing brand system |
+| Emil Kowalski Skills | Motion gate (purpose, frequency, speed, function), transform/opacity-first animation, strong easing, fine-pointer gating, and reduced-motion parity | Swift/Expo/Sonner/platform-specific patterns and ambient motion with no narrative job |
+
+Motion decisions resulting from this filter:
+
+- Keep SVG vine growth because it expresses the chronological growth path.
+- Keep the sticky AI phone because state changes explain the product flow.
+- Keep the portrait flip as deliberate user feedback, but shorten it to roughly half a second.
+- Keep a restrained USA photo reveal and fine-pointer parallax because they support the change of place and emotional tone.
+- Reduce magnetic CTA movement so it reads as feedback rather than a trick.
+- Remove the global cursor orb, particles, scroll hijacking, universal showy reveals, and decorative loops.
+
+## 11. Implementation phases
+
+The plan is approved. Every implementation phase remains isolated on feature/portfolio-story-redesign until review.
 
 ### Phase 0 — Content and asset lock
 
 - Confirm hero line and public wording.
-- Import/verify USA, New Zealand, AI, Jinhong, certification, and OG assets.
+- Import and verify the approved USA set; leave New Zealand, certification, and OG assets as explicit follow-up requirements until real source material is supplied.
 - Verify AI model metrics and six class labels.
-- Confirm Kaytlin naming/privacy.
+- Record the confirmed permission to show the group photos and name Kaytlin.
 - Create a content matrix for English and Traditional Chinese.
 
 Commit intent: content and asset inventory only.

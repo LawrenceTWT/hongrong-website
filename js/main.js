@@ -11,6 +11,9 @@
     navSkills: "技能",
     storyHeroLine: "把想法做成真正有用的數位產品。",
     storyHeroIntro: "我從問題出發，整理邏輯，再運用 AI、Web 與 API，把它做成真正有人能使用的產品。",
+    heroProofAi: "團隊組長 · 五人團隊",
+    heroProofClient: "真實客戶 · 已上線網站",
+    heroProofUsa: "打工旅遊 · 帶回勇氣",
     exploreProjects: "探索作品",
     startStory: "從故事開始",
     currentlyLearning: "正在學習",
@@ -81,12 +84,12 @@
     clientNextBody: "這些是下一步計畫，不會被描述成已完成的工作。",
     usaHeading: "我離開了自己的<br><em>舒適圈。</em>",
     usaSubheading: "我的英文並不好。<br>這正是我想去的原因。",
-    usaPhotoPending: "這個編輯式版位已準備放入 HongRong 的五張 USA 原始照片；不會使用圖庫照片或捏造的回憶代替。",
-    usaPhotoOne: "抵達／陌生的新環境",
-    usaPhotoTwo: "工作／每天使用英文",
-    usaPhotoThree: "耐心／朋友／Kaytlin",
-    usaPhotoFour: "食物／適應／學會提問",
-    usaPhotoFive: "開始有勇氣探索",
+    usaPhotoStory: "這五張照片從 South Dakota 的遼闊開始，慢慢走近工作、願意理解我的人，以及我帶回家的勇氣。",
+    usaPhotoOne: "South Dakota／一個新地方的尺度",
+    usaPhotoTwo: "地標／陌生的地方開始變得真實",
+    usaPhotoThree: "耐心／英文／被理解",
+    usaPhotoFour: "文化／朋友／歸屬感",
+    usaPhotoFive: "繼續探索的勇氣",
     usaArrivalTitle: "食物很重口味、很鹹也很甜，水甚至可能比汽水貴。",
     usaArrivalBody: "這些小細節讓我明確感覺自己離家很遠。我必須學會陌生文化的節奏，而不是期待它立刻讓我感到舒服。",
     usaSsnTitle: "申請 SSN 時，我幾乎聽不懂櫃台在說什麼。",
@@ -95,6 +98,7 @@
     usaWorkBody: "Kaytlin 很有耐心理解我要表達的意思，也會糾正我的英文。她的善意改變了這段經驗，我一直很感激。",
     courageStatement: "我回到家時，<br><em>帶回了更多勇氣。</em>",
     outsideHeading: "那些讓我保持<br><em>好奇與行動的事。</em>",
+    natureMemory: "一段至今仍留在心裡的記憶",
     natureBody: "服完兵役後，我和朋友到紐西蘭旅行。那裡的尺度與自然景色一直留在我心裡。我特別喜歡那些能讓人以最好的方式感覺自己很渺小的地方。",
     natureQuote: "如果有一個景色值得被記住，<br><em>我大概會想親自站在那裡。</em>",
     natureImpression: "我希望朋友看見一個值得探索的地方時，會想到：「洪戎一定會喜歡這裡。」",
@@ -387,6 +391,7 @@
       : (flipped ? "Flip back to portrait" : "Flip portrait to view profile card");
     button.setAttribute("aria-label", label);
     button.setAttribute("aria-pressed", String(flipped));
+    button.querySelector(".portrait-front")?.setAttribute("aria-hidden", String(flipped));
     button.querySelector(".portrait-back")?.setAttribute("aria-hidden", String(!flipped));
   };
 
@@ -574,7 +579,7 @@
     prototypeButton.disabled = true;
     prototypeFlow?.setAttribute("aria-busy", "true");
     prototypeNodes.forEach((node, index) => {
-      const delay = reducedMotion.matches ? 0 : index * 360;
+      const delay = reducedMotion.matches ? 0 : index * 300;
       window.setTimeout(() => {
         if (run !== prototypeRun) return;
         node.classList.add("is-active");
@@ -602,8 +607,8 @@
     document.querySelectorAll(".magnetic-button").forEach((button) => {
       button.addEventListener("pointermove", (event) => {
         const rect = button.getBoundingClientRect();
-        const x = (event.clientX - rect.left - rect.width / 2) * .12;
-        const y = (event.clientY - rect.top - rect.height / 2) * .15;
+        const x = (event.clientX - rect.left - rect.width / 2) * .04;
+        const y = (event.clientY - rect.top - rect.height / 2) * .05;
         button.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       });
       button.addEventListener("pointerleave", () => { button.style.transform = ""; });
@@ -655,10 +660,15 @@
     updateScrub();
     updateGrowthRoute();
     parallaxItems.forEach((element) => {
-      if (!element.classList.contains("is-visible")) return;
+      if (!finePointer.matches || reducedMotion.matches) {
+        element.style.transform = "";
+        return;
+      }
       const speed = Number(element.dataset.parallax || .05);
       const rect = element.getBoundingClientRect();
-      const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
+      if (rect.bottom < -80 || rect.top > window.innerHeight + 80) return;
+      const rawOffset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
+      const offset = Math.max(-22, Math.min(22, rawOffset));
       element.style.transform = `translate3d(0, ${offset}px, 0)`;
     });
     ticking = false;
@@ -669,21 +679,10 @@
       ticking = true;
     }
   }, { passive: true });
-  window.addEventListener("resize", updateGrowthRoute, { passive: true });
+  window.addEventListener("resize", updateScrollEffects, { passive: true });
+  reducedMotion.addEventListener?.("change", updateScrollEffects);
+  finePointer.addEventListener?.("change", updateScrollEffects);
   updateScrollEffects();
-
-  const cursor = document.querySelector(".cursor-orb");
-  if (cursor && finePointer.matches) {
-    window.addEventListener("pointermove", (event) => {
-      cursor.style.left = `${event.clientX}px`;
-      cursor.style.top = `${event.clientY}px`;
-      cursor.classList.add("is-visible");
-    });
-    document.querySelectorAll("a, button, input, textarea, select").forEach((element) => {
-      element.addEventListener("pointerenter", () => cursor.classList.add("is-hovering"));
-      element.addEventListener("pointerleave", () => cursor.classList.remove("is-hovering"));
-    });
-  }
 
   document.querySelectorAll(".back-to-top").forEach((button) => {
     button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
@@ -721,6 +720,6 @@
     visited = sessionStorage.getItem("hongrong-visited") === "yes";
     sessionStorage.setItem("hongrong-visited", "yes");
   } catch { /* file protocol privacy mode */ }
-  const loaderDelay = reducedMotion.matches ? 0 : (visited ? 220 : 820);
+  const loaderDelay = reducedMotion.matches ? 0 : (visited ? 120 : 560);
   window.setTimeout(() => loader?.classList.add("is-hidden"), loaderDelay);
 })();
