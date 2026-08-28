@@ -9,14 +9,6 @@
     navProjects: "專案",
     navLife: "生活",
     navSkills: "技能",
-    compactHeroLine: "用 AI、Web 與好奇心，打造真正有用的產品。",
-    viewSelectedWork: "查看精選作品",
-    portraitExplore: "關於 HongRong",
-    selectedWorkHeading: "兩個專案，都從真實需求開始。",
-    openCaseLabel: "查看案例 ↗",
-    homeAiSummary: "帶領五人團隊，將交通資料、語音互動與 ResNet-18 模型整合進 Android 體驗。",
-    homeJinhongSummary: "為真實的台灣食品機械企業完成研究、資訊架構、設計與響應式網站開發。",
-    capabilitiesHomeHeading: "我能帶進產品的能力。",
     storyHeroLine: "把想法做成真正有用的數位產品。",
     storyHeroIntro: "我從問題出發，整理邏輯，再運用 AI、Web 與 API，把它做成真正有人能使用的產品。",
     heroProofAi: "團隊組長 · 五人團隊",
@@ -121,7 +113,7 @@
     contactEndCopy: "我目前開放 Web、AI 應用與產品相關機會，也樂意聊聊一個值得解決的問題。",
     contactFormLink: "聯絡表單 ↗",
     footerStoryLine: "AI × Web × Product — 從好奇、問題與持續學習的勇氣開始。",
-    backToStory: "← 回到精選作品",
+    backToStory: "← 回到故事",
     projectOriginLabel: "專案起點",
     myRoleLabel: "我的角色",
     aiDeepLede: "一個從日常問題開始的五人專題：交通資訊很有用，卻分散在太多不同工具裡。",
@@ -492,10 +484,8 @@
     }).format(new Date());
     localTimeElements.forEach((element) => { element.textContent = time; });
   };
-  if (localTimeElements.length) {
-    updateTime();
-    window.setInterval(updateTime, 1000);
-  }
+  updateTime();
+  window.setInterval(updateTime, 1000);
 
   document.querySelectorAll(".current-year").forEach((element) => {
     element.textContent = String(new Date().getFullYear());
@@ -505,26 +495,6 @@
   document.querySelectorAll("[data-nav-page]").forEach((link) => {
     if (link.dataset.navPage === currentPage) link.classList.add("is-active");
   });
-
-  const scrollSpyLinks = [...document.querySelectorAll("[data-scroll-link]")];
-  const scrollSpySections = [...document.querySelectorAll("[data-scroll-section][id]")];
-  const updateScrollSpy = () => {
-    if (!scrollSpyLinks.length || !scrollSpySections.length) return;
-    const marker = Math.min(window.innerHeight * .32, 280);
-    let activeSection = scrollSpySections[0];
-    scrollSpySections.forEach((section) => {
-      if (section.getBoundingClientRect().top <= marker) activeSection = section;
-    });
-    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
-      activeSection = scrollSpySections[scrollSpySections.length - 1];
-    }
-    scrollSpyLinks.forEach((link) => {
-      const active = link.getAttribute("href") === `#${activeSection.id}`;
-      link.classList.toggle("is-active", active);
-      if (active) link.setAttribute("aria-current", "location");
-      else link.removeAttribute("aria-current");
-    });
-  };
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -680,7 +650,6 @@
   let ticking = false;
   const updateScrollEffects = () => {
     header?.classList.toggle("is-scrolled", window.scrollY > 18);
-    updateScrollSpy();
     updateScrub();
     updateGrowthRoute();
     parallaxItems.forEach((element) => {

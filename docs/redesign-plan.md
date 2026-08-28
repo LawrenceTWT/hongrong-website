@@ -4,27 +4,9 @@
 - Planning branch: feature/portfolio-story-redesign
 - Audited base: main at a373a2ce6276a43453496bbd1b91b1547682345e
 - Status: plan approved; implementation is in progress on the feature branch
+- Review decision (2026-08-28): the compact four-section / rectangular project-window experiment is cancelled. Preserve the sticky AI phone sequence while the next organic, vine-led visual direction is researched and discussed before implementation.
 - Product position: AI × WEB × PRODUCT
 - Narrative principle: every layout, motion, and visual element must explain HongRong's growth, work, or decisions. If it only looks impressive, it does not ship.
-
-## 0. Approved homepage refinement (supersedes earlier homepage flow)
-
-The approved review direction compresses the homepage from nine long chapters to four clear sections:
-
-1. HOME — HONG RONG, AI × WEB × PRODUCT, one positioning line, and the real portrait.
-2. SELECTED WORK — two centered project windows in this order: AI Driving Assistant, then Jinhong Foods. Each has one short description and opens its complete case-study page.
-3. CAPABILITIES — icon-led BUILD, CONNECT, THINK, and LEAD evidence without cards or long paragraphs.
-4. CONTACT — one clear CTA, email, contact form, and social links.
-
-Implementation decisions:
-
-- The portrait stays in the Hero. The flip card is replaced by a one-time line-drawing-to-photo reveal using the real image; no loop and an immediate final state for reduced motion.
-- MY JOURNEY, the lost sneaker site, the full AI process, model failures, Jinhong process, USA story, interests, certifications, and What's Next no longer make the homepage a long read.
-- Full AI and Jinhong reasoning remains on their case-study pages.
-- The five approved USA photos and South Dakota/Kaytlin story move to about.html.
-- The floating glass navigation uses scroll position to underline the current homepage section with the same treatment as hover and focus.
-- Résumé and capstone-report download links are removed everywhere. Both PDF files are deleted from the public repository as explicitly approved.
-- This section is authoritative wherever the earlier nine-chapter plan below conflicts with it.
 
 ## 1. Current audit
 
@@ -232,10 +214,11 @@ Content rule for the redesign:
 8. WHAT'S NEXT
 9. CONTACT
 
-Approved homepage navigation:
+Recommended global navigation:
 
-- Home
+- Journey
 - Work
+- Life
 - Skills
 - Contact
 - Language toggle
@@ -246,11 +229,11 @@ On index.html, navigation targets chapter anchors. On inner pages, the same item
 
 | Route | New responsibility |
 |---|---|
-| index.html | Compact product-focused entry: position, two selected projects, capabilities, and contact. |
+| index.html | Canonical story and primary hiring/product narrative. |
 | ai-driving-assistant.html | Full technical/product case study: problem, role, system, prototype, model, failures, fixes, reflection, rebuild plan. |
 | jinhong-foods.html | Full real-client case study: relationship, goal, research, IA, design, build, delivery, maintenance, honest SEO next steps. |
 | work.html | Lightweight project index and entry point to both case studies; no generic principle grid. |
-| about.html | Factual profile, experience, the five-photo South Dakota story, and certifications; no duplicate homepage content or résumé download. |
+| about.html | Compact factual profile, experience, travel context, and certification archive; no duplicate long-form homepage story. |
 | contact.html | Detailed contact form and links; homepage contact remains concise. |
 
 No existing route is removed in the first implementation. This protects bookmarks, GitHub Pages URLs, and search history.
@@ -440,13 +423,13 @@ No interaction may prevent scrolling, hide essential content, or require a mouse
 
 - Glass header, brand, menu, language toggle, and active nav.
 - Footer, contact links, and back-to-top.
-- Portrait framing, local image treatment, and accessible motion foundations.
+- Portrait flip card and tilt variables.
 - Buttons, text links, eyebrow labels, rules, and section padding.
 - Bilingual dictionary and language persistence.
 - IntersectionObserver and requestAnimationFrame infrastructure.
 - Contact mailto form.
 - Static build, development server, and validation scripts.
-- Existing project URLs and external links.
+- Existing project URLs and case-study links.
 
 ### Evolve
 
@@ -482,7 +465,7 @@ Static HTML remains the architecture. No Next.js migration is planned.
 - Jinhong products: jinhong-slicer.webp, jinhong-bone-saw.webp, jinhong-vacuum.webp.
 - Botanical source: botanical-vine.svg.
 - USA story set: usa-badlands.webp, usa-mount-rushmore.webp, usa-kaytlin-work.webp, usa-street-friends.webp, and usa-hiking-friends.webp. The approved order moves from place to work, friendship, and courage.
-- Documents: no downloadable résumé or capstone-report PDF is shipped in the public site.
+- Documents: downloadable résumé and capstone-report PDFs are intentionally not shipped.
 - Fonts: Libre Caslon Condensed, Geist, GenSen Rounded TW, plus licenses.
 - Favicon: assets/favicon.svg.
 
@@ -506,7 +489,7 @@ Static HTML remains the architecture. No Next.js migration is planned.
    Prefer actual screens for parking, GPT/voice, vehicle location, and model output. Existing three screens are enough for an initial story but not all seven requested states.
 
 4. Model evidence
-   Exact six class names, dataset size/split, selected final accuracy, Precision/Recall, and confusion matrix must be verified from source evidence before drawing visuals. Never infer missing values.
+   Exact six class names, dataset size/split, selected final accuracy, Precision/Recall, and confusion matrix. If these are only in the report, verify them from the PDF before drawing visuals. Never infer missing values.
 
 5. Jinhong real screenshots
    Current live desktop homepage, product/category page, product-detail/service page, and at least one mobile capture. The current CSS recreation is not a substitute for the real site.
@@ -571,7 +554,7 @@ Media:
 - Give only the hero/LCP portrait appropriate eager/high priority.
 - Keep the supplied USA photos size-bounded and compressed; add responsive source variants only if visual QA shows a material transfer-size benefit.
 - Avoid autoplay video and oversized full-resolution background images.
-- Do not ship or link the removed résumé and capstone-report PDFs.
+- Keep PDFs downloadable but never preload them.
 
 Motion/runtime:
 
