@@ -279,6 +279,18 @@
     sourceCode: "查看原始碼",
     capstoneProject: "大學畢業專題",
     aiDriverLongSummary: "將導航、語音對話、即時路況與停車位資訊整合到單一駕駛介面的 Android 應用程式。",
+    workRoleLabel: "角色",
+    workAiRole: "團隊組長",
+    workSystemLabel: "系統",
+    workModelLabel: "模型",
+    workTeamLabel: "團隊",
+    workAiTeam: "五人團隊",
+    workScopeLabel: "負責",
+    workJinhongScope: "資訊架構 · UI · 前端",
+    workStackLabel: "技術",
+    workDeliveryLabel: "上線",
+    workNextLabel: "下一步",
+    workJinhongNext: "SEO 基礎",
     throughTheWork: "作品中的原則",
     principlesLabel: "設計原則 — 2026",
     principlesTitle: "每個作品都應該做到的事",
@@ -581,6 +593,59 @@
   const finePointer = window.matchMedia("(pointer: fine)");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+  const homeHashTargets = new Set(["#top", "#about", "#work", "#ai-project", "#jinhong-project", "#contact"]);
+  let homeHashFrame = 0;
+  const syncHomeHashPosition = ({ behavior = "auto", forceTopWithoutHash = false } = {}) => {
+    if (!document.body.classList.contains("fathom-home")) return false;
+    const hash = window.location.hash;
+    if (!hash && !forceTopWithoutHash) return false;
+
+    let top = 0;
+    if (hash && hash !== "#top") {
+      if (!homeHashTargets.has(hash)) return false;
+      const target = document.querySelector(hash);
+      if (!target) return false;
+      top = target.getBoundingClientRect().top + window.scrollY;
+    }
+
+    window.cancelAnimationFrame(homeHashFrame);
+    window.scrollTo({ top: Math.max(0, top), behavior });
+    homeHashFrame = window.requestAnimationFrame(() => {
+      window.ScrollTrigger?.update();
+      updateActiveScrollNav();
+    });
+    return true;
+  };
+
+  document.querySelectorAll('.fathom-home a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const hash = link.getAttribute("href");
+      if (!homeHashTargets.has(hash)) return;
+      event.preventDefault();
+      setMenu(false);
+      if (window.location.hash !== hash) window.history.pushState(null, "", hash);
+      syncHomeHashPosition({ behavior: reducedMotion.matches ? "auto" : "smooth" });
+    });
+  });
+
+  let homeRestoreFrame = 0;
+  const restoreHomeScene = (forceTopWithoutHash = false) => {
+    window.cancelAnimationFrame(homeRestoreFrame);
+    homeRestoreFrame = window.requestAnimationFrame(() => {
+      homeRestoreFrame = window.requestAnimationFrame(() => {
+        syncHomeHashPosition({ behavior: "auto", forceTopWithoutHash });
+        window.ScrollTrigger?.refresh();
+      });
+    });
+  };
+  window.addEventListener("hashchange", () => restoreHomeScene(false));
+  window.addEventListener("popstate", () => restoreHomeScene(!window.location.hash));
+  window.addEventListener("pageshow", (event) => {
+    const navigation = window.performance.getEntriesByType?.("navigation")?.[0];
+    const restored = event.persisted || navigation?.type === "back_forward";
+    restoreHomeScene(restored && !window.location.hash);
+  });
+
   const growthRoute = document.querySelector(".growth-route");
   const growthPath = document.querySelector("[data-growth-path]");
   const growthStart = document.querySelector("[data-story-spine-start]");
@@ -870,16 +935,19 @@
     loader?.classList.add("is-hidden");
     document.body.classList.remove("opening-active");
     window.ScrollTrigger?.refresh();
+    restoreHomeScene(false);
   };
 
   if (loader?.matches("[data-opening]") && window.gsap && !reducedMotion.matches) {
     const gsap = window.gsap;
+    const openingMark = loader.querySelector("[data-opening-mark]");
     const markLetters = loader.querySelectorAll("[data-opening-letter]");
     const titleLines = document.querySelectorAll("[data-opening-line]");
     const portraitLine = document.querySelector("[data-portrait-draw]");
     document.body.classList.add("opening-active");
     openingFailsafe = window.setTimeout(finishOpening, 5000);
-    gsap.set(loader, { animation: "none" });
+    gsap.set(loader, { animation: "none", yPercent: 0, autoAlpha: 1 });
+    if (openingMark) gsap.set(openingMark, { animation: "none" });
     gsap.set(markLetters, { autoAlpha: .001, x: 50, filter: "blur(24px)" });
     gsap.set(titleLines, { yPercent: 112 });
     if (portraitLine) {
@@ -889,17 +957,18 @@
 
     if (visited) {
       gsap.timeline({ onComplete: finishOpening })
-        .to(markLetters, { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: .38, stagger: .025, ease: "power3.out" })
-        .to(loader, { yPercent: -100, duration: .7, ease: "power4.inOut" }, .32)
-        .to(titleLines, { yPercent: 0, duration: .68, stagger: .045, ease: "power3.out" }, .44)
-        .to(portraitLine, { strokeDashoffset: 0, duration: .85, ease: "power2.out" }, .48);
+        .to(markLetters, { autoAlpha: 1, x: 0, y: 0, filter: "blur(0px)", duration: .52, stagger: .035, ease: "power3.out" }, .08)
+        .to(markLetters, { autoAlpha: 0, x: -24, y: -4, filter: "blur(15px)", duration: .46, stagger: .02, ease: "power2.in" }, 1.04)
+        .to(loader, { yPercent: -100, duration: .8, ease: "power4.inOut" }, 1.5)
+        .to(titleLines, { yPercent: 0, duration: .74, stagger: .045, ease: "power3.out" }, 1.68)
+        .to(portraitLine, { strokeDashoffset: 0, duration: .8, ease: "power2.out" }, 1.7);
     } else {
       gsap.timeline({ onComplete: finishOpening })
-        .to(markLetters, { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: .58, stagger: .04, ease: "power3.out" })
-        .to(markLetters, { autoAlpha: 0, x: -30, filter: "blur(16px)", duration: .38, stagger: .018, ease: "power2.in" }, "+=.38")
-        .to(loader, { yPercent: -100, duration: .82, ease: "power4.inOut" }, "-=.24")
-        .to(titleLines, { yPercent: 0, duration: .78, stagger: .06, ease: "power3.out" }, "-=.62")
-        .to(portraitLine, { strokeDashoffset: 0, duration: 1, ease: "power2.out" }, "-=.79");
+        .to(markLetters, { autoAlpha: 1, x: 0, y: 0, filter: "blur(0px)", duration: .68, stagger: .045, ease: "power3.out" }, .16)
+        .to(markLetters, { autoAlpha: 0, x: -28, y: -5, filter: "blur(17px)", duration: .56, stagger: .025, ease: "power2.in" }, 1.45)
+        .to(loader, { yPercent: -100, duration: .92, ease: "power4.inOut" }, 1.98)
+        .to(titleLines, { yPercent: 0, duration: .88, stagger: .06, ease: "power3.out" }, 2.22)
+        .to(portraitLine, { strokeDashoffset: 0, duration: 1.08, ease: "power2.out" }, 2.25);
     }
   } else {
     document.querySelectorAll("[data-opening-line]").forEach((line) => { line.style.transform = "none"; });

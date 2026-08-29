@@ -34,6 +34,16 @@ for (const file of htmlFiles) {
     try { await access(join(root, reference)); }
     catch { errors.push(`${file}: missing local reference ${reference}`); }
   }
+
+  if (file === "index.html") {
+    const aiSteps = [...html.matchAll(/data-ai-step="(\d+)"/g)].map((match) => Number(match[1]));
+    const aiPanels = [...html.matchAll(/data-ai-panel="(\d+)"/g)].map((match) => Number(match[1]));
+    const expectedAiStates = "0,1,2,3,4";
+    if (aiSteps.join(",") !== expectedAiStates) errors.push(`${file}: expected five ordered AI story steps (${expectedAiStates})`);
+    if (aiPanels.join(",") !== expectedAiStates) errors.push(`${file}: expected five ordered AI phone panels (${expectedAiStates})`);
+  } else if (!/<a class="brand transition-link" href="index\.html#top">/.test(html)) {
+    errors.push(`${file}: header brand must return explicitly to index.html#top`);
+  }
 }
 
 const js = await readFile(join(root, "js/main.js"), "utf8");
