@@ -3,10 +3,47 @@
 - Repository: LawrenceTWT/hongrong-website
 - Planning branch: feature/portfolio-story-redesign
 - Audited base: main at a373a2ce6276a43453496bbd1b91b1547682345e
-- Status: plan approved; implementation is in progress on the feature branch
-- Review decision (2026-08-28): the compact four-section / rectangular project-window experiment is cancelled. Preserve the sticky AI phone sequence while the next organic, vine-led visual direction is researched and discussed before implementation.
+- Status: revised Fathom-paced direction approved; implementation is in progress on the feature branch
+- Review decision (2026-08-29): use direction A — a concise, scene-led homepage with reversible Fathom-style Scroll Push, an organic growth path, the preserved sticky AI phone story, an editorial Jinhong chapter, and HongRong's own New Zealand photograph as the final reveal.
 - Product position: AI × WEB × PRODUCT
 - Narrative principle: every layout, motion, and visual element must explain HongRong's growth, work, or decisions. If it only looks impressive, it does not ship.
+
+## Approved implementation addendum — 2026-08-29
+
+This addendum supersedes the original long, nine-chapter homepage proposal below. The detailed audit remains useful; the homepage scope has intentionally become shorter after review.
+
+### Homepage information architecture
+
+1. Opening mark — HongRong®
+2. Hero scene — positioning, concise statement, portrait
+3. About scene — one capability statement and link to the factual profile
+4. Selected Work scene — two project entry points
+5. AI Driving Assistant — preserved sticky phone sequence with seven scroll states
+6. Jinhong Foods — concise real-client editorial case preview
+7. Contact — short direction and direct links
+8. New Zealand landscape — full-bleed closing image photographed by HongRong
+
+Long Journey, USA, skills, certifications, project failure analysis, résumé downloads, and report downloads do not appear on the homepage. Relevant evidence stays on the existing About and case-study routes. The two PDF files are removed from the repository.
+
+### Motion language
+
+- Opening: a short HongRong® focus and upward scene reveal.
+- Hero → About → Selected Work: one 330svh scene sequence with a 100svh sticky viewport. GSAP ScrollTrigger uses `scrub: 0.9`, so scroll position is animation progress and the direction is fully reversible.
+- Primary transition cue: panel position, clipping, and gentle layer-speed differences. Opacity is not the main transition.
+- AI Driving Assistant: keep the existing sticky phone and switch its screen as each story step becomes active; connect the state to a growing inline SVG vine.
+- Jinhong Foods: editorial type and real project imagery, without repeating the AI interaction pattern.
+- Closing: dark contact scene reveals HongRong's Lake Wānaka photograph; the landscape foreground overlaps the large name.
+- Navigation: IntersectionObserver/requestAnimationFrame state logic supplies the current-section underline; it does not drive continuous motion.
+- Reduced motion: remove pinning and transforms, preserve normal reading order, expose all decorative paths, and use immediate state feedback.
+
+### Visual and content rules
+
+- Preserve warm cream, sage, olive, deep forest, charcoal, Libre Caslon Condensed, Geist, and GenSen Rounded TW.
+- The portrait remains a real photograph, integrated through an irregular mask and drawn outline rather than a flip card.
+- Vines appear only where they explain progression: the long-page growth route, About transition, AI phone state, and organic chapter edges.
+- Homepage copy stays brief; detailed process, limitations, and personal history require an intentional click into the relevant route.
+- Use the supplied `assets/images/new-zealand-wanaka.webp` without inventing or replacing the location.
+- Keep the static HTML/CSS/JavaScript architecture. GSAP 3.13 and ScrollTrigger load as deferred scripts; no smooth-scroll hijacking library is added.
 
 ## 1. Current audit
 

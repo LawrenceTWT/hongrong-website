@@ -9,6 +9,23 @@
     navProjects: "專案",
     navLife: "生活",
     navSkills: "技能",
+    homeHeroKicker: "AI × WEB × PRODUCT",
+    homeHeroIntro: "我設計邏輯，再運用 AI、Web 與 API 把它做出來。",
+    homeHeroCta: "查看作品",
+    homeAboutLabel: "01 — 關於我",
+    homeAboutTitle: "我把真實問題，變成<br><em>人們能夠使用的產品。</em>",
+    homeAboutBody: "AI 幫助我理解問題；邏輯、結構與決策仍由我負責。",
+    homeAboutMore: "更多關於我",
+    selectedWorkLabel: "02 — 精選作品",
+    selectedWorkIntro: "兩個作品，都從一個真實問題開始。",
+    homeAiHeading: "一個駕駛情境。<br><em>少一點切換。</em>",
+    homeAiLede: "一個五人專題，把導航、停車、交通資料、語音與 AI 整合在同一個體驗。",
+    homeAiExit: "完整案例會說明我的角色、API 流程、模型限制，以及如果重做我會改進什麼。",
+    homeJinhongLede: "我第一次為真實企業製作的網站，讓食品機械品牌與產品更容易被找到。",
+    homeJinhongNote: "技術支援真實企業需求，但技術本身不是故事。",
+    homeContactTitle: "一起讓<br><em>下一個想法成真。</em>",
+    homeContactBody: "我對 AI 應用、Web 產品，以及從真實使用者問題開始的工作感興趣。",
+    landscapeCaption: "一個值得記住的景色 — 紐西蘭。",
     storyHeroLine: "把想法做成真正有用的數位產品。",
     storyHeroIntro: "我從問題出發，整理邏輯，再運用 AI、Web 與 API，把它做成真正有人能使用的產品。",
     heroProofAi: "團隊組長 · 五人團隊",
@@ -35,19 +52,19 @@
     aiStoryLede: "每天上下課的塞車，加上不斷看見台灣交通事故內容，成為五人畢業專題的起點。",
     teamLabel: "團隊",
     aiStepProblemTitle: "有用的資訊，分散在太多地方。",
-    aiStepProblemBody: "導航、路況攝影機、停車與搜尋存在不同 App。每一次切換都增加摩擦，而駕駛的注意力本來應該留在道路上。",
+    aiStepProblemBody: "每一次切換都增加摩擦，而注意力本來應該留在道路上。",
     aiStepIdeaTitle: "把真正有用的部分，整合成一個行車助手。",
-    aiStepIdeaBody: "這個概念將即時路況、停車資料、導航、車輛位置、GPT 與語音互動，整合在駕駛任務周圍。",
+    aiStepIdeaBody: "導航、停車、路況、車輛位置、GPT 與語音共享同一個情境。",
     aiStepNavigationTitle: "讓路線與需要的情境留在一起。",
-    aiStepNavigationBody: "Google Maps 提供路線情境，助手則把駕駛連接到其他資訊，不必再開啟另一個 App。",
+    aiStepNavigationBody: "路線與所需資訊留在同一個體驗，不必再開啟另一個 App。",
     aiStepParkingTitle: "用自然語言詢問附近停車位。",
-    aiStepParkingBody: "產品概念把語音請求轉成結構化查詢，再連接政府停車開放資料。",
+    aiStepParkingBody: "語音需求轉成結構化查詢，再連接政府停車開放資料。",
     aiStepTrafficTitle: "把交通開放資料變成快速決策。",
-    aiStepTrafficBody: "TDX 資料與路況攝影機畫面協助理解道路狀況，而不是再增加一個原始資料畫面。",
+    aiStepTrafficBody: "TDX 資料與攝影機畫面協助快速理解道路狀況。",
     aiStepAiTitle: "只有連接到系統時，對話才真正有用。",
-    aiStepAiBody: "GPT、語音轉文字與文字轉語音是一層互動介面，而不是整個產品本身。",
+    aiStepAiBody: "GPT、語音轉文字與文字轉語音成為操作介面。",
     aiStepModelTitle: "使用 ResNet-18 分類六種交通流量等級。",
-    aiStepModelBody: "結果具有潛力，但中間車流等級也暴露出資料量小、分布不平均的限制。",
+    aiStepModelBody: "結果約 70–80%，中間車流等級仍較弱。",
     prototypeTitle: "駕駛提出停車需求後，系統發生什麼事？",
     prototypeBody: "這個原型示範預期的系統流程，不會呼叫即時 API。",
     prototypeButton: "尋找附近停車位",
@@ -413,6 +430,7 @@
     splitScrubText(resolved);
     safeStorage.set("hongrong-language", resolved);
     updateScrub();
+    window.requestAnimationFrame(() => window.ScrollTrigger?.refresh());
   };
 
   document.querySelectorAll(".language-toggle").forEach((button) => {
@@ -496,6 +514,24 @@
     if (link.dataset.navPage === currentPage) link.classList.add("is-active");
   });
 
+  const scrollNavLinks = [...document.querySelectorAll("[data-scroll-nav]")];
+  const scrollSections = [...document.querySelectorAll("[data-scroll-section]")];
+  const updateActiveScrollNav = () => {
+    if (!scrollNavLinks.length || !scrollSections.length) return;
+    const marker = window.scrollY + window.innerHeight * .38;
+    let active = "";
+    scrollSections.forEach((section) => {
+      const top = section.getBoundingClientRect().top + window.scrollY;
+      if (top <= marker) active = section.dataset.scrollSection || "";
+    });
+    scrollNavLinks.forEach((link) => {
+      const selected = link.dataset.scrollNav === active;
+      link.classList.toggle("is-active", selected);
+      if (selected) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+  };
+
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -536,7 +572,10 @@
 
   const updateGrowthRoute = () => {
     if (!growthRoute || !growthPath || !growthStart || !growthEnd) return;
-    const start = growthStart.getBoundingClientRect().top + window.scrollY;
+    const sequence = growthStart.closest("[data-scene-sequence]");
+    const start = sequence
+      ? sequence.getBoundingClientRect().top + window.scrollY + window.innerHeight * .55
+      : growthStart.getBoundingClientRect().top + window.scrollY;
     const end = growthEnd.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
     const progress = reducedMotion.matches ? 1 : Math.max(0, Math.min(1, (window.scrollY - start) / Math.max(end - start, 1)));
     growthPath.style.strokeDashoffset = String(growthLength * (1 - progress));
@@ -547,11 +586,26 @@
   const aiSteps = [...document.querySelectorAll("[data-ai-step]")];
   const aiPanels = [...document.querySelectorAll("[data-ai-panel]")];
   const phoneState = document.querySelector("[data-phone-state]");
+  const aiVinePath = document.querySelector("[data-ai-vine-path]");
+  const aiVineLeaves = [...document.querySelectorAll("[data-ai-leaf]")];
+  let aiVineLength = 0;
+  if (aiVinePath) {
+    aiVineLength = aiVinePath.getTotalLength();
+    aiVinePath.style.strokeDasharray = String(aiVineLength);
+    aiVinePath.style.strokeDashoffset = String(aiVineLength);
+  }
   const aiStateNames = ["Problem", "Idea", "Navigation", "Parking", "Traffic", "AI", "Model"];
   const setAiState = (index) => {
     aiSteps.forEach((step) => step.classList.toggle("is-active", Number(step.dataset.aiStep) === index));
     aiPanels.forEach((panel) => panel.classList.toggle("is-active", Number(panel.dataset.aiPanel) === index));
     if (phoneState) phoneState.textContent = aiStateNames[index] || aiStateNames[0];
+    if (aiVinePath) {
+      const progress = reducedMotion.matches ? 1 : Math.max(.06, index / Math.max(aiSteps.length - 1, 1));
+      aiVinePath.style.strokeDashoffset = String(aiVineLength * (1 - progress));
+    }
+    aiVineLeaves.forEach((leaf) => {
+      leaf.classList.toggle("is-grown", reducedMotion.matches || index >= Number(leaf.dataset.aiLeaf || 0));
+    });
   };
   if (aiSteps.length) {
     const aiObserver = new IntersectionObserver((entries) => {
@@ -559,7 +613,77 @@
       if (visible) setAiState(Number(visible.target.dataset.aiStep));
     }, { threshold: [.28, .48, .7], rootMargin: "-25% 0px -35%" });
     aiSteps.forEach((step) => aiObserver.observe(step));
+    setAiState(0);
   }
+
+  const initFathomMotion = () => {
+    const sequence = document.querySelector("[data-scene-sequence]");
+    if (!sequence || !window.gsap || !window.ScrollTrigger) return;
+
+    const gsap = window.gsap;
+    gsap.registerPlugin(window.ScrollTrigger);
+    const motion = gsap.matchMedia();
+
+    motion.add("(min-width: 901px) and (prefers-reduced-motion: no-preference)", () => {
+      const hero = sequence.querySelector('[data-scene-panel="hero"]');
+      const about = sequence.querySelector('[data-scene-panel="about"]');
+      const work = sequence.querySelector('[data-scene-panel="work"]');
+      const heroCopy = hero?.querySelector("[data-scene-copy]");
+      const heroVisual = hero?.querySelector("[data-scene-visual]");
+      const heroMeta = hero?.querySelector("[data-scene-meta]");
+      const aboutCopy = about?.querySelector("[data-scene-copy]");
+      const aboutVisual = about?.querySelector("[data-scene-visual]");
+      const workCopy = work?.querySelector("[data-scene-copy]");
+      const workVisual = work?.querySelector("[data-scene-visual]");
+
+      gsap.set([about, work], { yPercent: 100 });
+      const sceneTimeline = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: sequence,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: .9,
+          invalidateOnRefresh: true
+        }
+      });
+
+      sceneTimeline
+        .to(heroCopy, { yPercent: -13, duration: 1 }, 0)
+        .to(heroVisual, { yPercent: -8, scale: .985, duration: 1 }, 0)
+        .to(heroMeta, { yPercent: -18, duration: 1 }, 0)
+        .to(about, { yPercent: 0, duration: 1 }, .18)
+        .fromTo(aboutCopy, { yPercent: 5 }, { yPercent: -7, duration: 1.22 }, .35)
+        .to(aboutVisual, { yPercent: -4, duration: 1.05 }, .53)
+        .to(about, { yPercent: -16, duration: 1 }, 1.18)
+        .to(work, { yPercent: 0, duration: 1 }, 1.18)
+        .fromTo(workCopy, { yPercent: 5 }, { yPercent: -4, duration: 1 }, 1.2)
+        .fromTo(workVisual, { yPercent: 7 }, { yPercent: -2, duration: 1 }, 1.25);
+
+      const landscape = document.querySelector("[data-landscape-scene]");
+      if (landscape) {
+        const landscapeImages = landscape.querySelectorAll(".landscape-base, .landscape-foreground img");
+        gsap.fromTo(landscapeImages, { scale: 1.07 }, {
+          scale: 1,
+          ease: "none",
+          scrollTrigger: { trigger: landscape, start: "top bottom", end: "bottom bottom", scrub: .9 }
+        });
+        gsap.fromTo(landscape.querySelector(".landscape-word"), { yPercent: 24 }, {
+          yPercent: -5,
+          ease: "none",
+          scrollTrigger: { trigger: landscape, start: "top bottom", end: "bottom bottom", scrub: .9 }
+        });
+      }
+
+      return () => {
+        sceneTimeline.scrollTrigger?.kill();
+        sceneTimeline.kill();
+        gsap.set([hero, about, work, heroCopy, heroVisual, heroMeta, aboutCopy, aboutVisual, workCopy, workVisual], { clearProps: "transform" });
+      };
+    });
+
+    window.ScrollTrigger.refresh();
+  };
 
   const prototypeButton = document.querySelector("[data-prototype-start]");
   const prototypeFlow = document.querySelector(".prototype-flow");
@@ -650,6 +774,7 @@
   let ticking = false;
   const updateScrollEffects = () => {
     header?.classList.toggle("is-scrolled", window.scrollY > 18);
+    updateActiveScrollNav();
     updateScrub();
     updateGrowthRoute();
     parallaxItems.forEach((element) => {
@@ -676,6 +801,7 @@
   reducedMotion.addEventListener?.("change", updateScrollEffects);
   finePointer.addEventListener?.("change", updateScrollEffects);
   updateScrollEffects();
+  initFathomMotion();
 
   document.querySelectorAll(".back-to-top").forEach((button) => {
     button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
@@ -713,6 +839,40 @@
     visited = sessionStorage.getItem("hongrong-visited") === "yes";
     sessionStorage.setItem("hongrong-visited", "yes");
   } catch { /* file protocol privacy mode */ }
-  const loaderDelay = reducedMotion.matches ? 0 : (visited ? 120 : 560);
-  window.setTimeout(() => loader?.classList.add("is-hidden"), loaderDelay);
+
+  const finishOpening = () => {
+    loader?.classList.add("is-hidden");
+    document.body.classList.remove("opening-active");
+    window.ScrollTrigger?.refresh();
+  };
+
+  if (loader?.matches("[data-opening]") && window.gsap && !reducedMotion.matches) {
+    const gsap = window.gsap;
+    const mark = loader.querySelector("[data-opening-mark]");
+    const titleLines = document.querySelectorAll("[data-opening-line]");
+    const portraitLine = document.querySelector("[data-portrait-draw]");
+    document.body.classList.add("opening-active");
+    gsap.set(titleLines, { yPercent: 112 });
+    if (portraitLine) {
+      const portraitLength = portraitLine.getTotalLength();
+      gsap.set(portraitLine, { strokeDasharray: portraitLength, strokeDashoffset: portraitLength });
+    }
+
+    if (visited) {
+      gsap.timeline({ onComplete: finishOpening })
+        .to(loader, { yPercent: -100, duration: .62, ease: "power3.inOut" }, .08)
+        .to(titleLines, { yPercent: 0, duration: .68, stagger: .045, ease: "power3.out" }, .2)
+        .to(portraitLine, { strokeDashoffset: 0, duration: .85, ease: "power2.out" }, .24);
+    } else {
+      gsap.timeline({ onComplete: finishOpening })
+        .fromTo(mark, { autoAlpha: 0, y: 22, filter: "blur(9px)" }, { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: .78, ease: "power3.out" })
+        .to(mark, { autoAlpha: 0, y: -18, duration: .42, ease: "power2.in" }, "+=.55")
+        .to(loader, { yPercent: -100, duration: .92, ease: "power3.inOut" }, "-=.18")
+        .to(titleLines, { yPercent: 0, duration: .82, stagger: .07, ease: "power3.out" }, "-=.64")
+        .to(portraitLine, { strokeDashoffset: 0, duration: 1.05, ease: "power2.out" }, "-=.82");
+    }
+  } else {
+    document.querySelectorAll("[data-opening-line]").forEach((line) => { line.style.transform = "none"; });
+    if (loader) window.setTimeout(finishOpening, reducedMotion.matches ? 0 : 420);
+  }
 })();
