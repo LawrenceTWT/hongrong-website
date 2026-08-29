@@ -2626,6 +2626,12 @@ body[data-lang="zh"].fathom-home .final-contact h2 { max-width: 10em; font-size:
 .about-story-page .about-usa .usa-collage,
 .about-story-page .about-usa .usa-field-notes,
 .about-story-page .about-usa .courage-statement { position: relative; z-index: 1; }
+.about-story-page .usa-photo-slot.reveal {
+  opacity: 1;
+  clip-path: none;
+}
+.about-story-page .usa-photo-slot.reveal .usa-photo-media { scale: 1.018; transition: scale .9s var(--ease-out); }
+.about-story-page .usa-photo-slot.reveal.is-visible .usa-photo-media { scale: 1; }
 
 .about-story-page .about-outside { position: relative; overflow: clip; }
 .about-story-page .about-outside::before {

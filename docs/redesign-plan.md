@@ -559,7 +559,7 @@ Static HTML remains the architecture. No Next.js migration is planned.
 - Add global focus-visible styles.
 - Make the menu trap focus while open or use inert on the page behind it; return focus to the menu button on close.
 - Give accordions/disclosures stable ids and aria-controls where retained.
-- Keep portrait flip and prototype actions as real buttons with current-state labels.
+- Keep the portrait as non-essential visual content with accurate alt text; only the prototype remains an interactive control with a current-state label.
 - Provide hover, focus, and tap parity for skill mappings.
 - Make sticky screen changes available as normal figures for screen readers and mobile users.
 - Give flow/model graphics an adjacent text description or table.
@@ -579,8 +579,7 @@ Static HTML remains the architecture. No Next.js migration is planned.
 Architecture decision:
 
 - Keep the static HTML/CSS/JavaScript site.
-- Use no framework migration and no animation library by default.
-- Prefer CSS, IntersectionObserver, requestAnimationFrame, and Web Animations API only where necessary.
+- Use no framework migration. Keep GSAP and ScrollTrigger local and limited to the approved reversible scene-push sequence; use CSS, IntersectionObserver, and requestAnimationFrame for the remaining motion.
 - Progressive enhancement: all story content and links work before JavaScript.
 
 Media:
@@ -591,7 +590,7 @@ Media:
 - Give only the hero/LCP portrait appropriate eager/high priority.
 - Keep the supplied USA photos size-bounded and compressed; add responsive source variants only if visual QA shows a material transfer-size benefit.
 - Avoid autoplay video and oversized full-resolution background images.
-- Keep PDFs downloadable but never preload them.
+- The résumé and capstone-report downloads are intentionally removed from both the interface and repository.
 
 Motion/runtime:
 
@@ -611,7 +610,7 @@ Quality targets, not claims:
 - No horizontal overflow at the QA widths.
 - Technical SEO foundations only; never claim “SEO 100” or “fully optimized.”
 
-SEO foundation to implement in a later phase:
+SEO foundation implemented or retained:
 
 - Unique title and meta description for every route.
 - Canonical URL.
@@ -620,7 +619,7 @@ SEO foundation to implement in a later phase:
 - Descriptive alt text.
 - robots.txt.
 - sitemap.xml.
-- Person, WebSite, and project/CreativeWork structured data where accurate.
+- Person structured data on the homepage; project/CreativeWork schemas remain a later accuracy pass.
 - Stable internal links between story chapters and case studies.
 
 ## 10. Selective design-method application
@@ -638,7 +637,7 @@ Motion decisions resulting from this filter:
 
 - Keep SVG vine growth because it expresses the chronological growth path.
 - Keep the sticky AI phone because state changes explain the product flow.
-- Keep the portrait flip as deliberate user feedback, but shorten it to roughly half a second.
+- Present the portrait as an irregular, hand-drawn editorial frame; do not add a flip interaction without a new narrative reason.
 - Keep a restrained USA photo reveal and fine-pointer parallax because they support the change of place and emotional tone.
 - Reduce magnetic CTA movement so it reads as feedback rather than a trick.
 - Remove the global cursor orb, particles, scroll hijacking, universal showy reveals, and decorative loops.
@@ -650,7 +649,7 @@ The plan is approved. Every implementation phase remains isolated on feature/por
 ### Phase 0 — Content and asset lock
 
 - Confirm hero line and public wording.
-- Import and verify the approved USA set; leave New Zealand, certification, and OG assets as explicit follow-up requirements until real source material is supplied.
+- Import and verify the approved USA set and the supplied New Zealand / Wānaka landscape.
 - Verify AI model metrics and six class labels.
 - Record the confirmed permission to show the group photos and name Kaytlin.
 - Create a content matrix for English and Traditional Chinese.
@@ -668,11 +667,12 @@ Commit intent: content and asset inventory only.
 
 Commit intent: foundation; no complex storytelling animation.
 
-### Phase 2 — Homepage narrative skeleton
+### Phase 2 — Concise homepage narrative skeleton
 
-- Reorder index.html into the nine approved chapters.
+- Keep index.html focused on Opening, Hero, a short About statement, Selected Work, the AI sticky story, Jinhong, Contact, and the New Zealand landscape.
+- Move Journey, USA, Outside the Screen, detailed skills, and certifications to about.html.
 - Establish semantic source order and bilingual copy.
-- Retain portrait flip with the new CURRENTLY content.
+- Retain the portrait in an irregular drawn frame without a flip interaction.
 - Remove/demote generic capabilities, process, and repetitive project-principle blocks.
 - Keep every chapter readable without JavaScript.
 
@@ -750,3 +750,23 @@ Commit intent: release candidate only.
 - Use small, phase-based commits so each major change has a recoverable point.
 - Do not open or merge a final PR until the implementation is ready for review.
 - Any material change to story facts, model metrics, client claims, public names, or asset privacy requires confirmation.
+
+## 12. Current implementation split
+
+The approved content boundary is now:
+
+| Route | Purpose | Content density |
+|---|---|---|
+| index.html | Fast positioning and selected-work experience | Concise; AI sticky phone is the only extended homepage story |
+| about.html | Personal journey, South Dakota, Kaytlin, New Zealand, interests, and evidence-linked skills | Long-form editorial child page led by real photography |
+| work.html | Two-project index | AI Driving Assistant first, Jinhong Foods second; generic principle cards removed |
+| ai-driving-assistant.html | Technical/product evidence | Role, API flow, simulated prototype, model limitations, fixes, and rebuild ideas |
+| jinhong-foods.html | Real-client evidence | Research, IA, product decisions, build, deployment, maintenance, and honest SEO next steps |
+
+Implementation notes:
+
+- The five supplied USA images are public on about.html; Kaytlin remains named with confirmed permission.
+- The supplied New Zealand / Wānaka landscape appears on about.html and in the homepage final reveal.
+- USA photos remain visible if motion or IntersectionObserver fails; reveal motion is enhancement only.
+- Case-study return links target the current homepage anchors: #ai-project and #jinhong-project.
+- The feature branch and Draft PR remain the review surface. main stays unchanged until explicit merge approval.
