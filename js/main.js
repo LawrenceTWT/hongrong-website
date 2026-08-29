@@ -841,7 +841,9 @@
     sessionStorage.setItem("hongrong-visited", "yes");
   } catch { /* file protocol privacy mode */ }
 
+  let openingFailsafe = 0;
   const finishOpening = () => {
+    if (openingFailsafe) window.clearTimeout(openingFailsafe);
     loader?.classList.add("is-hidden");
     document.body.classList.remove("opening-active");
     window.ScrollTrigger?.refresh();
@@ -853,6 +855,7 @@
     const titleLines = document.querySelectorAll("[data-opening-line]");
     const portraitLine = document.querySelector("[data-portrait-draw]");
     document.body.classList.add("opening-active");
+    openingFailsafe = window.setTimeout(finishOpening, 5000);
     gsap.set(loader, { animation: "none" });
     gsap.set(titleLines, { yPercent: 112 });
     if (portraitLine) {
