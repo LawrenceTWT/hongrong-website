@@ -43,7 +43,7 @@ Long Journey, USA, skills, certifications, project failure analysis, résumé do
 - Vines appear only where they explain progression: the long-page growth route, About transition, AI phone state, and organic chapter edges.
 - Homepage copy stays brief; detailed process, limitations, and personal history require an intentional click into the relevant route.
 - Use the supplied `assets/images/new-zealand-wanaka.webp` without inventing or replacing the location.
-- Keep the static HTML/CSS/JavaScript architecture. GSAP 3.13 and ScrollTrigger load as deferred scripts; no smooth-scroll hijacking library is added.
+- Keep the static HTML/CSS/JavaScript architecture. GSAP 3.13 and ScrollTrigger are stored locally and load as deferred scripts; no smooth-scroll hijacking library is added.
 
 ## 1. Current audit
 
