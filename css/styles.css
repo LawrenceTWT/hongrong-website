@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 40171)
+Total output lines: 2719
+
 @font-face { font-family: "Libre Caslon Condensed"; src: url("../assets/fonts/libre-caslon-condensed-regular.woff2") format("woff2"); font-style: normal; font-weight: 400; font-display: swap; }
 @font-face { font-family: "Libre Caslon Condensed"; src: url("../assets/fonts/libre-caslon-condensed-italic.woff2") format("woff2"); font-style: italic; font-weight: 400; font-display: swap; }
 @font-face { font-family: "Libre Caslon Condensed"; src: url("../assets/fonts/libre-caslon-condensed-medium.woff2") format("woff2"); font-style: normal; font-weight: 500; font-display: swap; }
@@ -1044,14 +1047,7 @@ textarea:focus-visible { outline: 2px solid var(--olive); outline-offset: 4px; }
 .model-fix { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(50px, 8vw, 120px); margin-top: 90px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,.18); }
 .conversion-pipe { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .conversion-pipe span { padding: 13px 18px; border: 1px solid rgba(170,179,154,.35); border-radius: 999px; color: var(--sage); font-size: 11px; letter-spacing: .12em; }
-.conversion-pipe i { color: rgba(255,255,255,.35); font-style: normal; }
-.model-fix ul { border-top: 1px solid rgba(255,255,255,.18); }
-.model-fix li { padding: 17px 0; border-bottom: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.65); }
-.rebuild-future { width: min(100%, var(--story-max)); margin-inline: auto; padding-top: 40px; padding-bottom: clamp(130px, 15vw, 230px); }
-.rebuild-future ul { margin-top: 42px; border-top: 1px solid rgba(255,255,255,.18); }
-.rebuild-future li { display: grid; grid-template-columns: 90px 1fr; gap: 30px; padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,.18); }
-.rebuild-future li span { color: rgba(255,255,255,.35); }
-.rebuild-future li strong { font-family: var(--serif); font-size: clamp(30px, 3.5vw, 52px); font-weight: 400; }
+.conversion-pipe i { color: rgba(255,255,255,.35); font-style: nor…171 tokens truncated…mp(30px, 3.5vw, 52px); font-weight: 400; }
 .story-case-link { margin-top: 45px; color: var(--sage); }
 
 .jinhong-story { padding-top: clamp(140px, 15vw, 230px); padding-bottom: clamp(140px, 15vw, 230px); background: var(--paper); }
@@ -2630,6 +2626,10 @@ body[data-lang="zh"].fathom-home .final-contact h2 { max-width: 10em; font-size:
   opacity: 1;
   clip-path: none;
 }
+.about-story-page .usa-photo-media { z-index: 1; }
+.about-story-page .usa-photo-slot::after { z-index: 2; }
+.about-story-page .usa-photo-meta,
+.about-story-page .usa-photo-slot figcaption { z-index: 3; }
 .about-story-page .usa-photo-slot.reveal .usa-photo-media { scale: 1.018; transition: scale .9s var(--ease-out); }
 .about-story-page .usa-photo-slot.reveal.is-visible .usa-photo-media { scale: 1; }
 
