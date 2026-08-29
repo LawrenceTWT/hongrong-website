@@ -1738,7 +1738,7 @@ html.motion-ready .fathom-home .work-panel { transform: none; }
 .hero-scene-copy {
   position: relative;
   z-index: 3;
-  grid-column: 1 / 8;
+  grid-column: 1 / 9;
   align-self: center;
   padding-top: 3vh;
 }
@@ -1746,7 +1746,7 @@ html.motion-ready .fathom-home .work-panel { transform: none; }
   max-width: none;
   margin-top: clamp(21px, 3vh, 42px);
   font-family: var(--serif);
-  font-size: clamp(78px, 8.2vw, 148px);
+  font-size: clamp(76px, 7.5vw, 132px);
   font-weight: 400;
   line-height: .94;
   letter-spacing: -.038em;
@@ -2354,12 +2354,12 @@ body[data-lang="zh"].fathom-home .final-contact h2 {
   font-family: var(--zh), var(--sans);
   letter-spacing: .035em;
 }
-body[data-lang="zh"].fathom-home .hero-scene-copy h1 { max-width: 8em; font-size: clamp(62px, 7vw, 112px); line-height: 1.16; }
+body[data-lang="zh"].fathom-home .hero-scene-copy h1 { max-width: 9em; font-size: clamp(54px, 6vw, 92px); line-height: 1.18; }
 body[data-lang="zh"].fathom-home .about-scene h2 { max-width: 10em; font-size: clamp(58px, 6.5vw, 104px); line-height: 1.16; }
 body[data-lang="zh"].fathom-home .work-scene h2 { max-width: 8em; font-size: clamp(60px, 6.8vw, 105px); line-height: 1.18; letter-spacing: .05em; }
 body[data-lang="zh"].fathom-home .fathom-ai h2 { max-width: 9em; font-size: clamp(62px, 7vw, 112px); line-height: 1.13; }
 body[data-lang="zh"].fathom-home .ai-step h3 { max-width: 11em; font-size: clamp(37px, 3.8vw, 61px); line-height: 1.24; }
-body[data-lang="zh"].fathom-home .jinhong-feature-copy h2 { max-width: 11em; font-size: clamp(44px, 4.8vw, 72px); line-height: 1.22; letter-spacing: .045em; }
+body[data-lang="zh"].fathom-home .jinhong-feature-copy h2 { max-width: 11em; font-size: clamp(40px, 3.7vw, 58px); line-height: 1.24; letter-spacing: .045em; }
 body[data-lang="zh"].fathom-home .final-contact h2 { max-width: 10em; font-size: clamp(60px, 7vw, 112px); line-height: 1.13; }
 
 @media (max-width: 1180px) {

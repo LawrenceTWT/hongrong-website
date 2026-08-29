@@ -11,7 +11,7 @@
     navSkills: "技能",
     homeHeroKicker: "AI × WEB × PRODUCT",
     homeHeroTitleOne: "把想法變成",
-    homeHeroTitleTwo: "真正<em>有用的體驗。</em>",
+    homeHeroTitleTwo: "真正<em>有用的產品。</em>",
     homeHeroIntro: "我設計邏輯，再運用 AI、Web 與 API 把它做出來。",
     homeHeroCta: "查看作品",
     homeAboutLabel: "01 — 關於我",
