@@ -1738,7 +1738,8 @@ html.motion-ready .fathom-home .work-panel { transform: none; }
 .hero-scene-copy {
   position: relative;
   z-index: 3;
-  grid-column: 1 / 9;
+  grid-column: 1 / 10;
+  grid-row: 1;
   align-self: center;
   padding-top: 3vh;
 }
@@ -1746,7 +1747,7 @@ html.motion-ready .fathom-home .work-panel { transform: none; }
   max-width: none;
   margin-top: clamp(21px, 3vh, 42px);
   font-family: var(--serif);
-  font-size: clamp(76px, 7.5vw, 132px);
+  font-size: clamp(70px, 5.7vw, 82px);
   font-weight: 400;
   line-height: .94;
   letter-spacing: -.038em;
@@ -1781,7 +1782,8 @@ html.motion-ready .fathom-home .work-panel { transform: none; }
 .hero-art {
   position: relative;
   z-index: 2;
-  grid-column: 8 / 13;
+  grid-column: 9 / 13;
+  grid-row: 1;
   justify-self: end;
   width: min(100%, 530px);
   height: min(76svh, 720px);
@@ -2363,9 +2365,9 @@ body[data-lang="zh"].fathom-home .jinhong-feature-copy h2 { max-width: 11em; fon
 body[data-lang="zh"].fathom-home .final-contact h2 { max-width: 10em; font-size: clamp(60px, 7vw, 112px); line-height: 1.13; }
 
 @media (max-width: 1180px) {
-  .hero-scene-copy { grid-column: 1 / 8; }
-  .hero-scene-copy h1 { font-size: clamp(70px, 8.4vw, 104px); }
-  .hero-art { grid-column: 8 / 13; width: min(100%, 440px); }
+  .hero-scene-copy { grid-column: 1 / 10; }
+  .hero-scene-copy h1 { font-size: clamp(64px, 6.5vw, 74px); }
+  .hero-art { grid-column: 9 / 13; width: min(100%, 440px); }
   .work-scene h2 { grid-column: 1 / 7; font-size: clamp(82px, 10.2vw, 136px); }
   .work-branches { grid-column: 7 / 13; }
   .fathom-home .ai-scroll-layout { grid-template-columns: minmax(0, 1fr) minmax(310px, .66fr); gap: 60px; }
@@ -2391,7 +2393,7 @@ body[data-lang="zh"].fathom-home .final-contact h2 { max-width: 10em; font-size:
 
   .hero-scene { padding-top: calc(var(--header-h) + 9vh); padding-bottom: 6vh; }
   .hero-scene-copy { grid-column: 1 / 9; align-self: start; padding-top: 10vh; }
-  .hero-scene-copy h1 { font-size: clamp(70px, 12.8vw, 112px); }
+  .hero-scene-copy h1 { font-size: clamp(52px, 6.2vw, 56px); }
   .hero-art { grid-column: 8 / 13; align-self: end; width: min(100%, 360px); height: min(62svh, 620px); margin-bottom: 2vh; opacity: .94; }
   .hero-scene-index { bottom: 3vh; }
   .hero-scene::before { right: 8%; bottom: -16%; width: 72%; }
