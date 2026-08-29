@@ -28,7 +28,7 @@ Long Journey, USA, skills, certifications, project failure analysis, résumé do
 ### Motion language
 
 - Opening: a short HongRong® focus and upward scene reveal.
-- Hero → About → Selected Work: one 330svh scene sequence with a 100svh sticky viewport. GSAP ScrollTrigger uses `scrub: 0.9`, so scroll position is animation progress and the direction is fully reversible.
+- Hero → About → Selected Work: one 330svh scene sequence with a 100svh sticky viewport. GSAP ScrollTrigger uses `scrub: true`, so scroll position is animation progress, reverse scrolling responds immediately, and the direction is fully reversible.
 - Primary transition cue: panel position, clipping, and gentle layer-speed differences. Opacity is not the main transition.
 - AI Driving Assistant: keep the existing sticky phone and switch real PPTX-derived screens in this order: login → remaining parking spaces → navigation → live traffic classification → saved vehicle location. Connect the state to a growing inline SVG vine.
 - Jinhong Foods: editorial type and real project imagery, without repeating the AI interaction pattern.
