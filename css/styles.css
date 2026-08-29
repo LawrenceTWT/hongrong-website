@@ -1565,6 +1565,7 @@ body[data-lang="zh"].case-deep .client-next-heading h2 { line-height: 1.2; lette
     #121b15;
   transition: visibility 0s .05s;
   will-change: transform;
+  animation: fathom-opening-fallback 1s 2.2s var(--ease-in-out) forwards;
 }
 .fathom-home .fathom-opening::before {
   content: "";
@@ -1578,6 +1579,10 @@ body[data-lang="zh"].case-deep .client-next-heading h2 { line-height: 1.2; lette
 .fathom-home .fathom-opening.is-hidden {
   visibility: hidden;
   pointer-events: none;
+  animation: none;
+}
+@keyframes fathom-opening-fallback {
+  to { visibility: hidden; transform: translate3d(0, -101%, 0); }
 }
 .opening-mark {
   font-family: var(--serif);
@@ -1651,6 +1656,8 @@ body[data-lang="zh"].case-deep .client-next-heading h2 { line-height: 1.2; lette
     #f2eee3;
   transform: translate3d(0, 100%, 0);
 }
+html.motion-ready .fathom-home .about-panel,
+html.motion-ready .fathom-home .work-panel { transform: none; }
 .sequence-anchor {
   position: absolute;
   left: 0;

@@ -622,6 +622,7 @@
 
     const gsap = window.gsap;
     gsap.registerPlugin(window.ScrollTrigger);
+    document.documentElement.classList.add("motion-ready");
     const motion = gsap.matchMedia();
 
     motion.add("(min-width: 901px) and (prefers-reduced-motion: no-preference)", () => {
@@ -852,6 +853,7 @@
     const titleLines = document.querySelectorAll("[data-opening-line]");
     const portraitLine = document.querySelector("[data-portrait-draw]");
     document.body.classList.add("opening-active");
+    gsap.set(loader, { animation: "none" });
     gsap.set(titleLines, { yPercent: 112 });
     if (portraitLine) {
       const portraitLength = portraitLine.getTotalLength();
