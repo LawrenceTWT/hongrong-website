@@ -73,6 +73,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .section-pad { width: 100%; margin-inline: auto; padding-inline: var(--page-pad); }
 main, section, footer, header, main > *, .section-pad > * { min-width: 0; }
+main { overflow-x: clip; }
 
 .loader {
   position: fixed;
@@ -1754,7 +1755,7 @@ html.motion-ready .fathom-home .work-panel { transform: none; }
 }
 .hero-scene-copy h1 em { color: var(--forest); font-weight: 400; }
 .title-mask { display: block; overflow: hidden; padding-bottom: .06em; }
-.title-mask > span { display: block; will-change: transform; }
+.title-mask > span { display: block; width: max-content; max-width: 100%; will-change: transform; }
 .hero-scene-intro {
   max-width: 450px;
   margin-top: clamp(27px, 4vh, 46px);
