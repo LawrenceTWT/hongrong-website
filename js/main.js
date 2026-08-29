@@ -10,6 +10,8 @@
     navLife: "生活",
     navSkills: "技能",
     homeHeroKicker: "AI × WEB × PRODUCT",
+    homeHeroTitleOne: "把想法變成",
+    homeHeroTitleTwo: "真正<em>有用的體驗。</em>",
     homeHeroIntro: "我設計邏輯，再運用 AI、Web 與 API 把它做出來。",
     homeHeroCta: "查看作品",
     homeAboutLabel: "01 — 關於我",
@@ -17,12 +19,14 @@
     homeAboutBody: "AI 幫助我理解問題；邏輯、結構與決策仍由我負責。",
     homeAboutMore: "更多關於我",
     selectedWorkLabel: "02 — 精選作品",
+    selectedWorkTitle: "<span>精選</span><em>作品。</em>",
     selectedWorkIntro: "兩個作品，都從一個真實問題開始。",
     homeAiHeading: "一個駕駛情境。<br><em>少一點切換。</em>",
     homeAiLede: "一個五人專題，把導航、停車、交通資料、語音與 AI 整合在同一個體驗。",
     homeAiExit: "完整案例會說明我的角色、API 流程、模型限制，以及如果重做我會改進什麼。",
+    homeJinhongTitle: "一位真實客戶。<br><em>一個更清楚的數位入口。</em>",
     homeJinhongLede: "我第一次為真實企業製作的網站，讓食品機械品牌與產品更容易被找到。",
-    homeJinhongNote: "技術支援真實企業需求，但技術本身不是故事。",
+    homeJinhongNote: "把真實企業需求，轉化成更清楚的品牌與產品入口。",
     homeContactTitle: "一起讓<br><em>下一個想法成真。</em>",
     homeContactBody: "我對 AI 應用、Web 產品，以及從真實使用者問題開始的工作感興趣。",
     landscapeCaption: "一個值得記住的景色 — 紐西蘭。",
@@ -51,20 +55,16 @@
     aiStoryHeading: "一個我每天都會遇到的<br><em>問題。</em>",
     aiStoryLede: "每天上下課的塞車，加上不斷看見台灣交通事故內容，成為五人畢業專題的起點。",
     teamLabel: "團隊",
-    aiStepProblemTitle: "有用的資訊，分散在太多地方。",
-    aiStepProblemBody: "每一次切換都增加摩擦，而注意力本來應該留在道路上。",
-    aiStepIdeaTitle: "把真正有用的部分，整合成一個行車助手。",
-    aiStepIdeaBody: "導航、停車、路況、車輛位置、GPT 與語音共享同一個情境。",
-    aiStepNavigationTitle: "讓路線與需要的情境留在一起。",
-    aiStepNavigationBody: "路線與所需資訊留在同一個體驗，不必再開啟另一個 App。",
-    aiStepParkingTitle: "用自然語言詢問附近停車位。",
-    aiStepParkingBody: "語音需求轉成結構化查詢，再連接政府停車開放資料。",
-    aiStepTrafficTitle: "把交通開放資料變成快速決策。",
-    aiStepTrafficBody: "TDX 資料與攝影機畫面協助快速理解道路狀況。",
-    aiStepAiTitle: "只有連接到系統時，對話才真正有用。",
-    aiStepAiBody: "GPT、語音轉文字與文字轉語音成為操作介面。",
-    aiStepModelTitle: "使用 ResNet-18 分類六種交通流量等級。",
-    aiStepModelBody: "結果約 70–80%，中間車流等級仍較弱。",
+    aiStepLoginTitle: "從同一個行車助手開始。",
+    aiStepLoginBody: "登入一次，讓駕駛需要的工具留在同一個操作情境裡。",
+    aiStepParkingTitle: "查詢一個區域，直接看到剩餘車位。",
+    aiStepParkingBody: "系統把需求連接到停車開放資料，再回傳可使用的停車位數量。",
+    aiStepNavigationTitle: "把選定地點直接變成導航路線。",
+    aiStepNavigationBody: "目的地接續進入導航，不需要離開目前的駕駛情境。",
+    aiStepTrafficTitle: "在抵達前，先看懂即時道路狀況。",
+    aiStepTrafficBody: "TDX 攝影機畫面搭配車流模型，協助判斷目前道路的車流程度。",
+    aiStepVehicleTitle: "記住車子停放的位置。",
+    aiStepVehicleBody: "儲存停車定位，需要時再回到同一個位置，不必只依靠記憶。",
     prototypeTitle: "駕駛提出停車需求後，系統發生什麼事？",
     prototypeBody: "這個原型示範預期的系統流程，不會呼叫即時 API。",
     prototypeButton: "尋找附近停車位",
@@ -406,18 +406,41 @@
     button.querySelector(".portrait-back")?.setAttribute("aria-hidden", String(!flipped));
   };
 
+  let languageRefreshFrame = 0;
+  let languageRefreshTimer = 0;
+  const scheduleLanguageLayoutRefresh = () => {
+    window.cancelAnimationFrame(languageRefreshFrame);
+    window.clearTimeout(languageRefreshTimer);
+
+    languageRefreshFrame = window.requestAnimationFrame(() => {
+      languageRefreshFrame = window.requestAnimationFrame(() => {
+        document.documentElement.classList.remove("language-updating");
+        document.querySelectorAll(".language-toggle").forEach((button) => {
+          button.removeAttribute("aria-busy");
+        });
+
+        languageRefreshTimer = window.setTimeout(() => {
+          if (document.querySelector(".scroll-story")) updateScrub();
+          window.ScrollTrigger?.refresh();
+        }, 80);
+      });
+    });
+  };
+
   const applyLanguage = (language) => {
     const resolved = language === "zh" ? "zh" : "en";
+    document.documentElement.classList.add("language-updating");
     document.documentElement.lang = resolved === "zh" ? "zh-Hant" : "en";
     document.body.dataset.lang = resolved;
 
     elements.forEach((element) => {
       const key = element.dataset.i18n;
-      if (resolved === "zh" && zh[key]) element.innerHTML = zh[key];
-      if (resolved === "en") element.innerHTML = element.dataset.enHtml;
+      const nextHtml = resolved === "zh" && zh[key] ? zh[key] : element.dataset.enHtml;
+      if (element.innerHTML !== nextHtml) element.innerHTML = nextHtml;
     });
 
     document.querySelectorAll(".language-toggle").forEach((button) => {
+      button.setAttribute("aria-busy", "true");
       button.textContent = resolved === "zh" ? "EN" : "中文";
       button.setAttribute("aria-label", resolved === "zh" ? "Switch to English" : "切換至繁體中文");
     });
@@ -430,8 +453,7 @@
 
     splitScrubText(resolved);
     safeStorage.set("hongrong-language", resolved);
-    updateScrub();
-    window.requestAnimationFrame(() => window.ScrollTrigger?.refresh());
+    scheduleLanguageLayoutRefresh();
   };
 
   document.querySelectorAll(".language-toggle").forEach((button) => {
@@ -595,7 +617,7 @@
     aiVinePath.style.strokeDasharray = String(aiVineLength);
     aiVinePath.style.strokeDashoffset = String(aiVineLength);
   }
-  const aiStateNames = ["Problem", "Idea", "Navigation", "Parking", "Traffic", "AI", "Model"];
+  const aiStateNames = ["Login", "Parking", "Navigation", "Live traffic", "Vehicle location"];
   const setAiState = (index) => {
     aiSteps.forEach((step) => step.classList.toggle("is-active", Number(step.dataset.aiStep) === index));
     aiPanels.forEach((panel) => panel.classList.toggle("is-active", Number(panel.dataset.aiPanel) === index));
@@ -605,7 +627,7 @@
       aiVinePath.style.strokeDashoffset = String(aiVineLength * (1 - progress));
     }
     aiVineLeaves.forEach((leaf) => {
-      leaf.classList.toggle("is-grown", reducedMotion.matches || index >= Number(leaf.dataset.aiLeaf || 0));
+      leaf.classList.toggle("is-grown", reducedMotion.matches || index >= Number(leaf.dataset.aiLeaf || 1) - 1);
     });
   };
   if (aiSteps.length) {
@@ -645,7 +667,7 @@
           trigger: sequence,
           start: "top top",
           end: "bottom bottom",
-          scrub: .9,
+          scrub: true,
           invalidateOnRefresh: true
         }
       });
@@ -852,12 +874,13 @@
 
   if (loader?.matches("[data-opening]") && window.gsap && !reducedMotion.matches) {
     const gsap = window.gsap;
-    const mark = loader.querySelector("[data-opening-mark]");
+    const markLetters = loader.querySelectorAll("[data-opening-letter]");
     const titleLines = document.querySelectorAll("[data-opening-line]");
     const portraitLine = document.querySelector("[data-portrait-draw]");
     document.body.classList.add("opening-active");
     openingFailsafe = window.setTimeout(finishOpening, 5000);
     gsap.set(loader, { animation: "none" });
+    gsap.set(markLetters, { autoAlpha: .001, x: 50, filter: "blur(24px)" });
     gsap.set(titleLines, { yPercent: 112 });
     if (portraitLine) {
       const portraitLength = portraitLine.getTotalLength();
@@ -866,16 +889,17 @@
 
     if (visited) {
       gsap.timeline({ onComplete: finishOpening })
-        .to(loader, { yPercent: -100, duration: .62, ease: "power3.inOut" }, .08)
-        .to(titleLines, { yPercent: 0, duration: .68, stagger: .045, ease: "power3.out" }, .2)
-        .to(portraitLine, { strokeDashoffset: 0, duration: .85, ease: "power2.out" }, .24);
+        .to(markLetters, { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: .38, stagger: .025, ease: "power3.out" })
+        .to(loader, { yPercent: -100, duration: .7, ease: "power4.inOut" }, .32)
+        .to(titleLines, { yPercent: 0, duration: .68, stagger: .045, ease: "power3.out" }, .44)
+        .to(portraitLine, { strokeDashoffset: 0, duration: .85, ease: "power2.out" }, .48);
     } else {
       gsap.timeline({ onComplete: finishOpening })
-        .fromTo(mark, { autoAlpha: 0, y: 22, filter: "blur(9px)" }, { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: .78, ease: "power3.out" })
-        .to(mark, { autoAlpha: 0, y: -18, duration: .42, ease: "power2.in" }, "+=.55")
-        .to(loader, { yPercent: -100, duration: .92, ease: "power3.inOut" }, "-=.18")
-        .to(titleLines, { yPercent: 0, duration: .82, stagger: .07, ease: "power3.out" }, "-=.64")
-        .to(portraitLine, { strokeDashoffset: 0, duration: 1.05, ease: "power2.out" }, "-=.82");
+        .to(markLetters, { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: .58, stagger: .04, ease: "power3.out" })
+        .to(markLetters, { autoAlpha: 0, x: -30, filter: "blur(16px)", duration: .38, stagger: .018, ease: "power2.in" }, "+=.38")
+        .to(loader, { yPercent: -100, duration: .82, ease: "power4.inOut" }, "-=.24")
+        .to(titleLines, { yPercent: 0, duration: .78, stagger: .06, ease: "power3.out" }, "-=.62")
+        .to(portraitLine, { strokeDashoffset: 0, duration: 1, ease: "power2.out" }, "-=.79");
     }
   } else {
     document.querySelectorAll("[data-opening-line]").forEach((line) => { line.style.transform = "none"; });

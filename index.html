@@ -14,6 +14,7 @@
   <title>HongRong — AI × Web × Product</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/libre-caslon-condensed-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/gensen-rounded-tw-regular.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="assets/images/hongrong-portrait.webp" as="image" type="image/webp">
   <link rel="stylesheet" href="css/styles.css">
   <script src="assets/vendor/gsap.min.js" defer></script>
@@ -38,7 +39,9 @@
   <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
 
   <div class="loader fathom-opening" data-opening aria-hidden="true">
-    <div class="opening-mark" data-opening-mark>HongRong<sup>®</sup></div>
+    <div class="opening-mark" data-opening-mark aria-label="HongRong">
+      <span class="opening-word" aria-hidden="true"><span data-opening-letter>H</span><span data-opening-letter>o</span><span data-opening-letter>n</span><span data-opening-letter>g</span><span class="opening-italic"><span data-opening-letter>R</span><span data-opening-letter>o</span><span data-opening-letter>n</span><span data-opening-letter>g</span><sup data-opening-letter>®</sup></span></span>
+    </div>
   </div>
 
   <header class="site-header story-header" data-site-header>
@@ -84,7 +87,7 @@
         <div class="hero-scene section-pad">
           <div class="hero-scene-copy" data-scene-copy>
             <p class="scene-kicker" data-i18n="homeHeroKicker">AI × WEB × PRODUCT</p>
-            <h1 aria-label="Ideas into useful experiences"><span class="title-mask"><span data-opening-line>IDEAS INTO</span></span><span class="title-mask"><span data-opening-line>USEFUL <em>EXPERIENCES.</em></span></span></h1>
+            <h1 aria-label="Ideas into useful experiences"><span class="title-mask"><span data-opening-line data-i18n="homeHeroTitleOne">IDEAS INTO</span></span><span class="title-mask"><span data-opening-line data-i18n="homeHeroTitleTwo">USEFUL <em>EXPERIENCES.</em></span></span></h1>
             <p class="hero-scene-intro" data-i18n="homeHeroIntro">I design the logic and build with AI, web, and APIs.</p>
             <a class="scene-arrow" href="#work"><span data-i18n="homeHeroCta">See the work</span><span aria-hidden="true">↘</span></a>
           </div>
@@ -117,7 +120,7 @@
       <section class="scene-panel work-panel" data-scene-panel="work">
         <div class="work-scene section-pad">
           <p class="scene-index" data-i18n="selectedWorkLabel">02 — SELECTED WORK</p>
-          <h2 data-scene-copy><span>SELECTED</span><em>WORK.</em></h2>
+          <h2 data-scene-copy data-i18n="selectedWorkTitle"><span>SELECTED</span><em>WORK.</em></h2>
           <p class="work-scene-intro" data-i18n="selectedWorkIntro">Two projects, each shaped by a real problem.</p>
           <nav class="work-branches" aria-label="Selected projects" data-scene-visual>
             <a href="#ai-project"><span>01</span><strong>AI DRIVING ASSISTANT</strong><small>AI / API / ANDROID</small></a>
@@ -146,27 +149,23 @@
 
       <div class="ai-scroll-layout section-pad">
         <div class="ai-steps">
-          <article class="ai-step is-active" data-ai-step="0"><span>01 / PROBLEM</span><h3 data-i18n="aiStepProblemTitle">Useful information lived in too many places.</h3><p data-i18n="aiStepProblemBody">Every app switch added friction while attention should stay on the road.</p></article>
-          <article class="ai-step" data-ai-step="1"><span>02 / IDEA</span><h3 data-i18n="aiStepIdeaTitle">Bring the useful parts into one assistant.</h3><p data-i18n="aiStepIdeaBody">Navigation, parking, traffic, vehicle location, GPT, and voice shared one context.</p></article>
-          <article class="ai-step" data-ai-step="2"><span>03 / NAVIGATION</span><h3 data-i18n="aiStepNavigationTitle">Keep the route and context together.</h3><p data-i18n="aiStepNavigationBody">The driver could stay inside one experience instead of opening another app.</p></article>
-          <article class="ai-step" data-ai-step="3"><span>04 / PARKING</span><h3 data-i18n="aiStepParkingTitle">Ask for nearby parking naturally.</h3><p data-i18n="aiStepParkingBody">A voice request became a structured query for government open data.</p></article>
-          <article class="ai-step" data-ai-step="4"><span>05 / TRAFFIC</span><h3 data-i18n="aiStepTrafficTitle">Turn open data into a quick decision.</h3><p data-i18n="aiStepTrafficBody">TDX data and camera imagery made road conditions easier to understand.</p></article>
-          <article class="ai-step" data-ai-step="5"><span>06 / AI</span><h3 data-i18n="aiStepAiTitle">Conversation mattered when connected.</h3><p data-i18n="aiStepAiBody">GPT, speech-to-text, and text-to-speech became an interface layer.</p></article>
-          <article class="ai-step" data-ai-step="6"><span>07 / MODEL</span><h3 data-i18n="aiStepModelTitle">ResNet-18 classified six traffic levels.</h3><p data-i18n="aiStepModelBody">The experiment reached roughly 70–80%, with weaker middle classes.</p></article>
+          <article class="ai-step is-active" data-ai-step="0"><span>01 / LOGIN</span><h3 data-i18n="aiStepLoginTitle">Start from one driving assistant.</h3><p data-i18n="aiStepLoginBody">Sign in once, then keep the useful driving tools inside the same experience.</p></article>
+          <article class="ai-step" data-ai-step="1"><span>02 / PARKING</span><h3 data-i18n="aiStepParkingTitle">Ask an area. See the spaces that remain.</h3><p data-i18n="aiStepParkingBody">The assistant connects the request to open parking data and returns available spaces.</p></article>
+          <article class="ai-step" data-ai-step="2"><span>03 / NAVIGATION</span><h3 data-i18n="aiStepNavigationTitle">Turn the selected place into a route.</h3><p data-i18n="aiStepNavigationBody">The destination moves directly into navigation without breaking the driving context.</p></article>
+          <article class="ai-step" data-ai-step="3"><span>04 / LIVE TRAFFIC</span><h3 data-i18n="aiStepTrafficTitle">Read the road before reaching it.</h3><p data-i18n="aiStepTrafficBody">TDX camera imagery and the traffic model help classify the current flow.</p></article>
+          <article class="ai-step" data-ai-step="4"><span>05 / VEHICLE LOCATION</span><h3 data-i18n="aiStepVehicleTitle">Remember where the car was left.</h3><p data-i18n="aiStepVehicleBody">Save a parking position and return to it later instead of relying on memory.</p></article>
         </div>
 
         <div class="phone-story" aria-live="polite">
           <svg class="ai-phone-vine" viewBox="0 0 540 1040" aria-hidden="true"><path data-ai-vine-path d="M46 1003C14 895 119 836 69 725C25 626 137 548 84 442C41 357 135 265 105 167C89 113 103 68 147 27"/><g data-ai-leaf="1" transform="translate(76 832) rotate(-25)"><path d="M0 0C-28-25-55-12-52 20C-27 26-9 17 0 0Z"/></g><g data-ai-leaf="2" transform="translate(82 686) rotate(35)"><path d="M0 0C27-29 56-15 55 18C30 27 10 18 0 0Z"/></g><g data-ai-leaf="3" transform="translate(88 526) rotate(-30)"><path d="M0 0C-29-27-57-13-54 21C-28 27-10 18 0 0Z"/></g><g data-ai-leaf="4" transform="translate(101 359) rotate(32)"><path d="M0 0C27-29 55-15 55 18C30 27 10 18 0 0Z"/></g><g data-ai-leaf="5" transform="translate(113 191) rotate(-28)"><path d="M0 0C-28-26-56-13-53 20C-28 26-10 17 0 0Z"/></g></svg>
-          <div class="phone-device"><div class="phone-status"><span>09:31</span><span>AI DRIVER</span><span>●</span></div>
-            <div class="phone-panel is-active" data-ai-panel="0"><div class="phone-problem-grid"><span>MAPS</span><span>PARKING</span><span>TRAFFIC</span><span>SEARCH</span></div><p>4 APPS<br><strong>1 DRIVER</strong></p></div>
-            <div class="phone-panel phone-idea-panel" data-ai-panel="1"><small>ONE DRIVING CONTEXT</small><div class="idea-radar"><i></i><span>AI</span></div><ul><li>Navigation</li><li>Parking</li><li>Traffic</li><li>Voice</li></ul></div>
-            <div class="phone-panel phone-image-panel" data-ai-panel="2"><img src="assets/images/ai-driver-map.jpg" width="519" height="1090" loading="lazy" decoding="async" alt="AI Driving Assistant navigation screen"><span class="phone-screen-label">NAVIGATION</span></div>
-            <div class="phone-panel phone-parking-panel" data-ai-panel="3"><small>VOICE REQUEST</small><blockquote>“Find parking nearby.”</blockquote><div class="parking-result"><span>P</span><div><strong>Central Parking</strong><small>42 spaces · 0.8 km</small></div></div><div class="parking-result"><span>P</span><div><strong>Station Parking</strong><small>18 spaces · 1.2 km</small></div></div></div>
-            <div class="phone-panel phone-image-panel" data-ai-panel="4"><img src="assets/images/ai-driver-traffic.jpg" width="470" height="933" loading="lazy" decoding="async" alt="AI Driving Assistant traffic information screen"><span class="phone-screen-label">TRAFFIC / TDX</span></div>
-            <div class="phone-panel phone-image-panel" data-ai-panel="5"><img src="assets/images/ai-driver-home.jpg" width="520" height="1080" loading="lazy" decoding="async" alt="AI Driving Assistant voice and GPT home screen"><span class="phone-screen-label">GPT / STT / TTS</span></div>
-            <div class="phone-panel phone-model-panel" data-ai-panel="6"><small>RESNET-18 / 6 LEVELS</small><div class="traffic-levels" aria-label="Six traffic classification levels with weaker middle classes"><span style="--level:.9">L1</span><span style="--level:.76">L2</span><span class="is-weak" style="--level:.54">L3</span><span class="is-weak" style="--level:.58">L4</span><span style="--level:.74">L5</span><span style="--level:.86">L6</span></div><p>EXPERIMENT RANGE<br><strong>≈ 70–80%</strong></p></div>
+          <div class="phone-device">
+            <div class="phone-panel phone-image-panel is-active" data-ai-panel="0"><img src="assets/images/ai-screen-login.webp" width="520" height="1080" loading="lazy" decoding="async" alt="AI Driving Assistant login screen"><span class="phone-screen-label">LOGIN</span></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="1"><img src="assets/images/ai-screen-parking.webp" width="370" height="796" loading="lazy" decoding="async" alt="AI Driving Assistant showing remaining parking spaces in Wenshan District"><span class="phone-screen-label">PARKING / OPEN DATA</span></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="2"><img src="assets/images/ai-screen-navigation.webp" width="525" height="1166" loading="lazy" decoding="async" alt="AI Driving Assistant navigation route screen"><span class="phone-screen-label">NAVIGATION</span></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="3"><img src="assets/images/ai-screen-traffic.webp" width="470" height="1043" loading="lazy" decoding="async" alt="AI Driving Assistant showing a Linkou traffic camera and classified traffic flow"><span class="phone-screen-label">TRAFFIC / TDX / RESNET</span></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="4"><img src="assets/images/ai-screen-vehicle-location.webp" width="434" height="964" loading="lazy" decoding="async" alt="AI Driving Assistant screen for saving a parked vehicle location"><span class="phone-screen-label">VEHICLE LOCATION</span></div>
           </div>
-          <p class="phone-state-label"><span data-phone-state>Problem</span><small>SCROLL STORY</small></p>
+          <p class="phone-state-label"><span data-phone-state>Login</span><small>SCROLL STORY / REAL SCREENS</small></p>
         </div>
       </div>
 
@@ -175,23 +174,22 @@
 
     <section class="jinhong-editorial" id="jinhong-project" data-scroll-section="work">
       <div class="organic-transition organic-transition-light" aria-hidden="true"></div>
-      <header class="jinhong-editorial-heading section-pad reveal">
-        <p class="story-index">PROJECT 02 — REAL CLIENT</p>
-        <h2>JIN HONG<br><em>FOODS.</em></h2>
-        <p data-i18n="homeJinhongLede">My first website for a real business — built to make a food-machinery brand and its products easier to discover.</p>
-      </header>
-
-      <div class="jinhong-stage section-pad">
-        <p class="jinhong-side-note">RESEARCH / IA / UI / FRONTEND / RWD</p>
-        <a class="jinhong-browser-story reveal" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer" aria-label="Visit the live Jinhong Foods website">
+      <header class="jinhong-section-head section-pad reveal"><p class="story-index">PROJECT 02 — REAL CLIENT</p><span>/ 02 / ©</span></header>
+      <div class="jinhong-feature section-pad">
+        <div class="jinhong-feature-visual reveal">
+          <a class="jinhong-browser-story" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer" aria-label="Visit the live Jinhong Foods website">
           <div class="browser-story-bar"><span></span><span></span><span></span><strong>jinhong-foods.lucky1228.workers.dev</strong><small data-i18n="liveWebsite">Live website</small></div>
           <div class="browser-story-page"><div class="browser-story-nav"><b>金虹食品</b><span>產品介紹　關於我們　服務維修　聯絡我們</span></div><div class="browser-story-hero"><small>FOOD MACHINERY / TAIWAN</small><h3>讓每一道加工流程<br>更穩定、更有效率</h3><p>專業食品加工設備</p></div><div class="browser-product-row"><figure><img src="assets/images/jinhong-slicer.webp" width="276" height="447" loading="lazy" decoding="async" alt="Jinhong automatic meat slicer"><figcaption>全自動切片機</figcaption></figure><figure><img src="assets/images/jinhong-bone-saw.webp" width="1019" height="1543" loading="lazy" decoding="async" alt="Jinhong high-speed bone saw"><figcaption>高速鋸骨機</figcaption></figure><figure><img src="assets/images/jinhong-vacuum.webp" width="440" height="283" loading="lazy" decoding="async" alt="Jinhong double-chamber vacuum packing machine"><figcaption>真空包裝機</figcaption></figure></div></div>
-        </a>
-      </div>
-
-      <div class="jinhong-summary section-pad reveal">
-        <dl><div><dt>ROLE</dt><dd>RESEARCH / DESIGN / BUILD</dd></div><div><dt>STACK</dt><dd>REACT / TYPESCRIPT</dd></div><div><dt>NEXT</dt><dd>SEO / SEARCH CONSOLE / STRUCTURED DATA</dd></div></dl>
-        <div><p data-i18n="homeJinhongNote">Technology supported a real company need; it was never the story by itself.</p><div class="jinhong-actions"><a class="text-link transition-link" href="jinhong-foods.html"><span data-i18n="viewCaseStudy">View case study</span><span>↗</span></a><a class="text-link" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer"><span data-i18n="visitLiveSite">Visit live site</span><span>↗</span></a></div></div>
+          </a>
+          <p class="jinhong-feature-note" data-i18n="homeJinhongNote">A real business need, translated into a clearer digital storefront.</p>
+        </div>
+        <div class="jinhong-feature-copy reveal">
+          <p class="jinhong-project-number"><span>02</span> JIN HONG FOODS / 2026</p>
+          <h2 data-i18n="homeJinhongTitle">A real client.<br><em>A clearer digital presence.</em></h2>
+          <p data-i18n="homeJinhongLede">My first website for a real business — built to make a food-machinery brand and its products easier to discover.</p>
+          <dl><div><dt>ROLE</dt><dd>RESEARCH / DESIGN / BUILD</dd></div><div><dt>STACK</dt><dd>REACT / TYPESCRIPT</dd></div><div><dt>NEXT</dt><dd>SEO / SEARCH CONSOLE</dd></div></dl>
+          <div class="jinhong-actions"><a class="text-link transition-link" href="jinhong-foods.html"><span data-i18n="viewCaseStudy">View case study</span><span>↗</span></a><a class="text-link" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer"><span data-i18n="visitLiveSite">Visit live site</span><span>↗</span></a></div>
+        </div>
       </div>
     </section>
 
