@@ -2244,8 +2244,8 @@ html.motion-ready .fathom-home .work-panel { transform: none; }
 }
 .landscape-word {
   position: absolute;
-  top: 43%;
-  left: 50%;
+  top: 36%;
+  left: 0;
   z-index: 2;
   width: 100%;
   color: rgba(245, 241, 230, .94);
@@ -2254,7 +2254,7 @@ html.motion-ready .fathom-home .work-panel { transform: none; }
   line-height: .72;
   text-align: center;
   letter-spacing: -.055em;
-  transform: translate(-50%, -50%);
+  transform: none;
   will-change: transform;
 }
 .landscape-foreground {
@@ -2476,7 +2476,7 @@ body[data-lang="zh"].fathom-home .final-contact h2 { max-width: 10em; font-size:
   .landscape-scene { height: 82svh; min-height: 610px; }
   .landscape-base,
   .landscape-foreground img { object-position: 51% 52%; }
-  .landscape-word { top: 45%; font-size: clamp(88px, 27vw, 125px); }
+  .landscape-word { top: 39%; font-size: clamp(88px, 27vw, 125px); }
   .landscape-caption { max-width: 210px; line-height: 1.45; }
 }
 
