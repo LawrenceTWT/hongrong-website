@@ -41,7 +41,13 @@ for (const file of htmlFiles) {
     const expectedAiStates = "0,1,2,3,4";
     if (aiSteps.join(",") !== expectedAiStates) errors.push(`${file}: expected five ordered AI story steps (${expectedAiStates})`);
     if (aiPanels.join(",") !== expectedAiStates) errors.push(`${file}: expected five ordered AI phone panels (${expectedAiStates})`);
-  } else if (!/<a class="brand transition-link" href="index\.html#top">/.test(html)) {
+  }
+  if (file === "about.html") {
+    const usaSlides = [...html.matchAll(/data-usa-slide\b/g)];
+    if (usaSlides.length !== 5) errors.push(`${file}: expected exactly five USA carousel slides`);
+    if (!/data-usa-carousel-prev/.test(html) || !/data-usa-carousel-next/.test(html)) errors.push(`${file}: USA carousel controls are missing`);
+  }
+  if (file !== "index.html" && !/<a class="brand transition-link" href="index\.html#top">/.test(html)) {
     errors.push(`${file}: header brand must return explicitly to index.html#top`);
   }
 }
@@ -50,6 +56,11 @@ const js = await readFile(join(root, "js/main.js"), "utf8");
 const zhKeys = new Set([...js.matchAll(/^\s{4}([A-Za-z][A-Za-z0-9]*):/gm)].map((match) => match[1]));
 for (const key of translationKeys) {
   if (!zhKeys.has(key)) errors.push(`Missing Traditional Chinese copy: ${key}`);
+}
+const zhBlock = js.slice(js.indexOf("const zh = {"), js.indexOf("\n  };", js.indexOf("const zh = {")));
+for (const match of zhBlock.matchAll(/^\s{4}([A-Za-z][A-Za-z0-9]*):\s*"((?:\\.|[^"])*)"/gm)) {
+  const visibleCopy = match[2].replace(/<[^>]+>/g, "").trim().replace(/[」』】）》]+$/, "");
+  if (visibleCopy.endsWith("。")) errors.push(`Traditional Chinese copy ends with a full stop: ${match[1]}`);
 }
 
 const css = await readFile(join(root, "css/styles.css"), "utf8");

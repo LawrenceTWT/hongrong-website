@@ -436,7 +436,7 @@ Purpose: give the visitor a clear next action after the story resolves.
 | Prototype | Inline flow diagram and one button | Demonstrates system logic and feedback, not a live API | Button reveals a readable ordered flow; no animation dependency |
 | Model failures | Data-shaped bands, class spectrum, conversion path, and verified matrix | Makes limitations and engineering recovery scannable | Becomes stacked lists/tables with text equivalents |
 | Jinhong | Full-width real browser imagery with editorial steps around it | Gives the real client work visual authority | Browser crop becomes a scrollable/stacked image with captions |
-| USA | Temporary deep-forest chapter with full-bleed editorial collage | Signals a different environment and emotional chapter | Overlap collapses; photo order follows the story |
+| USA | Temporary deep-forest chapter with a large editorial carousel | Signals a different environment and emotional chapter without showing all five photographs at once | Manual controls, keyboard arrows, touch scrolling, and visible next-slide affordance |
 | Outside screen | Irregular photo/word composition | Shows personality without icon cards | Becomes a curated vertical photo essay |
 | Skills | Four typographic lanes with project mapping | Connects capabilities to evidence | Focus/tap disclosure list |
 | Certifications | Low-height horizontal rail | Preserves proof without competing with projects | Wraps or becomes native horizontal overflow |
@@ -456,7 +456,7 @@ Absolute positioning is limited to vines, masks, overlap, labels, and special vi
 | Parking prototype | Shows the real data/AI chain | User-triggered deterministic demo; visibly labeled prototype | Ordered list always available |
 | Model visual | Explains weak middle classes and conversion mismatch | Verified chart/table/diagram; no invented values | Accessible table and prose |
 | Jinhong browser reveal | Lets real work replace a synthetic mockup | Responsive picture elements and restrained mask reveal | Full screenshots remain visible |
-| USA collage parallax | Adds depth to an emotional/environmental shift | Small transform on visible media only | Static editorial collage |
+| USA photo carousel | Lets each real photograph carry one moment of the story | Native scroll snap with previous/next buttons, dots, keyboard control, and no autoplay | Same ordered photo rail with instant movement |
 | Skills mapping | Proves where each skill was used | Hover + focus + tap state | Always-visible project labels on small screens |
 | Magnetic CTA | Provides optional final feedback | Fine pointer only, small radius, no navigation delay | Normal button |
 | Page transitions | Smooths movement to case studies | Reuse existing light fade only if it does not block | Immediate navigation |
@@ -647,7 +647,7 @@ Motion decisions resulting from this filter:
 - Keep SVG vine growth because it expresses the chronological growth path.
 - Keep the sticky AI phone because state changes explain the product flow.
 - Present the portrait as an irregular, hand-drawn editorial frame; do not add a flip interaction without a new narrative reason.
-- Keep a restrained USA photo reveal and fine-pointer parallax because they support the change of place and emotional tone.
+- Keep the USA carousel manual and reversible. Do not autoplay or add parallax that competes with the photographs.
 - Reduce magnetic CTA movement so it reads as feedback rather than a trick.
 - Remove the global cursor orb, particles, scroll hijacking, universal showy reveals, and decorative loops.
 
@@ -720,7 +720,7 @@ Commit intent: real stakeholder/client story.
 ### Phase 6 — USA and Outside the Screen
 
 - Build the deep-forest/full-bleed USA chapter from the approved five photos.
-- Create editorial collage and restrained parallax.
+- Create a manual editorial carousel with one dominant photograph and a partial preview of the next.
 - Add SSN, daily English, Kaytlin, culture, friends, travel, and courage outcome.
 - Build the nature/travel/interest chapter with New Zealand and personal imagery.
 - Collapse overlaps into normal flow on mobile.
@@ -776,6 +776,6 @@ Implementation notes:
 
 - The five supplied USA images are public on about.html; Kaytlin remains named with confirmed permission.
 - The supplied New Zealand / Wānaka landscape appears on about.html and in the homepage final reveal.
-- USA photos remain visible if motion or IntersectionObserver fails; reveal motion is enhancement only.
+- USA photos remain horizontally scrollable if JavaScript fails; buttons, dots, and active-state styling are enhancements only.
 - Case-study return links target the current homepage anchors: #ai-project and #jinhong-project.
 - The feature branch and Draft PR remain the review surface. main stays unchanged until explicit merge approval.
