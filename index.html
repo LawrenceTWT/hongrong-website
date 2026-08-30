@@ -3,287 +3,212 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="HongRong is a web developer in Taichung, Taiwan, building thoughtful websites, AI integrations, and useful digital products.">
-  <meta name="theme-color" content="#ebe7da">
-  <title>HongRong — Web Developer</title>
+  <meta name="description" content="HongRong designs and builds useful digital products with AI, web technology, APIs, and product thinking.">
+  <meta name="theme-color" content="#191816">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="HongRong — AI × Web × Product">
+  <meta property="og:description" content="Selected work in AI applications, web products, and real-world digital experiences.">
+  <meta property="og:url" content="https://lawrencetwt.github.io/hongrong-website/">
+  <meta property="og:image" content="https://lawrencetwt.github.io/hongrong-website/assets/images/hongrong-canyon.webp">
+  <link rel="canonical" href="https://lawrencetwt.github.io/hongrong-website/">
+  <title>HongRong — AI × Web × Product</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/libre-caslon-condensed-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/gensen-rounded-tw-regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="assets/images/hongrong-portrait.webp" as="image" type="image/webp">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="js/main.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "HongRong",
+    "url": "https://lawrencetwt.github.io/hongrong-website/",
+    "homeLocation": { "@type": "Place", "name": "Taichung, Taiwan" },
+    "sameAs": [
+      "https://github.com/LawrenceTWT",
+      "https://www.instagram.com/lawrence31_/"
+    ],
+    "knowsAbout": ["Web Development", "AI Applications", "Product Development", "REST APIs", "Android"]
+  }
+  </script>
 </head>
-<body data-page="home">
-  <div class="loader" aria-hidden="true">
-    <div class="loader-mark">HongRong<sup>®</sup></div>
-    <div class="loader-line"><span></span></div>
+<body data-page="home" class="story-home fathom-home">
+  <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
+
+  <div class="loader fathom-opening" data-opening aria-hidden="true">
+    <div class="opening-mark" data-opening-mark aria-label="HongRong">
+      <span class="opening-word" aria-hidden="true"><span data-opening-letter>H</span><span data-opening-letter>o</span><span data-opening-letter>n</span><span data-opening-letter>g</span><span class="opening-italic"><span data-opening-letter>R</span><span data-opening-letter>o</span><span data-opening-letter>n</span><span data-opening-letter>g</span><sup data-opening-letter>®</sup></span></span>
+    </div>
   </div>
 
-  <div class="cursor-orb" aria-hidden="true"></div>
-
-  <header class="site-header">
-    <a class="brand transition-link" href="index.html" aria-label="HongRong home">HongRong<sup>®</sup></a>
-    <div class="availability" aria-label="Availability and local time">
-      <span class="status-dot"></span>
-      <span data-i18n="availability">Available — Taichung</span>
-      <span class="availability-separator">/</span>
-      <span data-i18n="localTime">Local Time:</span>
-      <time class="local-time">--:--:--</time>
-    </div>
-    <nav class="desktop-nav" aria-label="Primary navigation">
-      <a class="transition-link" href="about.html" data-nav-page="about" data-i18n="navAbout">About</a>
-      <a class="transition-link" href="work.html" data-nav-page="work" data-i18n="navWork">Work</a>
-      <a class="transition-link" href="contact.html" data-nav-page="contact" data-i18n="navContact">Contact</a>
+  <header class="site-header story-header" data-site-header>
+    <a class="brand" href="#top" aria-label="HongRong home">HongRong<sup>®</sup></a>
+    <nav class="desktop-nav story-nav" aria-label="Primary navigation">
+      <a href="#about" data-scroll-nav="about" data-i18n="navAbout">About</a>
+      <a href="#work" data-scroll-nav="work" data-i18n="navWork">Work</a>
+      <a href="#contact" data-scroll-nav="contact" data-i18n="navContact">Contact</a>
     </nav>
     <div class="header-actions">
       <button class="language-toggle" type="button" aria-label="Switch language">中文</button>
-      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span>
-      </button>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
     </div>
   </header>
 
-  <div class="menu-panel" aria-hidden="true">
+  <div class="menu-panel story-menu" aria-hidden="true">
     <nav aria-label="Mobile navigation">
-      <span class="menu-index">/ 01 /</span><a class="transition-link" href="index.html" data-i18n="navHome">Home</a>
-      <span class="menu-index">/ 02 /</span><a class="transition-link" href="about.html" data-i18n="navAbout">About</a>
-      <span class="menu-index">/ 03 /</span><a class="transition-link" href="work.html" data-i18n="navWork">Work</a>
-      <span class="menu-index">/ 04 /</span><a class="transition-link" href="contact.html" data-i18n="navContact">Contact</a>
+      <span class="menu-index">/ 01 /</span><a href="#about" data-scroll-nav="about" data-i18n="navAbout">About</a>
+      <span class="menu-index">/ 02 /</span><a href="#work" data-scroll-nav="work" data-i18n="navWork">Work</a>
+      <span class="menu-index">/ 03 /</span><a href="#contact" data-scroll-nav="contact" data-i18n="navContact">Contact</a>
     </nav>
-    <div class="menu-panel-footer">
-      <a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a>
-      <a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a>
-    </div>
+    <div class="menu-panel-footer"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div>
   </div>
 
-  <main>
-    <section class="hero home-hero section-pad">
-      <div class="hero-copy reveal">
-        <p class="eyebrow" data-i18n="heroEyebrow">Web developer — Taiwan</p>
-        <h1><span data-i18n="heroHello">Hi! I'm HongRong.</span><span class="hero-title-line"><span data-i18n="heroTitle">I build digital experiences with</span> <em data-i18n="heroTitleEm">clarity &amp; character.</em></span></h1>
-        <p class="hero-intro" data-i18n="heroIntro">Web developer based in Taiwan, crafting responsive websites and thoughtful interactions.</p>
-        <div class="hero-actions">
-          <a class="button button-dark transition-link" href="contact.html" data-i18n="letsTalk">Let's talk</a>
-          <a class="text-link transition-link" href="work.html"><span data-i18n="seeWork">See my work</span><span aria-hidden="true">→</span></a>
-        </div>
-        <div class="hero-stat">
-          <strong>2025</strong>
-          <span data-i18n="heroStat">Information Management<br>graduate</span>
-        </div>
-      </div>
-      <figure class="hero-portrait reveal" data-tilt-card>
-        <div class="portrait-backplate" aria-hidden="true"></div>
-        <div class="portrait-orbit" aria-hidden="true"></div>
-        <button class="portrait-frame" type="button" data-portrait-flip aria-pressed="false" aria-label="Flip portrait card">
-          <span class="portrait-card-inner">
-            <span class="portrait-face portrait-front">
-              <img src="assets/images/hongrong-portrait.png" alt="HongRong by the sea under a blue sky">
-              <span class="portrait-shine" aria-hidden="true"></span>
-              <span class="portrait-flip-hint"><span data-i18n="flipHint">Flip card</span><span aria-hidden="true">↻</span></span>
-            </span>
-            <span class="portrait-face portrait-back" aria-hidden="true">
-              <span class="portrait-back-index">HR / PROFILE 01</span>
-              <span class="portrait-back-mark" aria-hidden="true">HR</span>
-              <span class="portrait-back-copy"><strong>HongRong</strong><span data-i18n="flipRole">Web Developer</span><small>Taichung, Taiwan</small></span>
-              <span class="portrait-back-return"><span data-i18n="flipBack">Back to portrait</span><span aria-hidden="true">↺</span></span>
-            </span>
-          </span>
-        </button>
-        <span class="portrait-code portrait-code-top" aria-hidden="true">HR / 01</span>
-        <figcaption><span>Taichung, Taiwan</span><span>24.1477° N</span></figcaption>
-      </figure>
-      <div class="hero-monogram" aria-hidden="true">HR</div>
-    </section>
+  <div class="growth-route" aria-hidden="true">
+    <svg viewBox="0 0 104 820" role="presentation">
+      <path class="growth-route-shadow" d="M78 814C24 739 85 666 46 586C13 518 84 453 49 377C17 308 82 245 51 174C32 130 31 80 46 8"/>
+      <path class="growth-route-stem" data-growth-path d="M78 814C24 739 85 666 46 586C13 518 84 453 49 377C17 308 82 245 51 174C32 130 31 80 46 8"/>
+      <g class="growth-leaf" data-growth-threshold="0.12" transform="translate(51 700) rotate(-25)"><path d="M0 0C-23-18-42-6-40 18C-20 20-7 13 0 0Z"/><path d="M0 0-28 14"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.28" transform="translate(53 575) rotate(32)"><path d="M0 0C22-23 44-13 44 12C24 19 8 12 0 0Z"/><path d="M0 0 31 9"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.48" transform="translate(50 421) rotate(-34)"><path d="M0 0C-23-21-44-9-43 15C-22 20-8 13 0 0Z"/><path d="M0 0-31 12"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.68" transform="translate(53 270) rotate(29)"><path d="M0 0C22-24 44-13 44 12C24 19 8 12 0 0Z"/><path d="M0 0 31 9"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.86" transform="translate(48 112) rotate(-30)"><path d="M0 0C-21-23-43-12-42 13C-23 19-8 12 0 0Z"/><path d="M0 0-30 10"/></g>
+    </svg>
+  </div>
 
-    <section class="skills-strip section-pad">
-      <div class="section-heading compact reveal">
-        <h2 data-i18n="toolkit">My toolkit</h2>
-        <span>/ 2026 / ©</span>
-      </div>
-      <div class="skill-tiles reveal">
-        <div>HTML / CSS</div>
-        <div>JavaScript</div>
-        <div>React</div>
-        <div>TypeScript</div>
-        <div>Android</div>
-        <div>AI / APIs</div>
-      </div>
-    </section>
-
-    <section class="scroll-story" aria-label="Personal statement">
-      <div class="story-sticky">
-        <div class="story-leaf leaf-left" aria-hidden="true"></div>
-        <p class="scrub-text" data-scrub-en="I build digital experiences that feel clear to use, thoughtful to look at, and ready to grow." data-scrub-zh="我打造清楚好用、細節耐看，並且能持續成長的數位體驗。"></p>
-        <div class="story-leaf leaf-right" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <section class="capabilities section-pad" id="capabilities">
-      <div class="section-kicker reveal">
-        <span><i></i><span data-i18n="whatIDo">What I Do</span></span>
-        <span data-i18n="capabilitiesLabel">Capabilities — 2026</span>
-      </div>
-      <div class="section-heading reveal">
-        <h2 data-i18n="capabilitiesTitle">Capabilities</h2>
-        <span>/ 4 / ©</span>
-      </div>
-
-      <div class="accordion-list reveal">
-        <article class="accordion-item is-open">
-          <button type="button" class="accordion-trigger" aria-expanded="true">
-            <span class="accordion-title" data-i18n="capWebTitle">Web Development</span>
-            <span class="tag-row"><span>Responsive</span><span>React</span><span>TypeScript</span></span>
-            <span class="accordion-icon" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-            <p data-i18n="capWebBody">Fast, responsive websites with clean structure, considered interactions, and maintainable code.</p>
+  <main id="main-content">
+    <section class="scene-sequence" id="top" data-scene-sequence>
+      <span class="sequence-anchor sequence-anchor-about" id="about" data-scroll-section="about" aria-hidden="true"></span>
+      <span class="sequence-anchor sequence-anchor-work" id="work" data-scroll-section="work" aria-hidden="true"></span>
+      <div class="scene-sequence-pin">
+      <section class="scene-panel hero-panel" data-scene-panel="hero">
+        <div class="hero-scene section-pad">
+          <div class="hero-scene-copy" data-scene-copy>
+            <p class="scene-kicker" data-i18n="homeHeroKicker">AI × WEB × PRODUCT</p>
+            <h1 aria-label="Ideas into useful products"><span class="title-mask"><span data-opening-line data-i18n="homeHeroTitleOne">IDEAS INTO</span></span><span class="title-mask"><span data-opening-line data-i18n="homeHeroTitleTwo">USEFUL <em>PRODUCTS.</em></span></span></h1>
+            <p class="hero-scene-intro" data-i18n="homeHeroIntro">I design the logic and build with AI, web, and APIs.</p>
+            <a class="scene-arrow" href="#work"><span data-i18n="homeHeroCta">See the work</span><span aria-hidden="true">↘</span></a>
           </div>
-        </article>
-        <article class="accordion-item">
-          <button type="button" class="accordion-trigger" aria-expanded="false">
-            <span class="accordion-title" data-i18n="capAiTitle">AI &amp; API Integration</span>
-            <span class="tag-row"><span>OpenAI</span><span>REST APIs</span><span>Automation</span></span>
-            <span class="accordion-icon" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-            <p data-i18n="capAiBody">Connecting products to useful intelligence, open data, and external services without adding unnecessary complexity.</p>
-          </div>
-        </article>
-        <article class="accordion-item">
-          <button type="button" class="accordion-trigger" aria-expanded="false">
-            <span class="accordion-title" data-i18n="capAppTitle">Application Development</span>
-            <span class="tag-row"><span>Android</span><span>Maps</span><span>STT / TTS</span></span>
-            <span class="accordion-icon" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-            <p data-i18n="capAppBody">Mobile experiences that combine practical features, real-time information, and simple interaction flows.</p>
-          </div>
-        </article>
-        <article class="accordion-item">
-          <button type="button" class="accordion-trigger" aria-expanded="false">
-            <span class="accordion-title" data-i18n="capUxTitle">UI / UX Thinking</span>
-            <span class="tag-row"><span>Flows</span><span>Prototyping</span><span>RWD</span></span>
-            <span class="accordion-icon" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-            <p data-i18n="capUxBody">Making complex information easier to understand through hierarchy, feedback, and intentional visual decisions.</p>
-          </div>
-        </article>
-      </div>
-    </section>
 
-    <section class="about-preview section-pad">
-      <div class="section-kicker reveal">
-        <span><i></i><span data-i18n="aboutKicker">Behind the work</span></span>
-        <span data-i18n="aboutLabel">About HongRong — 2026</span>
-      </div>
-      <div class="section-heading reveal">
-        <h2 data-i18n="aboutTitle">Curious by nature.<br>Practical by design.</h2>
-        <span>/ 3 / ©</span>
-      </div>
-      <div class="about-grid">
-        <div class="about-portrait-stage reveal">
-          <span class="botanical-vine botanical-vine-left" aria-hidden="true"></span>
-          <span class="botanical-vine botanical-vine-right" aria-hidden="true"></span>
-          <span class="portrait-stage-label portrait-stage-label-top" aria-hidden="true">01 / PROFILE</span>
-          <figure class="editorial-card">
-            <img src="assets/images/hongrong-portrait.png" alt="Portrait of HongRong">
-            <figcaption>
-              <strong>HongRong<sup>®</sup></strong>
-              <span data-i18n="aboutCardCaption">Building with curiosity</span>
-            </figcaption>
+          <figure class="hero-art" data-scene-visual>
+            <div class="hero-art-wash" aria-hidden="true"></div>
+            <div class="hero-art-mask"><img src="assets/images/hongrong-portrait.webp" width="499" height="738" fetchpriority="high" alt="HongRong sitting by the sea under a blue sky"></div>
+            <svg class="hero-art-line" viewBox="0 0 520 700" aria-hidden="true"><path data-portrait-draw d="M113 642C37 567 44 417 79 288C112 165 194 58 326 69C452 79 493 198 463 331C434 460 361 635 225 656C179 663 141 657 113 642Z"/><path class="hero-art-sprig" d="M77 458C26 414 33 350 8 305M47 387C17 374 3 345 8 317M44 386C66 361 73 333 68 305M26 349C8 337 0 317 2 297"/></svg>
+            <figcaption><span>HONG RONG</span><span>TAICHUNG — TAIWAN</span><span>2026</span></figcaption>
           </figure>
-          <span class="portrait-stage-label portrait-stage-label-bottom" aria-hidden="true">WEB / TAIWAN / 2026</span>
+
+          <p class="hero-scene-index" data-scene-meta>01 / PORTFOLIO</p>
         </div>
-        <div class="about-copy reveal">
-          <h3 data-i18n="aboutStatement">A web developer who likes turning messy requirements into clear, usable systems.</h3>
-          <p data-i18n="aboutBody">I studied Information Management at Shih Hsin University, led an AI driving assistant project, and developed my adaptability through a work-and-travel experience in the United States.</p>
-          <dl class="fact-list">
-            <div><dt>01</dt><dd><strong data-i18n="factOneTitle">Cross-disciplinary</strong><span data-i18n="factOneBody">Web, apps, AI, and digital tools</span></dd></div>
-            <div><dt>02</dt><dd><strong data-i18n="factTwoTitle">Team-minded</strong><span data-i18n="factTwoBody">Clear communication and ownership</span></dd></div>
-            <div><dt>03</dt><dd><strong data-i18n="factThreeTitle">Always learning</strong><span data-i18n="factThreeBody">Curious, adaptable, and hands-on</span></dd></div>
-          </dl>
-          <a class="text-link transition-link" href="about.html"><span data-i18n="moreAbout">More about me</span><span>→</span></a>
+      </section>
+
+      <section class="scene-panel about-panel" data-scene-panel="about" data-story-spine-start>
+        <div class="about-scene section-pad">
+          <p class="scene-index" data-i18n="homeAboutLabel">01 — ABOUT</p>
+          <div class="about-scene-statement" data-scene-copy>
+            <h2 data-i18n="homeAboutTitle" data-about-text-effect>I turn real problems into<br><em>products people can use.</em></h2>
+            <p data-i18n="homeAboutBody">AI helps me understand the problem. I remain responsible for the logic, structure, and decisions.</p>
+          </div>
+          <div class="about-signature" aria-hidden="true" data-scene-visual>
+            <svg viewBox="0 0 710 420"><path d="M14 346C115 375 198 333 265 269C349 189 379 60 515 45C599 35 654 75 694 132"/><path d="M210 309C178 263 183 227 206 193"/><path d="M444 86C407 120 391 159 396 203"/><g><path d="M204 220C169 193 139 211 145 247C175 251 195 241 204 220Z"/><path d="M448 89C478 53 516 65 516 104C488 119 463 110 448 89Z"/></g></svg>
+          </div>
+          <a class="about-more story-cta story-cta-dark transition-link" href="about.html" data-about-cta><span data-i18n="homeAboutMore">Explore my story</span><span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="scene-panel work-panel" data-scene-panel="work">
+        <div class="work-scene section-pad">
+          <p class="scene-index" data-i18n="selectedWorkLabel">02 — SELECTED WORK</p>
+          <h2 data-scene-copy data-i18n="selectedWorkTitle"><span>SELECTED</span><em>WORK.</em></h2>
+          <p class="work-scene-intro" data-i18n="selectedWorkIntro">Two projects, each shaped by a real problem.</p>
+          <nav class="work-branches" aria-label="Selected projects" data-scene-visual>
+            <a href="#ai-project"><span>01</span><strong>AI DRIVING ASSISTANT</strong><small>AI / API / ANDROID</small></a>
+            <a href="#jinhong-project"><span>02</span><strong>JIN HONG FOODS</strong><small>REAL CLIENT / WEB</small></a>
+          </nav>
+        </div>
+      </section>
+      </div>
+    </section>
+
+    <section class="ai-chapter fathom-ai" id="ai-project" data-scroll-section="work">
+      <div class="organic-transition organic-transition-dark" aria-hidden="true"></div>
+      <header class="ai-chapter-intro section-pad reveal">
+        <p class="story-index">PROJECT 01 — AI DRIVING ASSISTANT</p>
+        <h2 data-i18n="homeAiHeading">Fewer apps.<br><em>More focus on the road.</em></h2>
+        <p class="chapter-lede" data-i18n="homeAiLede">We put navigation, parking, live traffic, and voice controls into one Android app.</p>
+      </header>
+
+      <ul class="project-meta-line section-pad reveal" aria-label="Project facts">
+        <li><small data-i18n="roleLabel">Role</small><strong>TEAM LEAD</strong></li>
+        <li><small data-i18n="teamLabel">Team</small><strong>5 PEOPLE</strong></li>
+        <li><small>CONNECT</small><strong>API / TDX</strong></li>
+        <li><small>MODEL</small><strong>RESNET-18</strong></li>
+        <li><small>BUILD</small><strong>ANDROID</strong></li>
+      </ul>
+
+      <div class="ai-scroll-layout section-pad">
+        <div class="ai-steps">
+          <article class="ai-step is-active" data-ai-step="0"><span>01 / LOGIN</span><h3 data-i18n="aiStepLoginTitle">Start from one driving assistant.</h3><p data-i18n="aiStepLoginBody">Sign in once, then keep the useful driving tools inside the same experience.</p></article>
+          <article class="ai-step" data-ai-step="1"><span>02 / PARKING</span><h3 data-i18n="aiStepParkingTitle">Ask an area. See the spaces that remain.</h3><p data-i18n="aiStepParkingBody">The assistant connects the request to open parking data and returns available spaces.</p></article>
+          <article class="ai-step" data-ai-step="2"><span>03 / NAVIGATION</span><h3 data-i18n="aiStepNavigationTitle">Turn the selected place into a route.</h3><p data-i18n="aiStepNavigationBody">The destination moves directly into navigation without breaking the driving context.</p></article>
+          <article class="ai-step" data-ai-step="3"><span>04 / LIVE TRAFFIC</span><h3 data-i18n="aiStepTrafficTitle">Read the road before reaching it.</h3><p data-i18n="aiStepTrafficBody">TDX camera imagery and the traffic model help classify the current flow.</p></article>
+          <article class="ai-step" data-ai-step="4"><span>05 / VEHICLE LOCATION</span><h3 data-i18n="aiStepVehicleTitle">Remember where the car was left.</h3><p data-i18n="aiStepVehicleBody">Save a parking position and return to it later instead of relying on memory.</p></article>
+        </div>
+
+        <div class="phone-story" aria-live="polite">
+          <svg class="ai-phone-vine" viewBox="0 0 540 1040" aria-hidden="true"><path data-ai-vine-path d="M46 1003C14 895 119 836 69 725C25 626 137 548 84 442C41 357 135 265 105 167C89 113 103 68 147 27"/><g data-ai-leaf="1" transform="translate(76 832) rotate(-25)"><path d="M0 0C-28-25-55-12-52 20C-27 26-9 17 0 0Z"/></g><g data-ai-leaf="2" transform="translate(82 686) rotate(35)"><path d="M0 0C27-29 56-15 55 18C30 27 10 18 0 0Z"/></g><g data-ai-leaf="3" transform="translate(88 526) rotate(-30)"><path d="M0 0C-29-27-57-13-54 21C-28 27-10 18 0 0Z"/></g><g data-ai-leaf="4" transform="translate(101 359) rotate(32)"><path d="M0 0C27-29 55-15 55 18C30 27 10 18 0 0Z"/></g><g data-ai-leaf="5" transform="translate(113 191) rotate(-28)"><path d="M0 0C-28-26-56-13-53 20C-28 26-10 17 0 0Z"/></g></svg>
+          <div class="phone-device">
+            <div class="phone-panel phone-image-panel is-active" data-ai-panel="0"><img src="assets/images/ai-screen-login.webp" width="520" height="1080" loading="lazy" decoding="async" alt="AI Driving Assistant login screen"><span class="phone-screen-label">LOGIN</span></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="1"><img src="assets/images/ai-screen-parking.webp" width="370" height="796" loading="lazy" decoding="async" alt="AI Driving Assistant showing remaining parking spaces in Wenshan District"><span class="phone-screen-label">PARKING / OPEN DATA</span></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="2"><img src="assets/images/ai-screen-navigation.webp" width="525" height="1166" loading="lazy" decoding="async" alt="AI Driving Assistant navigation route screen"><span class="phone-screen-label">NAVIGATION</span></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="3"><img src="assets/images/ai-screen-traffic.webp" width="470" height="1043" loading="lazy" decoding="async" alt="AI Driving Assistant showing a Linkou traffic camera and classified traffic flow"><span class="phone-screen-label">TRAFFIC / TDX / RESNET</span></div>
+            <div class="phone-panel phone-image-panel" data-ai-panel="4"><img src="assets/images/ai-screen-vehicle-location.webp" width="434" height="964" loading="lazy" decoding="async" alt="AI Driving Assistant screen for saving a parked vehicle location"><span class="phone-screen-label">VEHICLE LOCATION</span></div>
+          </div>
+          <p class="phone-state-label"><span data-phone-state>Login</span><small>SCROLL STORY / REAL SCREENS</small></p>
+        </div>
+      </div>
+
+      <div class="ai-case-exit section-pad reveal"><p data-i18n="homeAiExit">ROLE / API / MODEL / NEXT ITERATION</p><a class="story-cta story-cta-light transition-link" href="ai-driving-assistant.html"><span data-i18n="openFullCase">Explore the full case study</span><span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section class="jinhong-editorial" id="jinhong-project" data-scroll-section="work">
+      <div class="organic-transition organic-transition-light" aria-hidden="true"></div>
+      <header class="jinhong-section-head section-pad reveal"><p class="story-index">PROJECT 02 — REAL CLIENT</p><span>/ 02 / ©</span></header>
+      <div class="jinhong-feature section-pad">
+        <div class="jinhong-feature-visual reveal">
+          <a class="jinhong-browser-story" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer" aria-label="Visit the live Jinhong Foods website">
+          <div class="browser-story-bar"><span></span><span></span><span></span><strong>jinhong-foods.lucky1228.workers.dev</strong><small data-i18n="liveWebsite">Live website</small></div>
+          <div class="browser-story-page"><div class="browser-story-nav"><b>金虹食品</b><span>產品介紹　關於我們　服務維修　聯絡我們</span></div><div class="browser-story-hero"><small>FOOD MACHINERY / TAIWAN</small><h3>讓每一道加工流程<br>更穩定、更有效率</h3><p>專業食品加工設備</p></div><div class="browser-product-row"><figure><img src="assets/images/jinhong-slicer.webp" width="276" height="447" loading="lazy" decoding="async" alt="Jinhong automatic meat slicer"><figcaption>全自動切片機</figcaption></figure><figure><img src="assets/images/jinhong-bone-saw.webp" width="1019" height="1543" loading="lazy" decoding="async" alt="Jinhong high-speed bone saw"><figcaption>高速鋸骨機</figcaption></figure><figure><img src="assets/images/jinhong-vacuum.webp" width="440" height="283" loading="lazy" decoding="async" alt="Jinhong double-chamber vacuum packing machine"><figcaption>真空包裝機</figcaption></figure></div></div>
+          </a>
+          <p class="jinhong-feature-note" data-i18n="homeJinhongNote">A real business need, translated into a clearer digital storefront.</p>
+        </div>
+        <div class="jinhong-feature-copy reveal">
+          <p class="jinhong-project-number"><span>02</span> JIN HONG FOODS / 2026</p>
+          <h2 data-i18n="homeJinhongTitle">A real client.<br><em>A clearer digital presence.</em></h2>
+          <p data-i18n="homeJinhongLede">My first website for a real business — built to make a food-machinery brand and its products easier to discover.</p>
+          <dl><div><dt>ROLE</dt><dd>RESEARCH / DESIGN / BUILD</dd></div><div><dt>STACK</dt><dd>REACT / TYPESCRIPT</dd></div><div><dt>NEXT</dt><dd>SEO / SEARCH CONSOLE</dd></div></dl>
+          <div class="jinhong-actions"><a class="story-cta story-cta-dark transition-link" href="jinhong-foods.html"><span data-i18n="viewCaseStudy">Explore the case study</span><span aria-hidden="true">↗</span></a><a class="story-cta story-cta-outline" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer"><span data-i18n="visitLiveSite">Visit live site</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </div>
     </section>
 
-    <section class="selected-work section-pad">
-      <div class="section-kicker reveal">
-        <span><i></i><span data-i18n="inPractice">In Practice</span></span>
-        <span data-i18n="caseStudiesLabel">Selected Work — 2026</span>
-      </div>
-      <div class="section-heading reveal">
-        <h2 data-i18n="selectedWork">Selected work</h2>
-        <span>/ 2 / ©</span>
-      </div>
-
-      <div class="work-grid">
-        <a class="work-card reveal" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer">
-          <div class="work-visual jinhong-visual">
-            <div class="mock-browser jinhong-browser">
-              <div class="mock-browser-bar"><span></span><span></span><span></span><b>金虹食品</b></div>
-              <div class="jinhong-site-shot">
-                <div class="jinhong-shot-nav"><strong>金虹食品</strong><span>產品介紹　關於我們　聯絡我們</span></div>
-                <div class="jinhong-shot-hero">
-                  <small>FOOD MACHINERY / TAIWAN</small>
-                  <strong>讓每一道加工流程<br>更穩定、更有效率</strong>
-                  <span>專業食品加工設備</span>
-                </div>
-                <div class="jinhong-products">
-                  <figure><img src="assets/images/jinhong-slicer.webp" alt="金虹全自動切片機"><figcaption>全自動切片機</figcaption></figure>
-                  <figure><img src="assets/images/jinhong-bone-saw.webp" alt="金虹高速鋸骨機"><figcaption>高速鋸骨機</figcaption></figure>
-                  <figure><img src="assets/images/jinhong-vacuum.webp" alt="金虹雙槽真空包裝機"><figcaption>真空包裝機</figcaption></figure>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="work-meta"><span>01</span><span>React / TypeScript / Cloudflare</span></div>
-          <h3 data-i18n="jinhongTitle">Jinhong Foods</h3>
-          <p data-i18n="jinhongSummary">A multi-page product website for a Taiwanese food machinery company.</p>
-        </a>
-
-        <a class="work-card transition-link reveal" href="ai-driving-assistant.html">
-          <div class="work-visual ai-visual">
-            <span class="ai-orbit orbit-one"></span><span class="ai-orbit orbit-two"></span>
-            <img src="assets/images/ai-driver-map.jpg" alt="AI driving assistant Android interface">
-            <div class="ai-label">AI / MAPS / VOICE</div>
-          </div>
-          <div class="work-meta"><span>02</span><span>Android / GPT / Google Maps</span></div>
-          <h3 data-i18n="aiDriverTitle">AI Driving Assistant</h3>
-          <p data-i18n="aiDriverSummary">A university capstone combining navigation, voice AI, parking data, and live traffic.</p>
-        </a>
-      </div>
-      <div class="section-end-link reveal"><a class="button button-outline transition-link" href="work.html" data-i18n="viewAllWork">View all work</a></div>
-    </section>
-
-    <section class="process section-pad">
-      <div class="section-kicker reveal">
-        <span><i></i><span data-i18n="methodKicker">The Method</span></span>
-        <span data-i18n="processLabel">My Process — 2026</span>
-      </div>
-      <div class="section-heading reveal">
-        <h2 data-i18n="processTitle">How I work</h2>
-        <span>/ 3 / ©</span>
-      </div>
-      <div class="process-grid">
-        <article class="process-card reveal"><span>01</span><p data-i18n="processOneTime">Start with context</p><h3 data-i18n="processOneTitle">Discover &amp; Define</h3><p data-i18n="processOneBody">Understand the audience, the real problem, and what success should feel like.</p></article>
-        <article class="process-card reveal"><span>02</span><p data-i18n="processTwoTime">Build the system</p><h3 data-i18n="processTwoTitle">Design &amp; Develop</h3><p data-i18n="processTwoBody">Shape the visual language and turn it into responsive, maintainable code.</p></article>
-        <article class="process-card reveal"><span>03</span><p data-i18n="processThreeTime">Make it better</p><h3 data-i18n="processThreeTitle">Test &amp; Refine</h3><p data-i18n="processThreeBody">Check the real experience, fix the rough edges, and keep improving what matters.</p></article>
-      </div>
-    </section>
-
-    <section class="contact-cta section-pad">
-      <p class="eyebrow reveal" data-i18n="ctaEyebrow">Have an idea in mind?</p>
-      <h2 class="reveal" data-i18n="ctaTitle">Let's build something<br><em>clear and memorable.</em></h2>
-      <div class="cta-links reveal">
-        <a class="button button-light transition-link" href="contact.html" data-i18n="startConversation">Start a conversation</a>
-        <a href="mailto:zxc1031777@gmail.com">zxc1031777@gmail.com ↗</a>
-      </div>
+    <section class="final-contact section-pad" id="contact" data-scroll-section="contact" data-story-spine-end>
+      <p class="scene-index reveal">03 — CONTACT</p>
+      <h2 class="reveal" data-i18n="homeContactTitle">LET'S MAKE<br><em>THE NEXT IDEA REAL.</em></h2>
+      <div class="final-contact-bottom reveal"><p data-i18n="homeContactBody">Interested in AI applications, web products, and work that begins with a real user problem.</p><nav aria-label="Contact links"><a href="mailto:zxc1031777@gmail.com">EMAIL ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">INSTAGRAM ↗</a></nav></div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div><a class="brand transition-link" href="index.html">HongRong<sup>®</sup></a><p data-i18n="footerLine">Web developer based in Taichung, Taiwan.</p></div>
-    <div class="footer-links"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a><a href="assets/docs/hongrong-resume.pdf" target="_blank" data-i18n="resumeLink">Résumé ↗</a></div>
-    <div class="footer-bottom"><span>© <span class="current-year"></span> HongRong</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div>
+  <footer class="landscape-footer" aria-label="Horseshoe Bend in the United States photographed by HongRong">
+    <div class="landscape-scene" data-landscape-scene>
+      <img class="landscape-base" src="assets/images/hongrong-canyon.webp" width="720" height="960" loading="lazy" decoding="async" alt="HongRong overlooking Horseshoe Bend in the United States">
+      <div class="landscape-grade" aria-hidden="true"></div>
+      <p class="landscape-word" aria-hidden="true">HongRong</p>
+      <div class="landscape-foreground" aria-hidden="true"><img src="assets/images/hongrong-canyon.webp" width="720" height="960" loading="lazy" decoding="async" alt=""></div>
+      <p class="landscape-caption" data-i18n="landscapeCaption">USA / HORSESHOE BEND</p>
+      <div class="landscape-meta"><span>© <span class="current-year"></span> HONG RONG</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div>
+    </div>
   </footer>
 </body>
 </html>

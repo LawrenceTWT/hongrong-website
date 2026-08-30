@@ -5,46 +5,133 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="AI Driving Assistant case study by HongRong — Android, GPT, Google Maps, live traffic, parking data, and voice interaction.">
   <meta name="theme-color" content="#ebe7da">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Driving Assistant — HongRong Case Study">
+  <meta property="og:description" content="How a five-person capstone connected TDX traffic data, voice AI, Android, and a six-level ResNet-18 model — including what failed and what I learned.">
+  <meta property="og:url" content="https://lawrencetwt.github.io/hongrong-website/ai-driving-assistant.html">
+  <link rel="canonical" href="https://lawrencetwt.github.io/hongrong-website/ai-driving-assistant.html">
   <title>AI Driving Assistant — HongRong</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/gensen-rounded-tw-regular.woff" as="font" type="font/woff" crossorigin>
   <link rel="stylesheet" href="css/styles.css"><script src="js/main.js" defer></script>
 </head>
-<body data-page="work">
-  <div class="loader" aria-hidden="true"><div class="loader-mark">HongRong<sup>®</sup></div><div class="loader-line"><span></span></div></div><div class="cursor-orb" aria-hidden="true"></div>
-  <header class="site-header"><a class="brand transition-link" href="index.html">HongRong<sup>®</sup></a><div class="availability"><span class="status-dot"></span><span data-i18n="availability">Available — Taichung</span><span class="availability-separator">/</span><span data-i18n="localTime">Local Time:</span><time class="local-time">--:--:--</time></div><nav class="desktop-nav"><a class="transition-link" href="about.html" data-nav-page="about" data-i18n="navAbout">About</a><a class="transition-link" href="work.html" data-nav-page="work" data-i18n="navWork">Work</a><a class="transition-link" href="contact.html" data-nav-page="contact" data-i18n="navContact">Contact</a></nav><div class="header-actions"><button class="language-toggle" type="button">中文</button><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button></div></header>
-  <div class="menu-panel" aria-hidden="true"><nav><span class="menu-index">/ 01 /</span><a class="transition-link" href="index.html" data-i18n="navHome">Home</a><span class="menu-index">/ 02 /</span><a class="transition-link" href="about.html" data-i18n="navAbout">About</a><span class="menu-index">/ 03 /</span><a class="transition-link" href="work.html" data-i18n="navWork">Work</a><span class="menu-index">/ 04 /</span><a class="transition-link" href="contact.html" data-i18n="navContact">Contact</a></nav><div class="menu-panel-footer"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div></div>
+<body data-page="work" class="case-deep ai-case-page">
+  <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
+  <div class="loader" aria-hidden="true"><div class="loader-mark">HongRong<sup>®</sup></div><div class="loader-line"><span></span></div></div>
+  <header class="site-header"><a class="brand transition-link" href="index.html#top">HongRong<sup>®</sup></a><div class="availability"><span class="status-dot"></span><span data-i18n="availability">Available — Taichung</span><span class="availability-separator">/</span><span data-i18n="localTime">Local Time:</span><time class="local-time">--:--:--</time></div><nav class="desktop-nav"><a class="transition-link" href="about.html" data-nav-page="about" data-i18n="navAbout">About</a><a class="transition-link" href="work.html" data-nav-page="work" data-i18n="navWork">Work</a><a class="transition-link" href="contact.html" data-nav-page="contact" data-i18n="navContact">Contact</a></nav><div class="header-actions"><button class="language-toggle" type="button">中文</button><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button></div></header>
+  <div class="menu-panel" aria-hidden="true"><nav><span class="menu-index">/ 01 /</span><a class="transition-link" href="index.html#top" data-i18n="navHome">Home</a><span class="menu-index">/ 02 /</span><a class="transition-link" href="about.html" data-i18n="navAbout">About</a><span class="menu-index">/ 03 /</span><a class="transition-link" href="work.html" data-i18n="navWork">Work</a><span class="menu-index">/ 04 /</span><a class="transition-link" href="contact.html" data-i18n="navContact">Contact</a></nav><div class="menu-panel-footer"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div></div>
 
-  <main>
+  <main id="main-content">
     <section class="case-hero section-pad">
-      <div class="case-breadcrumb reveal"><a class="transition-link" href="work.html" data-i18n="backToWork">← Back to work</a><span>02 / 02</span></div>
-      <div class="case-title-grid"><div><p class="eyebrow reveal" data-i18n="aiCaseLabel">Android application / Capstone</p><h1 class="reveal" data-i18n="aiDriverTitle">AI Driving Assistant</h1></div><p class="case-lede reveal" data-i18n="aiCaseLede">Bringing navigation, voice AI, traffic conditions, and parking information into one safer, driving-focused experience.</p></div>
-      <div class="case-meta reveal"><div><span data-i18n="roleLabel">Role</span><strong data-i18n="aiRole">Team Lead / Development / UI UX</strong></div><div><span data-i18n="stackLabel">Stack</span><strong>Android / GPT / Google Maps</strong></div><div><span data-i18n="outputLabel">Output</span><strong data-i18n="aiOutput">Functional Android prototype</strong></div><div><a href="assets/docs/ai-driving-assistant-report.pdf" target="_blank"><span data-i18n="readFullReport">Read full report</span> ↗</a></div></div>
+      <div class="case-breadcrumb reveal"><a class="transition-link" href="index.html#ai-project" data-i18n="backToStory">← Back to the story</a><span>CASE 01 / CAPSTONE</span></div>
+      <div class="case-title-grid"><div><p class="eyebrow reveal" data-i18n="aiCaseLabel">Android application / Capstone</p><h1 class="reveal" data-i18n="aiDriverTitle">AI Driving Assistant</h1></div><p class="case-lede reveal" data-i18n="aiDeepLede">A five-person project that began with a daily problem: traffic information was useful, but fragmented across too many tools.</p></div>
+      <div class="case-meta reveal">
+        <div><span data-i18n="roleLabel">Role</span><strong>TEAM LEAD / API / RESNET / ANDROID</strong></div>
+        <div><span data-i18n="teamLabel">Team</span><strong>5 PEOPLE</strong></div>
+        <div><span data-i18n="systemLabel">System</span><strong>GPT / TDX / MAPS / STT / TTS</strong></div>
+      </div>
       <div class="case-cover ai-cover reveal">
-        <div class="phone-stack"><figure><img src="assets/images/ai-driver-home.jpg" alt="AI Driving Assistant home screen"></figure><figure class="phone-main"><img src="assets/images/ai-driver-map.jpg" alt="AI Driving Assistant map and voice screen"></figure><figure><img src="assets/images/ai-driver-traffic.jpg" alt="AI Driving Assistant live traffic screen"></figure></div>
-        <span class="cover-caption">GPT / STT / TTS / MAPS / TDX</span>
+        <div class="phone-stack phone-stack-five">
+          <figure><img src="assets/images/ai-screen-login.webp" width="520" height="1080" alt="AI Driving Assistant login screen"><figcaption>01 / LOGIN</figcaption></figure>
+          <figure><img src="assets/images/ai-screen-parking.webp" width="370" height="796" alt="AI Driving Assistant showing parking spaces remaining"><figcaption>02 / PARKING</figcaption></figure>
+          <figure class="phone-main"><img src="assets/images/ai-screen-navigation.webp" width="525" height="1166" alt="AI Driving Assistant navigation route screen"><figcaption>03 / NAVIGATION</figcaption></figure>
+          <figure><img src="assets/images/ai-screen-traffic.webp" width="470" height="1043" alt="AI Driving Assistant traffic camera and traffic classification screen"><figcaption>04 / TRAFFIC</figcaption></figure>
+          <figure><img src="assets/images/ai-screen-vehicle-location.webp" width="434" height="964" alt="AI Driving Assistant parked vehicle location screen"><figcaption>05 / LOCATION</figcaption></figure>
+        </div>
+        <span class="cover-caption">LOGIN → PARKING → NAVIGATION → LIVE TRAFFIC → VEHICLE LOCATION</span>
       </div>
     </section>
 
     <section class="case-narrative section-pad">
-      <div class="case-section-label reveal"><span>01</span><span data-i18n="challengeLabel">The challenge</span></div>
-      <div class="case-two-col"><h2 class="reveal" data-i18n="aiChallengeTitle">Reduce distraction without reducing useful information.</h2><div class="body-copy reveal"><p data-i18n="aiChallengeP1">Drivers often switch between maps, traffic cameras, parking apps, and search. That fragmentation adds cognitive load at the exact moment attention should stay on the road.</p><p data-i18n="aiChallengeP2">Our capstone explored how voice interaction and a unified interface could bring the most useful driving information into one Android application.</p></div></div>
+      <div class="case-section-label reveal"><span>01</span><span data-i18n="projectOriginLabel">The origin</span></div>
+      <div class="case-two-col"><h2 class="reveal" data-i18n="aiOriginTitle">The idea did not begin with AI. It began with the road to class.</h2><div class="body-copy reveal"><p data-i18n="aiOriginP1">I dealt with traffic every day and often saw stories about road accidents in Taiwan. I started asking whether the information drivers already needed could be gathered into one clearer experience.</p><p data-i18n="aiOriginP2">The goal was not to add another dashboard. It was to reduce switching between navigation, traffic, parking, and search while keeping the driver’s task in context.</p></div></div>
     </section>
 
-    <section class="feature-band section-pad">
-      <div class="case-section-label reveal"><span>02</span><span data-i18n="systemLabel">The system</span></div>
-      <div class="section-heading reveal"><h2 data-i18n="aiFeaturesTitle">Four connected driving tools</h2><span>/ 4 / ©</span></div>
-      <div class="feature-grid four"><article class="reveal"><span>01</span><h3 data-i18n="navigationTitle">Smart navigation</h3><p data-i18n="navigationBody">Google Maps-based route search and in-app navigation context.</p></article><article class="reveal"><span>02</span><h3 data-i18n="voiceTitle">GPT voice conversation</h3><p data-i18n="voiceBody">Speech-to-text and text-to-speech connect the driver to natural-language help.</p></article><article class="reveal"><span>03</span><h3 data-i18n="parkingTitle">Parking availability</h3><p data-i18n="parkingBody">Government open data helps locate parking facilities and remaining spaces.</p></article><article class="reveal"><span>04</span><h3 data-i18n="trafficTitle">Live traffic</h3><p data-i18n="trafficBody">Traffic camera imagery and road conditions support safer route decisions.</p></article></div>
+    <section class="case-role-story section-pad">
+      <div class="case-section-label reveal"><span>02</span><span data-i18n="myRoleLabel">My role</span></div>
+      <div class="role-ledger">
+        <p class="role-ledger-intro reveal" data-i18n="aiRoleIntro">I led the team and worked across the seams where data, models, Android, and people had to agree.</p>
+        <ol>
+          <li class="reveal"><span>01</span><strong>TEAM LEAD</strong><small data-i18n="aiRoleTeam">Planning, task ownership, progress, and coordination across five people.</small></li>
+          <li class="reveal"><span>02</span><strong>API / TDX</strong><small data-i18n="aiRoleApi">TDX open-data research, Postman token tests, endpoints, and response mapping.</small></li>
+          <li class="reveal"><span>03</span><strong>DATASET</strong><small data-i18n="aiRoleData">Collecting, cleaning, and preparing traffic-camera images for six classes.</small></li>
+          <li class="reveal"><span>04</span><strong>RESNET-18</strong><small data-i18n="aiRoleModel">Training, evaluation, class-level analysis, and conversion troubleshooting.</small></li>
+          <li class="reveal"><span>05</span><strong>ANDROID</strong><small data-i18n="aiRoleAndroid">Connecting the model and data services to the mobile experience.</small></li>
+        </ol>
+      </div>
     </section>
 
-    <section class="case-tech section-pad">
-      <div class="case-section-label reveal"><span>03</span><span data-i18n="myContributionLabel">My contribution</span></div>
-      <div class="case-two-col"><h2 class="reveal" data-i18n="aiContributionTitle">Leading the team while connecting the pieces.</h2><div class="body-copy reveal"><p data-i18n="aiContributionBody">As team lead, I helped define the project plan, coordinate responsibilities, and keep development moving. I also contributed to Android implementation, external API integration, GPT conversation, and the UI/UX flow across the main driving tasks.</p><ul class="number-list"><li><span>01</span><span data-i18n="aiContributionOne">Project planning and team coordination</span></li><li><span>02</span><span data-i18n="aiContributionTwo">Android interface and interaction flows</span></li><li><span>03</span><span data-i18n="aiContributionThree">GPT, speech, map, and open-data integration</span></li><li><span>04</span><span data-i18n="aiContributionFour">System testing and final presentation</span></li></ul></div></div>
+    <section class="case-system-story section-pad">
+      <div class="case-section-label reveal"><span>03</span><span data-i18n="systemFlowLabel">VOICE REQUEST → PARKING DATA</span></div>
+      <div class="case-system-heading reveal"><h2 data-i18n="aiSystemTitle">From a spoken request to usable parking data.</h2><p data-i18n="aiSystemBody">Speech captures the request. GPT understands it. TDX returns available spaces.</p></div>
+      <ol class="case-system-flow reveal" aria-label="AI Driving Assistant system components">
+        <li><span>01</span><strong>NAVIGATION</strong><small>Google Maps</small></li>
+        <li><span>02</span><strong>PARKING</strong><small>TDX open data</small></li>
+        <li><span>03</span><strong>TRAFFIC</strong><small>Camera + road data</small></li>
+        <li><span>04</span><strong>AI</strong><small>GPT / STT / TTS</small></li>
+        <li><span>05</span><strong>MODEL</strong><small>ResNet-18 / 6 levels</small></li>
+      </ol>
+      <div class="prototype-lab case-prototype-lab reveal">
+        <div class="prototype-copy"><p class="story-index">INTERACTIVE PROTOTYPE — SIMULATED</p><h3 data-i18n="prototypeTitle">Try asking:<br>“Find parking near me”</h3><p data-i18n="prototypeBody">Watch the request move through speech recognition, GPT, and TDX. No live API is connected.</p><button class="button button-light prototype-trigger" type="button" data-prototype-start><span data-i18n="prototypeButton">Run the simulated request</span><span aria-hidden="true">→</span></button></div>
+        <ol class="prototype-flow" aria-label="Simulated parking request flow">
+          <li><span>01</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg></i><strong>VOICE</strong><small data-i18n="prototypeVoice">Driver request</small></li>
+          <li><span>02</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9v6M8 6v12M12 3v18M16 7v10M20 10v4"/></svg></i><strong>STT</strong><small data-i18n="prototypeStt">Speech to text</small></li>
+          <li><span>03</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 1.4 4.2L18 9l-4.6 1.8L12 15l-1.4-4.2L6 9l4.6-1.8L12 3Z"/><path d="m18.5 14 .8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"/></svg></i><strong>GPT</strong><small data-i18n="prototypeGpt">Understand intent</small></li>
+          <li><span>04</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></i><strong>TDX API</strong><small data-i18n="prototypeTdx">Open data</small></li>
+          <li><span>05</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M10 17V7h3.2a3.2 3.2 0 0 1 0 6H10"/></svg></i><strong>PARKING</strong><small data-i18n="prototypeData">Available spaces</small></li>
+          <li><span>06</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v11H9l-4 4V5Z"/><path d="m9 11 2 2 4-4"/></svg></i><strong>RESPONSE</strong><small data-i18n="prototypeResponse">Speak result</small></li>
+        </ol>
+      </div>
     </section>
 
-    <section class="learning-band section-pad"><p class="eyebrow reveal" data-i18n="keyLearning">Key learning</p><blockquote class="reveal" data-i18n="learningQuote">“A useful AI product is not just the model. It is the full system around it — context, data, interaction, and trust.”</blockquote><a class="button button-outline reveal" href="assets/docs/ai-driving-assistant-report.pdf" target="_blank" data-i18n="downloadProjectReport">Download project report ↗</a></section>
+    <section class="case-model-deep section-pad">
+      <div class="case-section-label reveal"><span>04</span><span>MODEL / REALITY</span></div>
+      <div class="model-deep-heading reveal"><p class="eyebrow">RESNET-18 / SIX TRAFFIC LEVELS</p><h2 data-i18n="modelRealityTitle">The evidence mattered more than<br><em>one accuracy number.</em></h2></div>
 
-    <section class="next-case section-pad"><p class="eyebrow reveal" data-i18n="previousCase">Previous case study</p><a class="transition-link reveal" href="jinhong-foods.html"><span data-i18n="jinhongTitle">Jinhong Foods</span><span>← 01</span></a></section>
+      <div class="model-proof-grid">
+        <section class="model-proof model-proof-source reveal" aria-label="Six real traffic-level samples">
+          <div class="model-level-grid">
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-1.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 1 free-flow road-camera sample"><figcaption><b>L1</b><span data-i18n="modelLevel1">Free flow</span></figcaption></figure>
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-2.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 2 smooth-traffic road-camera sample"><figcaption><b>L2</b><span data-i18n="modelLevel2">Smooth</span></figcaption></figure>
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-3.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 3 normal-traffic road-camera sample"><figcaption><b>L3</b><span data-i18n="modelLevel3">Normal</span></figcaption></figure>
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-4.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 4 congested road-camera sample"><figcaption><b>L4</b><span data-i18n="modelLevel4">Congested</span></figcaption></figure>
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-5.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 5 severely congested road-camera sample"><figcaption><b>L5</b><span data-i18n="modelLevel5">Heavy</span></figcaption></figure>
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-6.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 6 gridlock road-camera sample"><figcaption><b>L6</b><span data-i18n="modelLevel6">Gridlock</span></figcaption></figure>
+          </div>
+          <div class="model-proof-caption"><span class="proof-label"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="6" height="6"/><rect x="12" y="2" width="6" height="6"/><rect x="2" y="12" width="6" height="6"/><rect x="12" y="12" width="6" height="6"/></svg>01 / TRAINING DATA</span><p data-i18n="modelSourceCaption">Real road-camera samples.</p></div>
+        </section>
+        <figure class="model-proof model-proof-prediction reveal">
+          <div class="model-proof-image"><img src="assets/images/ai-prediction-samples.webp" width="1104" height="1095" loading="lazy" decoding="async" alt="Validation samples comparing true and predicted traffic levels"></div>
+          <figcaption><span class="proof-label"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="m6 10 2.5 2.5L14.5 7"/></svg>02 / VALIDATION</span><p data-i18n="modelPredictionCaption">Adjacent levels were confused.</p></figcaption>
+        </figure>
+        <figure class="model-proof model-proof-curve reveal">
+          <div class="model-proof-image"><img src="assets/images/ai-precision-recall.webp" width="1372" height="1098" loading="lazy" decoding="async" alt="Original Precision-Recall curve for the six traffic classes"></div>
+          <figcaption><span class="proof-label"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 17V3M2 17h16M5 13l4-4 3 2 5-6"/></svg>03 / CLASS AP</span><p data-i18n="modelCurveCaption">L4 / L5 were weakest.</p></figcaption>
+        </figure>
+      </div>
+
+      <dl class="model-ap-rail reveal" aria-label="Average Precision by traffic class">
+        <div><dt>L1</dt><dd>.81</dd></div><div><dt>L2</dt><dd>.65</dd></div><div><dt>L3</dt><dd>.76</dd></div><div class="is-weak"><dt>L4</dt><dd>.38</dd></div><div class="is-weak"><dt>L5</dt><dd>.40</dd></div><div><dt>L6</dt><dd>.78</dd></div>
+      </dl>
+      <p class="model-source-note reveal" data-i18n="modelSourceNote">Original capstone material · ResNet-18 · 80% training / 20% validation</p>
+
+      <div class="model-findings">
+        <article class="reveal"><span>01 / DATASET</span><strong>6 LEVELS / 80:20</strong><p data-i18n="modelFindingData">The structure was clear, but more weather, distance, and camera variation was still needed.</p></article>
+        <article class="reveal"><span>02 / CLASS-LEVEL AP</span><strong>L4 .38 / L5 .40</strong><p data-i18n="modelFindingClass">These adjacent traffic conditions were the hardest for the model to separate.</p></article>
+        <article class="reveal"><span>03 / DEPLOYMENT</span><strong>.PTH → ONNX → TFLITE</strong><p data-i18n="modelFindingDeploy">Normalization had to remain identical from PyTorch to Android.</p></article>
+      </div>
+      <div class="model-action-rail reveal"><p class="eyebrow" data-i18n="whatWeChanged">What we changed</p><ul><li data-i18n="modelActionNormalize">Unified normalization</li><li data-i18n="modelActionData">Reorganized the dataset</li><li data-i18n="modelActionMetrics">Read Precision / Recall by class</li></ul></div>
+    </section>
+
+    <section class="case-rebuild-deep section-pad">
+      <div class="case-section-label reveal"><span>05</span><span>IF I BUILT IT AGAIN</span></div>
+      <div class="rebuild-deep-grid"><h2 class="reveal" data-i18n="rebuildQuestion">What would turn the prototype into a better product?</h2><ol><li class="reveal"><span>01</span><strong data-i18n="rebuildDataset">A larger, better-balanced dataset</strong></li><li class="reveal"><span>02</span><strong data-i18n="rebuildUx">A clearer traffic experience</strong></li><li class="reveal"><span>03</span><strong data-i18n="rebuildAccident">Accident notifications</strong></li><li class="reveal"><span>04</span><strong data-i18n="rebuildCamera">Speed-camera information</strong></li><li class="reveal"><span>05</span><strong data-i18n="rebuildAi">Smoother, more contextual AI interaction</strong></li></ol></div>
+    </section>
+
+    <section class="learning-band section-pad"><p class="eyebrow reveal" data-i18n="keyLearning">Key learning</p><blockquote class="reveal" data-i18n="learningQuote">“A useful AI product is not just the model. It is the full system around it — context, data, interaction, and trust.”</blockquote></section>
+
+    <section class="next-case section-pad"><p class="eyebrow reveal" data-i18n="nextCase">Next case study</p><a class="transition-link reveal" href="jinhong-foods.html"><span data-i18n="jinhongTitle">Jinhong Foods</span><span>02 →</span></a></section>
   </main>
-  <footer class="site-footer"><div><a class="brand transition-link" href="index.html">HongRong<sup>®</sup></a><p data-i18n="footerLine">Web developer based in Taichung, Taiwan.</p></div><div class="footer-links"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a><a href="assets/docs/hongrong-resume.pdf" target="_blank" data-i18n="resumeLink">Résumé ↗</a></div><div class="footer-bottom"><span>© <span class="current-year"></span> HongRong</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div></footer>
+  <footer class="site-footer"><div><a class="brand transition-link" href="index.html#top">HongRong<sup>®</sup></a><p data-i18n="footerLine">Web developer based in Taichung, Taiwan.</p></div><div class="footer-links"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div><div class="footer-bottom"><span>© <span class="current-year"></span> HongRong</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div></footer>
 </body>
 </html>

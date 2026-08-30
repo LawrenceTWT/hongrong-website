@@ -5,96 +5,124 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="About HongRong — a web developer with experience in web development, Android applications, AI integration, and cross-cultural teamwork.">
   <meta name="theme-color" content="#ebe7da">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="About HongRong — AI × Web × Product">
+  <meta property="og:description" content="The story, experience, and working principles behind HongRong's digital product work.">
+  <meta property="og:url" content="https://lawrencetwt.github.io/hongrong-website/about.html">
+  <link rel="canonical" href="https://lawrencetwt.github.io/hongrong-website/about.html">
   <title>About — HongRong</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/gensen-rounded-tw-regular.woff" as="font" type="font/woff" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/main.js" defer></script>
 </head>
-<body data-page="about">
+<body data-page="about" class="story-home about-story-page">
+  <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
   <div class="loader" aria-hidden="true"><div class="loader-mark">HongRong<sup>®</sup></div><div class="loader-line"><span></span></div></div>
-  <div class="cursor-orb" aria-hidden="true"></div>
 
   <header class="site-header">
-    <a class="brand transition-link" href="index.html">HongRong<sup>®</sup></a>
+    <a class="brand transition-link" href="index.html#top">HongRong<sup>®</sup></a>
     <div class="availability"><span class="status-dot"></span><span data-i18n="availability">Available — Taichung</span><span class="availability-separator">/</span><span data-i18n="localTime">Local Time:</span><time class="local-time">--:--:--</time></div>
     <nav class="desktop-nav" aria-label="Primary navigation"><a class="transition-link" href="about.html" data-nav-page="about" data-i18n="navAbout">About</a><a class="transition-link" href="work.html" data-nav-page="work" data-i18n="navWork">Work</a><a class="transition-link" href="contact.html" data-nav-page="contact" data-i18n="navContact">Contact</a></nav>
     <div class="header-actions"><button class="language-toggle" type="button" aria-label="Switch language">中文</button><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button></div>
   </header>
 
   <div class="menu-panel" aria-hidden="true">
-    <nav><span class="menu-index">/ 01 /</span><a class="transition-link" href="index.html" data-i18n="navHome">Home</a><span class="menu-index">/ 02 /</span><a class="transition-link" href="about.html" data-i18n="navAbout">About</a><span class="menu-index">/ 03 /</span><a class="transition-link" href="work.html" data-i18n="navWork">Work</a><span class="menu-index">/ 04 /</span><a class="transition-link" href="contact.html" data-i18n="navContact">Contact</a></nav>
+    <nav><span class="menu-index">/ 01 /</span><a class="transition-link" href="index.html#top" data-i18n="navHome">Home</a><span class="menu-index">/ 02 /</span><a class="transition-link" href="about.html" data-i18n="navAbout">About</a><span class="menu-index">/ 03 /</span><a class="transition-link" href="work.html" data-i18n="navWork">Work</a><span class="menu-index">/ 04 /</span><a class="transition-link" href="contact.html" data-i18n="navContact">Contact</a></nav>
     <div class="menu-panel-footer"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div>
   </div>
 
-  <main>
-    <section class="page-hero about-page-hero section-pad">
+  <div class="growth-route about-growth-route" aria-hidden="true">
+    <svg viewBox="0 0 104 820" role="presentation">
+      <path class="growth-route-shadow" d="M78 814C24 739 85 666 46 586C13 518 84 453 49 377C17 308 82 245 51 174C32 130 31 80 46 8"/>
+      <path class="growth-route-stem" data-growth-path d="M78 814C24 739 85 666 46 586C13 518 84 453 49 377C17 308 82 245 51 174C32 130 31 80 46 8"/>
+      <g class="growth-leaf" data-growth-threshold="0.12" transform="translate(51 700) rotate(-25)"><path d="M0 0C-23-18-42-6-40 18C-20 20-7 13 0 0Z"/><path d="M0 0-28 14"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.3" transform="translate(53 575) rotate(32)"><path d="M0 0C22-23 44-13 44 12C24 19 8 12 0 0Z"/><path d="M0 0 31 9"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.5" transform="translate(50 421) rotate(-34)"><path d="M0 0C-23-21-44-9-43 15C-22 20-8 13 0 0Z"/><path d="M0 0-31 12"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.7" transform="translate(53 270) rotate(29)"><path d="M0 0C22-24 44-13 44 12C24 19 8 12 0 0Z"/><path d="M0 0 31 9"/></g>
+      <g class="growth-leaf" data-growth-threshold="0.88" transform="translate(48 112) rotate(-30)"><path d="M0 0C-21-23-43-12-42 13C-23 19-8 12 0 0Z"/><path d="M0 0-30 10"/></g>
+    </svg>
+  </div>
+
+  <main id="main-content">
+    <section class="page-hero about-page-hero about-story-hero section-pad">
       <div class="page-hero-top reveal"><p class="eyebrow" data-i18n="aboutPageEyebrow">About — HongRong</p><span>/ 01 / ©</span></div>
-      <div class="page-hero-grid">
-        <h1 class="reveal" data-i18n="aboutPageTitle">Learning fast.<br>Building <em>with intent.</em></h1>
-        <p class="page-hero-intro reveal" data-i18n="aboutPageIntro">I am a web developer who enjoys connecting design, technology, and real-world needs into experiences people can actually use.</p>
-      </div>
-      <div class="about-portrait-showcase reveal">
-        <span class="botanical-vine botanical-vine-left" aria-hidden="true"></span>
-        <span class="botanical-vine botanical-vine-right" aria-hidden="true"></span>
-        <span class="portrait-stage-label portrait-stage-label-top" aria-hidden="true">01 / PORTRAIT</span>
-        <figure class="wide-portrait">
-          <img src="assets/images/hongrong-portrait.png" alt="HongRong by the sea">
-          <figcaption><span data-i18n="portraitCaption">HongRong — Web Developer</span><span>Taichung / Taiwan</span></figcaption>
+      <div class="about-story-hero-grid">
+        <div class="about-story-hero-copy">
+          <h1 class="reveal" data-i18n="aboutPageTitle">Curious enough to start.<br><em>Brave enough to go.</em></h1>
+          <p class="page-hero-intro reveal" data-i18n="aboutPageIntro">I build across AI, web, and products. A lost first website taught me to create; South Dakota taught me to keep going.</p>
+        </div>
+        <figure class="about-drawn-portrait reveal">
+          <div><img src="assets/images/hongrong-portrait.webp" width="499" height="738" fetchpriority="high" alt="HongRong sitting by the sea under a blue sky"></div>
+          <svg viewBox="0 0 520 700" aria-hidden="true"><path d="M113 642C37 567 44 417 79 288C112 165 194 58 326 69C452 79 493 198 463 331C434 460 361 635 225 656C179 663 141 657 113 642Z"/><path d="M77 458C26 414 33 350 8 305M47 387C17 374 3 345 8 317M44 386C66 361 73 333 68 305"/></svg>
+          <figcaption><span>HONG RONG</span><span>TAICHUNG / TAIWAN</span></figcaption>
         </figure>
-        <span class="portrait-stage-label portrait-stage-label-bottom" aria-hidden="true">WEB / TAIWAN / 2026</span>
       </div>
+      <div class="about-hero-proof reveal" aria-label="Three parts of HongRong's story"><span>AI × WEB × PRODUCT</span><span>TEAM LEAD / BUILDER</span><span>SOUTH DAKOTA / COURAGE</span></div>
     </section>
 
-    <section class="manifesto section-pad">
-      <div class="section-kicker reveal"><span><i></i><span data-i18n="myStory">My Story</span></span><span data-i18n="fromCuriosity">From curiosity to craft</span></div>
-      <div class="manifesto-grid">
-        <h2 class="reveal" data-i18n="manifestoTitle">I like the moment when a complicated idea becomes something simple, useful, and real.</h2>
-        <div class="body-copy reveal">
-          <p data-i18n="manifestoP1">I graduated from the Department of Information Management at Shih Hsin University. My work crosses front-end development, Android applications, AI services, API integration, and interface design.</p>
-          <p data-i18n="manifestoP2">As team lead for an AI driving assistant, I planned milestones, coordinated the team, and helped integrate navigation, public transport data, speech interaction, and GPT-powered conversation.</p>
-          <p data-i18n="manifestoP3">A work-and-travel experience in South Dakota taught me to communicate across cultures, adapt quickly, and stay reliable when the environment is unfamiliar.</p>
+    <section class="journey-chapter about-journey section-pad" data-story-spine-start>
+      <header class="chapter-heading reveal"><p class="story-index">02 — HOW I LEARNED</p><h2 data-i18n="journeyHeading">Computers always felt interesting to me.<br><em>Coding didn't.</em></h2></header>
+      <div class="journey-timeline">
+        <article class="journey-entry reveal"><div class="journey-year"><span>2021</span><small>INFORMATION MANAGEMENT</small></div><div class="journey-copy"><h3 data-i18n="journey2021Title">I chose Information Management because I had always liked computers.</h3><p data-i18n="journey2021Body">Then I met programming. I often knew what I wanted to make, but not how to turn that thought into code. Coding felt frustrating before it felt creative.</p></div></article>
+        <article class="journey-entry journey-entry-first-site reveal"><div class="journey-year"><span>2022</span><small>FIRST WEBSITE</small></div><div class="journey-copy"><h3 data-i18n="journey2022Title">A sneaker website changed the feeling.</h3><p data-i18n="journey2022Body">In my first web design class, I built a site that was mine. For the first time, code became something I could see, use, and feel proud of.</p><div class="memory-404" role="img" aria-label="The first sneaker website is lost and exists only as a memory"><span class="memory-code">404</span><div><strong>MY FIRST WEBSITE</strong><small>MEMORY ONLY — NO BACKUP</small></div><p data-i18n="journeyLost">I did not back it up. The website is gone, so this space stays honest: no reconstructed screenshot, only the memory of making it.</p></div></div></article>
+      </div>
+      <div class="gpt-turn about-gpt-turn">
+        <div class="gpt-turn-visual reveal" aria-hidden="true"><div class="code-chaos"><span>TypeError: undefined</span><span>?</span><span>{ }</span><span>How do I ask this?</span><span>try again</span><span>logic.js</span></div><div class="clarity-interface"><span class="clarity-dot"></span><div><small>01</small><strong>Understand</strong></div><div><small>02</small><strong>Structure</strong></div><div><small>03</small><strong>Decide</strong></div></div></div>
+        <div class="gpt-turn-copy reveal"><p class="story-index">THE TURNING POINT</p><h3 data-i18n="gptChangedTitle">Then GPT changed how I learned.</h3><p data-i18n="gptChangedBody">Questions I did not know how to ask could finally be broken down step by step. AI gave me a way into the problem.</p><blockquote data-i18n="gptPrinciple">AI didn't replace thinking.<br>It helped me understand.</blockquote><p class="gpt-responsibility" data-i18n="gptResponsibility">Requirements, data flow, logic, architecture, and the final decisions still remain my responsibility.</p></div>
+      </div>
+      <div class="ability-ledger reveal" aria-label="Capabilities shaped by the journey"><span>PRODUCT LOGIC</span><span>API SYSTEMS</span><span>TEAM LEADERSHIP</span><span>PROBLEM SOLVING</span></div>
+    </section>
+
+    <section class="usa-story story-section about-usa" id="south-dakota">
+      <div class="usa-intro section-pad reveal"><p class="story-index">03 — USA / SOUTH DAKOTA</p><h2 data-i18n="usaHeading">I LEFT MY<br><em>COMFORT ZONE.</em></h2><p data-i18n="usaSubheading">My English wasn't good.<br>That was exactly why I wanted to go.</p></div>
+      <div class="usa-photo-note section-pad reveal"><span>FIVE FRAMES / ONE SUMMER</span><p data-i18n="usaPhotoStory">Five moments from one summer in South Dakota.</p></div>
+      <div class="usa-carousel section-pad reveal" data-usa-carousel role="region" aria-roledescription="carousel" aria-label="Five photos from HongRong's South Dakota Work and Travel summer">
+        <div class="usa-carousel-stage">
+          <div class="usa-carousel-viewport" data-usa-carousel-viewport tabindex="0">
+            <div class="usa-carousel-track">
+              <figure class="usa-photo-slot slot-one is-active" data-usa-slide aria-label="Photo 1 of 5"><div class="usa-photo-media"><img src="assets/images/usa-badlands.webp" width="1200" height="1600" loading="lazy" decoding="async" alt="HongRong sitting with his arms open above the Badlands landscape in South Dakota"></div><div class="usa-photo-meta"><span>01 / 05</span><strong>BADLANDS</strong></div><figcaption data-i18n="usaPhotoOne">South Dakota / first view</figcaption></figure>
+              <figure class="usa-photo-slot slot-two" data-usa-slide aria-label="Photo 2 of 5"><div class="usa-photo-media"><img src="assets/images/usa-mount-rushmore.webp" width="1050" height="1400" loading="lazy" decoding="async" alt="HongRong sitting in front of Mount Rushmore in South Dakota"></div><div class="usa-photo-meta"><span>02 / 05</span><strong>MOUNT RUSHMORE</strong></div><figcaption data-i18n="usaPhotoTwo">A place I had only seen in photos</figcaption></figure>
+              <figure class="usa-photo-slot slot-three" data-usa-slide aria-label="Photo 3 of 5"><div class="usa-photo-media"><img src="assets/images/usa-kaytlin-work.webp" width="1050" height="1400" loading="lazy" decoding="async" alt="HongRong with Kaytlin on the left and another coworker in a hotel corridor"></div><div class="usa-photo-meta"><span>03 / 05</span><strong>WORK / KAYTLIN</strong></div><figcaption data-i18n="usaPhotoThree">Someone who listened patiently</figcaption></figure>
+              <figure class="usa-photo-slot slot-four" data-usa-slide aria-label="Photo 4 of 5"><div class="usa-photo-media"><img src="assets/images/usa-street-friends.webp" width="1800" height="1013" loading="lazy" decoding="async" alt="HongRong and friends taking a group selfie on a street in South Dakota"></div><div class="usa-photo-meta"><span>04 / 05</span><strong>FRIENDS</strong></div><figcaption data-i18n="usaPhotoFour">Friends from different places</figcaption></figure>
+              <figure class="usa-photo-slot slot-five" data-usa-slide aria-label="Photo 5 of 5"><div class="usa-photo-media"><img src="assets/images/usa-hiking-friends.webp" width="1050" height="1400" loading="lazy" decoding="async" alt="HongRong hiking with two friends on a rocky forest trail in South Dakota"></div><div class="usa-photo-meta"><span>05 / 05</span><strong>TRAVEL</strong></div><figcaption data-i18n="usaPhotoFive">I kept going somewhere new</figcaption></figure>
+            </div>
+          </div>
+          <div class="usa-carousel-arrows"><button type="button" data-usa-carousel-prev aria-label="Previous photo">←</button><button type="button" data-usa-carousel-next aria-label="Next photo">→</button></div>
+        </div>
+        <div class="usa-carousel-controls">
+          <div class="usa-carousel-position"><span data-usa-carousel-status aria-live="polite">01 / 05</span><div class="usa-carousel-dots" aria-label="Choose a photo"><button class="is-active" type="button" data-usa-carousel-dot="0" aria-label="View photo 1" aria-current="true"></button><button type="button" data-usa-carousel-dot="1" aria-label="View photo 2"></button><button type="button" data-usa-carousel-dot="2" aria-label="View photo 3"></button><button type="button" data-usa-carousel-dot="3" aria-label="View photo 4"></button><button type="button" data-usa-carousel-dot="4" aria-label="View photo 5"></button></div></div>
         </div>
       </div>
+      <div class="usa-field-notes section-pad"><article class="reveal"><span>01 / ARRIVAL</span><h3 data-i18n="usaArrivalTitle">Even eating took some getting used to.</h3><p data-i18n="usaArrivalBody">The food was heavy, salty, and sweet. Sometimes water cost more than soda. Small things kept reminding me how far I was from home.</p></article><article class="reveal"><span>02 / SSN</span><h3 data-i18n="usaSsnTitle">At the SSN counter, I could barely follow the conversation.</h3><p data-i18n="usaSsnBody">I did not even know how to ask the right question. My employer eventually helped me complete the process.</p></article><article class="reveal"><span>03 / WORK</span><h3 data-i18n="usaWorkTitle">Hotel work made me speak English every day.</h3><p data-i18n="usaWorkBody">Kaytlin listened patiently and corrected me directly. Because of her, I gradually became less afraid to speak.</p></article></div>
+      <blockquote class="courage-statement reveal" data-i18n="courageStatement">I came home with<br><em>more courage.</em></blockquote>
     </section>
 
-    <section class="timeline-section section-pad">
-      <div class="section-heading reveal"><h2 data-i18n="timelineTitle">Experience &amp; education</h2><span>/ 3 / ©</span></div>
-      <div class="timeline">
-        <article class="timeline-row reveal"><div><span>2025.06 — 2025.10</span><strong data-i18n="deadwoodPlace">The Lodge at Deadwood</strong></div><div><h3 data-i18n="deadwoodRole">Hospitality Team Member — USA</h3><p data-i18n="deadwoodBody">Worked with an international team in South Dakota, using English daily while strengthening adaptability, time management, and ownership.</p></div></article>
-        <article class="timeline-row reveal"><div><span>2024 — 2025</span><strong data-i18n="capstonePlace">University Capstone</strong></div><div><h3 data-i18n="capstoneRole">AI Driving Assistant — Team Lead</h3><p data-i18n="capstoneBody">Led planning and team coordination while contributing to Android development, AI conversation, map services, public data APIs, and UI/UX.</p></div></article>
-        <article class="timeline-row reveal"><div><span>2021 — 2025</span><strong data-i18n="universityPlace">Shih Hsin University</strong></div><div><h3 data-i18n="universityRole">B.S. in Information Management</h3><p data-i18n="universityBody">Built a foundation across software development, data, digital tools, project collaboration, and business thinking.</p></div></article>
+    <section class="outside-story story-section section-pad about-outside">
+      <header class="outside-heading reveal"><p class="story-index">04 — OUTSIDE THE SCREEN</p><h2 data-i18n="outsideHeading">The things that keep me<br><em>curious and moving.</em></h2></header>
+      <div class="interest-constellation reveal" aria-label="Personal interests"><span class="interest-big">BASKETBALL</span><span>APEX LEGENDS</span><span class="interest-serif">HIP-HOP / R&amp;B</span><span>LEAGUE OF LEGENDS</span><span class="interest-big">PHOTOGRAPHY</span><span class="interest-serif">TRAVEL</span><span>NATURE</span></div>
+      <div class="nature-manifesto"><figure class="nature-photo reveal"><img src="assets/images/new-zealand-wanaka.webp" width="1536" height="1152" loading="lazy" decoding="async" alt="Lake Wānaka and surrounding mountains photographed by HongRong in New Zealand"><figcaption>NEW ZEALAND / WĀNAKA / PHOTOGRAPHED BY HONG RONG</figcaption></figure><div class="nature-copy reveal"><p data-i18n="natureBody">After military service, I travelled through New Zealand with friends. Standing above Wānaka, I just wanted to remember the view.</p><blockquote data-i18n="natureQuote">If a place catches my eye,<br><em>I want to see it for myself.</em></blockquote><p data-i18n="natureImpression">When friends find an incredible landscape, I want them to think: “HongRong would love this.”</p></div></div>
+    </section>
+
+    <section class="skills-story story-section section-pad about-skills" data-story-spine-end>
+      <header class="skills-story-heading reveal"><p class="story-index">05 — HOW I BUILD</p><h2 data-i18n="skillsStoryHeading">The tools I use<br><em>and where I use them.</em></h2></header>
+      <div class="skill-lanes">
+        <article class="skill-lane reveal"><div><span>01</span><h3>BUILD</h3></div><div class="skill-words"><button type="button" data-skill-project="Jinhong Foods / AI Driving Assistant">HTML</button><button type="button" data-skill-project="Jinhong Foods / Portfolio">CSS</button><button type="button" data-skill-project="Portfolio / Interactive prototype">JavaScript</button><button type="button" data-skill-project="Jinhong Foods">React</button><button type="button" data-skill-project="Jinhong Foods">TypeScript</button></div></article>
+        <article class="skill-lane reveal"><div><span>02</span><h3>CONNECT</h3></div><div class="skill-words"><button type="button" data-skill-project="AI Driving Assistant">REST API</button><button type="button" data-skill-project="AI Driving Assistant">TDX</button><button type="button" data-skill-project="AI Driving Assistant">GPT</button><button type="button" data-skill-project="Application prototypes">Firebase</button></div></article>
+        <article class="skill-lane reveal"><div><span>03</span><h3>EXPLORE</h3></div><div class="skill-words"><button type="button" data-skill-project="AI Driving Assistant">AI</button><button type="button" data-skill-project="AI-assisted learning / Product work">Prompt Design</button><button type="button" data-skill-project="Traffic classification">ResNet-18</button><button type="button" data-skill-project="Cloud learning">AWS</button><button type="button" data-skill-project="Azure certifications">Azure</button></div></article>
+        <article class="skill-lane reveal"><div><span>04</span><h3>WORK</h3></div><div class="skill-words"><button type="button" data-skill-project="AI Driving Assistant / Team of five">Project Planning</button><button type="button" data-skill-project="Capstone / South Dakota">Teamwork</button><button type="button" data-skill-project="Model conversion / Client work">Problem Solving</button><button type="button" data-skill-project="South Dakota Work &amp; Travel">Cross-cultural Communication</button></div></article>
       </div>
-    </section>
-
-    <section class="skills-matrix section-pad">
-      <div class="section-kicker reveal"><span><i></i><span data-i18n="skillsKicker">Skills &amp; tools</span></span><span data-i18n="whatIBring">What I bring — 2026</span></div>
-      <div class="section-heading reveal"><h2 data-i18n="skillsTitle">A practical, growing toolkit</h2><span>/ 4 / ©</span></div>
-      <div class="matrix-grid">
-        <article class="reveal"><span>01</span><h3 data-i18n="matrixWeb">Web</h3><p>HTML · CSS · JavaScript · React · TypeScript · RWD</p></article>
-        <article class="reveal"><span>02</span><h3 data-i18n="matrixApp">Application</h3><p>Android Studio · Google Maps · REST APIs · Local Storage</p></article>
-        <article class="reveal"><span>03</span><h3 data-i18n="matrixAi">AI &amp; Data</h3><p>OpenAI / GPT · STT · TTS · TDX · Azure Fundamentals</p></article>
-        <article class="reveal"><span>04</span><h3 data-i18n="matrixPeople">Ways of working</h3><p data-i18n="matrixPeopleBody">Project planning · Teamwork · Fast learning · Cross-cultural communication</p></article>
-      </div>
-    </section>
-
-    <section class="certifications section-pad">
-      <div class="section-heading reveal"><h2 data-i18n="certTitle">Certifications</h2><span>/ Selected / ©</span></div>
-      <ul class="cert-list">
-        <li class="reveal"><span>01</span><strong>Artificial Intelligence Fundamentals</strong><small>AI Fundamentals</small></li>
-        <li class="reveal"><span>02</span><strong>Microsoft Certified: Azure Data Fundamentals</strong><small>DP-900</small></li>
-        <li class="reveal"><span>03</span><strong>Microsoft Career Essentials in Generative AI</strong><small>Microsoft / LinkedIn</small></li>
-        <li class="reveal"><span>04</span><strong>TQC+ Web Design Certification</strong><small>Web Development</small></li>
-      </ul>
-      <div class="section-end-link reveal"><a class="button button-outline" href="assets/docs/hongrong-resume.pdf" target="_blank" data-i18n="downloadResume">Download résumé ↗</a></div>
+      <p class="skill-evidence"><span data-i18n="skillEvidenceLabel">USED IN</span><strong data-skill-evidence>SELECT A SKILL</strong></p>
+      <div class="certification-rail reveal"><span>SELECTED CERTIFICATIONS</span><div><b>IBM</b><i></i><b>GOOGLE CLOUD</b><i></i><b>AWS</b><i></i><b>MICROSOFT</b><i></i><b>TQC+</b></div></div>
     </section>
 
     <section class="contact-cta section-pad">
       <p class="eyebrow reveal" data-i18n="nextChapter">The next chapter</p>
-      <h2 class="reveal" data-i18n="aboutCtaTitle">Ready to learn, contribute,<br><em>and build good work.</em></h2>
+      <h2 class="reveal" data-i18n="aboutCtaTitle">Let's build something<br><em>useful.</em></h2>
       <div class="cta-links reveal"><a class="button button-light transition-link" href="contact.html" data-i18n="getInTouch">Get in touch</a><a class="transition-link" href="work.html"><span data-i18n="exploreWork">Explore my work</span> ↗</a></div>
     </section>
   </main>
 
-  <footer class="site-footer"><div><a class="brand transition-link" href="index.html">HongRong<sup>®</sup></a><p data-i18n="footerLine">Web developer based in Taichung, Taiwan.</p></div><div class="footer-links"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a><a href="assets/docs/hongrong-resume.pdf" target="_blank" data-i18n="resumeLink">Résumé ↗</a></div><div class="footer-bottom"><span>© <span class="current-year"></span> HongRong</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div></footer>
+  <footer class="site-footer"><div><a class="brand transition-link" href="index.html#top">HongRong<sup>®</sup></a><p data-i18n="footerLine">Web developer based in Taichung, Taiwan.</p></div><div class="footer-links"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div><div class="footer-bottom"><span>© <span class="current-year"></span> HongRong</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div></footer>
 </body>
 </html>
