@@ -845,6 +845,7 @@
       const aboutCopy = about?.querySelector("[data-scene-copy]");
       const aboutVisual = about?.querySelector("[data-scene-visual]");
       const aboutTextEffect = about?.querySelector("[data-about-text-effect]");
+      const aboutCta = about?.querySelector("[data-about-cta]");
       const workCopy = work?.querySelector("[data-scene-copy]");
       const workVisual = work?.querySelector("[data-scene-visual]");
 
@@ -868,10 +869,11 @@
         .to(about, { yPercent: 0, duration: 1 }, .18)
         .fromTo(aboutCopy, { yPercent: 5 }, { yPercent: -7, duration: 1.22 }, .35)
         .to(aboutVisual, { yPercent: -4, duration: 1.05 }, .53)
-        .to(about, { yPercent: -16, duration: 1 }, 1.18)
-        .to(work, { yPercent: 0, duration: 1 }, 1.18)
-        .fromTo(workCopy, { yPercent: 5 }, { yPercent: -4, duration: 1 }, 1.2)
-        .fromTo(workVisual, { yPercent: 7 }, { yPercent: -2, duration: 1 }, 1.25);
+        .fromTo(aboutCta, { yPercent: 18, scale: .97 }, { yPercent: 0, scale: 1, duration: .72 }, .46)
+        .to(about, { yPercent: -16, duration: 1 }, 1.32)
+        .to(work, { yPercent: 0, duration: 1 }, 1.32)
+        .fromTo(workCopy, { yPercent: 5 }, { yPercent: -4, duration: 1 }, 1.34)
+        .fromTo(workVisual, { yPercent: 7 }, { yPercent: -2, duration: 1 }, 1.39);
 
       if (aboutTextEffect) {
         sceneTimeline.fromTo(
@@ -901,7 +903,7 @@
         if (homeSceneTrigger === sceneTimeline.scrollTrigger) homeSceneTrigger = null;
         sceneTimeline.scrollTrigger?.kill();
         sceneTimeline.kill();
-        gsap.set([hero, about, work, heroCopy, heroVisual, heroMeta, aboutCopy, aboutVisual, workCopy, workVisual], { clearProps: "transform" });
+        gsap.set([hero, about, work, heroCopy, heroVisual, heroMeta, aboutCopy, aboutVisual, aboutCta, workCopy, workVisual], { clearProps: "transform" });
         if (aboutTextEffect) gsap.set(aboutTextEffect, { clearProps: "--about-text-progress" });
       };
     });
