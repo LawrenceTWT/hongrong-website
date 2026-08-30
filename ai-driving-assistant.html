@@ -76,18 +76,35 @@
 
     <section class="case-model-deep section-pad">
       <div class="case-section-label reveal"><span>04</span><span>MODEL / REALITY</span></div>
-      <div class="model-deep-heading reveal"><p class="eyebrow">RESNET-18 / SIX TRAFFIC LEVELS</p><h2 data-i18n="modelRealityTitle">The difficult part was not making a model run.<br><em>It was making the full system agree.</em></h2></div>
-      <div class="model-evidence">
-        <div class="model-range reveal"><small data-i18n="experimentRange">Experiment range</small><strong>≈ 70–80%</strong><p data-i18n="accuracyContext">An approximate project result, not a production claim. Class-level performance mattered more than one headline number.</p></div>
-        <div class="model-level-visual reveal"><span>L1</span><span>L2</span><span class="is-weak">L3</span><span class="is-weak">L4</span><span>L5</span><span>L6</span><small data-i18n="middleClassNote">Middle traffic levels were easier to confuse.</small></div>
+      <div class="model-deep-heading reveal"><p class="eyebrow">RESNET-18 / SIX TRAFFIC LEVELS</p><h2 data-i18n="modelRealityTitle">The evidence mattered more than<br><em>one accuracy number.</em></h2></div>
+
+      <div class="model-proof-grid">
+        <figure class="model-proof model-proof-source reveal">
+          <div class="model-proof-image"><img src="assets/images/ai-training-levels.webp" width="1759" height="777" loading="lazy" decoding="async" alt="Six real road-camera traffic levels used in the AI Driving Assistant project"></div>
+          <ol class="model-level-key" aria-label="Six traffic-level labels"><li><b>L1</b><span data-i18n="modelLevel1">Free flow</span></li><li><b>L2</b><span data-i18n="modelLevel2">Smooth</span></li><li><b>L3</b><span data-i18n="modelLevel3">Normal</span></li><li><b>L4</b><span data-i18n="modelLevel4">Congested</span></li><li><b>L5</b><span data-i18n="modelLevel5">Severe</span></li><li><b>L6</b><span data-i18n="modelLevel6">Blocked</span></li></ol>
+          <figcaption><span>01 / SOURCE DATA</span><p data-i18n="modelSourceCaption">Six traffic levels built from real road-camera images.</p></figcaption>
+        </figure>
+        <figure class="model-proof model-proof-prediction reveal">
+          <div class="model-proof-image"><img src="assets/images/ai-prediction-samples.webp" width="1104" height="1095" loading="lazy" decoding="async" alt="Validation samples comparing true and predicted traffic levels"></div>
+          <figcaption><span>02 / TRUE ↔ PREDICTED</span><p data-i18n="modelPredictionCaption">Validation samples reveal where nearby classes were confused.</p></figcaption>
+        </figure>
+        <figure class="model-proof model-proof-curve reveal">
+          <div class="model-proof-image"><img src="assets/images/ai-precision-recall.webp" width="1372" height="1098" loading="lazy" decoding="async" alt="Original Precision-Recall curve for the six traffic classes"></div>
+          <figcaption><span>03 / PRECISION–RECALL</span><p data-i18n="modelCurveCaption">Class-level AP was strongest at L1 and L6, and weakest at L4 and L5.</p></figcaption>
+        </figure>
       </div>
-      <div class="conversion-deep reveal"><p data-i18n="conversionProblem">The model worked in PyTorch, but Android needed a different path — and preprocessing had to remain identical.</p><div class="conversion-pipe" aria-label="Model conversion path"><span>.PTH</span><i>→</i><span>ONNX</span><i>→</i><span>TFLITE</span><i>→</i><span>ANDROID</span></div></div>
-      <div class="failure-ledger">
-        <article class="reveal"><span>01 / DATA</span><h3 data-i18n="failureDatasetTitle">Dataset too small</h3><p data-i18n="failureDatasetBody">The model did not see enough variation in real road scenes, weather, distance, and camera quality.</p></article>
-        <article class="reveal"><span>02 / CLASSIFICATION</span><h3 data-i18n="failureMiddleTitle">Middle levels were weak</h3><p data-i18n="failureMiddleBody">Adjacent traffic levels looked similar, so the model confused the classes between obvious empty and obvious congestion.</p></article>
-        <article class="reveal"><span>03 / DEPLOYMENT</span><h3 data-i18n="failureConversionTitle">Conversion changed the result</h3><p data-i18n="failureConversionBody">The .pth model had to reach Android through ONNX and TensorFlow Lite, while PyTorch and Android normalization also needed to match.</p></article>
+
+      <dl class="model-ap-rail reveal" aria-label="Average Precision by traffic class">
+        <div><dt>L1</dt><dd>.81</dd></div><div><dt>L2</dt><dd>.65</dd></div><div><dt>L3</dt><dd>.76</dd></div><div class="is-weak"><dt>L4</dt><dd>.38</dd></div><div class="is-weak"><dt>L5</dt><dd>.40</dd></div><div><dt>L6</dt><dd>.78</dd></div>
+      </dl>
+      <p class="model-source-note reveal" data-i18n="modelSourceNote">Original capstone material · ResNet-18 · 80% training / 20% validation</p>
+
+      <div class="model-findings">
+        <article class="reveal"><span>01 / DATASET</span><strong>6 LEVELS / 80:20</strong><p data-i18n="modelFindingData">The structure was clear, but more weather, distance, and camera variation was still needed.</p></article>
+        <article class="reveal"><span>02 / CLASS-LEVEL AP</span><strong>L4 .38 / L5 .40</strong><p data-i18n="modelFindingClass">These adjacent traffic conditions were the hardest for the model to separate.</p></article>
+        <article class="reveal"><span>03 / DEPLOYMENT</span><strong>.PTH → ONNX → TFLITE</strong><p data-i18n="modelFindingDeploy">Normalization had to remain identical from PyTorch to Android.</p></article>
       </div>
-      <div class="model-decisions reveal"><p class="eyebrow" data-i18n="whatWeChanged">What we changed</p><ul><li data-i18n="fixNormalization">Use one normalization definition across training and Android.</li><li data-i18n="fixDataset">Add, clean, and rebalance the dataset.</li><li data-i18n="fixMetrics">Inspect Precision, Recall, and the confusion matrix — not accuracy alone.</li></ul></div>
+      <div class="model-action-rail reveal"><p class="eyebrow" data-i18n="whatWeChanged">What we changed</p><ul><li data-i18n="modelActionNormalize">Unified normalization</li><li data-i18n="modelActionData">Reorganized the dataset</li><li data-i18n="modelActionMetrics">Read Precision / Recall by class</li></ul></div>
     </section>
 
     <section class="case-rebuild-deep section-pad">

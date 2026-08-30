@@ -32,7 +32,7 @@ Long Journey, USA, skills, certifications, project failure analysis, résumé do
 - Primary transition cue: panel position, clipping, and gentle layer-speed differences. Opacity is not the main transition.
 - AI Driving Assistant: keep the existing sticky phone and switch real PPTX-derived screens in this order: login → remaining parking spaces → navigation → live traffic classification → saved vehicle location. Connect the state to a growing inline SVG vine.
 - Jinhong Foods: editorial type and real project imagery, without repeating the AI interaction pattern.
-- Closing: dark contact scene reveals HongRong's Lake Wānaka photograph; the landscape foreground overlaps the large name.
+- Closing: dark contact scene reveals HongRong's supplied red-rock canyon photograph; a softly graded full-bleed layer supports a crisp portrait crop without inventing pixels or a location.
 - Navigation: IntersectionObserver/requestAnimationFrame state logic supplies the current-section underline; it does not drive continuous motion.
 - Reduced motion: remove pinning and transforms, preserve normal reading order, expose all decorative paths, and use immediate state feedback.
 
@@ -42,13 +42,13 @@ Long Journey, USA, skills, certifications, project failure analysis, résumé do
 - The portrait remains a real photograph, integrated through an irregular mask and drawn outline rather than a flip card.
 - Vines appear only where they explain progression: the long-page growth route, About transition, AI phone state, and organic chapter edges.
 - Homepage copy stays brief; detailed process, limitations, and personal history require an intentional click into the relevant route.
-- Use the supplied `assets/images/new-zealand-wanaka.webp` without inventing or replacing the location.
+- Use the supplied real travel photography only. The final canyon image remains location-neutral because no location metadata was provided.
 - Keep the static HTML/CSS/JavaScript architecture. GSAP 3.13 and ScrollTrigger are stored locally and load as deferred scripts; no smooth-scroll hijacking library is added.
 
 ### Fathom layout and performance alignment
 
 - Fathom is the primary pacing and editorial-layout reference, while HongRong's palette, content, real photography, project evidence, and growth-vine language remain original.
-- Every normal section on all six routes uses the same central frame: `--page-max-width: 1200px`, fluid outer gutters, and 20–24px mobile padding. Only deliberate hero, chapter-background, transition, and New Zealand landscape layers may be full bleed.
+- Every normal section on all six routes uses the same central frame: `--page-max-width: 1200px`, fluid outer gutters, and 20–24px mobile padding. Only deliberate hero, chapter-background, transition, and final travel-photography layers may be full bleed.
 - Opening follows the reference's small per-letter blur/focus movement, then lifts the dark curtain to reveal the hero.
 - The desktop Hero → About → Selected Work scene is reversible and directly linked to scroll position. It uses `scrub: true` to remove delayed catch-up when the visitor scrolls back toward the top.
 - English display headings keep the condensed editorial character without overlapping lines. Every translated node inherits GenSen Rounded TW, with separate Chinese sizes, line heights, and letter spacing where large headings need them.
@@ -343,8 +343,8 @@ Purpose: this is the central case study because it connects life observation, pr
 Truth constraints:
 
 - Prototype is never labeled live.
-- Accuracy remains an approximate 70–80% range unless a verified final metric is supplied.
-- Precision, Recall, and confusion-matrix visuals use real values only.
+- No aggregate accuracy is presented without a verified final metric. The case study instead uses the original class-level AP values from the submitted capstone material.
+- Source-image, validation-prediction, and Precision–Recall visuals use only the original PPTX evidence.
 - No production-safety or accident-prevention claim is made.
 
 ### 04 Jinhong Foods — first accountable client
