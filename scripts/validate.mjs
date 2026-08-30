@@ -41,11 +41,32 @@ for (const file of htmlFiles) {
     const expectedAiStates = "0,1,2,3,4";
     if (aiSteps.join(",") !== expectedAiStates) errors.push(`${file}: expected five ordered AI story steps (${expectedAiStates})`);
     if (aiPanels.join(",") !== expectedAiStates) errors.push(`${file}: expected five ordered AI phone panels (${expectedAiStates})`);
+    if (!/data-about-text-effect/.test(html)) errors.push(`${file}: homepage capability statement is missing its scroll-linked text effect`);
+    for (const target of ["about.html", "ai-driving-assistant.html", "jinhong-foods.html"]) {
+      const escapedTarget = target.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      if (!new RegExp(`<a\\b[^>]*class="[^"]*story-cta[^"]*"[^>]*href="${escapedTarget}"`).test(html)) {
+        errors.push(`${file}: expected a visible story CTA for ${target}`);
+      }
+    }
   }
   if (file === "about.html") {
     const usaSlides = [...html.matchAll(/data-usa-slide\b/g)];
     if (usaSlides.length !== 5) errors.push(`${file}: expected exactly five USA carousel slides`);
     if (!/data-usa-carousel-prev/.test(html) || !/data-usa-carousel-next/.test(html)) errors.push(`${file}: USA carousel controls are missing`);
+    const stageStart = html.indexOf('class="usa-carousel-stage"');
+    const previousButton = html.indexOf("data-usa-carousel-prev");
+    const nextButton = html.indexOf("data-usa-carousel-next");
+    const controlsStart = html.indexOf('class="usa-carousel-controls"');
+    if (stageStart < 0 || previousButton < stageStart || nextButton < previousButton || controlsStart < nextButton) {
+      errors.push(`${file}: carousel arrows must sit inside the photo stage before the lower progress controls`);
+    }
+  }
+  if (file === "ai-driving-assistant.html") {
+    if (!/data-i18n="systemFlowLabel"/.test(html)) errors.push(`${file}: parking request flow needs a specific section label`);
+    if (!/data-prototype-start/.test(html) || !/data-i18n="prototypeButton"/.test(html)) errors.push(`${file}: simulated parking request needs a clear trigger`);
+  }
+  if (file === "jinhong-foods.html") {
+    if (/data-i18n="(?:clientNextBody|honestRoadmap)"/.test(html)) errors.push(`${file}: next-step section still contains redundant roadmap copy`);
   }
   if (file !== "index.html" && !/<a class="brand transition-link" href="index\.html#top">/.test(html)) {
     errors.push(`${file}: header brand must return explicitly to index.html#top`);

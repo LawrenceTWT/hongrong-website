@@ -62,8 +62,8 @@
     </section>
 
     <section class="case-system-story section-pad">
-      <div class="case-section-label reveal"><span>03</span><span data-i18n="systemLabel">The system</span></div>
-      <div class="case-system-heading reveal"><h2 data-i18n="aiSystemTitle">One request crosses several systems before it becomes useful.</h2><p data-i18n="aiSystemBody">The voice layer is only the entrance. Product value appears when the request becomes structured intent, reaches the correct data source, and returns as a clear response.</p></div>
+      <div class="case-section-label reveal"><span>03</span><span data-i18n="systemFlowLabel">VOICE REQUEST → PARKING DATA</span></div>
+      <div class="case-system-heading reveal"><h2 data-i18n="aiSystemTitle">From a spoken request to usable parking data.</h2><p data-i18n="aiSystemBody">Speech captures the request. GPT understands it. TDX returns available spaces.</p></div>
       <ol class="case-system-flow reveal" aria-label="AI Driving Assistant system components">
         <li><span>01</span><strong>NAVIGATION</strong><small>Google Maps</small></li>
         <li><span>02</span><strong>PARKING</strong><small>TDX open data</small></li>
@@ -72,7 +72,7 @@
         <li><span>05</span><strong>MODEL</strong><small>ResNet-18 / 6 levels</small></li>
       </ol>
       <div class="prototype-lab case-prototype-lab reveal">
-        <div class="prototype-copy"><p class="story-index">INTERACTIVE PROTOTYPE — SIMULATED</p><h3 data-i18n="prototypeTitle">Voice in.<br>Parking result out.</h3><p data-i18n="prototypeBody">Simulated flow — no live API.</p><button class="button button-light prototype-trigger" type="button" data-prototype-start><span data-i18n="prototypeButton">Find parking nearby</span><span aria-hidden="true">→</span></button></div>
+        <div class="prototype-copy"><p class="story-index">INTERACTIVE PROTOTYPE — SIMULATED</p><h3 data-i18n="prototypeTitle">Try asking:<br>“Find parking near me”</h3><p data-i18n="prototypeBody">Watch the request move through speech recognition, GPT, and TDX. No live API is connected.</p><button class="button button-light prototype-trigger" type="button" data-prototype-start><span data-i18n="prototypeButton">Run the simulated request</span><span aria-hidden="true">→</span></button></div>
         <ol class="prototype-flow" aria-label="Simulated parking request flow">
           <li><span>01</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg></i><strong>VOICE</strong><small data-i18n="prototypeVoice">Driver request</small></li>
           <li><span>02</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9v6M8 6v12M12 3v18M16 7v10M20 10v4"/></svg></i><strong>STT</strong><small data-i18n="prototypeStt">Speech to text</small></li>

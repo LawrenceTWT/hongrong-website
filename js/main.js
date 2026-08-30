@@ -17,13 +17,13 @@
     homeAboutLabel: "01 — 關於我",
     homeAboutTitle: "我把真實問題，變成<br><em>人們能夠使用的產品</em>",
     homeAboutBody: "AI 幫助我理解問題；邏輯、結構與決策仍由我負責",
-    homeAboutMore: "更多關於我",
+    homeAboutMore: "了解我的故事",
     selectedWorkLabel: "02 — 精選作品",
     selectedWorkTitle: "<span>我的</span><em>作品</em>",
     selectedWorkIntro: "行車助手與金虹食品，點進去看完整過程",
     homeAiHeading: "開車時，<br><em>不用一直切換 App</em>",
     homeAiLede: "我們把導航、停車、即時路況和語音功能放進同一個 Android App",
-    homeAiExit: "想看 API、模型和我負責的部分，可以進入完整案例",
+    homeAiExit: "角色 / API / 模型 / 下一版",
     homeJinhongTitle: "一位真實客戶。<br><em>一個更清楚的數位入口</em>",
     homeJinhongLede: "我第一次為真實企業製作的網站，讓食品機械品牌與產品更容易被找到",
     homeJinhongNote: "把真實企業需求，轉化成更清楚的品牌與產品入口",
@@ -65,9 +65,9 @@
     aiStepTrafficBody: "TDX 攝影機畫面搭配車流模型，協助判斷目前道路的車流程度",
     aiStepVehicleTitle: "記住車子停放的位置",
     aiStepVehicleBody: "儲存停車定位，需要時再回到同一個位置，不必只依靠記憶",
-    prototypeTitle: "一句話，變成停車結果",
-    prototypeBody: "模擬流程，未連接即時 API",
-    prototypeButton: "尋找附近停車位",
+    prototypeTitle: "試著說：<br>「幫我找附近停車場」",
+    prototypeBody: "點擊後查看這句話如何經過語音辨識、GPT 與 TDX，本流程未連接即時 API",
+    prototypeButton: "開始模擬查詢",
     prototypeVoice: "駕駛提出需求",
     prototypeStt: "語音轉成文字",
     prototypeGpt: "理解使用意圖",
@@ -105,7 +105,7 @@
     rebuildAccident: "事故通知",
     rebuildCamera: "測速資訊",
     rebuildAi: "更流暢、更理解情境的 AI 互動",
-    openFullCase: "閱讀完整案例",
+    openFullCase: "查看行車助手完整案例",
     jinhongStoryHeading: "我的第一個真實客戶，<br><em>來自一位朋友</em>",
     jinhongStoryLede: "朋友家中經營食品機械工廠。當他準備承接家業，希望有一個網站能增加品牌曝光，也讓產品目錄更容易被看見",
     clientBeforeTitle: "一家擁有專業產品的真實企業，卻沒有清楚的數位入口",
@@ -114,7 +114,6 @@
     clientResearchBody: "我研究同產業網站、產品分類、規格，以及採購者在做決定前需要回答的問題",
     clientDesignTitle: "把大量機械整理成可以理解與瀏覽的資訊架構",
     clientBuildBody: "我負責介面設計、前端開發、部署，並持續維護這個網站",
-    clientNextBody: "這些是下一步計畫，不會被描述成已完成的工作",
     usaHeading: "我離開了自己的<br><em>舒適圈</em>",
     usaSubheading: "我的英文並不好。<br>這正是我想去的原因",
     usaPhotoStory: "在 South Dakota 的一個夏天，留下這五個畫面",
@@ -159,8 +158,9 @@
     aiRoleData: "蒐集、清理並準備六個交通等級的路況攝影機圖片",
     aiRoleModel: "模型訓練、評估、類別分析與轉換問題排查",
     aiRoleAndroid: "把模型與資料服務連接到 Android 的使用體驗",
-    aiSystemTitle: "一個需求，必須跨過多個系統，才會真正變得有用",
-    aiSystemBody: "語音只是入口。當需求被轉成結構化意圖、送到正確資料來源，再以清楚方式回覆時，產品價值才真正出現",
+    systemFlowLabel: "語音請求 → 停車資料",
+    aiSystemTitle: "從一句語音，到一筆可用的停車資料",
+    aiSystemBody: "語音接收需求，GPT 理解意圖，TDX 回傳剩餘車位",
     experimentRange: "實驗結果區間",
     accuracyContext: "這是專題中的約略結果，不是正式產品宣稱。比起單一數字，我更在意各個類別的實際表現",
     middleClassNote: "中間的交通等級更容易彼此混淆",
@@ -193,8 +193,8 @@
     buildReusable: "可重用、由資料驅動的產品呈現",
     buildResponsive: "響應式版面與無障礙互動",
     buildDeploy: "Cloudflare 部署與維護",
-    honestRoadmap: "誠實的後續路線",
-    clientSeoTitle: "網站已經上線，下一步是讓真正需要的人找到它",
+    clientNextLabel: "下一步 — SEO / 搜尋曝光",
+    clientSeoTitle: "網站已上線，下一步是讓需要的人找到它",
     navHome: "首頁",
     navAbout: "關於我",
     navWork: "作品",
@@ -301,7 +301,7 @@
     featuredProject: "精選專案",
     realClient: "真實客戶",
     jinhongLongSummary: "為台灣食品機械公司打造的完整產品與企業網站，讓大量技術產品更容易瀏覽、比較與詢價",
-    viewCaseStudy: "查看案例",
+    viewCaseStudy: "查看完整案例",
     liveWebsite: "瀏覽網站",
     sourceCode: "查看原始碼",
     capstoneProject: "大學畢業專題",
@@ -536,6 +536,15 @@
       button.setAttribute("aria-busy", "true");
       button.textContent = resolved === "zh" ? "EN" : "中文";
       button.setAttribute("aria-label", resolved === "zh" ? "Switch to English" : "切換至繁體中文");
+    });
+    document.querySelectorAll("[data-usa-carousel]").forEach((carousel) => {
+      const slides = [...carousel.querySelectorAll("[data-usa-slide]")];
+      carousel.setAttribute("aria-label", resolved === "zh" ? "洪戎在 South Dakota 打工旅遊的五張照片" : "Five photos from HongRong's South Dakota Work and Travel summer");
+      carousel.querySelector("[data-usa-carousel-prev]")?.setAttribute("aria-label", resolved === "zh" ? "上一張照片" : "Previous photo");
+      carousel.querySelector("[data-usa-carousel-next]")?.setAttribute("aria-label", resolved === "zh" ? "下一張照片" : "Next photo");
+      carousel.querySelector(".usa-carousel-dots")?.setAttribute("aria-label", resolved === "zh" ? "選擇照片" : "Choose a photo");
+      slides.forEach((slide, index) => slide.setAttribute("aria-label", resolved === "zh" ? `第 ${index + 1} 張，共 ${slides.length} 張` : `Photo ${index + 1} of ${slides.length}`));
+      carousel.querySelectorAll("[data-usa-carousel-dot]").forEach((dot, index) => dot.setAttribute("aria-label", resolved === "zh" ? `查看第 ${index + 1} 張照片` : `View photo ${index + 1}`));
     });
     document.querySelectorAll("[data-portrait-flip]").forEach((button) => updatePortraitFlipLabel(button, resolved));
 
@@ -835,6 +844,7 @@
       const heroMeta = hero?.querySelector("[data-scene-meta]");
       const aboutCopy = about?.querySelector("[data-scene-copy]");
       const aboutVisual = about?.querySelector("[data-scene-visual]");
+      const aboutTextEffect = about?.querySelector("[data-about-text-effect]");
       const workCopy = work?.querySelector("[data-scene-copy]");
       const workVisual = work?.querySelector("[data-scene-visual]");
 
@@ -863,6 +873,15 @@
         .fromTo(workCopy, { yPercent: 5 }, { yPercent: -4, duration: 1 }, 1.2)
         .fromTo(workVisual, { yPercent: 7 }, { yPercent: -2, duration: 1 }, 1.25);
 
+      if (aboutTextEffect) {
+        sceneTimeline.fromTo(
+          aboutTextEffect,
+          { "--about-text-progress": "0%" },
+          { "--about-text-progress": "100%", duration: .72 },
+          .44
+        );
+      }
+
       const landscape = document.querySelector("[data-landscape-scene]");
       if (landscape) {
         const landscapeImages = landscape.querySelectorAll(".landscape-base, .landscape-foreground img");
@@ -883,6 +902,7 @@
         sceneTimeline.scrollTrigger?.kill();
         sceneTimeline.kill();
         gsap.set([hero, about, work, heroCopy, heroVisual, heroMeta, aboutCopy, aboutVisual, workCopy, workVisual], { clearProps: "transform" });
+        if (aboutTextEffect) gsap.set(aboutTextEffect, { clearProps: "--about-text-progress" });
       };
     });
 
