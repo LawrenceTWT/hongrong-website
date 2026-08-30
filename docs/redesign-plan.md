@@ -32,7 +32,7 @@ Long Journey, USA, skills, certifications, project failure analysis, résumé do
 - Primary transition cue: panel position, clipping, and gentle layer-speed differences. Opacity is not the main transition.
 - AI Driving Assistant: keep the existing sticky phone and switch real PPTX-derived screens in this order: login → remaining parking spaces → navigation → live traffic classification → saved vehicle location. Connect the state to a growing inline SVG vine.
 - Jinhong Foods: editorial type and real project imagery, without repeating the AI interaction pattern.
-- Closing: dark contact scene reveals HongRong's supplied red-rock canyon photograph; a softly graded full-bleed layer supports a crisp portrait crop without inventing pixels or a location.
+- Closing: dark contact scene reveals HongRong's Horseshoe Bend photograph as one full-bleed scene. A duplicated lower foreground layer passes in front of the large name so the photograph—not a separate card—creates the depth.
 - Navigation: IntersectionObserver/requestAnimationFrame state logic supplies the current-section underline; it does not drive continuous motion.
 - Reduced motion: remove pinning and transforms, preserve normal reading order, expose all decorative paths, and use immediate state feedback.
 
@@ -42,7 +42,7 @@ Long Journey, USA, skills, certifications, project failure analysis, résumé do
 - The portrait remains a real photograph, integrated through an irregular mask and drawn outline rather than a flip card.
 - Vines appear only where they explain progression: the long-page growth route, About transition, AI phone state, and organic chapter edges.
 - Homepage copy stays brief; detailed process, limitations, and personal history require an intentional click into the relevant route.
-- Use the supplied real travel photography only. The final canyon image remains location-neutral because no location metadata was provided.
+- Use the supplied real travel photography only. The final image is identified as Horseshoe Bend, USA, based on HongRong's confirmation.
 - Keep the static HTML/CSS/JavaScript architecture. GSAP 3.13 and ScrollTrigger are stored locally and load as deferred scripts; no smooth-scroll hijacking library is added.
 
 ### Fathom layout and performance alignment

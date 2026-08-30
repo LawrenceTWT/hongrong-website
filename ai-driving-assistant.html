@@ -71,7 +71,17 @@
         <li><span>04</span><strong>AI</strong><small>GPT / STT / TTS</small></li>
         <li><span>05</span><strong>MODEL</strong><small>ResNet-18 / 6 levels</small></li>
       </ol>
-      <div class="prototype-lab case-prototype-lab reveal"><div class="prototype-copy"><p class="story-index">INTERACTIVE PROTOTYPE — SIMULATED</p><h3 data-i18n="prototypeTitle">What happens after the driver asks for parking?</h3><p data-i18n="prototypeBody">This prototype demonstrates the intended system flow. It does not call a live API.</p><button class="button button-light prototype-trigger" type="button" data-prototype-start><span data-i18n="prototypeButton">Find parking nearby</span><span aria-hidden="true">→</span></button></div><ol class="prototype-flow" aria-label="Simulated parking request flow"><li><span>01</span><strong>VOICE</strong><small data-i18n="prototypeVoice">Driver request</small></li><li><span>02</span><strong>STT</strong><small data-i18n="prototypeStt">Speech to text</small></li><li><span>03</span><strong>GPT</strong><small data-i18n="prototypeGpt">Understand intent</small></li><li><span>04</span><strong>TDX API</strong><small data-i18n="prototypeTdx">Request open data</small></li><li><span>05</span><strong>PARKING DATA</strong><small data-i18n="prototypeData">Available spaces</small></li><li><span>06</span><strong>RESPONSE</strong><small data-i18n="prototypeResponse">Speak the result</small></li></ol></div>
+      <div class="prototype-lab case-prototype-lab reveal">
+        <div class="prototype-copy"><p class="story-index">INTERACTIVE PROTOTYPE — SIMULATED</p><h3 data-i18n="prototypeTitle">Voice in.<br>Parking result out.</h3><p data-i18n="prototypeBody">Simulated flow — no live API.</p><button class="button button-light prototype-trigger" type="button" data-prototype-start><span data-i18n="prototypeButton">Find parking nearby</span><span aria-hidden="true">→</span></button></div>
+        <ol class="prototype-flow" aria-label="Simulated parking request flow">
+          <li><span>01</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg></i><strong>VOICE</strong><small data-i18n="prototypeVoice">Driver request</small></li>
+          <li><span>02</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9v6M8 6v12M12 3v18M16 7v10M20 10v4"/></svg></i><strong>STT</strong><small data-i18n="prototypeStt">Speech to text</small></li>
+          <li><span>03</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 1.4 4.2L18 9l-4.6 1.8L12 15l-1.4-4.2L6 9l4.6-1.8L12 3Z"/><path d="m18.5 14 .8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"/></svg></i><strong>GPT</strong><small data-i18n="prototypeGpt">Understand intent</small></li>
+          <li><span>04</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></i><strong>TDX API</strong><small data-i18n="prototypeTdx">Open data</small></li>
+          <li><span>05</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M10 17V7h3.2a3.2 3.2 0 0 1 0 6H10"/></svg></i><strong>PARKING</strong><small data-i18n="prototypeData">Available spaces</small></li>
+          <li><span>06</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v11H9l-4 4V5Z"/><path d="m9 11 2 2 4-4"/></svg></i><strong>RESPONSE</strong><small data-i18n="prototypeResponse">Speak result</small></li>
+        </ol>
+      </div>
     </section>
 
     <section class="case-model-deep section-pad">
@@ -79,18 +89,24 @@
       <div class="model-deep-heading reveal"><p class="eyebrow">RESNET-18 / SIX TRAFFIC LEVELS</p><h2 data-i18n="modelRealityTitle">The evidence mattered more than<br><em>one accuracy number.</em></h2></div>
 
       <div class="model-proof-grid">
-        <figure class="model-proof model-proof-source reveal">
-          <div class="model-proof-image"><img src="assets/images/ai-training-levels.webp" width="1759" height="777" loading="lazy" decoding="async" alt="Six real road-camera traffic levels used in the AI Driving Assistant project"></div>
-          <ol class="model-level-key" aria-label="Six traffic-level labels"><li><b>L1</b><span data-i18n="modelLevel1">Free flow</span></li><li><b>L2</b><span data-i18n="modelLevel2">Smooth</span></li><li><b>L3</b><span data-i18n="modelLevel3">Normal</span></li><li><b>L4</b><span data-i18n="modelLevel4">Congested</span></li><li><b>L5</b><span data-i18n="modelLevel5">Severe</span></li><li><b>L6</b><span data-i18n="modelLevel6">Blocked</span></li></ol>
-          <figcaption><span>01 / SOURCE DATA</span><p data-i18n="modelSourceCaption">Six traffic levels built from real road-camera images.</p></figcaption>
-        </figure>
+        <section class="model-proof model-proof-source reveal" aria-label="Six real traffic-level samples">
+          <div class="model-level-grid">
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-1.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 1 free-flow road-camera sample"><figcaption><b>L1</b><span data-i18n="modelLevel1">Free flow</span></figcaption></figure>
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-2.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 2 smooth-traffic road-camera sample"><figcaption><b>L2</b><span data-i18n="modelLevel2">Smooth</span></figcaption></figure>
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-3.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 3 normal-traffic road-camera sample"><figcaption><b>L3</b><span data-i18n="modelLevel3">Normal</span></figcaption></figure>
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-4.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 4 congested road-camera sample"><figcaption><b>L4</b><span data-i18n="modelLevel4">Congested</span></figcaption></figure>
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-5.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 5 severely congested road-camera sample"><figcaption><b>L5</b><span data-i18n="modelLevel5">Heavy</span></figcaption></figure>
+            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-6.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 6 gridlock road-camera sample"><figcaption><b>L6</b><span data-i18n="modelLevel6">Gridlock</span></figcaption></figure>
+          </div>
+          <div class="model-proof-caption"><span class="proof-label"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="6" height="6"/><rect x="12" y="2" width="6" height="6"/><rect x="2" y="12" width="6" height="6"/><rect x="12" y="12" width="6" height="6"/></svg>01 / TRAINING DATA</span><p data-i18n="modelSourceCaption">Real road-camera samples.</p></div>
+        </section>
         <figure class="model-proof model-proof-prediction reveal">
           <div class="model-proof-image"><img src="assets/images/ai-prediction-samples.webp" width="1104" height="1095" loading="lazy" decoding="async" alt="Validation samples comparing true and predicted traffic levels"></div>
-          <figcaption><span>02 / TRUE ↔ PREDICTED</span><p data-i18n="modelPredictionCaption">Validation samples reveal where nearby classes were confused.</p></figcaption>
+          <figcaption><span class="proof-label"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="m6 10 2.5 2.5L14.5 7"/></svg>02 / VALIDATION</span><p data-i18n="modelPredictionCaption">Adjacent levels were confused.</p></figcaption>
         </figure>
         <figure class="model-proof model-proof-curve reveal">
           <div class="model-proof-image"><img src="assets/images/ai-precision-recall.webp" width="1372" height="1098" loading="lazy" decoding="async" alt="Original Precision-Recall curve for the six traffic classes"></div>
-          <figcaption><span>03 / PRECISION–RECALL</span><p data-i18n="modelCurveCaption">Class-level AP was strongest at L1 and L6, and weakest at L4 and L5.</p></figcaption>
+          <figcaption><span class="proof-label"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 17V3M2 17h16M5 13l4-4 3 2 5-6"/></svg>03 / CLASS AP</span><p data-i18n="modelCurveCaption">L4 / L5 were weakest.</p></figcaption>
         </figure>
       </div>
 
