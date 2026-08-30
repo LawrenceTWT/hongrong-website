@@ -28,7 +28,10 @@ createServer(async (request, response) => {
     let file = join(root, safePath);
     if ((await stat(file)).isDirectory()) file = join(file, "index.html");
     const body = await readFile(file);
-    response.writeHead(200, { "Content-Type": types[extname(file)] || "application/octet-stream" });
+    response.writeHead(200, {
+      "Content-Type": types[extname(file)] || "application/octet-stream",
+      "Cache-Control": "no-store"
+    });
     response.end(body);
   } catch {
     response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });

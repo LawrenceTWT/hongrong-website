@@ -418,29 +418,83 @@
     button.querySelector(".portrait-back")?.setAttribute("aria-hidden", String(!flipped));
   };
 
+  const scrollWindowTo = (top, behavior = "auto") => {
+    const nextTop = Math.max(0, top);
+    if (behavior === "smooth") {
+      window.scrollTo({ top: nextTop, behavior: "smooth" });
+      return;
+    }
+
+    const rootStyle = document.documentElement.style;
+    const previousBehavior = rootStyle.scrollBehavior;
+    rootStyle.scrollBehavior = "auto";
+    window.scrollTo(0, nextTop);
+    rootStyle.scrollBehavior = previousBehavior;
+  };
+
   let languageRefreshFrame = 0;
-  let languageRefreshTimer = 0;
-  const scheduleLanguageLayoutRefresh = () => {
+  let languageRefreshRevision = 0;
+  const finishLanguageUpdateUi = () => {
+    document.documentElement.classList.remove("language-updating");
+    document.querySelectorAll(".language-toggle").forEach((button) => {
+      button.removeAttribute("aria-busy");
+    });
+  };
+  const cancelLanguageLayoutRefresh = () => {
+    languageRefreshRevision += 1;
     window.cancelAnimationFrame(languageRefreshFrame);
-    window.clearTimeout(languageRefreshTimer);
+    finishLanguageUpdateUi();
+  };
+  const captureLanguageScrollState = () => {
+    const state = { top: window.scrollY, sceneProgress: null };
+    if (!document.body.classList.contains("fathom-home")) return state;
+
+    const triggerStart = homeSceneTrigger?.start;
+    const triggerEnd = homeSceneTrigger?.end;
+    const insideScene = Number.isFinite(triggerStart)
+      && Number.isFinite(triggerEnd)
+      && window.scrollY >= triggerStart - 1
+      && window.scrollY <= triggerEnd + 1;
+    if (insideScene && Number.isFinite(homeSceneTrigger?.progress)) {
+      state.sceneProgress = Math.max(0, Math.min(1, homeSceneTrigger.progress));
+    }
+    return state;
+  };
+  const restoreLanguageScrollState = (state) => {
+    let top = state.top;
+    if (state.sceneProgress !== null
+      && Number.isFinite(homeSceneTrigger?.start)
+      && Number.isFinite(homeSceneTrigger?.end)) {
+      top = homeSceneTrigger.start + (homeSceneTrigger.end - homeSceneTrigger.start) * state.sceneProgress;
+    }
+    scrollWindowTo(top);
+    window.ScrollTrigger?.update();
+    updateActiveScrollNav();
+  };
+  const scheduleLanguageLayoutRefresh = (scrollState) => {
+    const revision = ++languageRefreshRevision;
+    window.cancelAnimationFrame(languageRefreshFrame);
 
     languageRefreshFrame = window.requestAnimationFrame(() => {
       languageRefreshFrame = window.requestAnimationFrame(() => {
-        document.documentElement.classList.remove("language-updating");
-        document.querySelectorAll(".language-toggle").forEach((button) => {
-          button.removeAttribute("aria-busy");
-        });
-
-        languageRefreshTimer = window.setTimeout(() => {
+        const fontsReady = document.fonts?.ready || Promise.resolve();
+        Promise.resolve(fontsReady).then(() => {
+          if (revision !== languageRefreshRevision) return;
           if (document.querySelector(".scroll-story")) updateScrub();
           window.ScrollTrigger?.refresh();
-        }, 80);
+          languageRefreshFrame = window.requestAnimationFrame(() => {
+            if (revision !== languageRefreshRevision) return;
+            restoreLanguageScrollState(scrollState);
+            finishLanguageUpdateUi();
+          });
+        });
       });
     });
   };
 
   const applyLanguage = (language) => {
     const resolved = language === "zh" ? "zh" : "en";
+    const scrollState = captureLanguageScrollState();
     document.documentElement.classList.add("language-updating");
     document.documentElement.lang = resolved === "zh" ? "zh-Hant" : "en";
     document.body.dataset.lang = resolved;
@@ -465,7 +519,7 @@
 
     splitScrubText(resolved);
     safeStorage.set("hongrong-language", resolved);
-    scheduleLanguageLayoutRefresh();
+    scheduleLanguageLayoutRefresh(scrollState);
   };
 
   document.querySelectorAll(".language-toggle").forEach((button) => {
@@ -594,7 +648,33 @@
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const homeHashTargets = new Set(["#top", "#about", "#work", "#ai-project", "#jinhong-project", "#contact"]);
+  const homeSceneProgress = new Map([
+    ["#top", 0],
+    ["#about", .5],
+    ["#work", .97]
+  ]);
+  let homeSceneTrigger = null;
   let homeHashFrame = 0;
+
+  if (document.body.classList.contains("fathom-home") && "scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+
+  const getHomeSceneScrollTop = (hash) => {
+    const progress = homeSceneProgress.get(hash);
+    const desktopSceneMotion = window.matchMedia("(min-width: 901px) and (prefers-reduced-motion: no-preference)").matches;
+    if (progress === undefined || !desktopSceneMotion || !window.gsap || !window.ScrollTrigger) return null;
+
+    const sequence = document.querySelector("[data-scene-sequence]");
+    if (!sequence) return null;
+
+    const sequenceTop = sequence.getBoundingClientRect().top + window.scrollY;
+    const fallbackEnd = sequenceTop + Math.max(0, sequence.offsetHeight - window.innerHeight);
+    const triggerStart = Number.isFinite(homeSceneTrigger?.start) ? homeSceneTrigger.start : sequenceTop;
+    const triggerEnd = Number.isFinite(homeSceneTrigger?.end) ? homeSceneTrigger.end : fallbackEnd;
+    return triggerStart + (triggerEnd - triggerStart) * progress;
+  };
+
   const syncHomeHashPosition = ({ behavior = "auto", forceTopWithoutHash = false } = {}) => {
     if (!document.body.classList.contains("fathom-home")) return false;
     const hash = window.location.hash;
@@ -603,13 +683,18 @@
     let top = 0;
     if (hash && hash !== "#top") {
       if (!homeHashTargets.has(hash)) return false;
-      const target = document.querySelector(hash);
-      if (!target) return false;
-      top = target.getBoundingClientRect().top + window.scrollY;
+      const sceneTop = getHomeSceneScrollTop(hash);
+      if (sceneTop !== null) {
+        top = sceneTop;
+      } else {
+        const target = document.querySelector(hash);
+        if (!target) return false;
+        top = target.getBoundingClientRect().top + window.scrollY;
+      }
     }
 
     window.cancelAnimationFrame(homeHashFrame);
-    window.scrollTo({ top: Math.max(0, top), behavior });
+    scrollWindowTo(top, behavior);
     homeHashFrame = window.requestAnimationFrame(() => {
       window.ScrollTrigger?.update();
       updateActiveScrollNav();
@@ -622,6 +707,7 @@
       const hash = link.getAttribute("href");
       if (!homeHashTargets.has(hash)) return;
       event.preventDefault();
+      cancelLanguageLayoutRefresh();
       setMenu(false);
       if (window.location.hash !== hash) window.history.pushState(null, "", hash);
       syncHomeHashPosition({ behavior: reducedMotion.matches ? "auto" : "smooth" });
@@ -736,6 +822,7 @@
           invalidateOnRefresh: true
         }
       });
+      homeSceneTrigger = sceneTimeline.scrollTrigger;
 
       sceneTimeline
         .to(heroCopy, { yPercent: -13, duration: 1 }, 0)
@@ -765,6 +852,7 @@
       }
 
       return () => {
+        if (homeSceneTrigger === sceneTimeline.scrollTrigger) homeSceneTrigger = null;
         sceneTimeline.scrollTrigger?.kill();
         sceneTimeline.kill();
         gsap.set([hero, about, work, heroCopy, heroVisual, heroMeta, aboutCopy, aboutVisual, workCopy, workVisual], { clearProps: "transform" });
