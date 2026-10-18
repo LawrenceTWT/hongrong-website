@@ -59,22 +59,29 @@ try {
  for(const frame of vineFrames.slice().reverse()){
   timeline.time(frame.time);growth.updateBotanicalGrowth();assert.deepEqual(regions.map(r=>r.progress),frame.values);
  }
+ assert.ok(vineFrames.every(frame=>frame.values[0]===1000),'hero vines must be complete from the first frame');
+ assert.equal(vineFrames.find(frame=>frame.time===1.4).values[1],1000,'About vines should finish before its reading pause');
+ assert.ok(vineFrames.find(frame=>frame.time===1.8).values[2]>0,'Work vines should start before the scene enters');
  growth.reducedMotion.matches=true;growth.updateBotanicalGrowth();assert.ok(regions.every(r=>r.progress===1000));
  growth.reducedMotion.matches=false;
  let pageTop=0;
  const initialPage={fromTop:true,delay:0,progress:-1,region:{getBoundingClientRect:()=>({top:pageTop,height:900})},vine:{style:{setProperty(name,value){this[name]=value}}}};
- const laterPage={...initialPage,delay:.2,progress:-1,vine:{style:{setProperty(name,value){this[name]=value}}}};
+ const laterPage={...initialPage,fromTop:false,delay:.2,progress:-1,vine:{style:{setProperty(name,value){this[name]=value}}}};
  growth.botanicalVines=[initialPage,laterPage];
  growth.sceneTimeline=null;
  const pageFrames=[];
- for(const top of [0,-120,-300,-600]){
+ for(const top of [1050,900,700,450,200]){
   pageTop=top;growth.updateBotanicalGrowth();pageFrames.push([top,initialPage.progress,laterPage.progress]);
  }
- assert.ok(pageFrames[0][1]<pageFrames[1][1]);
- assert.ok(pageFrames[1][1]>pageFrames[1][2],'opposite edges must be able to grow at different times');
+ assert.ok(pageFrames.every(frame=>frame[1]===1000),'child-page opening vines must be complete');
+ assert.equal(pageFrames[0][2],0);
+ assert.ok(pageFrames[1][2]>0,'lower-page vines should already grow at the viewport edge');
+ assert.equal(pageFrames[3][2],1000,'lower-page vines should complete around the viewport midpoint');
  for(const [top,first,second] of pageFrames.slice().reverse()){
   pageTop=top;growth.updateBotanicalGrowth();assert.equal(initialPage.progress,first);assert.equal(laterPage.progress,second);
  }
+ growth.botanicalVines=[regions[0]];growth.updateBotanicalGrowth();
+ assert.equal(regions[0].progress,1000,'hero vines must also be complete without pinned scenes');
  let offset=0;
  const ai={innerHeight:900,reducedMotion:{matches:false},progressBetween,Math,aiSteps:Array.from({length:5},(_,i)=>({getBoundingClientRect:()=>({top:150+i*600-offset,height:600})})),aiVine:{style:{}},aiVineLength:2000,aiLeaves:Array.from({length:5},()=>({style:{setProperty(n,v){this[n]=v}}}))};
  vm.createContext(ai);
@@ -84,6 +91,7 @@ try {
   offset=y;ai.updateAiStory();aiFrames.push({y,state:ai.getAiState(),offset:ai.aiVine.style.strokeDashoffset});
  }
  assert.equal(aiFrames[0].state,0);assert.equal(aiFrames.at(-1).state,4);
+ assert.ok(aiFrames[0].offset<ai.aiVineLength*.9,'phone vine should already extend during the opening login step');
  assert.equal(aiFrames[0].state,aiFrames[1].state);assert.notEqual(aiFrames[0].offset,aiFrames[1].offset,'vine must grow between phone state changes');
  for(const frame of aiFrames.slice().reverse()){
   offset=frame.y;ai.updateAiStory();assert.equal(ai.aiVine.style.strokeDashoffset,frame.offset);assert.equal(ai.getAiState(),frame.state);
@@ -95,11 +103,11 @@ try {
  const letters=Array.from({length:9},()=>({opacity:0,x:0,y:0,filter:'blur(10px)'}));
  const curtain={yPercent:0};let completed=0;
  const opening=openingSandbox.createOpeningTimeline(curtain,{querySelectorAll:()=>letters},()=>completed++);
- opening.time(1.25,false);assert.ok(letters.every(letter=>letter.opacity===1),'whole name needs a clear reading pause');
- opening.time(1.65,false);assert.ok(letters[0].opacity>letters.at(-1).opacity,'right-hand letters must dissolve before the left');
+ opening.time(.8,false);assert.ok(letters.every(letter=>letter.opacity===1),'whole name needs a clear reading pause');
+ opening.time(1.1,false);assert.ok(letters[0].opacity>letters.at(-1).opacity,'right-hand letters must dissolve before the left');
  assert.equal(letters[0].filter,'blur(0px)');
  assert.equal(curtain.yPercent,0,'curtain should wait for the word to dissolve');
- assert.equal(opening.duration(),3.5,'opening must complete in the requested 3.5 seconds');
+ assert.equal(opening.duration(),2.5,'opening must complete in the requested 2.5 seconds');
  opening.time(opening.duration(),false);assert.equal(curtain.yPercent,-100);assert.equal(completed,1);assert.ok(letters.every(letter=>letter.opacity===0));
  const margins=botanicalPlacements.filter(p=>p.side);
  assert.ok(margins.some(p=>p.side==='left') && margins.some(p=>p.side==='right'));

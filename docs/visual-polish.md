@@ -20,14 +20,14 @@ PR #3 follow-up, 2026-10-18. This direction replaces the earlier generated artwo
 
 ## Scroll and landscape refinement
 
-- The opening wordmark takes 3.5 seconds, as requested, through appearance, a clear reading pause, per-letter blur/dissolve from right to left, and curtain departure. The wordmark is about 10% smaller across its responsive size range. The supplied reference is a still image; the sequence follows its presentation rather than claiming a measured frame-for-frame match
+- The opening wordmark now takes 2.5 seconds through appearance, a clear reading pause, per-letter blur/dissolve from right to left, and curtain departure. It is reduced by another 25% from the PR #4 size, using `clamp(42px, 8.1vw, 108px)`. The supplied reference is a still image; the sequence follows its presentation rather than claiming a measured frame-for-frame match
 - The letter-dissolve intro uses a new session key so a visitor who saw the previous version can see this revision once. It still skips repeat visits, deep links and reduced motion; switching to reduced motion during the intro completes it immediately
 - Hero → About → Work remains a reversible scroll-controlled composition. GSAP uses 0.8-second scrub smoothing, a shared timing map and a reading pause; it does not intercept the wheel or snap to sections
 - Access and navigation state follow the animation's update callback, so they continue to settle while scrub catches up after the scroll input stops
 - Language/layout restoration settles the scrub immediately at the saved logical progress. Explicit from/to coordinates preserve the return to the hero
-- Pinned-scene vines use the scene timeline, rather than measurements of an already-transformed child. Other page vines use local viewport progress. Both shrink back along the same path on reverse scrolling
+- Hero vines are complete from their first frame, including the normal-flow mobile hero. Later pinned-scene vines use the scene timeline and begin before their scene enters, finishing before its reading pause. Other lower-page vines begin 15% before the viewport edge and finish around the viewport midpoint. These later vines shrink back along the same path on reverse scrolling
 - Decorative plants have curated left/right placements with staggered heights, widths, tilts and growth offsets. Their margin windows stop before the central content and softly fade at the inner edge. They do not all share a bottom-right anchor or form repeated symmetrical pairs
-- Child-page opening plants start mostly unextended and grow as the user scrolls away from the top. The plant and margin windows cannot create horizontal document overflow; small screens retain only a narrow edge accent
+- Child-page opening plants are also complete from their first frame. The plant and margin windows cannot create horizontal document overflow; small screens retain only a narrow edge accent
 - The phone keeps the real five-screen sequence, with a 240ms crossfade. Its line-art vine now grows between screen changes instead of advancing only at five thresholds
 - The Wānaka container has an explicit full width and height. Its SVG fills that box absolutely, avoiding the auto-width/aspect-ratio/max-height combination that can leave a blank strip on a wide display
 - The name is shifted slightly right and given more horizontal safety space. The photograph and registered ridgeline remain in the same coordinate system

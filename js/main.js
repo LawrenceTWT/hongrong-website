@@ -494,7 +494,7 @@ function updateAiStory() {
   const last = center(boxes.at(-1));
   const progress = reducedMotion.matches
     ? 1
-    : 0.06 + 0.94 * progressBetween(innerHeight * 0.5, first, last);
+    : 0.12 + 0.88 * progressBetween(innerHeight * 0.75, first, last);
   const rounded = Math.round(progress * 1000) / 1000;
   if (rounded === aiGrowthProgress) return;
   aiGrowthProgress = rounded;
@@ -557,6 +557,12 @@ function initBotanicalGrowth() {
     document.querySelectorAll(placement.selector).forEach((region) => {
       region.classList.add("botanical-region");
       const vine = createVine(placement.variant || "margin", botanicalVines.length);
+      const scene = region.closest("[data-scene-panel]")?.dataset.scenePanel;
+      const fromTop = [".page-hero", ".case-hero", ".contact-main"].includes(placement.selector);
+      vine.style.setProperty(
+        "--vine-progress",
+        reducedMotion.matches || scene === "hero" || fromTop ? "1" : "0",
+      );
       if (placement.side) {
         const margin = document.createElement("span");
         margin.className = "botanical-margin botanical-margin--" + placement.side;
@@ -568,8 +574,6 @@ function initBotanicalGrowth() {
         margin.append(vine);
         region.append(margin);
       } else region.append(vine);
-      const scene = region.closest("[data-scene-panel]")?.dataset.scenePanel;
-      const fromTop = [".page-hero", ".case-hero", ".contact-main"].includes(placement.selector);
       botanicalVines.push({ region, vine, scene, fromTop, delay: placement.delay || 0, progress: -1 });
     });
   }
@@ -577,29 +581,19 @@ function initBotanicalGrowth() {
 function updateBotanicalGrowth() {
   const updates = botanicalVines.map((item) => {
     let progress;
-    if (reducedMotion.matches) progress = 1;
+    if (reducedMotion.matches || item.scene === "hero" || item.fromTop)
+      progress = 1;
     else if (sceneTimeline && item.scene) {
       const time = sceneTimeline.time();
       const range =
-        item.scene === "hero"
-          ? [0, 0.95]
-          : item.scene === "about"
-            ? [scenePacing.aboutIn + 0.1, scenePacing.about + 0.4]
-            : [scenePacing.workIn, scenePacing.work + 0.1];
+        item.scene === "about"
+          ? [0, scenePacing.about - 0.15]
+          : [scenePacing.workIn - 0.45, scenePacing.work - 0.25];
       progress = progressBetween(time, ...range);
-      if (item.scene === "hero") progress = 0.26 + progress * 0.74;
     } else {
       const box = item.region.getBoundingClientRect();
-      if (item.fromTop) {
-        progress = 0.1 + 0.9 * progressBetween(
-          -box.top,
-          0,
-          Math.min(box.height * 0.7, innerHeight * 0.65),
-        );
-      } else {
-        const travel = Math.min(box.height * 0.8, innerHeight * 0.95);
-        progress = progressBetween(innerHeight * 0.92 - box.top, 0, travel);
-      }
+      const travel = Math.min(box.height * 0.6, innerHeight * 0.6);
+      progress = progressBetween(innerHeight * 1.15 - box.top, 0, travel);
     }
     if (!reducedMotion.matches)
       progress = progressBetween(progress, item.delay || 0, 1);
@@ -775,6 +769,13 @@ function showSkill(button) {
     node.setAttribute("aria-pressed", String(node === button));
   });
   const evidence = document.querySelector("[data-skill-evidence]");
+  const label = document.querySelector("[data-skill-evidence-label]");
+  if (label) {
+    if (button.hasAttribute("data-skill-learning"))
+      label.textContent = language === "zh" ? "學習紀錄" : "Learning record";
+    else
+      label.textContent = language === "zh" ? "使用於" : englishCopy.skillEvidenceLabel;
+  }
   if (evidence)
     evidence.textContent =
       language === "zh"
@@ -922,8 +923,8 @@ function createOpeningTimeline(opening, mark, onComplete) {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
-        duration: 0.6,
-        stagger: { each: 0.04, from: "start" },
+        duration: 0.45,
+        stagger: { each: 0.025, from: "start" },
         ease: "power2.out",
       },
       0,
@@ -934,16 +935,16 @@ function createOpeningTimeline(opening, mark, onComplete) {
         opacity: 0,
         x: -1,
         filter: "blur(14px)",
-        duration: 1,
-        stagger: { each: 0.065, from: "end" },
+        duration: 0.7,
+        stagger: { each: 0.045, from: "end" },
         ease: "power2.inOut",
       },
-      1.35,
+      0.95,
     )
     .to(
       opening,
-      { yPercent: -100, duration: 0.9, ease: "power2.inOut" },
-      2.6,
+      { yPercent: -100, duration: 0.65, ease: "power2.inOut" },
+      1.85,
     );
 }
 
@@ -963,8 +964,8 @@ async function startOpening() {
   }
   let seen = false;
   try {
-    seen = sessionStorage.getItem("hongrong-opening-3-5s") === "seen";
-    sessionStorage.setItem("hongrong-opening-3-5s", "seen");
+    seen = sessionStorage.getItem("hongrong-opening-2-5s") === "seen";
+    sessionStorage.setItem("hongrong-opening-2-5s", "seen");
   } catch {
     /* Optional. */
   }

@@ -540,17 +540,18 @@
       <section
         class="skills-story story-section section-pad about-skills"
         data-story-spine-end=""
+        id="skills"
       >
         <header class="skills-story-heading reveal">
           <p class="story-index" data-i18n="skillsChapterLabel">
             04 — 技術與合作
           </p>
           <h2 data-i18n="skillsStoryHeading">
-            我會用什麼<br /><em>做過哪些事</em>
+            技能包
           </h2>
         </header>
         <div class="skill-lanes">
-          <article class="skill-lane reveal">
+          <article class="skill-lane reveal" id="skill-build">
             <div>
               <span>01</span>
               <h3 data-i18n="skillBuildLabel">網頁開發</h3>
@@ -561,35 +562,40 @@
                 data-skill-project-zh="金虹食品 / 個人作品集"
                 type="button"
               >
-                HTML</button
-              ><button
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#html" /></svg>
+                <span>HTML</span>
+              </button><button
                 data-skill-project="Jinhong Foods / Portfolio"
                 data-skill-project-zh="金虹食品 / 個人作品集"
                 type="button"
               >
-                CSS</button
-              ><button
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#css" /></svg>
+                <span>CSS</span>
+              </button><button
                 data-skill-project="Portfolio / Interactive prototype"
                 data-skill-project-zh="個人作品集 / 互動示意"
                 type="button"
               >
-                JavaScript</button
-              ><button
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#javascript" /></svg>
+                <span>JavaScript</span>
+              </button><button
                 data-skill-project="Jinhong Foods"
                 data-skill-project-zh="金虹食品"
                 type="button"
               >
-                React</button
-              ><button
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#react" /></svg>
+                <span>React</span>
+              </button><button
                 data-skill-project="Jinhong Foods"
                 data-skill-project-zh="金虹食品"
                 type="button"
               >
-                TypeScript
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#typescript" /></svg>
+                <span>TypeScript</span>
               </button>
             </div>
           </article>
-          <article class="skill-lane reveal">
+          <article class="skill-lane reveal" id="skill-connect">
             <div>
               <span>02</span>
               <h3 data-i18n="skillConnectLabel">服務串接</h3>
@@ -600,29 +606,33 @@
                 data-skill-project-zh="AI 行車助手"
                 type="button"
               >
-                REST API</button
-              ><button
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#api" /></svg>
+                <span>REST API</span>
+              </button><button
                 data-skill-project="AI Driving Assistant"
                 data-skill-project-zh="AI 行車助手"
                 type="button"
               >
-                TDX</button
-              ><button
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#route" /></svg>
+                <span>TDX</span>
+              </button><button
                 data-skill-project="AI Driving Assistant"
                 data-skill-project-zh="AI 行車助手"
                 type="button"
               >
-                GPT</button
-              ><button
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#ai" /></svg>
+                <span>GPT</span>
+              </button><button
                 data-skill-project="Application prototypes"
                 data-skill-project-zh="應用原型"
                 type="button"
               >
-                Firebase
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#firebase" /></svg>
+                <span>Firebase</span>
               </button>
             </div>
           </article>
-          <article class="skill-lane reveal">
+          <article class="skill-lane reveal" id="skill-explore">
             <div>
               <span>03</span>
               <h3 data-i18n="skillExploreLabel">持續學習</h3>
@@ -633,85 +643,125 @@
                 data-skill-project-zh="AI 行車助手"
                 type="button"
               >
-                AI</button
-              ><button
-                data-i18n="promptSkill"
-                data-skill-project="AI-assisted learning / Product work"
-                data-skill-project-zh="AI 輔助學習"
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#ai" /></svg>
+                <span>AI</span>
+              </button><button
+                data-skill-learning=""
+                data-skill-project="Google Cloud / Prompt Design in Vertex AI"
+                data-skill-project-zh="Google Cloud / 提示設計徽章"
                 type="button"
               >
-                提示設計</button
-              ><button
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#language" /></svg>
+                <span data-i18n="promptSkill">提示設計</span>
+              </button><button
                 data-skill-project="Traffic classification"
                 data-skill-project-zh="車流分類"
                 type="button"
               >
-                ResNet-18</button
-              ><button
-                data-skill-project="Cloud learning"
-                data-skill-project-zh="雲端學習"
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#model" /></svg>
+                <span>ResNet-18</span>
+              </button><button
+                data-skill-learning=""
+                data-skill-project="AWS Academy / Cloud Architecting / Cloud Foundations"
+                data-skill-project-zh="AWS Academy / 雲端架構與基礎訓練"
                 type="button"
               >
-                AWS</button
-              ><button
-                data-skill-project="Azure certifications"
-                data-skill-project-zh="Azure 證照學習"
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#cloud" /></svg>
+                <span>AWS</span>
+              </button><button
+                data-skill-learning=""
+                data-skill-project="Microsoft / Azure Data Fundamentals"
+                data-skill-project-zh="Microsoft / Azure 資料基礎認證"
                 type="button"
               >
-                Azure
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#cloud" /></svg>
+                <span>Azure</span>
               </button>
             </div>
           </article>
-          <article class="skill-lane reveal">
+          <article class="skill-lane reveal" id="skill-work">
             <div>
               <span>04</span>
               <h3 data-i18n="skillWorkLabel">團隊合作</h3>
             </div>
             <div class="skill-words">
               <button
-                data-i18n="planningSkill"
                 data-skill-project="AI Driving Assistant / Team of five"
                 data-skill-project-zh="AI 行車助手 / 五人團隊"
                 type="button"
               >
-                專案規劃</button
-              ><button
-                data-i18n="teamworkSkill"
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#plan" /></svg>
+                <span data-i18n="planningSkill">專案規劃</span>
+              </button><button
                 data-skill-project="Capstone / South Dakota"
                 data-skill-project-zh="大學專題 / 美國打工旅遊"
                 type="button"
               >
-                團隊合作</button
-              ><button
-                data-i18n="problemSkill"
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#team" /></svg>
+                <span data-i18n="teamworkSkill">團隊合作</span>
+              </button><button
                 data-skill-project="Model conversion / Client work"
                 data-skill-project-zh="模型轉換 / 客戶網站"
                 type="button"
               >
-                問題解決</button
-              ><button
-                data-i18n="crossCultureSkill"
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#solve" /></svg>
+                <span data-i18n="problemSkill">問題解決</span>
+              </button><button
                 data-skill-project="South Dakota Work &amp; Travel"
                 data-skill-project-zh="美國打工旅遊"
                 type="button"
               >
-                跨文化溝通
+                <svg class="skill-icon" aria-hidden="true" focusable="false" viewBox="0 0 32 32"><use href="assets/icons/skills.svg#language" /></svg>
+                <span data-i18n="crossCultureSkill">跨文化溝通</span>
               </button>
             </div>
           </article>
         </div>
         <p class="skill-evidence">
-          <span data-i18n="skillEvidenceLabel">使用於</span
+          <span data-i18n="skillEvidenceLabel" data-skill-evidence-label="">使用於</span
           ><strong data-i18n="selectSkillLabel" data-skill-evidence=""
             >選擇一項技能</strong
           >
         </p>
-        <div class="certification-rail reveal">
-          <span data-i18n="certificationsLabel">學習與證照</span>
-          <div>
-            <b>IBM</b><i></i><b>GOOGLE CLOUD</b><i></i><b>AWS</b><i></i
-            ><b>MICROSOFT</b><i></i><b>TQC+</b>
-          </div>
+        <div class="credentials">
+          <header class="toolkit-heading">
+            <h3 data-i18n="certificationsLabel">學習與證照</h3>
+            <a class="toolkit-more" href="https://www.credly.com/users/rong-hong.22d324e4" target="_blank" rel="noreferrer">
+              <span data-i18n="viewCredlySkills">完整 Credly 技能</span><span aria-hidden="true">↗</span>
+            </a>
+          </header>
+          <ul class="credential-grid">
+            <li><a class="credential" href="https://www.credly.com/badges/5ac47f43-abd3-442d-926a-004653edf384" target="_blank" rel="noreferrer" title="Artificial Intelligence Fundamentals">
+              <img src="assets/images/badges/ibm-ai-fundamentals.png" width="56" height="56" alt="" loading="lazy" decoding="async" />
+              <span class="credential-issuer">IBM</span>
+              <strong>AI Fundamentals</strong>
+              <small data-i18n="learningBadgeLabel">學習徽章</small><span class="credential-arrow" aria-hidden="true">↗</span>
+            </a></li>
+            <li><a class="credential" href="https://www.credly.com/badges/c25825a6-16ea-414a-8c29-e5aef5e4e61c" target="_blank" rel="noreferrer" title="Prompt Design in Vertex AI Skill Badge">
+              <img src="assets/images/badges/google-prompt-design.png" width="56" height="56" alt="" loading="lazy" decoding="async" />
+              <span class="credential-issuer">GOOGLE CLOUD</span>
+              <strong>Prompt Design<br />in Vertex AI</strong>
+              <small data-i18n="skillBadgeLabel">技能徽章</small><span class="credential-arrow" aria-hidden="true">↗</span>
+            </a></li>
+            <li><a class="credential" href="https://www.credly.com/badges/0b781c74-3e1a-41cf-b489-728633aedab5" target="_blank" rel="noreferrer" title="AWS Academy Graduate - Cloud Architecting - Training Badge">
+              <img src="assets/images/badges/aws-cloud-architecting.png" width="56" height="56" alt="" loading="lazy" decoding="async" />
+              <span class="credential-issuer">AWS ACADEMY</span>
+              <strong>Cloud Architecting</strong>
+              <small data-i18n="trainingBadgeLabel">訓練徽章</small><span class="credential-arrow" aria-hidden="true">↗</span>
+            </a></li>
+            <li><a class="credential" href="https://www.credly.com/badges/fe8989c7-6240-4601-8675-5bbbf894d4a0" target="_blank" rel="noreferrer" title="AWS Academy Graduate - Cloud Foundations - Training Badge">
+              <img src="assets/images/badges/aws-cloud-foundations.png" width="56" height="56" alt="" loading="lazy" decoding="async" />
+              <span class="credential-issuer">AWS ACADEMY</span>
+              <strong>Cloud Foundations</strong>
+              <small data-i18n="trainingBadgeLabel">訓練徽章</small><span class="credential-arrow" aria-hidden="true">↗</span>
+            </a></li>
+            <li><a class="credential" href="https://www.credly.com/badges/11e3c021-7963-4a0f-a573-9b9dd64c79fb" target="_blank" rel="noreferrer" title="Microsoft Certified: Azure Data Fundamentals">
+              <img src="assets/images/badges/azure-data-fundamentals.png" width="56" height="56" alt="" loading="lazy" decoding="async" />
+              <span class="credential-issuer">MICROSOFT</span>
+              <strong>Azure Data<br />Fundamentals</strong>
+              <small data-i18n="certificationTypeLabel">認證</small><span class="credential-arrow" aria-hidden="true">↗</span>
+            </a></li>
+          </ul>
         </div>
       </section>
       <section class="contact-cta section-pad">
