@@ -56,6 +56,7 @@ const metadataNodes = [
 let sceneTimeline = null;
 let openingAnimation = null;
 const aboutText = document.querySelector("[data-about-text-effect]");
+const aboutRegion = aboutText?.closest("[data-scene-panel]");
 let aboutTextProgress = -1;
 const scenePacing = { aboutIn: 0.12, about: 1.4, workIn: 2.1, work: 3.4 };
 let refreshRevision = 0;
@@ -557,23 +558,25 @@ function updateNavigation() {
     else link.removeAttribute("aria-current");
   });
 }
-// Text follows the same scene clock, or its visible position without pinned scenes.
-function updateAboutText() {
-  if (!aboutText) return;
-  let progress = 1;
-  if (!reducedMotion.matches) {
-    progress = sceneTimeline
-      ? progressBetween(
-          sceneTimeline.time(),
-          scenePacing.about - 0.4,
-          scenePacing.workIn - 0.15,
-        )
-      : progressBetween(
-          innerHeight * 0.88 - aboutText.getBoundingClientRect().top,
-          0,
-          innerHeight * 0.52,
-        );
+// One entry clock: the scene, its text and its plants finish arriving together.
+function getSectionEntryProgress(region, scene) {
+  if (sceneTimeline && (scene === "about" || scene === "work")) {
+    const range =
+      scene === "about"
+        ? [scenePacing.aboutIn, scenePacing.about]
+        : [scenePacing.workIn, scenePacing.work];
+    return progressBetween(sceneTimeline.time(), ...range);
   }
+  const box = region.getBoundingClientRect();
+  const distance = Math.max(1, Math.min(box.height, innerHeight));
+  return progressBetween(innerHeight - box.top, 0, distance);
+}
+function updateAboutText() {
+  if (!aboutText || !aboutRegion) return;
+  // Start the emphasis once the lower line is entering, then finish at arrival.
+  const progress = reducedMotion.matches
+    ? 1
+    : progressBetween(getSectionEntryProgress(aboutRegion, "about"), 0.55, 1);
   const rounded = Math.round(progress * 1000);
   if (rounded === aboutTextProgress) return;
   aboutTextProgress = rounded;
@@ -622,18 +625,7 @@ function updateBotanicalGrowth() {
     let progress;
     if (reducedMotion.matches || item.scene === "hero" || item.fromTop)
       progress = 1;
-    else if (sceneTimeline && item.scene) {
-      const time = sceneTimeline.time();
-      const range =
-        item.scene === "about"
-          ? [0, scenePacing.about - 0.15]
-          : [scenePacing.workIn - 0.45, scenePacing.work - 0.25];
-      progress = progressBetween(time, ...range);
-    } else {
-      const box = item.region.getBoundingClientRect();
-      const travel = Math.min(box.height * 0.6, innerHeight * 0.6);
-      progress = progressBetween(innerHeight * 1.15 - box.top, 0, travel);
-    }
+    else progress = getSectionEntryProgress(item.region, item.scene);
     if (!reducedMotion.matches)
       progress = progressBetween(progress, item.delay || 0, 1);
     return { item, progress: Math.round(progress * 1000) };

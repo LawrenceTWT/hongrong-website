@@ -47,20 +47,23 @@ try {
  assert.equal(progressBetween(0,0,0),1);
  assert.equal(progressBetween(-1,0,0),0);
  assert.ok(updates>0,'access/navigation updates must follow the animation ticker');
- let headingTop=0,textWrites=0;
- const aboutText={getBoundingClientRect:()=>({top:headingTop}),style:{setProperty(name,value){this[name]=value;textWrites++}}};
- const textEffect={aboutText,reducedMotion:{matches:false},progressBetween,innerHeight:900,Math,sceneTimeline:timeline};
+ let sectionTop=0,sectionHeight=900,textWrites=0;
+ const aboutText={style:{setProperty(name,value){this[name]=value;textWrites++}}};
+ const aboutRegion={getBoundingClientRect:()=>({top:sectionTop,height:sectionHeight})};
+ const entrySource=source.slice(source.indexOf('function getSectionEntryProgress('),source.indexOf('function updateAboutText()'));
+ const textEffect={aboutText,aboutRegion,reducedMotion:{matches:false},progressBetween,innerHeight:900,Math,sceneTimeline:timeline};
  vm.createContext(textEffect);
- vm.runInContext('let aboutTextProgress=-1;'+source.match(/const scenePacing = [^;]+;/)[0]+source.slice(source.indexOf('function updateAboutText()'),source.indexOf('function updateScrollState()')),textEffect);
+ vm.runInContext('let aboutTextProgress=-1;'+source.match(/const scenePacing = [^;]+;/)[0]+entrySource+source.slice(source.indexOf('function updateAboutText()'),source.indexOf('function updateScrollState()')),textEffect);
  const textProgress=()=>parseFloat(aboutText.style['--about-text-progress']);
  const textFrames=[];
- for(const time of [0,.5,1,1.25,1.4,1.65,1.95,2.1,3.4]){
+ for(const time of [0,.5,1,1.2,1.4,1.8,2.1,3.4]){
   timeline.time(time);textEffect.updateAboutText();textFrames.push({time,progress:textProgress()});
  }
  assert.equal(textFrames[0].progress,0,'text must start before its color sweep');
- const readingStart=textFrames.find(frame=>frame.time===1.4).progress;
- assert.ok(readingStart>0&&readingStart<100,'text must still change as About reaches its reading pause');
- assert.equal(textFrames.find(frame=>frame.time===1.95).progress,100,'text sweep must finish before the scene leaves');
+ const enteringText=textFrames.find(frame=>frame.time===1.2).progress;
+ assert.ok(enteringText>0&&enteringText<100,'text should change while About enters');
+ assert.equal(textFrames.find(frame=>frame.time===1.4).progress,100,'text must complete exactly when About arrives');
+ assert.equal(textFrames.find(frame=>frame.time===1.8).progress,100,'the reading pause must retain complete text');
  for(const frame of textFrames.slice().reverse()){
   timeline.time(frame.time);textEffect.updateAboutText();assert.equal(textProgress(),frame.progress,'reverse scene scroll must restore text progress');
  }
@@ -68,25 +71,30 @@ try {
  textEffect.sceneTimeline=null;
  for(const height of [680,719,900]){
   textEffect.innerHeight=height;
-  const frames=[];
-  for(const ratio of [1.1,.88,.62,.36,0]){
-   headingTop=height*ratio;textEffect.updateAboutText();frames.push({top:headingTop,progress:textProgress()});
-  }
-  assert.equal(frames[0].progress,0);
-  assert.ok(frames[2].progress>0&&frames[2].progress<100,'normal-flow text must change even on short desktop or mobile viewports');
-  assert.equal(frames[3].progress,100);
-  for(const frame of frames.slice().reverse()){
-   headingTop=frame.top;textEffect.updateAboutText();assert.equal(textProgress(),frame.progress,'normal-flow reverse scroll must restore text progress');
+  for(const regionHeight of [height*.8,height,height*1.4]){
+   sectionHeight=regionHeight;
+   const distance=Math.min(height,regionHeight);
+   const frames=[];
+   for(const top of [height*1.1,height,height-distance*.75,height-distance,-100]){
+    sectionTop=top;textEffect.updateAboutText();frames.push({top,progress:textProgress()});
+   }
+   assert.equal(frames[0].progress,0);
+   assert.equal(frames[1].progress,0,'the text starts before its scene enters');
+   assert.ok(frames[2].progress>0&&frames[2].progress<100,'normal-flow text must change as its scene enters');
+   assert.equal(frames[3].progress,100,'normal-flow text must complete when the scene fits, or at its first full viewport');
+   for(const frame of frames.slice().reverse()){
+    sectionTop=frame.top;textEffect.updateAboutText();assert.equal(textProgress(),frame.progress,'normal-flow reverse scroll must restore text progress');
+   }
   }
  }
  textEffect.reducedMotion.matches=true;textEffect.updateAboutText();assert.equal(textProgress(),100,'reduced motion should show the complete emphasized line');
  textEffect.aboutText=null;assert.doesNotThrow(()=>textEffect.updateAboutText(),'other routes have no homepage About text');
- const regions=['hero','about','work',null].map(scene=>({scene,progress:-1,region:{getBoundingClientRect:()=>({top:700,height:700})},vine:{style:{setProperty(name,value){this[name]=value}}}}));
+ const regions=['hero','about','about','work',null].map((scene,index)=>({scene,delay:index===2?.16:index===3?.2:0,progress:-1,region:{getBoundingClientRect:()=>({top:700,height:700})},vine:{style:{setProperty(name,value){this[name]=value}}}}));
  const growth={botanicalVines:regions,reducedMotion:{matches:false},progressBetween,innerHeight:900,Math,sceneTimeline:timeline};
  vm.createContext(growth);
- vm.runInContext(source.match(/const scenePacing = [^;]+;/)[0]+source.slice(source.indexOf('function updateBotanicalGrowth()'),source.indexOf('function requestScrollState()')),growth);
+ vm.runInContext(source.match(/const scenePacing = [^;]+;/)[0]+entrySource+source.slice(source.indexOf('function updateBotanicalGrowth()'),source.indexOf('function requestScrollState()')),growth);
  const vineFrames=[];
- for(const time of [0,.35,.9,1.4,1.8,2.7,3.4]){
+ for(const time of [0,.12,.35,.9,1.2,1.4,1.8,2.1,2.7,3.15,3.4]){
   timeline.time(time);growth.updateBotanicalGrowth();
   vineFrames.push({time,values:regions.map(r=>r.progress)});
  }
@@ -94,8 +102,13 @@ try {
   timeline.time(frame.time);growth.updateBotanicalGrowth();assert.deepEqual(regions.map(r=>r.progress),frame.values);
  }
  assert.ok(vineFrames.every(frame=>frame.values[0]===1000),'hero vines must be complete from the first frame');
- assert.equal(vineFrames.find(frame=>frame.time===1.4).values[1],1000,'About vines should finish before its reading pause');
- assert.ok(vineFrames.find(frame=>frame.time===1.8).values[2]>0,'Work vines should start before the scene enters');
+ const aboutEntering=vineFrames.find(frame=>frame.time===1.2).values;
+ assert.ok(aboutEntering[1]>0&&aboutEntering[1]<1000&&aboutEntering[2]>0&&aboutEntering[2]<1000,'both About plants should grow while the scene enters');
+ assert.deepEqual(vineFrames.find(frame=>frame.time===1.4).values.slice(1,3),[1000,1000],'both About plants must finish at its arrival, including the delayed right plant');
+ assert.equal(vineFrames.find(frame=>frame.time===2.1).values[3],0,'Work plants must follow the beginning of their own entry');
+ assert.ok(vineFrames.find(frame=>frame.time===2.7).values[3]>0,'Work plants must grow as the scene enters');
+ assert.ok(vineFrames.find(frame=>frame.time===3.15).values[3]<1000,'Work plants must not finish ahead of their scene');
+ assert.equal(vineFrames.find(frame=>frame.time===3.4).values[3],1000,'Work plants must finish exactly at its arrival');
  growth.reducedMotion.matches=true;growth.updateBotanicalGrowth();assert.ok(regions.every(r=>r.progress===1000));
  growth.reducedMotion.matches=false;
  let pageTop=0;
@@ -104,16 +117,22 @@ try {
  growth.botanicalVines=[initialPage,laterPage];
  growth.sceneTimeline=null;
  const pageFrames=[];
- for(const top of [1050,900,700,450,200]){
+ for(const top of [1050,900,700,450,200,0,-100]){
   pageTop=top;growth.updateBotanicalGrowth();pageFrames.push([top,initialPage.progress,laterPage.progress]);
  }
  assert.ok(pageFrames.every(frame=>frame[1]===1000),'child-page opening vines must be complete');
  assert.equal(pageFrames[0][2],0);
- assert.ok(pageFrames[1][2]>0,'lower-page vines should already grow at the viewport edge');
- assert.equal(pageFrames[3][2],1000,'lower-page vines should complete around the viewport midpoint');
+ assert.equal(pageFrames[1][2],0,'lower-page vines should start with the section entry');
+ assert.ok(pageFrames[2][2]>0&&pageFrames[4][2]<1000,'plants should keep growing during the entry instead of finishing around the viewport midpoint');
+ assert.equal(pageFrames[5][2],1000,'a viewport-height section should complete its plants when fully in place');
  for(const [top,first,second] of pageFrames.slice().reverse()){
   pageTop=top;growth.updateBotanicalGrowth();assert.equal(initialPage.progress,first);assert.equal(laterPage.progress,second);
  }
+ let fittingTop=900;
+ const fittingPage={...laterPage,delay:0,progress:-1,region:{getBoundingClientRect:()=>({top:fittingTop,height:700})},vine:{style:{setProperty(name,value){this[name]=value}}}};
+ growth.botanicalVines=[fittingPage];
+ fittingTop=550;growth.updateBotanicalGrowth();assert.equal(fittingPage.progress,500);
+ fittingTop=200;growth.updateBotanicalGrowth();assert.equal(fittingPage.progress,1000,'a shorter section should complete once its entire height is visible');
  growth.botanicalVines=[regions[0]];growth.updateBotanicalGrowth();
  assert.equal(regions[0].progress,1000,'hero vines must also be complete without pinned scenes');
  let offset=0;

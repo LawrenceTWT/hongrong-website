@@ -7,7 +7,7 @@ Branch: `feature/skills-vines-intro`, based on the merged PR #4 (`7de99fe`)
 - Opening duration: exactly 2.5 seconds, including the curtain departure
 - Opening type: another 25% smaller than PR #4, across the whole responsive range
 - Hero and child-page opening vines: fully extended from creation, with no initial partial-growth flash
-- Later plants: begin before the section reaches the viewport and remain reversible with scrolling. About and Work plants finish before the corresponding reading pause
+- Later plants: follow their section's entry progress and remain reversible with scrolling. About and Work plants finish as their scene arrives, ready for its reading pause
 - The phone-side vine also starts earlier, with a visible initial segment during the login step; phone screen selection still follows the same five step centers
 
 ## Toolkit layout
@@ -48,7 +48,7 @@ Original artwork sources:
 
 The homepage statement now uses HongRong's supplied introduction about adventure, leaving his comfort zone and life outside the plan. Four centered lines replace the product slogan and its AI paragraph; the final line retains the reversible color sweep. Chinese keeps the existing no-terminal-full-stop convention, and English carries the same meaning
 
-The color sweep no longer depends on enabling desktop scene pinning. With enhanced scenes it follows the actual scrubbed timeline, finishing during the About reading pause. In normal document flow it follows the heading's visible position, including short desktop and mobile viewports. One existing animation-frame controller writes the progress only when it changes. Reduced motion keeps the final text fully colored; no-JavaScript CSS remains readable
+The color sweep no longer depends on enabling desktop scene pinning. Text and plants share `getSectionEntryProgress`: enhanced scenes use the actual scrubbed entry timeline; normal flow uses the section's visible extent, including short desktop and mobile viewports. The final-line sweep starts in the latter part of entry and completes with the scene, leaving the reading pause static. One existing animation-frame controller writes progress only when it changes. Reduced motion keeps the final text fully colored; no-JavaScript CSS remains readable
 
 ## Verification scope
 

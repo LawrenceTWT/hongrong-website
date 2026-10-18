@@ -692,20 +692,22 @@ nav,
 .portrait-face-back {
   transform: rotateY(180deg);
   overflow: visible;
-  border-radius: 0;
   background: transparent;
   box-shadow: none;
 }
 .portrait-face-back img {
   grid-area: 1/1;
-  justify-self: center;
-  width: auto;
+  width: 100%;
+  height: 100%;
   max-width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 10px 28px rgb(36 59 45 / 0.08);
+  object-fit: cover;
+  object-position: 50% 86%;
+  border-radius: inherit;
+  box-shadow: 0 12px 32px rgb(36 59 45 / 0.08);
 }
 .portrait-waterlines {
   grid-area: 1/1;
+  z-index: 1;
   align-self: center;
   justify-self: center;
   width: 112%;
@@ -844,6 +846,9 @@ nav,
   display: block;
 }
 .about-scene-statement em {
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
   color: #4a5937;
   background: linear-gradient(
     90deg,
@@ -1044,17 +1049,15 @@ nav,
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: calc(1 - var(--vine-progress));
-  transition: stroke-dashoffset 0.18s linear;
 }
 .growth-vine-branch {
   stroke-width: 2.5;
   stroke-dashoffset: calc(1 - clamp(0, (var(--vine-progress) - var(--leaf-at)) * 5, 1));
 }
 .growth-vine-leaf {
-  opacity: clamp(0, (var(--vine-progress) - var(--leaf-at)) * 14, 1);
-  transform: scale(clamp(0.12, (var(--vine-progress) - var(--leaf-at)) * 14, 1));
+  opacity: clamp(0, (var(--vine-progress) - var(--leaf-at)) * 16, 1);
+  transform: scale(clamp(0.12, (var(--vine-progress) - var(--leaf-at)) * 16, 1));
   transform-origin: 0 0;
-  transition: opacity 0.18s linear, transform 0.18s linear;
 }
 .growth-vine--portrait {
   z-index: 2;
