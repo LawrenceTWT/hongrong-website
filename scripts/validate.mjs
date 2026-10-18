@@ -139,10 +139,14 @@ for (const [file, html] of sources) {
       if (!html.includes(control)) fail("missing carousel arrow");
   }
   if (
-    ["index.html", "work.html", "jinhong-foods.html"].includes(file) &&
+    ["index.html", "jinhong-foods.html"].includes(file) &&
     !html.includes("jinhong-live-home.jpg")
   )
     fail("missing actual Jinhong screenshot");
+  if (["index.html", "work.html"].includes(file)) {
+    for (const cover of ["ai-project-cover.webp", "jinhong-project-cover.webp"])
+      if (!html.includes(cover)) fail("missing project cover " + cover);
+  }
   for (const match of html.matchAll(/>([^<>]*[\u3400-\u9fff][^<>]*)</g)) {
     if (match[1].trim().endsWith("。"))
       fail("Chinese copy ends in a full stop");

@@ -176,11 +176,11 @@
                 <h1>
                   <span class="title-mask"
                     ><span data-i18n="homeHeroTitleOne" data-opening-line=""
-                      >從問題出發</span
+                      >嗨，我是洪戎</span
                     ></span
                   ><span class="title-mask"
                     ><span data-i18n="homeHeroTitleTwo" data-opening-line=""
-                      ><em>把產品做出來</em></span
+                      ><em>寫程式，也看世界</em></span
                     ></span
                   >
                 </h1>
@@ -192,21 +192,23 @@
                   ><span aria-hidden="true">↘</span></a
                 >
               </div>
-              <figure class="hero-art photo-frame" data-scene-visual="">
-                <img
-                  alt="洪戎坐在海邊，背景是藍天與海面"
-                  data-i18n-alt="imageHongrongPortrait"
-                  fetchpriority="high"
-                  height="738"
-                  src="assets/images/hongrong-portrait.webp"
-                  width="499"
-                />
-                <figcaption>
-                  <span>HONG RONG</span
-                  ><span data-i18n="taichungLabel">台中，台灣</span
-                  ><span>2026</span>
-                </figcaption>
-              </figure>
+              <div class="hero-visual" data-scene-visual="">
+                <figure class="hero-art photo-frame">
+                  <img
+                    alt="洪戎坐在海邊，背景是藍天與海面"
+                    data-i18n-alt="imageHongrongPortrait"
+                    fetchpriority="high"
+                    height="738"
+                    src="assets/images/hongrong-portrait.webp"
+                    width="499"
+                  />
+                  <figcaption>
+                    <span>HONG RONG</span
+                    ><span data-i18n="taichungLabel">台中，台灣</span
+                    ><span>2026</span>
+                  </figcaption>
+                </figure>
+              </div>
               <p
                 class="hero-scene-index"
                 data-i18n="portfolioLabel"
@@ -258,22 +260,70 @@
               </p>
               <nav
                 aria-label="精選專案"
-                class="work-branches"
+                class="work-branches portfolio-grid"
                 data-i18n-aria-label="selectedProjectsAria"
                 data-scene-visual=""
               >
-                <a href="#ai-project"
-                  ><span>01</span
-                  ><strong data-i18n="aiDriverTitle">AI 行車助手</strong
-                  ><small>AI / API / ANDROID</small
-                  ><span aria-hidden="true" class="branch-arrow">↘</span></a
+                <a
+                  class="project-teaser"
+                  href="ai-driving-assistant.html"
+                  aria-labelledby="home-ai-title"
+                  aria-describedby="home-ai-summary"
                 >
-                <a href="#jinhong-project"
-                  ><span>02</span
-                  ><strong data-i18n="jinhongTitle">金虹食品</strong
-                  ><small data-i18n="realClientWeb">客戶網站 / Web</small
-                  ><span aria-hidden="true" class="branch-arrow">↘</span></a
+                  <div class="project-teaser-image">
+                    <img
+                      src="assets/images/ai-project-cover.webp"
+                      width="1440"
+                      height="720"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div class="project-teaser-copy">
+                    <small>01 / AI · API · ANDROID</small>
+                    <h3 id="home-ai-title" data-i18n="aiDriverTitle">
+                      AI 行車助手
+                    </h3>
+                    <p id="home-ai-summary" data-i18n="aiDriverLongSummary">
+                      五人團隊的大學專題，整合停車、導航、路況與語音互動
+                    </p>
+                    <span class="project-teaser-cta"
+                      ><span data-i18n="viewCaseStudy">查看完整案例</span
+                      ><span aria-hidden="true">↗</span></span
+                    >
+                  </div>
+                </a>
+                <a
+                  class="project-teaser project-teaser-client"
+                  href="jinhong-foods.html"
+                  aria-labelledby="home-jinhong-title"
+                  aria-describedby="home-jinhong-summary"
                 >
+                  <div class="project-teaser-image">
+                    <img
+                      src="assets/images/jinhong-project-cover.webp"
+                      width="1440"
+                      height="720"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div class="project-teaser-copy">
+                    <small>02 / REACT · TYPESCRIPT</small>
+                    <h3 id="home-jinhong-title" data-i18n="jinhongTitle">
+                      金虹食品
+                    </h3>
+                    <p id="home-jinhong-summary" data-i18n="jinhongLongSummary">
+                      替食品機械工廠整理產品資訊，建立能瀏覽規格與提出詢價的企業網站
+                    </p>
+                    <span class="project-teaser-cta"
+                      ><span data-i18n="viewCaseStudy">查看完整案例</span
+                      ><span aria-hidden="true">↗</span></span
+                    >
+                  </div>
+                </a>
               </nav>
             </div>
           </section>

@@ -96,5 +96,8 @@ The script verifies the upstream source font hashes, rebuilds only the required 
 - The five AI screens and model figures are original project evidence
 - Jinhong previews are captures of the actual live website, taken on 2026-10-17
 - Ordinary photographs preserve their composition inside rectangular frames
+- Shared content is capped at 1080px; botanical graphics may extend into its margins while text and projects stay aligned
+- The hero retains the real portrait; transparent ivy follows scroll progress, and project overview covers are representative concept illustrations
+- Artwork prompts and asset provenance are in `docs/visual-polish.md`; case-study screenshots and research figures remain actual project evidence
 - The closing landscape uses a shared SVG coordinate system for the image, name and ridgeline mask. Replacing the photo requires tracing its own boundary
 - The existing Wānaka photo is 1536 × 1152. A new horizontal original of at least 3000px is still needed for a sharper large-desktop closing scene

@@ -54,6 +54,7 @@ let refreshRevision = 0;
 let scrollFrame = 0;
 let prototypeRun = 0;
 let selectedSkill = null;
+const botanicalVines = [];
 
 function scrollToPosition(top, smooth = false) {
   window.scrollTo({
@@ -504,6 +505,46 @@ function updateScrollState() {
     ?.classList.toggle("is-scrolled", scrollY > 18);
   updateAiStory();
   updateNavigation();
+  updateBotanicalGrowth();
+}
+
+// Decorative enhancement shares the existing scroll frame and follows progress in both directions.
+function initBotanicalGrowth() {
+  for (const [selector, variant] of [
+    [".hero-visual", "portrait"],
+    [".about-scene", "edge"],
+    [".work-scene", "transition"],
+    [".jinhong-editorial", "transition"],
+    [".page-hero", "edge"],
+    [".case-hero", "edge"],
+    [".contact-main", "edge"],
+  ]) {
+    document.querySelectorAll(selector).forEach((region) => {
+      region.classList.add("botanical-region");
+      const vine = document.createElement("div");
+      vine.className = "growth-vine growth-vine--" + variant;
+      vine.setAttribute("aria-hidden", "true");
+      region.append(vine);
+      botanicalVines.push({ region, vine, progress: -1 });
+    });
+  }
+}
+function updateBotanicalGrowth() {
+  const updates = botanicalVines.map((item) => {
+    const box = item.region.getBoundingClientRect();
+    const travel = innerHeight + Math.min(box.height * 0.35, innerHeight * 0.4);
+    const progress = reducedMotion.matches
+      ? 1000
+      : Math.round(
+          Math.max(0, Math.min(1, (innerHeight - box.top) / travel)) * 1000,
+        );
+    return { item, progress };
+  });
+  updates.forEach(({ item, progress }) => {
+    if (item.progress === progress) return;
+    item.progress = progress;
+    item.vine.style.setProperty("--vine-progress", progress / 10 + "%");
+  });
 }
 function requestScrollState() {
   if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollState);
@@ -739,6 +780,7 @@ document.querySelectorAll(".current-year").forEach((node) => {
   node.textContent = String(new Date().getFullYear());
 });
 
+initBotanicalGrowth();
 applyLanguage(storage.get() || "zh", { restore: false });
 initScenes();
 initCarousel();
