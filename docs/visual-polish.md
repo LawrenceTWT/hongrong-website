@@ -9,7 +9,7 @@ PR #3 follow-up, 2026-10-18. This direction replaces the earlier generated artwo
 - Display the user's formal portrait first. Mouse entry turns it to the glacier photograph; mouse exit reverses the turn, including an interrupted transition
 - The photo is a native toggle button: touch, Enter and Space switch sides; Escape, blur and browser restoration return to the formal portrait
 - Both photos retain their full composition using `object-fit: contain` in one stable 4:5 area. There is no polygon crop, tilted mat or heavy border
-- The formal photo's white background blends with ivory through CSS multiply. SVG ivy is rooted below its right edge and leans inward as it rises; size and inset adapt to smaller viewports. This supersedes the earlier top-hanging 45° treatment
+- The formal photo's white background blends with ivory through CSS multiply. SVG ivy is rooted below its right edge and leans outward as it rises. Its previous inward-facing treatment has been horizontally reflected so the leaves sit beside the right shoulder and outside the face; the photograph itself is not mirrored. Size and inset adapt to smaller viewports
 - Turning to the glacier face hides the ivy and draws layered blue-gray water lines with a faint wider current, fine highlight, graduated line weights and fading ends. The back face is transparent, without the former sage surround or rectangular focus outline. Original photograph colors are not regenerated
 - Keyboard focus is indicated on the hint below the photo; reduced motion skips the flip and line-drawing transitions
 - Short, translated hover/tap hints explain the interaction. The current side is reflected in `aria-pressed` and only that face is exposed to assistive technology
@@ -20,11 +20,14 @@ PR #3 follow-up, 2026-10-18. This direction replaces the earlier generated artwo
 
 ## Scroll and landscape refinement
 
-- The opening wordmark takes about 3.05 seconds through appearance, pause, blur/dissolve and curtain departure. It still skips repeat visits, deep links and reduced motion
+- The opening wordmark takes about 4.2 seconds through appearance, a clear reading pause, per-letter blur/dissolve from right to left, and curtain departure. This replaces the previous whole-word blur. The supplied reference is a still image, so this duration is an interpretation of the desired pacing rather than a measured frame-for-frame match
+- The letter-dissolve intro uses a new session key so a visitor who saw the previous version can see this revision once. It still skips repeat visits, deep links and reduced motion; switching to reduced motion during the intro completes it immediately
 - Hero → About → Work remains a reversible scroll-controlled composition. GSAP uses 0.8-second scrub smoothing, a shared timing map and a reading pause; it does not intercept the wheel or snap to sections
 - Access and navigation state follow the animation's update callback, so they continue to settle while scrub catches up after the scroll input stops
 - Language/layout restoration settles the scrub immediately at the saved logical progress. Explicit from/to coordinates preserve the return to the hero
 - Pinned-scene vines use the scene timeline, rather than measurements of an already-transformed child. Other page vines use local viewport progress. Both shrink back along the same path on reverse scrolling
+- Decorative plants have curated left/right placements with staggered heights, widths, tilts and growth offsets. Their margin windows stop before the central content and softly fade at the inner edge. They do not all share a bottom-right anchor or form repeated symmetrical pairs
+- Child-page opening plants start mostly unextended and grow as the user scrolls away from the top. The plant and margin windows cannot create horizontal document overflow; small screens retain only a narrow edge accent
 - The phone keeps the real five-screen sequence, with a 240ms crossfade. Its line-art vine now grows between screen changes instead of advancing only at five thresholds
 - The Wānaka container has an explicit full width and height. Its SVG fills that box absolutely, avoiding the auto-width/aspect-ratio/max-height combination that can leave a blank strip on a wide display
 - The name is shifted slightly right and given more horizontal safety space. The photograph and registered ridgeline remain in the same coordinate system

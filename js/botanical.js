@@ -1,3 +1,18 @@
+// Deliberate, asymmetric placements: plants frame the story in its outer margins.
+export const botanicalPlacements = [
+  { selector: ".hero-visual", variant: "portrait" },
+  { selector: ".hero-panel", side: "left", size: 154, bottom: "-18px", angle: 28, delay: 0.08 },
+  { selector: ".about-panel", side: "left", size: 172, bottom: "44%", angle: 22 },
+  { selector: ".about-panel", side: "right", size: 190, bottom: "-32px", angle: -24, delay: 0.16 },
+  { selector: ".work-panel", side: "left", size: 132, bottom: "8%", angle: 37, delay: 0.2 },
+  { selector: ".jinhong-editorial", side: "right", size: 170, bottom: "18%", angle: -16, delay: 0.03 },
+  { selector: ".jinhong-editorial", side: "left", size: 128, bottom: "55%", angle: 28, delay: 0.2 },
+  { selector: ".page-hero", side: "left", size: 148, bottom: "14%", angle: 18 },
+  { selector: ".case-hero", side: "right", size: 172, bottom: "-24px", angle: -25, delay: 0.1 },
+  { selector: ".contact-main", side: "left", size: 140, bottom: "42%", angle: 25 },
+  { selector: ".contact-main", side: "right", size: 185, bottom: "-18px", angle: -14, delay: 0.18 },
+];
+
 // Geometry reuses the portfolio's original SVG ivy; no generated bitmap is needed.
 export function createVine(variant, index) {
   const id = "growth-" + index;

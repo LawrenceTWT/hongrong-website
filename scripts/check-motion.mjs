@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
-import { createVine, progressBetween } from '../js/botanical.js';
+import { botanicalPlacements, createVine, progressBetween } from '../js/botanical.js';
 // Exercise the production scene functions with the bundled GSAP engine.
 // DOM/ScrollTrigger are stubs: this checks progress/state, not browser layout.
 const root=new URL('../',import.meta.url);
@@ -60,6 +60,21 @@ try {
   timeline.time(frame.time);growth.updateBotanicalGrowth();assert.deepEqual(regions.map(r=>r.progress),frame.values);
  }
  growth.reducedMotion.matches=true;growth.updateBotanicalGrowth();assert.ok(regions.every(r=>r.progress===1000));
+ growth.reducedMotion.matches=false;
+ let pageTop=0;
+ const initialPage={fromTop:true,delay:0,progress:-1,region:{getBoundingClientRect:()=>({top:pageTop,height:900})},vine:{style:{setProperty(name,value){this[name]=value}}}};
+ const laterPage={...initialPage,delay:.2,progress:-1,vine:{style:{setProperty(name,value){this[name]=value}}}};
+ growth.botanicalVines=[initialPage,laterPage];
+ growth.sceneTimeline=null;
+ const pageFrames=[];
+ for(const top of [0,-120,-300,-600]){
+  pageTop=top;growth.updateBotanicalGrowth();pageFrames.push([top,initialPage.progress,laterPage.progress]);
+ }
+ assert.ok(pageFrames[0][1]<pageFrames[1][1]);
+ assert.ok(pageFrames[1][1]>pageFrames[1][2],'opposite edges must be able to grow at different times');
+ for(const [top,first,second] of pageFrames.slice().reverse()){
+  pageTop=top;growth.updateBotanicalGrowth();assert.equal(initialPage.progress,first);assert.equal(laterPage.progress,second);
+ }
  let offset=0;
  const ai={innerHeight:900,reducedMotion:{matches:false},progressBetween,Math,aiSteps:Array.from({length:5},(_,i)=>({getBoundingClientRect:()=>({top:150+i*600-offset,height:600})})),aiVine:{style:{}},aiVineLength:2000,aiLeaves:Array.from({length:5},()=>({style:{setProperty(n,v){this[n]=v}}}))};
  vm.createContext(ai);
@@ -74,10 +89,26 @@ try {
   offset=frame.y;ai.updateAiStory();assert.equal(ai.aiVine.style.strokeDashoffset,frame.offset);assert.equal(ai.getAiState(),frame.state);
  }
  ai.reducedMotion.matches=true;ai.updateAiStory();assert.equal(ai.aiVine.style.strokeDashoffset,'0');
+ const openingSandbox={window:{gsap:{timeline(options){return real.timeline({...options,paused:true})}}}};
+ vm.createContext(openingSandbox);
+ vm.runInContext(source.slice(source.indexOf('function createOpeningTimeline('),source.indexOf('async function startOpening(')),openingSandbox);
+ const letters=Array.from({length:9},()=>({opacity:0,x:0,y:0,filter:'blur(10px)'}));
+ const curtain={yPercent:0};let completed=0;
+ const opening=openingSandbox.createOpeningTimeline(curtain,{querySelectorAll:()=>letters},()=>completed++);
+ opening.time(1.25,false);assert.ok(letters.every(letter=>letter.opacity===1),'whole name needs a clear reading pause');
+ opening.time(2.1,false);assert.ok(letters[0].opacity>letters.at(-1).opacity,'right-hand letters must dissolve before the left');
+ assert.equal(letters[0].filter,'blur(0px)');
+ assert.equal(curtain.yPercent,0,'curtain should wait for the word to dissolve');
+ assert.ok(opening.duration()<5,'opening must finish before its failsafe');
+ opening.time(opening.duration(),false);assert.equal(curtain.yPercent,-100);assert.equal(completed,1);assert.ok(letters.every(letter=>letter.opacity===0));
+ const margins=botanicalPlacements.filter(p=>p.side);
+ assert.ok(margins.some(p=>p.side==='left') && margins.some(p=>p.side==='right'));
+ assert.ok(new Set(margins.map(p=>p.bottom)).size>3,'plants should not share one repeated baseline');
+ assert.ok(new Set(margins.map(p=>p.angle)).size>3,'plants should not share one repeated angle');
  globalThis.document={createElementNS(){return{attributes:{},setAttribute(name,value){this.attributes[name]=value}}}};
  const allIds=new Set();
  for(let i=0;i<7;i++){
-  const vine=createVine(i===0?'portrait':'edge',i);
+  const vine=createVine(i===0?'portrait':'margin',i);
   assert.equal(vine.attributes['aria-hidden'],'true');
   assert.equal(vine.attributes.focusable,'false');
   const ids=new Set([...vine.innerHTML.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
@@ -85,7 +116,7 @@ try {
   for(const ref of vine.innerHTML.matchAll(/(?:url\(#|href="#)([^)" ]+)/g))assert.ok(ids.has(ref[1]),'all SVG paints, masks and leaf references must resolve locally');
  }
  delete globalThis.document;
- console.log('Motion checks passed: reversible scenes, layout restoration, continuous vines, five phone states, reduced motion and local SVG references.');
+ console.log('Motion checks passed: reversible scenes, layout restoration, asymmetric continuous vines, five phone states, letter dissolve, reduced motion and local SVG references.');
 } catch(error) {
  console.error(error.name+': '+error.message);
  process.exitCode=1;
