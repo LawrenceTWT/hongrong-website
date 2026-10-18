@@ -562,6 +562,7 @@ function initPortraitFlip() {
   const setFlipped = (next) => {
     flipped = next;
     button.classList.toggle("is-flipped", flipped);
+    button.closest(".hero-visual").classList.toggle("is-portrait-flipped", flipped);
     button.setAttribute("aria-pressed", String(flipped));
     front.setAttribute("aria-hidden", String(flipped));
     back.setAttribute("aria-hidden", String(!flipped));
