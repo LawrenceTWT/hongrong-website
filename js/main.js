@@ -55,6 +55,7 @@ let scrollFrame = 0;
 let prototypeRun = 0;
 let selectedSkill = null;
 const botanicalVines = [];
+let resetPortrait = () => {};
 
 function scrollToPosition(top, smooth = false) {
   window.scrollTo({
@@ -549,6 +550,42 @@ function updateBotanicalGrowth() {
 function requestScrollState() {
   if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollState);
 }
+
+// Pointer movement reverses naturally; the same native button supports touch and keyboard.
+function initPortraitFlip() {
+  const button = document.querySelector("[data-portrait-flip]");
+  if (!button) return;
+  const hover = matchMedia("(hover: hover) and (pointer: fine)");
+  const front = button.querySelector(".portrait-face-front");
+  const back = button.querySelector(".portrait-face-back");
+  let flipped = false;
+  const setFlipped = (next) => {
+    flipped = next;
+    button.classList.toggle("is-flipped", flipped);
+    button.setAttribute("aria-pressed", String(flipped));
+    front.setAttribute("aria-hidden", String(flipped));
+    back.setAttribute("aria-hidden", String(!flipped));
+  };
+  resetPortrait = () => setFlipped(false);
+  button.disabled = false;
+  document.getElementById("portrait-flip-hint").hidden = false;
+  button.addEventListener("pointerenter", (event) => {
+    if (hover.matches && event.pointerType === "mouse") setFlipped(true);
+  });
+  button.addEventListener("pointerleave", (event) => {
+    if (event.pointerType === "mouse") resetPortrait();
+  });
+  button.addEventListener("pointercancel", resetPortrait);
+  button.addEventListener("click", (event) => {
+    if (event.detail === 0 || !hover.matches || event.pointerType === "touch")
+      setFlipped(!flipped);
+  });
+  button.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") resetPortrait();
+  });
+  button.addEventListener("blur", resetPortrait);
+  hover.addEventListener("change", resetPortrait);
+}
 window.addEventListener("scroll", requestScrollState, { passive: true });
 window.addEventListener("resize", requestScrollState, { passive: true });
 reducedMotion.addEventListener("change", () => {
@@ -781,6 +818,7 @@ document.querySelectorAll(".current-year").forEach((node) => {
 });
 
 initBotanicalGrowth();
+initPortraitFlip();
 applyLanguage(storage.get() || "zh", { restore: false });
 initScenes();
 initCarousel();
@@ -790,11 +828,13 @@ updateScrollState();
 // BFCache restores real documents, including DOM classes. Always release transient UI.
 window.addEventListener("pageshow", (event) => {
   if (!event.persisted) return;
+  resetPortrait();
   body.classList.remove("page-leaving", "opening-active");
   setMenu(false);
   void refreshLayout();
 });
 window.addEventListener("pagehide", () => {
+  resetPortrait();
   refreshRevision += 1;
   prototypeRun += 1;
   if (prototypeButton) {

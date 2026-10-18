@@ -144,8 +144,8 @@ for (const [file, html] of sources) {
   )
     fail("missing actual Jinhong screenshot");
   if (["index.html", "work.html"].includes(file)) {
-    for (const cover of ["ai-project-cover.webp", "jinhong-project-cover.webp"])
-      if (!html.includes(cover)) fail("missing project cover " + cover);
+    for (const screenshot of ["ai-screen-login.webp", "ai-screen-parking.webp", "ai-screen-traffic.webp", "jinhong-live-home.jpg"])
+      if (!html.includes(screenshot)) fail("missing real project screenshot " + screenshot);
   }
   for (const match of html.matchAll(/>([^<>]*[\u3400-\u9fff][^<>]*)</g)) {
     if (match[1].trim().endsWith("。"))

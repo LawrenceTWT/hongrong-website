@@ -68,7 +68,7 @@ npm run validate
 - English translations: edit `js/copy.js`; each `data-i18n` key maps to the Chinese HTML.
 - Interactive behavior: edit `js/main.js`.
 - Shared header and footer: edit `partials/`, then run `npm run sync`. The generated HTML is committed and works without JavaScript.
-- Replace the portrait at `assets/images/hongrong-portrait.webp` and update its intrinsic dimensions when needed.
+- Homepage portrait faces: `assets/images/hongrong-formal.webp` and `assets/images/hongrong-glacier.webp`. Keep their intrinsic dimensions and translated alt text synchronized with replacements. The About photo is maintained separately.
 
 ## Notes
 
@@ -97,7 +97,8 @@ The script verifies the upstream source font hashes, rebuilds only the required 
 - Jinhong previews are captures of the actual live website, taken on 2026-10-17
 - Ordinary photographs preserve their composition inside rectangular frames
 - Shared content is capped at 1080px; botanical graphics may extend into its margins while text and projects stay aligned
-- The hero retains the real portrait; transparent ivy follows scroll progress, and project overview covers are representative concept illustrations
-- Artwork prompts and asset provenance are in `docs/visual-polish.md`; case-study screenshots and research figures remain actual project evidence
+- The hero flips between the user-provided formal and glacier photographs on hover, tap or keyboard activation; reduced motion switches instantly
+- Project overview cards use real app and website screenshots; the generated covers and ivy bitmap have been removed. Existing SVG ivy still follows scroll progress
+- Current interaction decisions and asset provenance are in `docs/visual-polish.md`
 - The closing landscape uses a shared SVG coordinate system for the image, name and ridgeline mask. Replacing the photo requires tracing its own boundary
 - The existing Wānaka photo is 1536 × 1152. A new horizontal original of at least 3000px is still needed for a sharper large-desktop closing scene

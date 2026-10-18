@@ -36,7 +36,8 @@ This decision record supersedes conflicting visual and navigation instructions i
 - Build scene motion from explicit initial and final states, with one refresh/restoration path
 - Enable scene pinning only on suitable desktop viewports; normal document flow is the fallback
 - Use one content width, spacing scale and separate Chinese/English typography rules
-- Follow-up decision on 2026-10-18: cap the shared content at 1080px, add reversible ivy growth in the margins, and use representative artwork in the two project overview cards
+- Follow-up decision on 2026-10-18: cap the shared content at 1080px and add reversible SVG ivy growth in the margins
+- Latest media decision: remove generated artwork, restore real project screenshots, and flip between the supplied formal/glacier portraits on hover, touch or keyboard activation
 - Use real website screenshots for Jinhong, and existing capstone imagery for AI
 - Preserve keyboard navigation, visible focus, native carousel scrolling and reduced motion
 

@@ -45,7 +45,7 @@
     />
     <link
       as="image"
-      href="assets/images/hongrong-portrait.webp"
+      href="assets/images/hongrong-formal.webp"
       rel="preload"
       type="image/webp"
     />
@@ -176,11 +176,11 @@
                 <h1>
                   <span class="title-mask"
                     ><span data-i18n="homeHeroTitleOne" data-opening-line=""
-                      >嗨，我是洪戎</span
+                      >嗨！我是紅龍</span
                     ></span
                   ><span class="title-mask"
                     ><span data-i18n="homeHeroTitleTwo" data-opening-line=""
-                      ><em>寫程式，也看世界</em></span
+                      ><em>是個喜歡攝影的工程師</em></span
                     ></span
                   >
                 </h1>
@@ -193,20 +193,50 @@
                 >
               </div>
               <div class="hero-visual" data-scene-visual="">
-                <figure class="hero-art photo-frame">
-                  <img
-                    alt="洪戎坐在海邊，背景是藍天與海面"
-                    data-i18n-alt="imageHongrongPortrait"
-                    fetchpriority="high"
-                    height="738"
-                    src="assets/images/hongrong-portrait.webp"
-                    width="499"
-                  />
+                <figure class="hero-art portrait-study">
+                  <button
+                    class="portrait-flip"
+                    type="button"
+                    data-portrait-flip=""
+                    aria-label="切換正式照與冰川旅行照"
+                    data-i18n-aria-label="portraitFlipLabel"
+                    aria-pressed="false"
+                    aria-describedby="portrait-flip-hint"
+                    disabled
+                  >
+                    <span class="portrait-flip-inner">
+                      <span class="portrait-face portrait-face-front" aria-hidden="false">
+                        <img
+                          alt="紅龍穿著黑色襯衫的正式照"
+                          data-i18n-alt="imageHongrongFormal"
+                          fetchpriority="high"
+                          height="890"
+                          src="assets/images/hongrong-formal.webp"
+                          width="700"
+                        />
+                      </span>
+                      <span class="portrait-face portrait-face-back" aria-hidden="true">
+                        <img
+                          alt="紅龍穿著紅色外套與冰爪，站在藍色冰川之間"
+                          data-i18n-alt="imageHongrongGlacier"
+                          decoding="async"
+                          height="1422"
+                          src="assets/images/hongrong-glacier.webp"
+                          width="800"
+                        />
+                      </span>
+                    </span>
+                  </button>
                   <figcaption>
                     <span>HONG RONG</span
                     ><span data-i18n="taichungLabel">台中，台灣</span
                     ><span>2026</span>
                   </figcaption>
+                  <p class="portrait-flip-hint" id="portrait-flip-hint" hidden>
+                    <span aria-hidden="true">↻</span>
+                    <span class="portrait-hint-hover" data-i18n="portraitHoverHint">滑過照片，看看另一面</span>
+                    <span class="portrait-hint-tap" data-i18n="portraitTapHint">點一下，看看另一面</span>
+                  </p>
                 </figure>
               </div>
               <p
@@ -270,15 +300,12 @@
                   aria-labelledby="home-ai-title"
                   aria-describedby="home-ai-summary"
                 >
-                  <div class="project-teaser-image">
-                    <img
-                      src="assets/images/ai-project-cover.webp"
-                      width="1440"
-                      height="720"
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                    />
+                  <div class="project-teaser-image project-teaser-image--app">
+                    <div class="app-preview-screens" aria-hidden="true">
+                      <img src="assets/images/ai-screen-login.webp" width="520" height="1080" alt="" loading="lazy" decoding="async" />
+                      <img src="assets/images/ai-screen-parking.webp" width="370" height="796" alt="" loading="lazy" decoding="async" />
+                      <img src="assets/images/ai-screen-traffic.webp" width="470" height="1043" alt="" loading="lazy" decoding="async" />
+                    </div>
                   </div>
                   <div class="project-teaser-copy">
                     <small>01 / AI · API · ANDROID</small>
@@ -300,11 +327,11 @@
                   aria-labelledby="home-jinhong-title"
                   aria-describedby="home-jinhong-summary"
                 >
-                  <div class="project-teaser-image">
+                  <div class="project-teaser-image project-teaser-image--web">
                     <img
-                      src="assets/images/jinhong-project-cover.webp"
-                      width="1440"
-                      height="720"
+                      src="assets/images/jinhong-live-home.jpg"
+                      width="1348"
+                      height="926"
                       alt=""
                       loading="lazy"
                       decoding="async"
