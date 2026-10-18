@@ -558,6 +558,7 @@ nav,
   background-image: var(--paper-grain);
 }
 .hero-panel {
+  overflow: clip;
   background-image:
     var(--paper-grain),
     radial-gradient(
@@ -1023,55 +1024,85 @@ nav,
   position: relative;
   isolation: isolate;
 }
-.botanical-region > :not(.growth-vine) {
+.botanical-region > :not(.growth-vine, .botanical-margin) {
   position: relative;
   z-index: 1;
 }
 .growth-vine {
+  --vine-progress: 1;
   position: absolute;
   z-index: 0;
-  width: 180px;
-  aspect-ratio: 2/5;
+  width: 148px;
+  height: auto;
+  aspect-ratio: 340/954;
+  overflow: visible;
   pointer-events: none;
-  background: url("../assets/images/botanical-vine.svg") center bottom/contain
-    no-repeat;
-  -webkit-mask-image: linear-gradient(
-    to top,
-    #000 calc(var(--vine-progress, 100%) - 9%),
-    transparent var(--vine-progress, 100%)
-  );
-  mask-image: linear-gradient(
-    to top,
-    #000 calc(var(--vine-progress, 100%) - 9%),
-    transparent var(--vine-progress, 100%)
-  );
+  transform-origin: 50% 100%;
+}
+.growth-vine-stem,
+.growth-vine-branch {
+  fill: none;
+  stroke: #7b7951;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--vine-progress));
+  transition: stroke-dashoffset 0.18s linear;
+}
+.growth-vine-branch {
+  stroke-width: 2.5;
+  stroke-dashoffset: calc(1 - clamp(0, (var(--vine-progress) - var(--leaf-at)) * 5, 1));
+}
+.growth-vine-leaf {
+  opacity: clamp(0, (var(--vine-progress) - var(--leaf-at)) * 14, 1);
+  transform: scale(clamp(0.12, (var(--vine-progress) - var(--leaf-at)) * 14, 1));
+  transform-origin: 0 0;
+  transition: opacity 0.18s linear, transform 0.18s linear;
 }
 .growth-vine--portrait {
   z-index: 2;
-  right: -30px;
-  bottom: 80px;
+  right: -12px;
+  bottom: 42px;
   width: 110px;
-  transform: rotate(45deg) scaleX(-1);
+  transform: rotate(18deg);
   transition: opacity 0.25s;
 }
 .hero-visual.is-portrait-flipped .growth-vine--portrait {
   opacity: 0;
 }
-.growth-vine--edge {
-  right: max(40px, calc(var(--page-inset) - 110px));
-  bottom: 8%;
-  opacity: 0.65;
-  transform: rotate(9deg);
+.botanical-margin {
+  position: absolute;
+  inset-block: 0;
+  z-index: 0;
+  width: max(18px, min(190px, calc(var(--page-inset) - 20px)));
+  overflow: clip;
+  pointer-events: none;
 }
-.growth-vine--transition {
-  right: max(40px, calc(var(--page-inset) - 90px));
-  bottom: 0;
-  width: 140px;
-  opacity: 0.6;
-  transform: rotate(-10deg);
+.botanical-margin--left {
+  left: 0;
+  -webkit-mask-image: linear-gradient(to right, #000 65%, transparent);
+  mask-image: linear-gradient(to right, #000 65%, transparent);
+}
+.botanical-margin--right {
+  right: 0;
+  -webkit-mask-image: linear-gradient(to left, #000 65%, transparent);
+  mask-image: linear-gradient(to left, #000 65%, transparent);
+}
+.growth-vine--margin {
+  bottom: var(--vine-bottom);
+  width: var(--vine-size);
+  max-width: none;
+  opacity: 0.66;
+  transform: rotate(var(--vine-angle)) scaleX(var(--vine-mirror));
+}
+.botanical-margin--left .growth-vine {
+  left: calc(var(--vine-size) * -0.38);
+}
+.botanical-margin--right .growth-vine {
+  right: calc(var(--vine-size) * -0.38);
 }
 .scene-enhanced {
-  height: 320svh;
+  height: 350svh;
 }
 .scene-enhanced .scene-sequence-pin {
   position: sticky;
@@ -1083,14 +1114,25 @@ nav,
   position: absolute;
   inset: 0;
   height: 100svh;
+  will-change: transform;
+}
+.scene-enhanced :is(.about-panel, .work-panel)::before {
+  content: "";
+  position: absolute;
+  inset: -24px 0 auto;
+  height: 25px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--scene-edge));
 }
 .scene-enhanced .hero-panel {
   z-index: 1;
 }
 .scene-enhanced .about-panel {
+  --scene-edge: var(--sage-mist);
   z-index: 2;
 }
 .scene-enhanced .work-panel {
+  --scene-edge: var(--paper);
   z-index: 3;
 }
 .scene-enhanced .hero-scene,
@@ -1206,13 +1248,16 @@ nav,
   box-shadow: 0 28px 50px rgb(0 0 0 / 0.15);
 }
 .phone-panel {
-  display: none;
   position: absolute;
   inset: 0;
   background: white;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.24s var(--ease-out), visibility 0.24s;
 }
 .phone-panel.is-active {
-  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 .phone-panel img {
   width: 100%;
@@ -1254,14 +1299,20 @@ nav,
   stroke: #9aa77c;
   stroke-width: 1.2;
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.5;
+  -webkit-mask-image: linear-gradient(to top, transparent, #000 18%, #000);
+  mask-image: linear-gradient(to top, transparent, #000 18%, #000);
 }
 .ai-phone-vine g {
   fill: rgb(154 167 124 / 0.2);
-  transition: opacity 0.2s;
+  opacity: var(--leaf-open, 0);
 }
-.ai-phone-vine g:not(.is-grown) {
-  opacity: 0.1;
+.ai-phone-vine g path {
+  transform: scale(calc(0.3 + var(--leaf-open, 0) * 0.7));
+  transform-origin: 0 0;
+}
+.ai-phone-vine > path {
+  transition: stroke-dashoffset 0.18s linear;
 }
 .ai-case-exit {
   display: grid;
@@ -2625,14 +2676,19 @@ h1 em,
 }
 .landscape-scene {
   position: relative;
-  aspect-ratio: 16/9;
-  max-height: 980px;
+  width: 100%;
+  height: min(56.25vw, 980px);
+  min-height: 320px;
+  margin-inline: auto;
   overflow: hidden;
   background: #738878;
 }
 .landscape-art {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  max-width: none;
 }
 .landscape-image {
   filter: saturate(0.7) sepia(0.16);
@@ -2670,7 +2726,7 @@ h1 em,
   display: grid;
 }
 .opening-mark {
-  font: 400 clamp(62px, 12vw, 160px) / 1 var(--serif);
+  font: 400 clamp(56px, 10.8vw, 144px) / 1 var(--serif);
   letter-spacing: -0.035em;
 }
 .opening-word {
@@ -2683,6 +2739,9 @@ h1 em,
 .opening-mark sup {
   font-size: 0.22em;
   margin-top: 0.1em;
+}
+[data-opening-letter] {
+  display: inline-block;
 }
 .reveal {
   opacity: 1;
@@ -2705,8 +2764,8 @@ h1 em,
     max-width: 270px;
   }
   .growth-vine--portrait {
-    right: -6px;
-    bottom: 70px;
+    right: -8px;
+    bottom: 48px;
     width: 80px;
   }
   .hero-scene h1 {
@@ -3106,16 +3165,19 @@ h1 em,
     font-size: 24px;
   }
   .growth-vine--portrait {
-    right: 12px;
-    bottom: 64px;
+    right: 0;
+    bottom: 50px;
     width: clamp(48px, 20vw, 72px);
   }
-  .growth-vine--edge,
-  .growth-vine--transition {
-    right: 10px;
-    width: 100px;
-    opacity: 0.4;
-    transform: none;
+  .growth-vine--margin {
+    width: min(104px, var(--vine-size));
+    opacity: 0.48;
+  }
+  .botanical-margin--left .growth-vine {
+    left: -28px;
+  }
+  .botanical-margin--right .growth-vine {
+    right: -28px;
   }
   .story-index,
   .scene-index,
@@ -3492,7 +3554,8 @@ h1 em,
     margin-left: auto;
   }
   .landscape-scene {
-    aspect-ratio: 4/3;
+    height: 75vw;
+    min-height: 240px;
   }
   .landscape-caption {
     bottom: 16px;
@@ -3525,8 +3588,10 @@ h1 em,
     opacity: 1 !important;
   }
   .growth-vine {
-    -webkit-mask-image: none;
-    mask-image: none;
+    --vine-progress: 1 !important;
+  }
+  .ai-phone-vine g path {
+    transform: none;
   }
   .portrait-flip-inner,
   .portrait-waterlines,
