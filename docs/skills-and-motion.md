@@ -44,8 +44,14 @@ Original artwork sources:
 - AWS Foundations: https://images.credly.com/images/e3541a0c-dd4a-4820-8052-5001006efc85/blob
 - Microsoft: https://images.credly.com/images/70eb1e3f-d4de-4377-a062-b20fb29594ea/azure-data-fundamentals-600x600.png
 
+## About copy and scroll feedback
+
+The homepage statement now uses HongRong's supplied introduction about adventure, leaving his comfort zone and life outside the plan. Four centered lines replace the product slogan and its AI paragraph; the final line retains the reversible color sweep. Chinese keeps the existing no-terminal-full-stop convention, and English carries the same meaning
+
+The color sweep no longer depends on enabling desktop scene pinning. With enhanced scenes it follows the actual scrubbed timeline, finishing during the About reading pause. In normal document flow it follows the heading's visible position, including short desktop and mobile viewports. One existing animation-frame controller writes the progress only when it changes. Reduced motion keeps the final text fully colored; no-JavaScript CSS remains readable
+
 ## Verification scope
 
-Production build checks local assets, Chinese font coverage, translations, shared layout and the existing motion regression suite. The latter samples the actual GSAP opening timeline, first-frame vine state, earlier lower-page growth, forward/reverse states, scene restoration and the five real phone screens
+Production build checks local assets, Chinese font coverage, translations, shared layout and the motion regression suite. The latter samples the actual GSAP opening timeline, first-frame vine state, earlier lower-page growth, forward/reverse states, scene restoration and the five real phone screens. About text tests cover both pinned and normal-flow progress, reverse scrolling, reduced motion, unchanged frames and pages without the component
 
 Browser visual QA is unavailable because the managed preview's required `control-browser` capability is not installed. Source/logic checks do not replace checking real desktop/mobile composition, focus behavior and scroll pacing in a browser

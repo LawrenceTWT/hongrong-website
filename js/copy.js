@@ -93,9 +93,8 @@ export const englishCopy = {
   homeHeroIntro: "AI applications · Web development · API integration",
   homeHeroCta: "See selected work",
   homeAboutLabel: "01 — ABOUT",
-  homeAboutTitle: "Understand the problem.<br><em>Build something useful.</em>",
-  homeAboutBody:
-    "From requirements and logic to implementation. AI helps me work through the problem.",
+  homeAboutTitle:
+    '<span class="about-copy-line">Adventurous by nature,</span><span class="about-copy-line">I like stepping out of my comfort zone.</span><span class="about-copy-line">I believe the best parts of life</span><em class="about-copy-line">often happen outside the plan.</em>',
   homeAboutMore: "More about me",
   selectedWorkLabel: "02 — SELECTED WORK",
   selectedWorkTitle: "Selected <em>work.</em>",

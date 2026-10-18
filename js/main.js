@@ -52,6 +52,8 @@ const englishTitles = {
 };
 let sceneTimeline = null;
 let openingAnimation = null;
+const aboutText = document.querySelector("[data-about-text-effect]");
+let aboutTextProgress = -1;
 const scenePacing = { aboutIn: 0.12, about: 1.4, workIn: 2.1, work: 3.4 };
 let refreshRevision = 0;
 let scrollFrame = 0;
@@ -393,16 +395,6 @@ function initScenes() {
       .addLabel("about", scenePacing.about)
       // A real reading pause keeps the centered story CTA visible.
       .fromTo(
-        about.querySelector("[data-about-text-effect]"),
-        { "--about-text-progress": "0%" },
-        {
-          "--about-text-progress": "100%",
-          duration: 0.85,
-          immediateRender: false,
-        },
-        0.65,
-      )
-      .fromTo(
         about,
         { yPercent: 0 },
         {
@@ -541,6 +533,28 @@ function updateNavigation() {
     else link.removeAttribute("aria-current");
   });
 }
+// Text follows the same scene clock, or its visible position without pinned scenes.
+function updateAboutText() {
+  if (!aboutText) return;
+  let progress = 1;
+  if (!reducedMotion.matches) {
+    progress = sceneTimeline
+      ? progressBetween(
+          sceneTimeline.time(),
+          scenePacing.about - 0.4,
+          scenePacing.workIn - 0.15,
+        )
+      : progressBetween(
+          innerHeight * 0.88 - aboutText.getBoundingClientRect().top,
+          0,
+          innerHeight * 0.52,
+        );
+  }
+  const rounded = Math.round(progress * 1000);
+  if (rounded === aboutTextProgress) return;
+  aboutTextProgress = rounded;
+  aboutText.style.setProperty("--about-text-progress", rounded / 10 + "%");
+}
 function updateScrollState() {
   scrollFrame = 0;
   document
@@ -548,6 +562,7 @@ function updateScrollState() {
     ?.classList.toggle("is-scrolled", scrollY > 18);
   updateAiStory();
   updateNavigation();
+  updateAboutText();
   updateBotanicalGrowth();
 }
 

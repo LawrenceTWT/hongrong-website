@@ -47,6 +47,40 @@ try {
  assert.equal(progressBetween(0,0,0),1);
  assert.equal(progressBetween(-1,0,0),0);
  assert.ok(updates>0,'access/navigation updates must follow the animation ticker');
+ let headingTop=0,textWrites=0;
+ const aboutText={getBoundingClientRect:()=>({top:headingTop}),style:{setProperty(name,value){this[name]=value;textWrites++}}};
+ const textEffect={aboutText,reducedMotion:{matches:false},progressBetween,innerHeight:900,Math,sceneTimeline:timeline};
+ vm.createContext(textEffect);
+ vm.runInContext('let aboutTextProgress=-1;'+source.match(/const scenePacing = [^;]+;/)[0]+source.slice(source.indexOf('function updateAboutText()'),source.indexOf('function updateScrollState()')),textEffect);
+ const textProgress=()=>parseFloat(aboutText.style['--about-text-progress']);
+ const textFrames=[];
+ for(const time of [0,.5,1,1.25,1.4,1.65,1.95,2.1,3.4]){
+  timeline.time(time);textEffect.updateAboutText();textFrames.push({time,progress:textProgress()});
+ }
+ assert.equal(textFrames[0].progress,0,'text must start before its color sweep');
+ const readingStart=textFrames.find(frame=>frame.time===1.4).progress;
+ assert.ok(readingStart>0&&readingStart<100,'text must still change as About reaches its reading pause');
+ assert.equal(textFrames.find(frame=>frame.time===1.95).progress,100,'text sweep must finish before the scene leaves');
+ for(const frame of textFrames.slice().reverse()){
+  timeline.time(frame.time);textEffect.updateAboutText();assert.equal(textProgress(),frame.progress,'reverse scene scroll must restore text progress');
+ }
+ const writes=textWrites;textEffect.updateAboutText();assert.equal(textWrites,writes,'an unchanged frame should not write the same style again');
+ textEffect.sceneTimeline=null;
+ for(const height of [680,719,900]){
+  textEffect.innerHeight=height;
+  const frames=[];
+  for(const ratio of [1.1,.88,.62,.36,0]){
+   headingTop=height*ratio;textEffect.updateAboutText();frames.push({top:headingTop,progress:textProgress()});
+  }
+  assert.equal(frames[0].progress,0);
+  assert.ok(frames[2].progress>0&&frames[2].progress<100,'normal-flow text must change even on short desktop or mobile viewports');
+  assert.equal(frames[3].progress,100);
+  for(const frame of frames.slice().reverse()){
+   headingTop=frame.top;textEffect.updateAboutText();assert.equal(textProgress(),frame.progress,'normal-flow reverse scroll must restore text progress');
+  }
+ }
+ textEffect.reducedMotion.matches=true;textEffect.updateAboutText();assert.equal(textProgress(),100,'reduced motion should show the complete emphasized line');
+ textEffect.aboutText=null;assert.doesNotThrow(()=>textEffect.updateAboutText(),'other routes have no homepage About text');
  const regions=['hero','about','work',null].map(scene=>({scene,progress:-1,region:{getBoundingClientRect:()=>({top:700,height:700})},vine:{style:{setProperty(name,value){this[name]=value}}}}));
  const growth={botanicalVines:regions,reducedMotion:{matches:false},progressBetween,innerHeight:900,Math,sceneTimeline:timeline};
  vm.createContext(growth);
@@ -124,7 +158,7 @@ try {
   for(const ref of vine.innerHTML.matchAll(/(?:url\(#|href="#)([^)" ]+)/g))assert.ok(ids.has(ref[1]),'all SVG paints, masks and leaf references must resolve locally');
  }
  delete globalThis.document;
- console.log('Motion checks passed: reversible scenes, layout restoration, asymmetric continuous vines, five phone states, letter dissolve, reduced motion and local SVG references.');
+ console.log('Motion checks passed: reversible scenes and About text (pinned/normal flow), layout restoration, asymmetric continuous vines, five phone states, letter dissolve, reduced motion and local SVG references.');
 } catch(error) {
  console.error(error.name+': '+error.message);
  process.exitCode=1;
