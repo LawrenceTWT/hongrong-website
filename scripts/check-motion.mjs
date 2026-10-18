@@ -32,7 +32,7 @@ try {
   if(time>0.12&&time<1.4)assert.ok(about.yPercent<100,'next scene must enter while hero remains');
   frames.push({time,positions:panels.map(p=>p.yPercent)});
  }
- for(const frame of frames.toReversed()){
+ for(const frame of frames.slice().reverse()){
   timeline.time(frame.time,false);assert.deepEqual(panels.map(p=>p.yPercent),frame.positions,'reverse must restore the same composition');
  }
  timeline.time(2.7);timeline.scrollTrigger.progress=0;sandbox.settleScene();
@@ -56,7 +56,7 @@ try {
   timeline.time(time);growth.updateBotanicalGrowth();
   vineFrames.push({time,values:regions.map(r=>r.progress)});
  }
- for(const frame of vineFrames.toReversed()){
+ for(const frame of vineFrames.slice().reverse()){
   timeline.time(frame.time);growth.updateBotanicalGrowth();assert.deepEqual(regions.map(r=>r.progress),frame.values);
  }
  growth.reducedMotion.matches=true;growth.updateBotanicalGrowth();assert.ok(regions.every(r=>r.progress===1000));
@@ -70,7 +70,7 @@ try {
  }
  assert.equal(aiFrames[0].state,0);assert.equal(aiFrames.at(-1).state,4);
  assert.equal(aiFrames[0].state,aiFrames[1].state);assert.notEqual(aiFrames[0].offset,aiFrames[1].offset,'vine must grow between phone state changes');
- for(const frame of aiFrames.toReversed()){
+ for(const frame of aiFrames.slice().reverse()){
   offset=frame.y;ai.updateAiStory();assert.equal(ai.aiVine.style.strokeDashoffset,frame.offset);assert.equal(ai.getAiState(),frame.state);
  }
  ai.reducedMotion.matches=true;ai.updateAiStory();assert.equal(ai.aiVine.style.strokeDashoffset,'0');
