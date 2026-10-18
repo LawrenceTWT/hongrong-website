@@ -1,4 +1,5 @@
 import { englishCopy } from "./copy.js";
+import { createVine, progressBetween } from "./botanical.js";
 
 // Chinese HTML is the source of the initial view. Only explicit language choices persist.
 const root = document.documentElement;
@@ -50,6 +51,7 @@ const englishTitles = {
   "contact.html": "Contact — HongRong",
 };
 let sceneTimeline = null;
+const scenePacing = { aboutIn: 0.12, about: 1.4, workIn: 2.1, work: 3.4 };
 let refreshRevision = 0;
 let scrollFrame = 0;
 let prototypeRun = 0;
@@ -101,7 +103,17 @@ async function refreshLayout(position = null) {
     scrollToPosition(position.top);
   }
   window.ScrollTrigger?.update();
+  settleScene();
   updateScrollState();
+}
+
+// Layout restoration is immediate; only deliberate scrolling gets scrub inertia.
+function settleScene() {
+  const trigger = sceneTimeline?.scrollTrigger;
+  if (!trigger) return;
+  trigger.getTween()?.progress(1);
+  sceneTimeline.progress(trigger.progress);
+  updateSceneAccess();
 }
 ["wheel", "touchstart", "pointerdown"].forEach((type) =>
   window.addEventListener(
@@ -285,6 +297,7 @@ function goToHash(hash, smooth = false) {
   refreshRevision += 1;
   scrollToPosition(top, smooth);
   window.ScrollTrigger?.update();
+  if (!smooth) settleScene();
   updateScrollState();
 }
 document.addEventListener("click", (event) => {
@@ -340,15 +353,16 @@ function initScenes() {
     gsap.set([about, work], { yPercent: 100 });
     const timeline = gsap.timeline({
       defaults: { ease: "none" },
+      onUpdate() {
+        if (sceneTimeline !== this) return;
+        updateSceneAccess();
+        requestScrollState();
+      },
       scrollTrigger: {
         trigger: sequence,
         start: "top top",
         end: "bottom bottom",
-        scrub: true,
-        onUpdate: () => {
-          updateSceneAccess();
-          requestScrollState();
-        },
+        scrub: 0.8,
       },
     });
     sceneTimeline = timeline;
@@ -356,46 +370,59 @@ function initScenes() {
       .fromTo(
         hero,
         { yPercent: 0 },
-        { yPercent: -34, duration: 1.3, immediateRender: false },
+        { yPercent: -30, duration: 1.5, immediateRender: false },
         0,
       )
       .fromTo(
         hero.querySelector("[data-scene-copy]"),
         { yPercent: 0 },
-        { yPercent: -5, duration: 1.3, immediateRender: false },
+        { yPercent: -3, duration: 1.5, immediateRender: false },
         0,
       )
       .fromTo(
         about,
         { yPercent: 100 },
-        { yPercent: 0, duration: 1, immediateRender: false },
-        0.16,
+        {
+          yPercent: 0,
+          duration: scenePacing.about - scenePacing.aboutIn,
+          immediateRender: false,
+        },
+        scenePacing.aboutIn,
       )
-      .addLabel("about", 1.16)
+      .addLabel("about", scenePacing.about)
       // A real reading pause keeps the centered story CTA visible.
       .fromTo(
         about.querySelector("[data-about-text-effect]"),
         { "--about-text-progress": "0%" },
         {
           "--about-text-progress": "100%",
-          duration: 0.7,
+          duration: 0.85,
           immediateRender: false,
         },
-        0.5,
+        0.65,
       )
       .fromTo(
         about,
         { yPercent: 0 },
-        { yPercent: -22, duration: 1, immediateRender: false },
-        1.75,
+        {
+          yPercent: -20,
+          duration: scenePacing.work - scenePacing.workIn,
+          immediateRender: false,
+        },
+        scenePacing.workIn,
       )
       .fromTo(
         work,
         { yPercent: 100 },
-        { yPercent: 0, duration: 1, immediateRender: false },
-        1.75,
+        {
+          yPercent: 0,
+          duration: scenePacing.work - scenePacing.workIn,
+          immediateRender: false,
+        },
+        scenePacing.workIn,
       )
-      .addLabel("work", 2.75);
+      .addLabel("work", scenePacing.work)
+      .to({}, { duration: 0.2 });
     updateSceneAccess();
     return () => {
       sceneTimeline = null;
@@ -412,11 +439,17 @@ function initScenes() {
 function updateSceneAccess() {
   if (!sceneTimeline) return;
   const time = sceneTimeline.time();
-  const active = time < 1.06 ? "hero" : time < 2.64 ? "about" : "work";
+  const active =
+    time < scenePacing.about - 0.08
+      ? "hero"
+      : time < scenePacing.work - 0.08
+        ? "about"
+        : "work";
   document.querySelectorAll("[data-scene-panel]").forEach((panel) => {
     const inactive = panel.dataset.scenePanel !== active;
-    panel.inert = inactive;
-    panel.setAttribute("aria-hidden", String(inactive));
+    if (panel.inert !== inactive) panel.inert = inactive;
+    if (panel.getAttribute("aria-hidden") !== String(inactive))
+      panel.setAttribute("aria-hidden", String(inactive));
   });
 }
 
@@ -426,6 +459,8 @@ const aiPanels = [...document.querySelectorAll("[data-ai-panel]")];
 const phoneState = document.querySelector("[data-phone-state]");
 const aiVine = document.querySelector("[data-ai-vine-path]");
 const aiVineLength = aiVine?.getTotalLength() || 0;
+const aiLeaves = [...document.querySelectorAll("[data-ai-leaf]")];
+let aiGrowthProgress = -1;
 let activeAiState = 0;
 if (aiVine) aiVine.style.strokeDasharray = String(aiVineLength);
 function setAiState(index) {
@@ -441,31 +476,37 @@ function setAiState(index) {
         ? ["登入", "剩餘車位", "導航", "即時路況", "車輛位置"]
         : ["Login", "Parking", "Navigation", "Live traffic", "Vehicle location"]
     )[index];
-  if (aiVine)
-    aiVine.style.strokeDashoffset = String(
-      aiVineLength *
-        (reducedMotion.matches ? 0 : 1 - Math.max(0.08, index / 4)),
-    );
-  document
-    .querySelectorAll("[data-ai-leaf]")
-    .forEach((leaf) =>
-      leaf.classList.toggle(
-        "is-grown",
-        reducedMotion.matches || index >= Number(leaf.dataset.aiLeaf) - 1,
-      ),
-    );
 }
 function updateAiStory() {
   if (!aiSteps.length) return;
-  const closest = aiSteps.reduce(
-    (best, step, index) => {
-      const box = step.getBoundingClientRect();
+  const boxes = aiSteps.map((step) => step.getBoundingClientRect());
+  const closest = boxes.reduce(
+    (best, box, index) => {
       const distance = Math.abs(box.top + box.height / 2 - innerHeight * 0.5);
       return distance < best.distance ? { index, distance } : best;
     },
     { index: 0, distance: Infinity },
   );
   if (closest.index !== activeAiState) setAiState(closest.index);
+  const center = (box) => box.top + box.height / 2;
+  const first = center(boxes[0]);
+  const last = center(boxes.at(-1));
+  const progress = reducedMotion.matches
+    ? 1
+    : 0.06 + 0.94 * progressBetween(innerHeight * 0.5, first, last);
+  const rounded = Math.round(progress * 1000) / 1000;
+  if (rounded === aiGrowthProgress) return;
+  aiGrowthProgress = rounded;
+  if (aiVine)
+    aiVine.style.strokeDashoffset = String(aiVineLength * (1 - rounded));
+  aiLeaves.forEach((leaf, index) => {
+    const unfold = progressBetween(
+      rounded,
+      0.1 + index * 0.17,
+      0.24 + index * 0.17,
+    );
+    leaf.style.setProperty("--leaf-open", String(unfold));
+  });
 }
 function updateNavigation() {
   if (body.dataset.page !== "home") return;
@@ -479,9 +520,9 @@ function updateNavigation() {
     active = "work";
   else if (sceneTimeline) {
     active =
-      sceneTimeline.time() >= 2.64
+      sceneTimeline.time() >= scenePacing.work - 0.08
         ? "work"
-        : sceneTimeline.time() >= 1.06
+        : sceneTimeline.time() >= scenePacing.about - 0.08
           ? "about"
           : "";
   } else if (sequence) {
@@ -522,29 +563,38 @@ function initBotanicalGrowth() {
   ]) {
     document.querySelectorAll(selector).forEach((region) => {
       region.classList.add("botanical-region");
-      const vine = document.createElement("div");
-      vine.className = "growth-vine growth-vine--" + variant;
-      vine.setAttribute("aria-hidden", "true");
+      const vine = createVine(variant, botanicalVines.length);
       region.append(vine);
-      botanicalVines.push({ region, vine, progress: -1 });
+      const scene = region.closest("[data-scene-panel]")?.dataset.scenePanel;
+      botanicalVines.push({ region, vine, scene, progress: -1 });
     });
   }
 }
 function updateBotanicalGrowth() {
   const updates = botanicalVines.map((item) => {
-    const box = item.region.getBoundingClientRect();
-    const travel = innerHeight + Math.min(box.height * 0.35, innerHeight * 0.4);
-    const progress = reducedMotion.matches
-      ? 1000
-      : Math.round(
-          Math.max(0, Math.min(1, (innerHeight - box.top) / travel)) * 1000,
-        );
-    return { item, progress };
+    let progress;
+    if (reducedMotion.matches) progress = 1;
+    else if (sceneTimeline && item.scene) {
+      const time = sceneTimeline.time();
+      const range =
+        item.scene === "hero"
+          ? [0, 0.95]
+          : item.scene === "about"
+            ? [scenePacing.aboutIn + 0.1, scenePacing.about + 0.4]
+            : [scenePacing.workIn, scenePacing.work + 0.1];
+      progress = progressBetween(time, ...range);
+      if (item.scene === "hero") progress = 0.26 + progress * 0.74;
+    } else {
+      const box = item.region.getBoundingClientRect();
+      const travel = Math.min(box.height * 0.8, innerHeight * 0.95);
+      progress = progressBetween(innerHeight * 0.92 - box.top, 0, travel);
+    }
+    return { item, progress: Math.round(progress * 1000) };
   });
   updates.forEach(({ item, progress }) => {
     if (item.progress === progress) return;
     item.progress = progress;
-    item.vine.style.setProperty("--vine-progress", progress / 10 + "%");
+    item.vine.style.setProperty("--vine-progress", String(progress / 1000));
   });
 }
 function requestScrollState() {
@@ -892,7 +942,7 @@ async function startOpening() {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
-        duration: 0.8,
+        duration: 0.95,
         ease: "power2.out",
       },
     )
@@ -900,17 +950,17 @@ async function startOpening() {
       mark,
       {
         opacity: 0,
-        y: -12,
-        filter: "blur(10px)",
-        duration: 0.85,
-        ease: "power2.in",
+        y: -8,
+        filter: "blur(12px)",
+        duration: 1.05,
+        ease: "power2.inOut",
       },
-      1.15,
+      1.5,
     )
     .to(
       opening,
-      { yPercent: -100, duration: 0.85, ease: "power3.inOut" },
-      1.65,
+      { yPercent: -100, duration: 1.05, ease: "power2.inOut" },
+      2.0,
     );
 }
 void startOpening();
