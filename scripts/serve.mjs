@@ -3,7 +3,12 @@ import { readFile, stat } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 
 const root = process.cwd();
-const port = Number(process.env.PORT || 8000);
+const portArgument = process.argv.indexOf("--port");
+const port = Number(
+  portArgument >= 0 ? process.argv[portArgument + 1] : process.env.PORT || 8000,
+);
+if (!Number.isInteger(port) || port < 1 || port > 65535)
+  throw new Error("Invalid development server port");
 const types = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -17,20 +22,23 @@ const types = {
   ".jpeg": "image/jpeg",
   ".pdf": "application/pdf",
   ".txt": "text/plain; charset=utf-8",
-  ".xml": "application/xml; charset=utf-8"
+  ".xml": "application/xml; charset=utf-8",
 };
 
 createServer(async (request, response) => {
   try {
-    const requested = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
-    const relative = requested === "/" ? "index.html" : requested.replace(/^\//, "");
+    const requested = decodeURIComponent(
+      new URL(request.url, "http://localhost").pathname,
+    );
+    const relative =
+      requested === "/" ? "index.html" : requested.replace(/^\//, "");
     const safePath = normalize(relative).replace(/^(\.\.(\/|\\|$))+/, "");
     let file = join(root, safePath);
     if ((await stat(file)).isDirectory()) file = join(file, "index.html");
     const body = await readFile(file);
     response.writeHead(200, {
       "Content-Type": types[extname(file)] || "application/octet-stream",
-      "Cache-Control": "no-store"
+      "Cache-Control": "no-store",
     });
     response.end(body);
   } catch {

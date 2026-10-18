@@ -1,100 +1,215 @@
 import { access, readFile, readdir } from "node:fs/promises";
-import { join } from "node:path";
+import { join, resolve, sep } from "node:path";
+import { englishCopy } from "../js/copy.js";
+import { createHash } from "node:crypto";
 
 const root = process.cwd();
-const htmlFiles = (await readdir(root)).filter((file) => file.endsWith(".html"));
+const files = (await readdir(root)).filter((name) => name.endsWith(".html"));
 const errors = [];
-const translationKeys = new Set();
-
-for (const file of htmlFiles) {
-  const html = await readFile(join(root, file), "utf8");
-  if (!/<title>[^<]+<\/title>/.test(html)) errors.push(`${file}: missing title`);
-  if (!/<meta name="viewport"/.test(html)) errors.push(`${file}: missing viewport`);
-  if (!/<meta name="description" content="[^"]+"/.test(html)) errors.push(`${file}: missing meta description`);
-  if (!/<link rel="canonical" href="https:\/\/lawrencetwt\.github\.io\/hongrong-website\//.test(html)) errors.push(`${file}: missing canonical URL`);
-  if ((html.match(/<h1\b/g) || []).length !== 1) errors.push(`${file}: expected exactly one h1`);
-  const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
-  for (const id of new Set(ids)) {
-    if (ids.filter((candidate) => candidate === id).length > 1) errors.push(`${file}: duplicate id ${id}`);
-  }
-  for (const link of html.matchAll(/<a\b[^>]*href="#([^"]+)"[^>]*>/g)) {
-    if (!ids.includes(link[1])) errors.push(`${file}: hash link has no target #${link[1]}`);
-  }
-  for (const externalLink of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g)) {
-    if (!/\brel="[^"]*noreferrer[^"]*"/.test(externalLink[0])) errors.push(`${file}: target=_blank link missing noreferrer`);
-  }
-  for (const image of html.matchAll(/<img\b[^>]*>/g)) {
-    if (!/\balt="[^"]*"/.test(image[0])) errors.push(`${file}: image missing alt text`);
-    if (!/\bwidth="\d+"/.test(image[0]) || !/\bheight="\d+"/.test(image[0])) errors.push(`${file}: image missing intrinsic dimensions`);
-  }
-  for (const match of html.matchAll(/data-i18n="([^"]+)"/g)) translationKeys.add(match[1]);
-  for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
-    const reference = match[1].split("#")[0];
-    if (!reference || /^(?:https?:|mailto:|data:)/.test(reference)) continue;
-    try { await access(join(root, reference)); }
-    catch { errors.push(`${file}: missing local reference ${reference}`); }
-  }
-
-  if (file === "index.html") {
-    const aiSteps = [...html.matchAll(/data-ai-step="(\d+)"/g)].map((match) => Number(match[1]));
-    const aiPanels = [...html.matchAll(/data-ai-panel="(\d+)"/g)].map((match) => Number(match[1]));
-    const expectedAiStates = "0,1,2,3,4";
-    if (aiSteps.join(",") !== expectedAiStates) errors.push(`${file}: expected five ordered AI story steps (${expectedAiStates})`);
-    if (aiPanels.join(",") !== expectedAiStates) errors.push(`${file}: expected five ordered AI phone panels (${expectedAiStates})`);
-    if (!/data-about-text-effect/.test(html)) errors.push(`${file}: homepage capability statement is missing its scroll-linked text effect`);
-    for (const target of ["about.html", "ai-driving-assistant.html", "jinhong-foods.html"]) {
-      const escapedTarget = target.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      if (!new RegExp(`<a\\b[^>]*class="[^"]*story-cta[^"]*"[^>]*href="${escapedTarget}"`).test(html)) {
-        errors.push(`${file}: expected a visible story CTA for ${target}`);
+const keys = new Set();
+const attrs = (tag) =>
+  Object.fromEntries(
+    [...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((match) => [
+      match[1],
+      match[2],
+    ]),
+  );
+const pageIds = new Map();
+const sources = new Map(
+  await Promise.all(
+    files.map(async (file) => [file, await readFile(file, "utf8")]),
+  ),
+);
+for (const [file, html] of sources) {
+  const fail = (message) => errors.push(file + ": " + message);
+  const tags = [...html.matchAll(/<[a-zA-Z][^>]*>/g)].map((match) => ({
+    markup: match[0],
+    attributes: attrs(match[0]),
+  }));
+  const ids = tags.map((tag) => tag.attributes.id).filter(Boolean);
+  pageIds.set(file, new Set(ids));
+  if (new Set(ids).size !== ids.length) fail("duplicate IDs");
+  if (!/<html\b[^>]*lang="zh-Hant"/.test(html))
+    fail("initial document must be Traditional Chinese");
+  if (!/<title>[^<]+<\/title>/.test(html)) fail("missing title");
+  if (tags.filter((tag) => /^<h1\b/.test(tag.markup)).length !== 1)
+    fail("expected exactly one h1");
+  if (!tags.some((tag) => tag.attributes.name === "viewport"))
+    fail("missing viewport");
+  if (
+    !tags.some(
+      (tag) => tag.attributes.name === "description" && tag.attributes.content,
+    )
+  )
+    fail("missing description");
+  if (
+    !tags.some(
+      (tag) =>
+        tag.attributes.rel === "canonical" &&
+        tag.attributes.href?.startsWith(
+          "https://lawrencetwt.github.io/hongrong-website/",
+        ),
+    )
+  )
+    fail("missing canonical");
+  if (!tags.some((tag) => tag.attributes.property === "og:image"))
+    fail("missing social image");
+  if (
+    !html.includes("<!-- shared:header:start -->") ||
+    !html.includes("<!-- shared:footer:start -->")
+  )
+    fail("missing generated shared layout");
+  for (const { markup, attributes: a } of tags) {
+    for (const key of Object.keys(a).filter((key) =>
+      /^data-i18n(?:-|$)/.test(key),
+    ))
+      keys.add(a[key]);
+    if (/^<img\b/.test(markup)) {
+      if (a.alt === undefined) fail("image missing alt");
+      if (!/^\d+$/.test(a.width || "") || !/^\d+$/.test(a.height || ""))
+        fail("image missing dimensions");
+    }
+    if (
+      /^<a\b/.test(markup) &&
+      a.target === "_blank" &&
+      !/\bnoreferrer\b/.test(a.rel || "")
+    )
+      fail("external tab missing noreferrer");
+    for (const value of [a.href, a.src].filter(Boolean)) {
+      const reference = value.split("#")[0].split("?")[0];
+      if (!reference || /^(https?:|mailto:|tel:|data:)/.test(reference))
+        continue;
+      const local = resolve(root, reference);
+      if (!local.startsWith(root + sep)) {
+        fail("asset escapes project: " + reference);
+        continue;
+      }
+      try {
+        await access(local);
+      } catch {
+        fail("missing local asset " + reference);
       }
     }
   }
-  if (file === "about.html") {
-    const usaSlides = [...html.matchAll(/data-usa-slide\b/g)];
-    if (usaSlides.length !== 5) errors.push(`${file}: expected exactly five USA carousel slides`);
-    if (!/data-usa-carousel-prev/.test(html) || !/data-usa-carousel-next/.test(html)) errors.push(`${file}: USA carousel controls are missing`);
-    const stageStart = html.indexOf('class="usa-carousel-stage"');
-    const previousButton = html.indexOf("data-usa-carousel-prev");
-    const nextButton = html.indexOf("data-usa-carousel-next");
-    const controlsStart = html.indexOf('class="usa-carousel-controls"');
-    if (stageStart < 0 || previousButton < stageStart || nextButton < previousButton || controlsStart < nextButton) {
-      errors.push(`${file}: carousel arrows must sit inside the photo stage before the lower progress controls`);
+  const header =
+    html.match(
+      /<!-- shared:header:start -->([\s\S]*?)<!-- shared:header:end -->/,
+    )?.[1] || "";
+  for (const target of [
+    "index.html#top",
+    "about.html",
+    "work.html",
+    "contact.html",
+  ]) {
+    if (!header.includes('href="' + target + '"'))
+      fail("shared navigation missing " + target);
+  }
+  if (header.includes('href="#about"') || header.includes('href="#work"'))
+    fail("global navigation must use page routes");
+  if (
+    /class="[^"]*loader(?![^"]*fathom-opening)/.test(html) &&
+    file !== "index.html"
+  )
+    fail("child route contains an unnecessary loading overlay");
+  if (file === "index.html") {
+    for (const attribute of ["data-ai-step", "data-ai-panel"]) {
+      const values = tags
+        .filter((tag) => tag.attributes[attribute] !== undefined)
+        .map((tag) => tag.attributes[attribute]);
+      if (values.join(",") !== "0,1,2,3,4")
+        fail("real-screen phone flow is incomplete");
     }
+    if (!html.includes("data-about-text-effect"))
+      fail("missing capability text effect");
+    if (!html.includes('id="wanaka-ridgeline"'))
+      fail("missing registered landscape foreground");
+    if (html.includes("hongrong-canyon.webp"))
+      fail("low-resolution portrait image must not be the full-bleed footer");
   }
-  if (file === "ai-driving-assistant.html") {
-    if (!/data-i18n="systemFlowLabel"/.test(html)) errors.push(`${file}: parking request flow needs a specific section label`);
-    if (!/data-prototype-start/.test(html) || !/data-i18n="prototypeButton"/.test(html)) errors.push(`${file}: simulated parking request needs a clear trigger`);
+  if (file === "about.html") {
+    if (
+      tags.filter(
+        (tag) =>
+          "data-usa-slide" in tag.attributes ||
+          /\bdata-usa-slide(?:\s|=|>)/.test(tag.markup),
+      ).length !== 5
+    )
+      fail("expected five USA photographs");
+    for (const control of ["data-usa-carousel-prev", "data-usa-carousel-next"])
+      if (!html.includes(control)) fail("missing carousel arrow");
   }
-  if (file === "jinhong-foods.html") {
-    if (/data-i18n="(?:clientNextBody|honestRoadmap)"/.test(html)) errors.push(`${file}: next-step section still contains redundant roadmap copy`);
-  }
-  if (file !== "index.html" && !/<a class="brand transition-link" href="index\.html#top">/.test(html)) {
-    errors.push(`${file}: header brand must return explicitly to index.html#top`);
+  if (
+    ["index.html", "work.html", "jinhong-foods.html"].includes(file) &&
+    !html.includes("jinhong-live-home.jpg")
+  )
+    fail("missing actual Jinhong screenshot");
+  for (const match of html.matchAll(/>([^<>]*[\u3400-\u9fff][^<>]*)</g)) {
+    if (match[1].trim().endsWith("。"))
+      fail("Chinese copy ends in a full stop");
   }
 }
-
-const js = await readFile(join(root, "js/main.js"), "utf8");
-const zhKeys = new Set([...js.matchAll(/^\s{4}([A-Za-z][A-Za-z0-9]*):/gm)].map((match) => match[1]));
-for (const key of translationKeys) {
-  if (!zhKeys.has(key)) errors.push(`Missing Traditional Chinese copy: ${key}`);
+for (const [file, html] of sources) {
+  for (const match of html.matchAll(/<a\b[^>]*>/g)) {
+    const href = attrs(match[0]).href;
+    if (!href || /^(https?:|mailto:|tel:)/.test(href)) continue;
+    const [path, hash] = href.split("#");
+    if (
+      hash &&
+      pageIds.has(path || file) &&
+      !pageIds.get(path || file).has(hash)
+    )
+      errors.push(file + ": missing anchor " + href);
+  }
 }
-const zhBlock = js.slice(js.indexOf("const zh = {"), js.indexOf("\n  };", js.indexOf("const zh = {")));
-for (const match of zhBlock.matchAll(/^\s{4}([A-Za-z][A-Za-z0-9]*):\s*"((?:\\.|[^"])*)"/gm)) {
-  const visibleCopy = match[2].replace(/<[^>]+>/g, "").trim().replace(/[」』】）》]+$/, "");
-  if (visibleCopy.endsWith("。")) errors.push(`Traditional Chinese copy ends with a full stop: ${match[1]}`);
+for (const key of keys)
+  if (!(key in englishCopy)) errors.push("Missing English translation: " + key);
+for (const file of ["robots.txt", "sitemap.xml"]) {
+  try {
+    await access(join(root, file));
+  } catch {
+    errors.push("Missing " + file);
+  }
 }
-
 const css = await readFile(join(root, "css/styles.css"), "utf8");
-if ((css.match(/{/g) || []).length !== (css.match(/}/g) || []).length) errors.push("CSS brace count is unbalanced");
-
-for (const technicalSeoFile of ["robots.txt", "sitemap.xml"]) {
-  try { await access(join(root, technicalSeoFile)); }
-  catch { errors.push(`Missing technical SEO file: ${technicalSeoFile}`); }
+if ((css.match(/{/g) || []).length !== (css.match(/}/g) || []).length)
+  errors.push("CSS braces are unbalanced");
+if (/clip-path:\s*polygon/.test(css))
+  errors.push("Ordinary photos must not use polygon crops");
+const js = await readFile(join(root, "js/main.js"), "utf8");
+const coverage = JSON.parse(
+  await readFile(join(root, "assets/fonts/gensen-coverage.json"), "utf8"),
+);
+const chineseCharacters = new Set(
+  [...([...sources.values()].join("") + js)].filter((character) =>
+    /[\u3400-\u9fff]/.test(character),
+  ),
+);
+for (const [weight, font] of Object.entries(coverage.fonts)) {
+  const data = await readFile(join(root, "assets/fonts", font.file));
+  if (createHash("sha256").update(data).digest("hex") !== font.sha256)
+    errors.push(weight + " font does not match its coverage manifest");
+  const supported = new Set(font.characters);
+  const missing = [...chineseCharacters].filter(
+    (character) => !supported.has(character.codePointAt(0)),
+  );
+  if (missing.length)
+    errors.push(
+      weight +
+        " font is missing Chinese glyphs: " +
+        missing.join("") +
+        "; run scripts/subset-fonts.py",
+    );
 }
-
+if (/classList\.add\("page-leaving"\)/.test(js))
+  errors.push("Opacity-based page exits break browser restoration");
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
 }
-
-console.log(`Validated ${htmlFiles.length} pages, ${translationKeys.size} bilingual strings, and all local assets.`);
+console.log(
+  "Validated " +
+    files.length +
+    " Chinese-first pages, " +
+    keys.size +
+    " English mappings, shared navigation and local assets.",
+);

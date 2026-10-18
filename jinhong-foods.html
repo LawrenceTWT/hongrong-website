@@ -1,87 +1,375 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Jinhong Foods website case study by HongRong — React, TypeScript, responsive product catalog, and Cloudflare deployment.">
-  <meta name="theme-color" content="#ebe7da">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="Jinhong Foods — HongRong Case Study">
-  <meta property="og:description" content="My first real client website: research, information architecture, interface design, React development, and an honest SEO roadmap.">
-  <meta property="og:url" content="https://lawrencetwt.github.io/hongrong-website/jinhong-foods.html">
-  <link rel="canonical" href="https://lawrencetwt.github.io/hongrong-website/jinhong-foods.html">
-  <title>Jinhong Foods — HongRong</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/gensen-rounded-tw-regular.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css"><script src="js/main.js" defer></script>
-</head>
-<body data-page="work" class="case-deep jinhong-case-page">
-  <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
-  <div class="loader" aria-hidden="true"><div class="loader-mark">HongRong<sup>®</sup></div><div class="loader-line"><span></span></div></div>
-  <header class="site-header"><a class="brand transition-link" href="index.html#top">HongRong<sup>®</sup></a><div class="availability"><span class="status-dot"></span><span data-i18n="availability">Available — Taichung</span><span class="availability-separator">/</span><span data-i18n="localTime">Local Time:</span><time class="local-time">--:--:--</time></div><nav class="desktop-nav"><a class="transition-link" href="about.html" data-nav-page="about" data-i18n="navAbout">About</a><a class="transition-link" href="work.html" data-nav-page="work" data-i18n="navWork">Work</a><a class="transition-link" href="contact.html" data-nav-page="contact" data-i18n="navContact">Contact</a></nav><div class="header-actions"><button class="language-toggle" type="button">中文</button><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button></div></header>
-  <div class="menu-panel" aria-hidden="true"><nav><span class="menu-index">/ 01 /</span><a class="transition-link" href="index.html#top" data-i18n="navHome">Home</a><span class="menu-index">/ 02 /</span><a class="transition-link" href="about.html" data-i18n="navAbout">About</a><span class="menu-index">/ 03 /</span><a class="transition-link" href="work.html" data-i18n="navWork">Work</a><span class="menu-index">/ 04 /</span><a class="transition-link" href="contact.html" data-i18n="navContact">Contact</a></nav><div class="menu-panel-footer"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div></div>
 
-  <main id="main-content">
-    <section class="case-hero section-pad">
-      <div class="case-breadcrumb reveal"><a class="transition-link" href="index.html#jinhong-project" data-i18n="backToStory">← Back to the story</a><span>CASE 02 / REAL CLIENT</span></div>
-      <div class="case-title-grid"><div><p class="eyebrow reveal" data-i18n="jinhongCaseLabel">Corporate website / Real client</p><h1 class="reveal" data-i18n="jinhongTitle">Jinhong Foods</h1></div><p class="case-lede reveal" data-i18n="jinhongDeepLede">My first website for a real business — built for a friend preparing to carry his family’s food-machinery company forward.</p></div>
-      <div class="case-meta reveal"><div><span data-i18n="roleLabel">Role</span><strong>RESEARCH / IA / UI / FRONTEND</strong></div><div><span data-i18n="stackLabel">Stack</span><strong>REACT / TYPESCRIPT / RWD</strong></div><div><span data-i18n="outputLabel">Output</span><strong data-i18n="jinhongOutput">Multi-page responsive website</strong></div><div><a href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer"><span data-i18n="visitLiveSite">Visit live site</span> ↗</a><a href="https://github.com/LawrenceTWT/jinhong-foods12" target="_blank" rel="noreferrer"><span data-i18n="sourceCode">Source code</span> ↗</a></div></div>
-      <div class="case-cover jinhong-cover reveal">
-        <div class="mock-browser extra-large jinhong-browser">
-          <div class="mock-browser-bar"><span></span><span></span><span></span><b>jinhong-foods.lucky1228.workers.dev</b></div>
-          <div class="jinhong-site-shot">
-            <div class="jinhong-shot-nav"><strong>金虹食品</strong><span>產品介紹　關於我們　服務維修　聯絡我們</span></div>
-            <div class="jinhong-shot-hero"><small>FOOD MACHINERY / TAIWAN</small><strong>讓每一道加工流程<br>更穩定、更有效率</strong><span>專業食品加工設備</span></div>
-            <div class="jinhong-products">
-              <figure><img src="assets/images/jinhong-slicer.webp" width="276" height="447" alt="金虹全自動切片機"><figcaption>全自動切片機 MST-350W</figcaption></figure>
-              <figure><img src="assets/images/jinhong-bone-saw.webp" width="1019" height="1543" alt="金虹高速鋸骨機"><figcaption>高速鋸骨機 HT-400</figcaption></figure>
-              <figure><img src="assets/images/jinhong-vacuum.webp" width="440" height="283" alt="金虹雙槽真空包裝機"><figcaption>雙槽真空包裝機</figcaption></figure>
-            </div>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta
+      content="金虹食品企業網站案例：資訊架構、React、TypeScript、產品瀏覽與 Cloudflare 部署"
+      name="description"
+    />
+    <meta content="#eeeadd" name="theme-color" />
+    <meta content="article" property="og:type" />
+    <meta content="金虹食品網站 — HongRong" property="og:title" />
+    <meta
+      content="金虹食品企業網站案例：資訊架構、React、TypeScript、產品瀏覽與 Cloudflare 部署"
+      property="og:description"
+    />
+    <meta
+      content="https://lawrencetwt.github.io/hongrong-website/jinhong-foods.html"
+      property="og:url"
+    />
+    <link
+      href="https://lawrencetwt.github.io/hongrong-website/jinhong-foods.html"
+      rel="canonical"
+    />
+    <title>金虹食品網站 — HongRong</title>
+    <link href="assets/favicon.svg" rel="icon" type="image/svg+xml" />
+    <link
+      as="font"
+      crossorigin=""
+      href="assets/fonts/gensen-rounded-tw-regular.woff"
+      rel="preload"
+      type="font/woff"
+    />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="js/main.js" type="module"></script>
+    <meta
+      content="https://lawrencetwt.github.io/hongrong-website/assets/images/new-zealand-wanaka.webp"
+      property="og:image"
+    />
+    <meta content="zh_TW" property="og:locale" />
+  </head>
+  <body class="case-deep jinhong-case-page" data-lang="zh" data-page="work">
+    <a class="skip-link" data-i18n="skipContent" href="#main-content"
+      >跳到主要內容</a
+    >
+    <!-- shared:header:start -->
+<header class="site-header" data-site-header>
+  <a
+    class="brand"
+    href="index.html#top"
+    aria-label="HongRong 首頁"
+    data-i18n-aria-label="homeLinkLabel"
+    >HongRong<sup>®</sup></a
+  >
+  <nav
+    class="desktop-nav"
+    aria-label="主要導覽"
+    data-i18n-aria-label="primaryNavLabel"
+  >
+    <a href="about.html" data-nav-page="about" data-i18n="navAbout">關於我</a>
+    <a href="work.html" data-nav-page="work" data-i18n="navWork" aria-current="page">作品</a>
+    <a href="contact.html" data-nav-page="contact" data-i18n="navContact"
+      >聯絡</a
+    >
+  </nav>
+  <div class="header-actions">
+    <button
+      class="language-toggle"
+      type="button"
+      aria-label="Switch to English"
+      lang="en"
+      hidden
+    >
+      EN
+    </button>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="開啟選單"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      hidden
+    >
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="menu-panel" id="site-menu" aria-hidden="true" inert>
+  <nav aria-label="行動版導覽" data-i18n-aria-label="mobileNavLabel">
+    <span class="menu-index">01</span
+    ><a href="index.html#top" data-i18n="navHome">首頁</a>
+    <span class="menu-index">02</span
+    ><a href="about.html" data-nav-page="about" data-i18n="navAbout">關於我</a>
+    <span class="menu-index">03</span
+    ><a href="work.html" data-nav-page="work" data-i18n="navWork" aria-current="page">作品</a>
+    <span class="menu-index">04</span
+    ><a href="contact.html" data-nav-page="contact" data-i18n="navContact"
+      >聯絡</a
+    >
+  </nav>
+  <div class="menu-panel-footer">
+    <a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer"
+      >GitHub ↗</a
+    ><a href="mailto:zxc1031777@gmail.com">Email ↗</a>
+  </div>
+</div>
+<noscript
+  ><nav class="no-js-nav" aria-label="頁面導覽">
+    <a href="about.html">關於我</a><a href="work.html">作品</a
+    ><a href="contact.html">聯絡</a>
+  </nav></noscript
+>
+<!-- shared:header:end -->
+    <main id="main-content" tabindex="-1">
+      <section class="case-hero section-pad">
+        <div class="case-breadcrumb reveal">
+          <a data-i18n="backToStory" href="work.html">← 回到作品</a
+          ><span data-i18n="clientBreadcrumbLabel">案例 02 / 客戶網站</span>
+        </div>
+        <div class="case-title-grid">
+          <div>
+            <p class="eyebrow reveal" data-i18n="jinhongCaseLabel">
+              企業網站 / 2026
+            </p>
+            <h1 class="reveal" data-i18n="jinhongTitle">金虹食品</h1>
+          </div>
+          <p class="case-lede reveal" data-i18n="jinhongDeepLede">
+            朋友準備承接家中的食品機械工廠，找我協助建立網站，讓更多客戶認識產品
+          </p>
+        </div>
+        <div class="case-meta reveal">
+          <div>
+            <span data-i18n="roleLabel">角色</span
+            ><strong data-i18n="clientResponsibilities"
+              >研究 / 資訊架構 / 介面 / 前端</strong
+            >
+          </div>
+          <div>
+            <span data-i18n="stackLabel">技術</span
+            ><strong>REACT / TYPESCRIPT / RWD</strong>
+          </div>
+          <div>
+            <span data-i18n="outputLabel">成果</span
+            ><strong data-i18n="jinhongOutput">多頁式響應網站</strong>
+          </div>
+          <div>
+            <a
+              href="https://jinhong-foods.lucky1228.workers.dev/"
+              rel="noreferrer"
+              target="_blank"
+              ><span data-i18n="visitLiveSite">瀏覽正式網站</span> ↗</a
+            ><a
+              href="https://github.com/LawrenceTWT/jinhong-foods12"
+              rel="noreferrer"
+              target="_blank"
+              ><span data-i18n="sourceCode">查看原始碼</span> ↗</a
+            >
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="case-narrative section-pad">
-      <div class="case-section-label reveal"><span>01</span><span data-i18n="projectOriginLabel">The origin</span></div>
-      <div class="case-two-col"><h2 class="reveal" data-i18n="jinhongOriginTitle">My first real client came through a friend.</h2><div class="body-copy reveal"><p data-i18n="jinhongOriginP1">His family runs a food-machinery factory. As he prepared to take over the business, he wanted a website that could increase brand exposure and give customers a clearer way to understand the machines.</p><p data-i18n="jinhongOriginP2">That changed the responsibility of the work. I was no longer designing for a class brief. The structure, content, and maintenance decisions had to make sense for a real company and a real user.</p></div></div>
-    </section>
-
-    <section class="client-shift section-pad">
-      <div class="case-section-label reveal"><span>02</span><span>BEFORE → GOAL</span></div>
-      <div class="client-shift-line reveal"><div><small>BEFORE</small><h2 data-i18n="clientBeforeTitle">A real business with technical products, but no clear digital home.</h2></div><span aria-hidden="true">→</span><div><small>GOAL</small><h2 data-i18n="clientGoalTitle">Make the brand visible and the product catalog understandable.</h2></div></div>
-    </section>
-
-    <section class="client-proof section-pad">
-      <div class="case-section-label reveal"><span>03</span><span>TECHNOLOGY → OUTCOME</span></div>
-      <div class="client-proof-heading reveal"><p class="eyebrow">RESEARCH / IA / BUILD</p><h2 data-i18n="jinhongSolutionTitle">Technology mattered when it made a large catalog easier to use.</h2><p data-i18n="jinhongSolutionIntro">The system connects real product content to a clearer path from category to specification and inquiry.</p></div>
-      <div class="client-proof-layout">
-        <figure class="machine-proof reveal">
-          <div class="machine-proof-collage">
-            <figure><img src="assets/images/jinhong-slicer.webp" width="276" height="447" loading="lazy" decoding="async" alt="Jinhong automatic meat slicer"><figcaption>MST-350W</figcaption></figure>
-            <figure><img src="assets/images/jinhong-bone-saw.webp" width="1019" height="1543" loading="lazy" decoding="async" alt="Jinhong high-speed bone saw"><figcaption>HT-400</figcaption></figure>
-            <figure><img src="assets/images/jinhong-vacuum.webp" width="440" height="283" loading="lazy" decoding="async" alt="Jinhong double-chamber vacuum packing machine"><figcaption>VACUUM</figcaption></figure>
+        <div class="case-cover jinhong-cover reveal">
+          <div class="browser-preview">
+            <div aria-hidden="true" class="browser-preview-bar">
+              <i></i><i></i><i></i
+              ><span>jinhong-foods.lucky1228.workers.dev</span>
+            </div>
+            <img
+              alt="金虹食品正式網站的首頁截圖"
+              data-i18n-alt="jinhongHomeAlt"
+              decoding="async"
+              height="926"
+              loading="lazy"
+              src="assets/images/jinhong-live-home.jpg"
+              width="1348"
+            />
           </div>
-          <figcaption data-i18n="jinhongProofCaption">Real product photography used in the live catalog.</figcaption>
-        </figure>
-        <ol class="client-tech-ledger">
-          <li class="reveal"><span>REACT + TYPESCRIPT</span><strong data-i18n="jinhongTechReactOutcome">Reusable product pages</strong><small data-i18n="jinhongTechReactNote">One data structure feeds categories, detail pages, models, and specifications.</small></li>
-          <li class="reveal"><span>RWD + CSS</span><strong data-i18n="jinhongTechRwdOutcome">The same task on every screen</strong><small data-i18n="jinhongTechRwdNote">Navigation, product reading, and inquiry remain usable on mobile.</small></li>
-          <li class="reveal"><span>LOCALSTORAGE</span><strong data-i18n="jinhongTechStorageOutcome">Save products before contacting</strong><small data-i18n="jinhongTechStorageNote">The inquiry list works without an account or database.</small></li>
-          <li class="reveal"><span>VINEXT / VITE / CLOUDFLARE</span><strong data-i18n="jinhongTechDeployOutcome">Build, deploy, and maintain</strong><small data-i18n="jinhongTechDeployNote">A verified build becomes the Cloudflare Worker deployment.</small></li>
+        </div>
+      </section>
+      <section class="case-narrative section-pad">
+        <div class="case-section-label reveal">
+          <span>01</span><span data-i18n="projectOriginLabel">專案起點</span>
+        </div>
+        <div class="case-two-col">
+          <h2 class="reveal" data-i18n="jinhongOriginTitle">
+            第一個客戶，<br /><em>是朋友介紹的</em>
+          </h2>
+          <div class="body-copy reveal">
+            <p data-i18n="jinhongOriginP1">
+              朋友希望替家中的食品機械工廠增加曝光，也讓客戶更容易找到需要的設備
+            </p>
+            <p data-i18n="jinhongOriginP2">
+              我從同業研究、資訊架構、介面設計做到前端開發與後續部署
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="client-shift section-pad">
+        <div class="case-section-label reveal">
+          <span>02</span><span data-i18n="beforeGoalLabel">需求 → 目標</span>
+        </div>
+        <div class="client-shift-line reveal">
+          <div>
+            <small data-i18n="beforeLabel">原本的問題</small>
+            <h2 data-i18n="clientBeforeTitle">
+              產品很多，<br />線上資訊還沒整理好
+            </h2>
+          </div>
+          <span aria-hidden="true">→</span>
+          <div>
+            <small data-i18n="goalLabel">想達成的事</small>
+            <h2 data-i18n="clientGoalTitle">
+              依分類找到設備，<br />看懂規格再詢價
+            </h2>
+          </div>
+        </div>
+      </section>
+      <section class="client-proof section-pad">
+        <div class="case-section-label reveal">
+          <span>03</span
+          ><span data-i18n="techOutcomeLabel">技術 → 解決的問題</span>
+        </div>
+        <div class="client-proof-heading reveal">
+          <p class="eyebrow" data-i18n="researchBuildLabel">
+            研究 / 架構 / 開發
+          </p>
+          <h2 data-i18n="jinhongSolutionTitle">
+            技術用來解決<br /><em>客戶會遇到的事</em>
+          </h2>
+          <p data-i18n="jinhongSolutionIntro">
+            分類、產品頁與詢價清單，連成完整的瀏覽流程
+          </p>
+        </div>
+        <div class="client-proof-layout">
+          <figure class="machine-proof reveal">
+            <div class="machine-proof-collage">
+              <div class="browser-preview">
+                <div aria-hidden="true" class="browser-preview-bar">
+                  <i></i><i></i><i></i
+                  ><span>jinhong-foods.lucky1228.workers.dev</span>
+                </div>
+                <img
+                  alt="金虹網站的產品分類、設備照片與規格介紹"
+                  data-i18n-alt="jinhongProductAlt"
+                  decoding="async"
+                  height="926"
+                  loading="lazy"
+                  src="assets/images/jinhong-live-product.jpg"
+                  width="1348"
+                />
+              </div>
+            </div>
+            <figcaption data-i18n="jinhongProofCaption">
+              正式網站 / 產品介紹實際畫面
+            </figcaption>
+          </figure>
+          <ol class="client-tech-ledger">
+            <li class="reveal">
+              <span>REACT + TYPESCRIPT</span
+              ><strong data-i18n="jinhongTechReactOutcome"
+                >可重用的產品頁面</strong
+              ><small data-i18n="jinhongTechReactNote"
+                >同一份資料結構連接分類、詳細頁、型號與規格</small
+              >
+            </li>
+            <li class="reveal">
+              <span>RWD + CSS</span
+              ><strong data-i18n="jinhongTechRwdOutcome"
+                >每種螢幕都能完成同一件事</strong
+              ><small data-i18n="jinhongTechRwdNote"
+                >手機版仍能清楚導覽、閱讀產品並進入詢價</small
+              >
+            </li>
+            <li class="reveal">
+              <span>LOCALSTORAGE</span
+              ><strong data-i18n="jinhongTechStorageOutcome"
+                >先收藏產品，再進行聯絡</strong
+              ><small data-i18n="jinhongTechStorageNote"
+                >詢價清單不需要帳號或資料庫也能使用</small
+              >
+            </li>
+            <li class="reveal">
+              <span>VITE / CLOUDFLARE</span
+              ><strong data-i18n="jinhongTechDeployOutcome"
+                >建置、部署與持續維護</strong
+              ><small data-i18n="jinhongTechDeployNote"
+                >透過建置與 Cloudflare 部署，維護上線版本</small
+              >
+            </li>
+          </ol>
+        </div>
+      </section>
+      <section class="client-next-step section-pad">
+        <div class="case-section-label reveal">
+          <span>04</span
+          ><span data-i18n="clientNextLabel">下一步 — SEO / 搜尋曝光</span>
+        </div>
+        <div class="client-next-heading reveal">
+          <h2 data-i18n="clientSeoTitle">
+            網站已上線<br /><em>接下來是搜尋曝光</em>
+          </h2>
+        </div>
+        <ol class="seo-rail reveal">
+          <li>
+            <span>01</span
+            ><strong data-i18n="seoFoundationLabel">SEO 基礎</strong>
+          </li>
+          <li><span>02</span><strong>SEARCH CONSOLE</strong></li>
+          <li>
+            <span>03</span
+            ><strong data-i18n="structuredDataLabel">結構化資料</strong>
+          </li>
+          <li>
+            <span>04</span
+            ><strong data-i18n="contentOptimizationLabel">內容調整</strong>
+          </li>
         </ol>
-      </div>
-    </section>
+        <div class="client-links reveal">
+          <a
+            class="button button-dark"
+            href="https://jinhong-foods.lucky1228.workers.dev/"
+            rel="noreferrer"
+            target="_blank"
+            ><span data-i18n="visitLiveSite">瀏覽正式網站</span> ↗</a
+          ><a
+            class="button button-outline"
+            href="https://github.com/LawrenceTWT/jinhong-foods12"
+            rel="noreferrer"
+            target="_blank"
+            ><span data-i18n="sourceCode">查看原始碼</span> ↗</a
+          >
+        </div>
+      </section>
+      <section class="next-case section-pad">
+        <p class="eyebrow reveal" data-i18n="previousCase">上一個案例</p>
+        <a class="reveal" href="ai-driving-assistant.html"
+          ><span data-i18n="aiDriverTitle">AI 行車助手</span
+          ><span>← 01</span></a
+        >
+      </section>
+    </main>
+    <!-- shared:footer:start -->
+<footer class="site-footer">
+  <div class="footer-inner section-pad">
+    <div class="footer-top">
+      <a class="brand" href="index.html#top">HongRong<sup>®</sup></a>
+      <p data-i18n="footerLine">AI 應用與網頁開發 · 台中，台灣</p>
+      <a class="footer-email" href="mailto:zxc1031777@gmail.com"
+        >zxc1031777@gmail.com ↗</a
+      >
+    </div>
+    <div class="footer-bottom">
+      <span>© <span class="current-year">2026</span> HongRong</span>
+      <nav aria-label="社群連結" data-i18n-aria-label="socialNavLabel">
+        <a
+          href="https://github.com/LawrenceTWT"
+          target="_blank"
+          rel="noreferrer"
+          >GitHub ↗</a
+        ><a
+          href="https://www.instagram.com/lawrence31_/"
+          target="_blank"
+          rel="noreferrer"
+          >Instagram ↗</a
+        >
+      </nav>
+      <button class="back-to-top" type="button" data-i18n="backToTop">
+        回到頁首 ↑
+      </button>
+    </div>
+  </div>
 
-    <section class="client-next-step section-pad">
-      <div class="case-section-label reveal"><span>04</span><span data-i18n="clientNextLabel">NEXT — SEO / DISCOVERY</span></div>
-      <div class="client-next-heading reveal"><h2 data-i18n="clientSeoTitle">The site is live. Next: help the right people find it.</h2></div>
-      <ol class="seo-rail reveal"><li><span>01</span><strong>SEO FOUNDATION</strong></li><li><span>02</span><strong>SEARCH CONSOLE</strong></li><li><span>03</span><strong>STRUCTURED DATA</strong></li><li><span>04</span><strong>CONTENT OPTIMIZATION</strong></li></ol>
-      <div class="client-links reveal"><a class="button button-dark" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer"><span data-i18n="visitLiveSite">Visit live site</span> ↗</a><a class="button button-outline" href="https://github.com/LawrenceTWT/jinhong-foods12" target="_blank" rel="noreferrer"><span data-i18n="sourceCode">Source code</span> ↗</a></div>
-    </section>
-
-    <section class="next-case section-pad"><p class="eyebrow reveal" data-i18n="previousCase">Previous case study</p><a class="transition-link reveal" href="ai-driving-assistant.html"><span data-i18n="aiDriverTitle">AI Driving Assistant</span><span>← 01</span></a></section>
-  </main>
-  <footer class="site-footer"><div><a class="brand transition-link" href="index.html#top">HongRong<sup>®</sup></a><p data-i18n="footerLine">Web developer based in Taichung, Taiwan.</p></div><div class="footer-links"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div><div class="footer-bottom"><span>© <span class="current-year"></span> HongRong</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div></footer>
-</body>
+</footer>
+<!-- shared:footer:end -->
+  </body>
 </html>
