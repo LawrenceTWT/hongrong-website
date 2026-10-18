@@ -54,18 +54,22 @@ If Node.js is installed, the included scripts offer another option:
 npm run dev
 ```
 
-To create a production-ready static copy in `dist/`:
+Development checks require Node.js 20.19 or newer. To install the development-only DOM test dependency and create a static copy in `dist/`:
 
 ```bash
+npm ci
 npm run build
-npm run validate
 ```
+
+The build runs source validation, motion checks and the six-page language regression suite. `npm run test:language` runs the latter on its own. LinkeDOM is used only by development checks; visitors still receive static HTML, CSS and JavaScript, with no new runtime dependency. The DOM fixtures do not measure browser layout or rendering
 
 ## Editing content
 
 - Page structure and initial Traditional Chinese copy: edit the `.html` files.
 - Colors, typography, layout, animation, and responsive behavior: edit `css/styles.css`.
 - English translations: edit `js/copy.js`; each `data-i18n` key maps to the Chinese HTML.
+- When changing Chinese copy, update its English entry as well. `englishPageMetadata` in the same file maintains the English tab title and document metadata.
+- Keep headings outside paragraphs. A heading inside a translated `<p>` causes HTML parsers to move the remaining copy outside the translation boundary.
 - Interactive behavior: edit `js/main.js`.
 - Shared header and footer: edit `partials/`, then run `npm run sync`. The generated HTML is committed and works without JavaScript.
 - Homepage portrait faces: `assets/images/hongrong-formal.webp` and `assets/images/hongrong-glacier.webp`. Keep their intrinsic dimensions and translated alt text synchronized with replacements. The About photo is maintained separately.

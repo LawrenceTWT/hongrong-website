@@ -1,4 +1,4 @@
-import { englishCopy } from "./copy.js";
+import { englishCopy, englishPageMetadata } from "./copy.js";
 import { botanicalPlacements, createVine, progressBetween } from "./botanical.js";
 
 // Chinese HTML is the source of the initial view. Only explicit language choices persist.
@@ -42,20 +42,33 @@ const attributeNodes = ["alt", "aria-label", "placeholder"].flatMap(
 );
 let language = "zh";
 const chineseTitle = document.title;
-const englishTitles = {
-  "index.html": "HongRong — AI × Web × Product",
-  "about.html": "About — HongRong",
-  "work.html": "Selected work — HongRong",
-  "ai-driving-assistant.html": "AI Driving Assistant — HongRong",
-  "jinhong-foods.html": "Jinhong Foods — HongRong",
-  "contact.html": "Contact — HongRong",
-};
+const englishMetadata =
+  englishPageMetadata[location.pathname.split("/").pop() || "index.html"];
+const metadataNodes = [
+  ['meta[name="description"]', "description"],
+  ['meta[property="og:title"]', "title"],
+  ['meta[property="og:description"]', "description"],
+  ['meta[property="og:locale"]', "locale"],
+].flatMap(([selector, field]) => {
+  const node = document.querySelector(selector);
+  return node ? [{ node, field, zh: node.content }] : [];
+});
 let sceneTimeline = null;
+let landscapeTimeline = null;
 let openingAnimation = null;
+const aboutText = document.querySelector("[data-about-text-effect]");
+const aboutRegion = aboutText?.closest("[data-scene-panel]");
+const aboutContent = document.querySelector("[data-about-content]");
+let aboutBoundary = null;
+let aboutHoldShift = null;
+let aboutTextProgress = -1;
 const scenePacing = { aboutIn: 0.12, about: 1.4, workIn: 2.1, work: 3.4 };
 let refreshRevision = 0;
+let languageRefreshRevision = 0;
+let pendingLanguagePosition = null;
 let scrollFrame = 0;
 let prototypeRun = 0;
+let prototypeState = "idle";
 let selectedSkill = null;
 const botanicalVines = [];
 let resetPortrait = () => {};
@@ -73,7 +86,9 @@ function capturePosition() {
     return { scene: trigger.progress };
   }
   const candidates = [
-    ...document.querySelectorAll("main > section, main > div, footer"),
+    ...document.querySelectorAll(
+      "main > section:not([data-scene-sequence]), main > div, [data-scene-panel], footer",
+    ),
   ];
   const anchor = candidates.find((node) => {
     const box = node.getBoundingClientRect();
@@ -110,32 +125,42 @@ async function refreshLayout(position = null) {
 
 // Layout restoration is immediate; only deliberate scrolling gets scrub inertia.
 function settleScene() {
-  const trigger = sceneTimeline?.scrollTrigger;
-  if (!trigger) return;
-  trigger.getTween()?.progress(1);
-  sceneTimeline.progress(trigger.progress);
+  for (const timeline of [sceneTimeline, landscapeTimeline]) {
+    const trigger = timeline?.scrollTrigger;
+    if (!trigger) continue;
+    trigger.getTween()?.progress(1);
+    timeline.progress(trigger.progress);
+  }
   updateSceneAccess();
 }
+function cancelLayoutRestore(event) {
+  refreshRevision += 1;
+  if (!event?.target?.closest?.(".language-toggle"))
+    pendingLanguagePosition = null;
+}
 ["wheel", "touchstart", "pointerdown"].forEach((type) =>
-  window.addEventListener(
-    type,
-    () => {
-      refreshRevision += 1;
-    },
-    { passive: true },
-  ),
+  window.addEventListener(type, cancelLayoutRestore, { passive: true }),
 );
 
 function applyLanguage(next, { persist = false, restore = true } = {}) {
-  const position = restore ? capturePosition() : null;
+  const position = restore
+    ? pendingLanguagePosition || capturePosition()
+    : null;
   language = next === "en" ? "en" : "zh";
   root.lang = language === "zh" ? "zh-Hant" : "en";
   body.dataset.lang = language;
   document.title =
     language === "zh"
       ? chineseTitle
-      : englishTitles[location.pathname.split("/").pop() || "index.html"] ||
-        chineseTitle;
+      : englishMetadata?.title || chineseTitle;
+  for (const { node, field, zh } of metadataNodes) {
+    node.content =
+      language === "zh"
+        ? zh
+        : field === "locale"
+          ? "en_US"
+          : englishMetadata?.[field] || zh;
+  }
   for (const { node, key, zh } of textNodes) {
     const value = language === "en" ? (englishCopy[key] ?? zh) : zh;
     if (node.innerHTML !== value) node.innerHTML = value;
@@ -186,8 +211,15 @@ function applyLanguage(next, { persist = false, restore = true } = {}) {
         : "The need, timeline, or what you have in mind...";
   if (selectedSkill) showSkill(selectedSkill);
   setAiState(activeAiState);
+  updatePrototypeStatus();
   if (persist) storage.set(language);
-  if (restore) void refreshLayout(position);
+  if (restore) {
+    const revision = ++languageRefreshRevision;
+    pendingLanguagePosition = position;
+    void refreshLayout(position).then(() => {
+      if (revision === languageRefreshRevision) pendingLanguagePosition = null;
+    });
+  }
 }
 document
   .querySelectorAll(".language-toggle")
@@ -295,7 +327,7 @@ function hashPosition(hash) {
 function goToHash(hash, smooth = false) {
   const top = hashPosition(hash);
   if (top === null) return;
-  refreshRevision += 1;
+  cancelLayoutRestore();
   scrollToPosition(top, smooth);
   window.ScrollTrigger?.update();
   if (!smooth) settleScene();
@@ -330,12 +362,28 @@ document.addEventListener("click", (event) => {
 window.addEventListener("hashchange", () => goToHash(location.hash || "#top"));
 document.querySelectorAll(".back-to-top").forEach((button) =>
   button.addEventListener("click", () => {
+    cancelLayoutRestore();
     if (body.dataset.page === "home") {
       if (location.hash !== "#top") history.pushState(null, "", "#top");
     }
     scrollToPosition(0, true);
   }),
 );
+
+// Match the scene's sine easing when other layers use its progress.
+function sceneTransitionProgress(time, start, end) {
+  return (1 - Math.cos(Math.PI * progressBetween(time, start, end))) / 2;
+}
+
+// Measure in layout coordinates: transforms must not feed back into the boundary.
+function measureAboutBoundary() {
+  if (!aboutContent || !aboutRegion) return;
+  aboutBoundary = {
+    height: aboutRegion.clientHeight,
+    bottom: aboutContent.offsetTop + aboutContent.offsetHeight,
+    gap: Math.min(40, Math.max(24, aboutRegion.clientHeight * 0.03)),
+  };
+}
 
 // Explicit from/to values survive refresh, localization and reverse scrolling.
 function initScenes() {
@@ -352,11 +400,13 @@ function initScenes() {
     sequence.classList.add("scene-enhanced");
     gsap.set(hero, { yPercent: 0 });
     gsap.set([about, work], { yPercent: 100 });
+    measureAboutBoundary();
     const timeline = gsap.timeline({
-      defaults: { ease: "none" },
+      defaults: { ease: "sine.inOut" },
       onUpdate() {
         if (sceneTimeline !== this) return;
         updateSceneAccess();
+        updateAboutHold();
         requestScrollState();
       },
       scrollTrigger: {
@@ -364,6 +414,10 @@ function initScenes() {
         start: "top top",
         end: "bottom bottom",
         scrub: 0.8,
+        onRefresh() {
+          measureAboutBoundary();
+          requestScrollState();
+        },
       },
     });
     sceneTimeline = timeline;
@@ -393,16 +447,6 @@ function initScenes() {
       .addLabel("about", scenePacing.about)
       // A real reading pause keeps the centered story CTA visible.
       .fromTo(
-        about.querySelector("[data-about-text-effect]"),
-        { "--about-text-progress": "0%" },
-        {
-          "--about-text-progress": "100%",
-          duration: 0.85,
-          immediateRender: false,
-        },
-        0.65,
-      )
-      .fromTo(
         about,
         { yPercent: 0 },
         {
@@ -427,11 +471,49 @@ function initScenes() {
     updateSceneAccess();
     return () => {
       sceneTimeline = null;
+      aboutBoundary = null;
+      aboutHoldShift = null;
+      aboutContent?.style.removeProperty("--about-hold-y");
       sequence.classList.remove("scene-enhanced");
       panels.forEach((panel) => {
         panel.inert = false;
         panel.removeAttribute("aria-hidden");
       });
+      timeline.scrollTrigger?.kill();
+      timeline.kill();
+    };
+  });
+}
+
+// The name rises from behind the traced ridge as the landscape enters the view.
+// Base and foreground remain one SVG, so their photographic edges stay aligned.
+function initLandscape() {
+  const scene = document.querySelector("[data-landscape-scene]");
+  if (!scene || !window.gsap || !window.ScrollTrigger) return;
+  const gsap = window.gsap;
+  gsap.registerPlugin(window.ScrollTrigger);
+  const motion = gsap.matchMedia();
+  motion.add("(prefers-reduced-motion: no-preference)", () => {
+    const timeline = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: scene,
+        start: "top bottom",
+        end: "bottom bottom",
+        scrub: 0.8,
+        invalidateOnRefresh: true,
+      },
+    });
+    landscapeTimeline = timeline;
+    timeline
+      .fromTo(scene.querySelector(".landscape-art"),
+        { scale: 1.035 }, { scale: 1, duration: 1 }, 0)
+      .fromTo(scene.querySelector(".landscape-word"),
+        { y: 260 }, { y: 0, duration: 0.9 }, 0.1)
+      .fromTo(scene.querySelector(".landscape-caption"),
+        { y: 12 }, { y: 0, duration: 0.65 }, 0.35);
+    return () => {
+      landscapeTimeline = null;
       timeline.scrollTrigger?.kill();
       timeline.kill();
     };
@@ -494,7 +576,7 @@ function updateAiStory() {
   const last = center(boxes.at(-1));
   const progress = reducedMotion.matches
     ? 1
-    : 0.06 + 0.94 * progressBetween(innerHeight * 0.5, first, last);
+    : 0.12 + 0.88 * progressBetween(innerHeight * 0.75, first, last);
   const rounded = Math.round(progress * 1000) / 1000;
   if (rounded === aiGrowthProgress) return;
   aiGrowthProgress = rounded;
@@ -541,6 +623,46 @@ function updateNavigation() {
     else link.removeAttribute("aria-current");
   });
 }
+// One entry clock: the scene, its text and its plants finish arriving together.
+function getSectionEntryProgress(region, scene) {
+  if (sceneTimeline && (scene === "about" || scene === "work")) {
+    const range =
+      scene === "about"
+        ? [scenePacing.aboutIn, scenePacing.about]
+        : [scenePacing.workIn, scenePacing.work];
+    return sceneTransitionProgress(sceneTimeline.time(), ...range);
+  }
+  const box = region.getBoundingClientRect();
+  const distance = Math.max(1, Math.min(box.height, innerHeight));
+  return progressBetween(innerHeight - box.top, 0, distance);
+}
+function updateAboutText() {
+  if (!aboutText || !aboutRegion) return;
+  // Start the emphasis once the lower line is entering, then finish at arrival.
+  const progress = reducedMotion.matches
+    ? 1
+    : progressBetween(getSectionEntryProgress(aboutRegion, "about"), 0.55, 1);
+  const rounded = Math.round(progress * 1000);
+  if (rounded === aboutTextProgress) return;
+  aboutTextProgress = rounded;
+  aboutText.style.setProperty("--about-text-progress", rounded / 10 + "%");
+}
+
+// Stay centered until the following scene reaches the content's lower boundary.
+// Then leave with that edge; the CTA travels with its own heading.
+function updateAboutHold() {
+  if (!aboutContent || !sceneTimeline || !aboutBoundary) return;
+  const progress = sceneTransitionProgress(
+    sceneTimeline.time(), scenePacing.workIn, scenePacing.work,
+  );
+  const { height, bottom, gap } = aboutBoundary;
+  const nextEdge = height * (1 - progress);
+  const exit = Math.min(0, nextEdge - bottom - gap);
+  const shift = Math.round((height * 0.2 * progress + exit) * 100) / 100;
+  if (shift === aboutHoldShift) return;
+  aboutHoldShift = shift;
+  aboutContent.style.setProperty("--about-hold-y", shift + "px");
+}
 function updateScrollState() {
   scrollFrame = 0;
   document
@@ -548,6 +670,8 @@ function updateScrollState() {
     ?.classList.toggle("is-scrolled", scrollY > 18);
   updateAiStory();
   updateNavigation();
+  updateAboutText();
+  updateAboutHold();
   updateBotanicalGrowth();
 }
 
@@ -557,6 +681,12 @@ function initBotanicalGrowth() {
     document.querySelectorAll(placement.selector).forEach((region) => {
       region.classList.add("botanical-region");
       const vine = createVine(placement.variant || "margin", botanicalVines.length);
+      const scene = region.closest("[data-scene-panel]")?.dataset.scenePanel;
+      const fromTop = [".page-hero", ".case-hero", ".contact-main"].includes(placement.selector);
+      vine.style.setProperty(
+        "--vine-progress",
+        reducedMotion.matches || scene === "hero" || fromTop ? "1" : "0",
+      );
       if (placement.side) {
         const margin = document.createElement("span");
         margin.className = "botanical-margin botanical-margin--" + placement.side;
@@ -568,8 +698,6 @@ function initBotanicalGrowth() {
         margin.append(vine);
         region.append(margin);
       } else region.append(vine);
-      const scene = region.closest("[data-scene-panel]")?.dataset.scenePanel;
-      const fromTop = [".page-hero", ".case-hero", ".contact-main"].includes(placement.selector);
       botanicalVines.push({ region, vine, scene, fromTop, delay: placement.delay || 0, progress: -1 });
     });
   }
@@ -577,30 +705,9 @@ function initBotanicalGrowth() {
 function updateBotanicalGrowth() {
   const updates = botanicalVines.map((item) => {
     let progress;
-    if (reducedMotion.matches) progress = 1;
-    else if (sceneTimeline && item.scene) {
-      const time = sceneTimeline.time();
-      const range =
-        item.scene === "hero"
-          ? [0, 0.95]
-          : item.scene === "about"
-            ? [scenePacing.aboutIn + 0.1, scenePacing.about + 0.4]
-            : [scenePacing.workIn, scenePacing.work + 0.1];
-      progress = progressBetween(time, ...range);
-      if (item.scene === "hero") progress = 0.26 + progress * 0.74;
-    } else {
-      const box = item.region.getBoundingClientRect();
-      if (item.fromTop) {
-        progress = 0.1 + 0.9 * progressBetween(
-          -box.top,
-          0,
-          Math.min(box.height * 0.7, innerHeight * 0.65),
-        );
-      } else {
-        const travel = Math.min(box.height * 0.8, innerHeight * 0.95);
-        progress = progressBetween(innerHeight * 0.92 - box.top, 0, travel);
-      }
-    }
+    if (reducedMotion.matches || item.scene === "hero" || item.fromTop)
+      progress = 1;
+    else progress = getSectionEntryProgress(item.region, item.scene);
     if (!reducedMotion.matches)
       progress = progressBetween(progress, item.delay || 0, 1);
     return { item, progress: Math.round(progress * 1000) };
@@ -622,9 +729,13 @@ function initPortraitFlip() {
   const hover = matchMedia("(hover: hover) and (pointer: fine)");
   const front = button.querySelector(".portrait-face-front");
   const back = button.querySelector(".portrait-face-back");
+  const backImage = back.querySelector("img");
+  const hint = document.getElementById("portrait-flip-hint");
+  let backReady = false;
+  let imageRevision = 0;
   let flipped = false;
   const setFlipped = (next) => {
-    flipped = next;
+    flipped = Boolean(next && backReady);
     button.classList.toggle("is-flipped", flipped);
     button.closest(".hero-visual").classList.toggle("is-portrait-flipped", flipped);
     button.setAttribute("aria-pressed", String(flipped));
@@ -632,8 +743,29 @@ function initPortraitFlip() {
     back.setAttribute("aria-hidden", String(!flipped));
   };
   resetPortrait = () => setFlipped(false);
-  button.disabled = false;
-  document.getElementById("portrait-flip-hint").hidden = false;
+  // Keep the formal face visible until the reverse photograph can be painted.
+  async function enableBackImage() {
+    const revision = ++imageRevision;
+    if (!backImage.complete || backImage.naturalWidth === 0) return;
+    try {
+      await backImage.decode?.();
+    } catch {
+      return;
+    }
+    if (revision !== imageRevision) return;
+    backReady = true;
+    button.disabled = false;
+    hint.hidden = false;
+  }
+  backImage.addEventListener("load", () => void enableBackImage());
+  backImage.addEventListener("error", () => {
+    imageRevision += 1;
+    backReady = false;
+    resetPortrait();
+    button.disabled = true;
+    hint.hidden = true;
+  });
+  void enableBackImage();
   button.addEventListener("pointerenter", (event) => {
     if (hover.matches && event.pointerType === "mouse") setFlipped(true);
   });
@@ -775,6 +907,13 @@ function showSkill(button) {
     node.setAttribute("aria-pressed", String(node === button));
   });
   const evidence = document.querySelector("[data-skill-evidence]");
+  const label = document.querySelector("[data-skill-evidence-label]");
+  if (label) {
+    if (button.hasAttribute("data-skill-learning"))
+      label.textContent = language === "zh" ? "學習紀錄" : "Learning record";
+    else
+      label.textContent = language === "zh" ? "使用於" : englishCopy.skillEvidenceLabel;
+  }
   if (evidence)
     evidence.textContent =
       language === "zh"
@@ -790,18 +929,28 @@ document.querySelectorAll("[data-skill-project]").forEach((button) => {
 
 // Clearly simulated API walkthrough. It never requests microphone or network access.
 const prototypeButton = document.querySelector("[data-prototype-start]");
+function updatePrototypeStatus() {
+  const status = document.querySelector("[data-prototype-status]");
+  if (!status) return;
+  status.textContent =
+    prototypeState === "running"
+      ? language === "zh"
+        ? "正在示範語音到停車資料的流程…"
+        : englishCopy.prototypeRunning
+      : prototypeState === "complete"
+        ? language === "zh"
+          ? "示意完成：整理停車資訊，再回覆使用者（非即時資料）"
+          : englishCopy.prototypeComplete
+        : "";
+}
 prototypeButton?.addEventListener("click", async () => {
   const run = ++prototypeRun;
   const nodes = [...document.querySelectorAll("[data-prototype-node]")];
-  const status = document.querySelector("[data-prototype-status]");
   nodes.forEach((node) => node.classList.remove("is-active"));
   prototypeButton.disabled = true;
   prototypeButton.setAttribute("aria-busy", "true");
-  if (status)
-    status.textContent =
-      language === "zh"
-        ? "正在示範語音到停車資料的流程…"
-        : "Showing the request moving through the system…";
+  prototypeState = "running";
+  updatePrototypeStatus();
   for (const node of nodes) {
     if (!reducedMotion.matches)
       await new Promise((resolve) => setTimeout(resolve, 260));
@@ -810,11 +959,8 @@ prototypeButton?.addEventListener("click", async () => {
   }
   prototypeButton.disabled = false;
   prototypeButton.removeAttribute("aria-busy");
-  if (status)
-    status.textContent =
-      language === "zh"
-        ? "示意完成：整理停車資訊，再回覆使用者（非即時資料）"
-        : "Walkthrough complete: parking information is prepared for the response. This is not live data.";
+  prototypeState = "complete";
+  updatePrototypeStatus();
 });
 
 // Reveal only supporting visuals; reading never depends on an observer firing.
@@ -887,6 +1033,7 @@ initBotanicalGrowth();
 initPortraitFlip();
 applyLanguage(storage.get() || "zh", { restore: false });
 initScenes();
+initLandscape();
 initCarousel();
 setAiState(0);
 updateScrollState();
@@ -901,8 +1048,13 @@ window.addEventListener("pageshow", (event) => {
 });
 window.addEventListener("pagehide", () => {
   resetPortrait();
-  refreshRevision += 1;
+  cancelLayoutRestore();
   prototypeRun += 1;
+  prototypeState = "idle";
+  updatePrototypeStatus();
+  document.querySelectorAll("[data-prototype-node]").forEach((node) =>
+    node.classList.remove("is-active"),
+  );
   if (prototypeButton) {
     prototypeButton.disabled = false;
     prototypeButton.removeAttribute("aria-busy");
@@ -922,8 +1074,8 @@ function createOpeningTimeline(opening, mark, onComplete) {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
-        duration: 0.6,
-        stagger: { each: 0.04, from: "start" },
+        duration: 0.45,
+        stagger: { each: 0.025, from: "start" },
         ease: "power2.out",
       },
       0,
@@ -934,16 +1086,16 @@ function createOpeningTimeline(opening, mark, onComplete) {
         opacity: 0,
         x: -1,
         filter: "blur(14px)",
-        duration: 1,
-        stagger: { each: 0.065, from: "end" },
+        duration: 0.7,
+        stagger: { each: 0.045, from: "end" },
         ease: "power2.inOut",
       },
-      1.35,
+      0.95,
     )
     .to(
       opening,
-      { yPercent: -100, duration: 0.9, ease: "power2.inOut" },
-      2.6,
+      { yPercent: -100, duration: 0.65, ease: "power2.inOut" },
+      1.85,
     );
 }
 
@@ -963,8 +1115,8 @@ async function startOpening() {
   }
   let seen = false;
   try {
-    seen = sessionStorage.getItem("hongrong-opening-3-5s") === "seen";
-    sessionStorage.setItem("hongrong-opening-3-5s", "seen");
+    seen = sessionStorage.getItem("hongrong-opening-2-5s") === "seen";
+    sessionStorage.setItem("hongrong-opening-2-5s", "seen");
   } catch {
     /* Optional. */
   }

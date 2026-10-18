@@ -47,6 +47,9 @@ export const englishCopy = {
   prototypeTdx: "Open data",
   prototypeData: "Available spaces",
   prototypeResponse: "Speak result",
+  prototypeRunning: "Showing the request moving through the system…",
+  prototypeComplete:
+    "Walkthrough complete: parking information is prepared for the response. This is not live data.",
   modelRealityTitle: "Training data.<br><em>Actual results.</em>",
   modelLevel1: "Free flow",
   modelLevel2: "Smooth",
@@ -93,9 +96,8 @@ export const englishCopy = {
   homeHeroIntro: "AI applications · Web development · API integration",
   homeHeroCta: "See selected work",
   homeAboutLabel: "01 — ABOUT",
-  homeAboutTitle: "Understand the problem.<br><em>Build something useful.</em>",
-  homeAboutBody:
-    "From requirements and logic to implementation. AI helps me work through the problem.",
+  homeAboutTitle:
+    '<span class="about-copy-line">Adventurous by nature,</span><span class="about-copy-line">I like stepping out of my comfort zone.</span><span class="about-copy-line">I believe the best parts of life</span><em class="about-copy-line">often happen outside the plan.</em>',
   homeAboutMore: "More about me",
   selectedWorkLabel: "02 — SELECTED WORK",
   selectedWorkTitle: "Selected <em>work.</em>",
@@ -131,24 +133,24 @@ export const englishCopy = {
     "Have a project or an opportunity in AI applications or web development? Get in touch.",
   landscapeCaption: "USA / HORSESHOE BEND",
   aboutPageEyebrow: "About — HongRong",
-  aboutPageTitle: "I’m HongRong.<br><em>I like making things work.</em>",
+  aboutPageTitle: "I’m HongRong.<br><em>Like water, I flow into the unknown.</em>",
   aboutPageIntro:
-    "From Information Management and an AI capstone to my first client website, I found what I enjoy: turning a need into something people can use.",
-  journeyHeading: "I liked computers.<br><em>Coding took more time.</em>",
+    "I’m curious about the world and enjoy exploring the unknown and taking on challenges.<br>From information management and life overseas to working in tech, each experience has helped me grow.<br>I keep exploring AI and web development to put ideas into practice and make something worthwhile.",
+  journeyHeading: "Curious about computers.<br><em>Learning to code from scratch.</em>",
   journey2021Title: "Information Management introduced me to programming",
   journey2021Body:
-    "I often knew what I wanted to make, but could not turn the idea into code. It was frustrating.",
+    "I knew what I wanted to make, but didn’t know how to code it. It was frustrating.",
   journey2022Title: "My first sneaker website made me want to keep building",
   journey2022Body:
-    "In web design class, I could finally see and use something I had made.",
-  journeyLost: "I did not keep a backup. The site is now lost.",
+    "Seeing something I had made in web design class gave me a sense of achievement.",
+  journeyLost: "I had no backup, and the site was never deployed online.",
   gptChangedTitle: "GPT gave me a way to work through questions",
   gptChangedBody:
     "I could break unfamiliar problems into smaller questions and check my understanding.",
   gptPrinciple: "Understand first. Then decide.",
   gptResponsibility:
     "I still need to make sense of the requirements, data flow and final decisions.",
-  usaHeading: "A summer<br><em>outside my comfort zone.</em>",
+  usaHeading: "Working abroad,<br><em>I was braver than I thought.</em>",
   usaSubheading: "My English wasn’t good. I went to South Dakota anyway.",
   usaPhotoStory: "Work, friends and places I had never seen before.",
   usaPhotoOne: "South Dakota / first view",
@@ -173,7 +175,14 @@ export const englishCopy = {
     "If there’s a view worth remembering,<br><em>I probably want to be there.</em>",
   natureImpression:
     "I hope a great landscape makes my friends think, “HongRong would love this place.”",
-  skillsStoryHeading: "The tools.<br><em>The work behind them.</em>",
+  skillsStoryHeading: "My toolkit",
+  skillKitHeading: "My toolkit",
+  viewSkillsAndBadges: "Skills & badges",
+  viewCredlySkills: "All Credly skills",
+  learningBadgeLabel: "Learning badge",
+  skillBadgeLabel: "Skill badge",
+  trainingBadgeLabel: "Training badge",
+  certificationTypeLabel: "Certification",
   skillEvidenceLabel: "USED IN",
   nextChapter: "The next chapter",
   aboutCtaTitle: "See what<br><em>I’ve built.</em>",
@@ -296,25 +305,25 @@ export const englishCopy = {
   contactLinksAria: "Contact links",
   builderLabel: "TEAM LEAD / BUILDER",
   southDakotaLabel: "SOUTH DAKOTA / COURAGE",
-  journeyChapterLabel: "02 — HOW I LEARNED",
+  journeyChapterLabel: "01 — HOW I LEARNED",
   informationLabel: "INFORMATION MANAGEMENT",
   firstWebsiteLabel: "FIRST WEBSITE",
   firstSiteLabel: "MY FIRST WEBSITE",
-  memoryLabel: "MEMORY ONLY — NO BACKUP",
+  memoryLabel: "FILES LOST / MEMORIES REMAIN",
   turningLabel: "THE TURNING POINT",
   productLogicLabel: "PRODUCT LOGIC",
   apiSystemsLabel: "API SYSTEMS",
   teamLeadLabel: "TEAM LEADERSHIP",
   problemSolvingLabel: "PROBLEM SOLVING",
-  usaChapterLabel: "03 — USA / SOUTH DAKOTA",
+  usaChapterLabel: "02 — USA / SOUTH DAKOTA",
   summerLabel: "FIVE FRAMES / ONE SUMMER",
   travelLabel: "TRAVEL",
-  outsideChapterLabel: "04 — OUTSIDE THE SCREEN",
+  outsideChapterLabel: "03 — OUTSIDE THE SCREEN",
   basketballLabel: "BASKETBALL",
   photographyLabel: "PHOTOGRAPHY",
   natureLabel: "NATURE",
   wanakaCaption: "NEW ZEALAND / WĀNAKA / PHOTOGRAPHED BY HONG RONG",
-  skillsChapterLabel: "05 — HOW I BUILD",
+  skillsChapterLabel: "04 — MY TOOLKIT",
   selectSkillLabel: "SELECT A SKILL",
   certificationsLabel: "SELECTED CERTIFICATIONS",
   imageUsaBadlands:
@@ -394,11 +403,11 @@ export const englishCopy = {
   voiceLabel: "VOICE",
   responseLabel: "RESPONSE",
   trainingDataCaption:
-    '<svg aria-hidden="true" viewbox="0 0 20 20"><rect height="6" width="6" x="2" y="2"></rect><rect height="6" width="6" x="12" y="2"></rect><rect height="6" width="6" x="2" y="12"></rect><rect height="6" width="6" x="12" y="12"></rect></svg>01 / TRAINING DATA',
+    '<svg aria-hidden="true" viewBox="0 0 20 20"><rect height="6" width="6" x="2" y="2"></rect><rect height="6" width="6" x="12" y="2"></rect><rect height="6" width="6" x="2" y="12"></rect><rect height="6" width="6" x="12" y="12"></rect></svg>01 / TRAINING DATA',
   validationCaption:
-    '<svg aria-hidden="true" viewbox="0 0 20 20"><circle cx="10" cy="10" r="8"></circle><path d="m6 10 2.5 2.5L14.5 7"></path></svg>02 / VALIDATION',
+    '<svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8"></circle><path d="m6 10 2.5 2.5L14.5 7"></path></svg>02 / VALIDATION',
   classApCaption:
-    '<svg aria-hidden="true" viewbox="0 0 20 20"><path d="M2 17V3M2 17h16M5 13l4-4 3 2 5-6"></path></svg>03 / CLASS AP',
+    '<svg aria-hidden="true" viewBox="0 0 20 20"><path d="M2 17V3M2 17h16M5 13l4-4 3 2 5-6"></path></svg>03 / CLASS AP',
   datasetFindingLabel: "01 / DATASET",
   datasetSplit: "6 LEVELS / 80:20",
   classFindingLabel: "02 / CLASS-LEVEL AP",
@@ -421,4 +430,37 @@ export const englishCopy = {
   clientResponsibilities: "RESEARCH / IA / UI / FRONTEND",
   jinhongProductAlt:
     "Actual Jinhong Foods product page with categories, photograph and specifications",
+  aboutDriversHeading: "Self-awareness",
+  aboutDriverCuriosity: "Stay curious",
+  aboutDriverAdaptability: "Embrace change",
+  aboutDriverExecution: "Put ideas into action",
+};
+
+// Client-side language choice also keeps the tab and document metadata in sync.
+// The initial HTML remains Chinese for the default visit and search crawlers.
+export const englishPageMetadata = {
+  "index.html": {
+    title: "HongRong — AI × Web × Product",
+    description: "HongRong’s portfolio: AI applications, web development and API integration, with a five-person Android capstone and a real client website.",
+  },
+  "about.html": {
+    title: "About — HongRong",
+    description: "Meet HongRong: information management, life overseas, work in tech, and an interest in AI, web development and photography.",
+  },
+  "work.html": {
+    title: "Selected work — HongRong",
+    description: "Two projects by HongRong: an AI Driving Assistant Android capstone and the Jinhong Foods corporate website. Explore the work and implementation.",
+  },
+  "ai-driving-assistant.html": {
+    title: "AI Driving Assistant — HongRong",
+    description: "HongRong’s five-person Android capstone: TDX parking and traffic data, navigation, voice interaction and a six-level ResNet-18 traffic classifier.",
+  },
+  "jinhong-foods.html": {
+    title: "Jinhong Foods — HongRong",
+    description: "A real client website for a food-machinery business: research, information architecture, React, TypeScript, responsive design and Cloudflare deployment.",
+  },
+  "contact.html": {
+    title: "Contact — HongRong",
+    description: "Contact HongRong about AI applications, web development, opportunities or a website project with a real need.",
+  },
 };
