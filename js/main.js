@@ -729,9 +729,13 @@ function initPortraitFlip() {
   const hover = matchMedia("(hover: hover) and (pointer: fine)");
   const front = button.querySelector(".portrait-face-front");
   const back = button.querySelector(".portrait-face-back");
+  const backImage = back.querySelector("img");
+  const hint = document.getElementById("portrait-flip-hint");
+  let backReady = false;
+  let imageRevision = 0;
   let flipped = false;
   const setFlipped = (next) => {
-    flipped = next;
+    flipped = Boolean(next && backReady);
     button.classList.toggle("is-flipped", flipped);
     button.closest(".hero-visual").classList.toggle("is-portrait-flipped", flipped);
     button.setAttribute("aria-pressed", String(flipped));
@@ -739,8 +743,29 @@ function initPortraitFlip() {
     back.setAttribute("aria-hidden", String(!flipped));
   };
   resetPortrait = () => setFlipped(false);
-  button.disabled = false;
-  document.getElementById("portrait-flip-hint").hidden = false;
+  // Keep the formal face visible until the reverse photograph can be painted.
+  async function enableBackImage() {
+    const revision = ++imageRevision;
+    if (!backImage.complete || backImage.naturalWidth === 0) return;
+    try {
+      await backImage.decode?.();
+    } catch {
+      return;
+    }
+    if (revision !== imageRevision) return;
+    backReady = true;
+    button.disabled = false;
+    hint.hidden = false;
+  }
+  backImage.addEventListener("load", () => void enableBackImage());
+  backImage.addEventListener("error", () => {
+    imageRevision += 1;
+    backReady = false;
+    resetPortrait();
+    button.disabled = true;
+    hint.hidden = true;
+  });
+  void enableBackImage();
   button.addEventListener("pointerenter", (event) => {
     if (hover.matches && event.pointerType === "mouse") setFlipped(true);
   });

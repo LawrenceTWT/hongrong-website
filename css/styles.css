@@ -652,22 +652,23 @@ nav,
   border-radius: 50%;
 }
 .portrait-flip-inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr);
+  position: relative;
+  display: block;
   width: 100%;
   aspect-ratio: 4/5;
   transform-style: preserve-3d;
+  transform: rotateY(0deg);
   transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .portrait-flip.is-flipped .portrait-flip-inner {
   transform: rotateY(180deg);
 }
 .portrait-face {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr);
-  grid-area: 1/1;
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
   min-width: 0;
   min-height: 0;
   overflow: hidden;
@@ -678,32 +679,27 @@ nav,
   -webkit-backface-visibility: hidden;
 }
 .portrait-face img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   min-height: 0;
   object-fit: contain;
 }
 .portrait-face-front {
+  transform: rotateY(0deg) translateZ(0.5px);
   background: #eeeadd;
 }
 .portrait-face-front img {
   mix-blend-mode: multiply;
 }
 .portrait-face-back {
-  transform: rotateY(180deg);
-  overflow: visible;
-  background: transparent;
-  box-shadow: none;
+  transform: rotateY(180deg) translateZ(0.5px);
 }
 .portrait-face-back img {
-  grid-area: 1/1;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
   object-fit: cover;
   object-position: 50% 86%;
   border-radius: inherit;
-  box-shadow: 0 12px 32px rgb(36 59 45 / 0.08);
 }
 .portrait-study figcaption {
   display: flex;
@@ -827,8 +823,10 @@ nav,
   -webkit-text-fill-color: transparent;
 }
 .about-more {
+  align-self: center;
   position: relative;
   z-index: 2;
+  margin-inline: auto;
   margin-top: 0;
 }
 .work-scene {

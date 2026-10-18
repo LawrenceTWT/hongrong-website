@@ -13,7 +13,7 @@ const source = (await readFile(new URL("js/main.js", root), "utf8"))
 const pages = (await readdir(root)).filter((name) => name.endsWith(".html"));
 const cjk = /[\u3400-\u9fff]/;
 
-async function loadPage(file, { stored = null, storageBlocked = false, height = 900 } = {}) {
+async function loadPage(file, { stored = null, storageBlocked = false, height = 900, portraitReady = true } = {}) {
   const { document, Event } = parseHTML(await readFile(new URL(file, root), "utf8"));
   const url = new URL(file, "https://example.test/hongrong-website/");
   const events = document.createElement("span");
@@ -36,6 +36,11 @@ async function loadPage(file, { stored = null, storageBlocked = false, height = 
     Object.defineProperty(node, "clientWidth", { value: 600, configurable: true });
     Object.defineProperty(node, "clientHeight", { value: 500, configurable: true });
     node.scrollTo = ({ left }) => { node.scrollLeft = left; };
+    if (node.matches("img")) Object.defineProperties(node, {
+      complete: { value: portraitReady || !node.closest(".portrait-face-back"), writable: true },
+      naturalWidth: { value: portraitReady || !node.closest(".portrait-face-back") ? Number(node.getAttribute("width")) : 0, writable: true },
+      decode: { value: () => Promise.resolve(), writable: true },
+    });
     if (node.matches("a[href]")) Object.defineProperty(node, "href", {
       get() { return new URL(node.getAttribute("href"), url).href; },
     });
@@ -198,6 +203,37 @@ home.click(home.document.querySelector("[data-portrait-flip]"));
 home.applyLanguage("zh", { restore: false });
 assert.equal(home.document.querySelector("[data-portrait-flip]").getAttribute("aria-pressed"), "true");
 assert.equal(home.document.querySelector(".portrait-face-back").getAttribute("aria-hidden"), "false");
+
+// A slow or failed reverse image must keep the real formal photograph visible.
+const pendingPortrait = await loadPage("index.html", { portraitReady: false });
+const portraitButton = pendingPortrait.document.querySelector("[data-portrait-flip]");
+const glacier = pendingPortrait.document.querySelector(".portrait-face-back img");
+const formal = pendingPortrait.document.querySelector(".portrait-face-front img");
+assert.equal(formal.getAttribute("src"), "assets/images/hongrong-formal.webp");
+assert.equal(glacier.getAttribute("src"), "assets/images/hongrong-glacier.webp");
+assert.equal(pendingPortrait.document.querySelector(".portrait-waterlines"), null, "remove the decoration, not either photograph");
+assert.equal(portraitButton.disabled, true);
+pendingPortrait.click(portraitButton);
+assert.equal(portraitButton.getAttribute("aria-pressed"), "false", "never expose an unloaded back face");
+glacier.complete = true; glacier.naturalWidth = 800;
+glacier.dispatchEvent(new pendingPortrait.Event("load"));
+await pendingPortrait.flush();
+assert.equal(portraitButton.disabled, false);
+pendingPortrait.click(portraitButton);
+assert.equal(portraitButton.getAttribute("aria-pressed"), "true");
+glacier.dispatchEvent(new pendingPortrait.Event("error"));
+assert.equal(portraitButton.getAttribute("aria-pressed"), "false");
+assert.equal(portraitButton.disabled, true);
+assert.equal(pendingPortrait.document.querySelector(".portrait-face-front").getAttribute("aria-hidden"), "false");
+let finishDecode;
+glacier.decode = () => new Promise((resolve) => { finishDecode = resolve; });
+glacier.dispatchEvent(new pendingPortrait.Event("load"));
+glacier.dispatchEvent(new pendingPortrait.Event("error"));
+finishDecode();
+await pendingPortrait.flush();
+assert.equal(portraitButton.disabled, true, "late decoding must not re-enable a failed image");
+assert.equal(portraitButton.getAttribute("aria-pressed"), "false");
+assert.equal(pendingPortrait.document.querySelector("[data-about-cta]").parentElement, pendingPortrait.document.querySelector("[data-about-content]"), "the story button stays in the centered group");
 
 // Normal-flow scene anchors must follow About itself, not the tall outer sequence.
 for (const height of [680, 719, 900]) {
