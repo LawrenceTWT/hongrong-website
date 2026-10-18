@@ -3757,3 +3757,56 @@ h1 em,
     transform: none;
   }
 }
+.about-drivers {
+  margin-top: 56px;
+  padding: 24px 28px;
+  border-radius: 12px;
+  background: #e8ece2;
+  color: var(--forest);
+}
+
+.about-drivers-heading {
+  margin: 0 0 20px;
+  font: 500 12px/1.5 var(--sans);
+  letter-spacing: 0.08em;
+}
+
+.about-drivers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+}
+
+.about-driver {
+  min-width: 0;
+}
+
+.about-driver dt {
+  font: 400 24px/1.3 var(--serif);
+  letter-spacing: 0.01em;
+}
+
+.about-driver dd {
+  margin: 8px 0 0;
+  color: #52633d;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .about-drivers {
+    margin-top: 40px;
+    padding: 24px;
+  }
+
+  .about-drivers-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .about-driver + .about-driver {
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+}

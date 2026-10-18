@@ -427,4 +427,8 @@ export const englishCopy = {
   clientResponsibilities: "RESEARCH / IA / UI / FRONTEND",
   jinhongProductAlt:
     "Actual Jinhong Foods product page with categories, photograph and specifications",
+  aboutDriversHeading: "WHAT DRIVES ME",
+  aboutDriverCuriosity: "Stay curious",
+  aboutDriverAdaptability: "Embrace change",
+  aboutDriverExecution: "Put ideas into action",
 };
