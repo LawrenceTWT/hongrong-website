@@ -1,4 +1,4 @@
-import { englishCopy } from "./copy.js";
+import { englishCopy, englishPageMetadata } from "./copy.js";
 import { botanicalPlacements, createVine, progressBetween } from "./botanical.js";
 
 // Chinese HTML is the source of the initial view. Only explicit language choices persist.
@@ -42,22 +42,28 @@ const attributeNodes = ["alt", "aria-label", "placeholder"].flatMap(
 );
 let language = "zh";
 const chineseTitle = document.title;
-const englishTitles = {
-  "index.html": "HongRong — AI × Web × Product",
-  "about.html": "About — HongRong",
-  "work.html": "Selected work — HongRong",
-  "ai-driving-assistant.html": "AI Driving Assistant — HongRong",
-  "jinhong-foods.html": "Jinhong Foods — HongRong",
-  "contact.html": "Contact — HongRong",
-};
+const englishMetadata =
+  englishPageMetadata[location.pathname.split("/").pop() || "index.html"];
+const metadataNodes = [
+  ['meta[name="description"]', "description"],
+  ['meta[property="og:title"]', "title"],
+  ['meta[property="og:description"]', "description"],
+  ['meta[property="og:locale"]', "locale"],
+].flatMap(([selector, field]) => {
+  const node = document.querySelector(selector);
+  return node ? [{ node, field, zh: node.content }] : [];
+});
 let sceneTimeline = null;
 let openingAnimation = null;
 const aboutText = document.querySelector("[data-about-text-effect]");
 let aboutTextProgress = -1;
 const scenePacing = { aboutIn: 0.12, about: 1.4, workIn: 2.1, work: 3.4 };
 let refreshRevision = 0;
+let languageRefreshRevision = 0;
+let pendingLanguagePosition = null;
 let scrollFrame = 0;
 let prototypeRun = 0;
+let prototypeState = "idle";
 let selectedSkill = null;
 const botanicalVines = [];
 let resetPortrait = () => {};
@@ -75,7 +81,9 @@ function capturePosition() {
     return { scene: trigger.progress };
   }
   const candidates = [
-    ...document.querySelectorAll("main > section, main > div, footer"),
+    ...document.querySelectorAll(
+      "main > section:not([data-scene-sequence]), main > div, [data-scene-panel], footer",
+    ),
   ];
   const anchor = candidates.find((node) => {
     const box = node.getBoundingClientRect();
@@ -118,26 +126,34 @@ function settleScene() {
   sceneTimeline.progress(trigger.progress);
   updateSceneAccess();
 }
+function cancelLayoutRestore(event) {
+  refreshRevision += 1;
+  if (!event?.target?.closest?.(".language-toggle"))
+    pendingLanguagePosition = null;
+}
 ["wheel", "touchstart", "pointerdown"].forEach((type) =>
-  window.addEventListener(
-    type,
-    () => {
-      refreshRevision += 1;
-    },
-    { passive: true },
-  ),
+  window.addEventListener(type, cancelLayoutRestore, { passive: true }),
 );
 
 function applyLanguage(next, { persist = false, restore = true } = {}) {
-  const position = restore ? capturePosition() : null;
+  const position = restore
+    ? pendingLanguagePosition || capturePosition()
+    : null;
   language = next === "en" ? "en" : "zh";
   root.lang = language === "zh" ? "zh-Hant" : "en";
   body.dataset.lang = language;
   document.title =
     language === "zh"
       ? chineseTitle
-      : englishTitles[location.pathname.split("/").pop() || "index.html"] ||
-        chineseTitle;
+      : englishMetadata?.title || chineseTitle;
+  for (const { node, field, zh } of metadataNodes) {
+    node.content =
+      language === "zh"
+        ? zh
+        : field === "locale"
+          ? "en_US"
+          : englishMetadata?.[field] || zh;
+  }
   for (const { node, key, zh } of textNodes) {
     const value = language === "en" ? (englishCopy[key] ?? zh) : zh;
     if (node.innerHTML !== value) node.innerHTML = value;
@@ -188,8 +204,15 @@ function applyLanguage(next, { persist = false, restore = true } = {}) {
         : "The need, timeline, or what you have in mind...";
   if (selectedSkill) showSkill(selectedSkill);
   setAiState(activeAiState);
+  updatePrototypeStatus();
   if (persist) storage.set(language);
-  if (restore) void refreshLayout(position);
+  if (restore) {
+    const revision = ++languageRefreshRevision;
+    pendingLanguagePosition = position;
+    void refreshLayout(position).then(() => {
+      if (revision === languageRefreshRevision) pendingLanguagePosition = null;
+    });
+  }
 }
 document
   .querySelectorAll(".language-toggle")
@@ -297,7 +320,7 @@ function hashPosition(hash) {
 function goToHash(hash, smooth = false) {
   const top = hashPosition(hash);
   if (top === null) return;
-  refreshRevision += 1;
+  cancelLayoutRestore();
   scrollToPosition(top, smooth);
   window.ScrollTrigger?.update();
   if (!smooth) settleScene();
@@ -332,6 +355,7 @@ document.addEventListener("click", (event) => {
 window.addEventListener("hashchange", () => goToHash(location.hash || "#top"));
 document.querySelectorAll(".back-to-top").forEach((button) =>
   button.addEventListener("click", () => {
+    cancelLayoutRestore();
     if (body.dataset.page === "home") {
       if (location.hash !== "#top") history.pushState(null, "", "#top");
     }
@@ -806,18 +830,28 @@ document.querySelectorAll("[data-skill-project]").forEach((button) => {
 
 // Clearly simulated API walkthrough. It never requests microphone or network access.
 const prototypeButton = document.querySelector("[data-prototype-start]");
+function updatePrototypeStatus() {
+  const status = document.querySelector("[data-prototype-status]");
+  if (!status) return;
+  status.textContent =
+    prototypeState === "running"
+      ? language === "zh"
+        ? "正在示範語音到停車資料的流程…"
+        : englishCopy.prototypeRunning
+      : prototypeState === "complete"
+        ? language === "zh"
+          ? "示意完成：整理停車資訊，再回覆使用者（非即時資料）"
+          : englishCopy.prototypeComplete
+        : "";
+}
 prototypeButton?.addEventListener("click", async () => {
   const run = ++prototypeRun;
   const nodes = [...document.querySelectorAll("[data-prototype-node]")];
-  const status = document.querySelector("[data-prototype-status]");
   nodes.forEach((node) => node.classList.remove("is-active"));
   prototypeButton.disabled = true;
   prototypeButton.setAttribute("aria-busy", "true");
-  if (status)
-    status.textContent =
-      language === "zh"
-        ? "正在示範語音到停車資料的流程…"
-        : "Showing the request moving through the system…";
+  prototypeState = "running";
+  updatePrototypeStatus();
   for (const node of nodes) {
     if (!reducedMotion.matches)
       await new Promise((resolve) => setTimeout(resolve, 260));
@@ -826,11 +860,8 @@ prototypeButton?.addEventListener("click", async () => {
   }
   prototypeButton.disabled = false;
   prototypeButton.removeAttribute("aria-busy");
-  if (status)
-    status.textContent =
-      language === "zh"
-        ? "示意完成：整理停車資訊，再回覆使用者（非即時資料）"
-        : "Walkthrough complete: parking information is prepared for the response. This is not live data.";
+  prototypeState = "complete";
+  updatePrototypeStatus();
 });
 
 // Reveal only supporting visuals; reading never depends on an observer firing.
@@ -917,8 +948,13 @@ window.addEventListener("pageshow", (event) => {
 });
 window.addEventListener("pagehide", () => {
   resetPortrait();
-  refreshRevision += 1;
+  cancelLayoutRestore();
   prototypeRun += 1;
+  prototypeState = "idle";
+  updatePrototypeStatus();
+  document.querySelectorAll("[data-prototype-node]").forEach((node) =>
+    node.classList.remove("is-active"),
+  );
   if (prototypeButton) {
     prototypeButton.disabled = false;
     prototypeButton.removeAttribute("aria-busy");

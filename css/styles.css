@@ -2096,6 +2096,14 @@ h1 em,
   margin-top: 32px;
   max-width: 48ch;
 }
+.about-motto {
+  margin-top: 32px;
+  color: var(--forest);
+  font: italic 400 24px/1.4 var(--serif);
+}
+.about-story-hero-copy .about-motto + .page-hero-intro {
+  margin-top: 16px;
+}
 .about-drawn-portrait {
   width: min(100%, 320px);
   justify-self: end;
