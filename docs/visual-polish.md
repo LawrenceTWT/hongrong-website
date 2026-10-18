@@ -20,7 +20,7 @@ PR #3 follow-up, 2026-10-18. This direction replaces the earlier generated artwo
 
 ## Scroll and landscape refinement
 
-- The opening wordmark takes about 4.2 seconds through appearance, a clear reading pause, per-letter blur/dissolve from right to left, and curtain departure. This replaces the previous whole-word blur. The supplied reference is a still image, so this duration is an interpretation of the desired pacing rather than a measured frame-for-frame match
+- The opening wordmark takes 3.5 seconds, as requested, through appearance, a clear reading pause, per-letter blur/dissolve from right to left, and curtain departure. The wordmark is about 10% smaller across its responsive size range. The supplied reference is a still image; the sequence follows its presentation rather than claiming a measured frame-for-frame match
 - The letter-dissolve intro uses a new session key so a visitor who saw the previous version can see this revision once. It still skips repeat visits, deep links and reduced motion; switching to reduced motion during the intro completes it immediately
 - Hero → About → Work remains a reversible scroll-controlled composition. GSAP uses 0.8-second scrub smoothing, a shared timing map and a reading pause; it does not intercept the wheel or snap to sections
 - Access and navigation state follow the animation's update callback, so they continue to settle while scrub catches up after the scroll input stops

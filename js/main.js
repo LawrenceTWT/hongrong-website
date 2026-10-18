@@ -922,8 +922,8 @@ function createOpeningTimeline(opening, mark, onComplete) {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
-        duration: 0.7,
-        stagger: { each: 0.045, from: "start" },
+        duration: 0.6,
+        stagger: { each: 0.04, from: "start" },
         ease: "power2.out",
       },
       0,
@@ -934,16 +934,16 @@ function createOpeningTimeline(opening, mark, onComplete) {
         opacity: 0,
         x: -1,
         filter: "blur(14px)",
-        duration: 1.15,
-        stagger: { each: 0.08, from: "end" },
+        duration: 1,
+        stagger: { each: 0.065, from: "end" },
         ease: "power2.inOut",
       },
-      1.65,
+      1.35,
     )
     .to(
       opening,
-      { yPercent: -100, duration: 1.05, ease: "power2.inOut" },
-      3.15,
+      { yPercent: -100, duration: 0.9, ease: "power2.inOut" },
+      2.6,
     );
 }
 
@@ -963,8 +963,8 @@ async function startOpening() {
   }
   let seen = false;
   try {
-    seen = sessionStorage.getItem("hongrong-opening-letter-dissolve") === "seen";
-    sessionStorage.setItem("hongrong-opening-letter-dissolve", "seen");
+    seen = sessionStorage.getItem("hongrong-opening-3-5s") === "seen";
+    sessionStorage.setItem("hongrong-opening-3-5s", "seen");
   } catch {
     /* Optional. */
   }

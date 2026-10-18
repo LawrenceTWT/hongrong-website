@@ -96,10 +96,10 @@ try {
  const curtain={yPercent:0};let completed=0;
  const opening=openingSandbox.createOpeningTimeline(curtain,{querySelectorAll:()=>letters},()=>completed++);
  opening.time(1.25,false);assert.ok(letters.every(letter=>letter.opacity===1),'whole name needs a clear reading pause');
- opening.time(2.1,false);assert.ok(letters[0].opacity>letters.at(-1).opacity,'right-hand letters must dissolve before the left');
+ opening.time(1.65,false);assert.ok(letters[0].opacity>letters.at(-1).opacity,'right-hand letters must dissolve before the left');
  assert.equal(letters[0].filter,'blur(0px)');
  assert.equal(curtain.yPercent,0,'curtain should wait for the word to dissolve');
- assert.ok(opening.duration()<5,'opening must finish before its failsafe');
+ assert.equal(opening.duration(),3.5,'opening must complete in the requested 3.5 seconds');
  opening.time(opening.duration(),false);assert.equal(curtain.yPercent,-100);assert.equal(completed,1);assert.ok(letters.every(letter=>letter.opacity===0));
  const margins=botanicalPlacements.filter(p=>p.side);
  assert.ok(margins.some(p=>p.side==='left') && margins.some(p=>p.side==='right'));
