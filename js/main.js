@@ -1,1192 +1,916 @@
-(() => {
-  "use strict";
+import { englishCopy } from "./copy.js";
 
-  const zh = {
-    availability: "可合作 — 台中",
-    localTime: "當地時間：",
-    skipContent: "跳到主要內容",
-    navJourney: "旅程",
-    navProjects: "專案",
-    navLife: "生活",
-    navSkills: "技能",
-    homeHeroKicker: "AI × WEB × PRODUCT",
-    homeHeroTitleOne: "把想法變成",
-    homeHeroTitleTwo: "真正<em>有用的產品</em>",
-    homeHeroIntro: "我設計邏輯，再運用 AI、Web 與 API 把它做出來",
-    homeHeroCta: "查看作品",
-    homeAboutLabel: "01 — 關於我",
-    homeAboutTitle: "我把真實問題，變成<br><em>人們能夠使用的產品</em>",
-    homeAboutBody: "AI 幫助我理解問題；邏輯、結構與決策仍由我負責",
-    homeAboutMore: "了解我的故事",
-    selectedWorkLabel: "02 — 精選作品",
-    selectedWorkTitle: "<span>我的</span><em>作品</em>",
-    selectedWorkIntro: "行車助手與金虹食品，點進去看完整過程",
-    homeAiHeading: "開車時，<br><em>不用一直切換 App</em>",
-    homeAiLede: "我們把導航、停車、即時路況和語音功能放進同一個 Android App",
-    homeAiExit: "角色 / API / 模型 / 下一版",
-    homeJinhongTitle: "一位真實客戶。<br><em>一個更清楚的數位入口</em>",
-    homeJinhongLede: "我第一次為真實企業製作的網站，讓食品機械品牌與產品更容易被找到",
-    homeJinhongNote: "把真實企業需求，轉化成更清楚的品牌與產品入口",
-    homeContactTitle: "一起讓<br><em>下一個想法成真</em>",
-    homeContactBody: "我對 AI 應用、Web 產品，以及從真實使用者問題開始的工作感興趣",
-    landscapeCaption: "美國／馬蹄灣",
-    storyHeroLine: "把想法做成真正有用的數位產品",
-    storyHeroIntro: "我從問題出發，整理邏輯，再運用 AI、Web 與 API，把它做成真正有人能使用的產品",
-    heroProofAi: "團隊組長 · 五人團隊",
-    heroProofClient: "真實客戶 · 已上線網站",
-    heroProofUsa: "打工旅遊 · 帶回勇氣",
-    exploreProjects: "探索作品",
-    startStory: "從故事開始",
-    currentlyLearning: "正在學習",
-    currentlyBuilding: "正在打造",
-    currentlyWeb: "網頁體驗",
-    currentlyExploring: "正在探索",
-    currentlyBased: "所在地",
-    journeyHeading: "電腦一直讓我感到有趣。<br><em>但 Coding 並沒有</em>",
-    journey2021Title: "因為從小喜歡電腦，我選擇了資訊管理",
-    journey2021Body: "然後我真正接觸了程式。我常常知道自己想做什麼，卻不知道怎麼把想法變成程式碼。在感受到創造之前，Coding 先讓我感到挫折",
-    journey2022Title: "一個球鞋網站，改變了這種感覺",
-    journey2022Body: "大二第一次上網頁設計課，我做出第一個屬於自己的網站。那是我第一次看見程式碼變成一個能看到、能操作，也讓我感到驕傲的東西",
-    journeyLost: "當時沒有留下備份，網站已經遺失。因此這裡保持誠實：沒有重製的截圖，只留下第一次創造它的記憶",
-    gptChangedTitle: "後來，GPT 改變了我學習的方式",
-    gptChangedBody: "很多以前不知道怎麼問、甚至不敢問的問題，終於可以被一步一步拆開。AI 讓我有方法進入問題",
-    gptPrinciple: "AI 沒有取代思考。<br>它幫助我理解",
-    gptResponsibility: "需求、資料流、邏輯邊界、架構與最後決策，仍然必須由我負責",
-    aiStoryHeading: "一個我每天都會遇到的<br><em>問題</em>",
-    aiStoryLede: "每天上下課的塞車，加上不斷看見台灣交通事故內容，成為五人畢業專題的起點",
-    teamLabel: "團隊",
-    aiStepLoginTitle: "從同一個行車助手開始",
-    aiStepLoginBody: "登入一次，讓駕駛需要的工具留在同一個操作情境裡",
-    aiStepParkingTitle: "查詢一個區域，直接看到剩餘車位",
-    aiStepParkingBody: "系統把需求連接到停車開放資料，再回傳可使用的停車位數量",
-    aiStepNavigationTitle: "把選定地點直接變成導航路線",
-    aiStepNavigationBody: "目的地接續進入導航，不需要離開目前的駕駛情境",
-    aiStepTrafficTitle: "在抵達前，先看懂即時道路狀況",
-    aiStepTrafficBody: "TDX 攝影機畫面搭配車流模型，協助判斷目前道路的車流程度",
-    aiStepVehicleTitle: "記住車子停放的位置",
-    aiStepVehicleBody: "儲存停車定位，需要時再回到同一個位置，不必只依靠記憶",
-    prototypeTitle: "試著說：<br>「幫我找附近停車場」",
-    prototypeBody: "點擊後查看這句話如何經過語音辨識、GPT 與 TDX，本流程未連接即時 API",
-    prototypeButton: "開始模擬查詢",
-    prototypeVoice: "駕駛提出需求",
-    prototypeStt: "語音轉成文字",
-    prototypeGpt: "理解使用意圖",
-    prototypeTdx: "開放資料",
-    prototypeData: "剩餘車位",
-    prototypeResponse: "語音回覆",
-    modelRealityTitle: "比起一個準確率數字，<br><em>真實證據更重要</em>",
-    modelSourceCaption: "真實道路攝影機樣本",
-    modelLevel1: "非常通暢",
-    modelLevel2: "順暢",
-    modelLevel3: "一般",
-    modelLevel4: "擁擠",
-    modelLevel5: "嚴重擁擠",
-    modelLevel6: "堵塞",
-    modelPredictionCaption: "相鄰車流等級最容易混淆",
-    modelCurveCaption: "L4／L5 表現最弱",
-    modelSourceNote: "專題原始研究素材 · ResNet-18 · 80% 訓練／20% 驗證",
-    modelFindingData: "資料結構已分成六級，但仍需要更多天候、距離與攝影機差異",
-    modelFindingClass: "這兩個相鄰交通狀態，是模型最難區分的類別",
-    modelFindingDeploy: "Normalization 必須從 PyTorch 到 Android 全程一致",
-    modelActionNormalize: "統一 normalization",
-    modelActionData: "重新整理資料集",
-    modelActionMetrics: "逐類別分析 Precision／Recall",
-    failureDatasetTitle: "資料集不夠大",
-    failureDatasetBody: "模型沒有看過足夠多樣的道路、天候、距離與攝影機畫質",
-    failureMiddleTitle: "中間等級辨識較弱",
-    failureMiddleBody: "相鄰車流等級看起來很接近，因此模型容易混淆介於明顯暢通與明顯壅塞之間的類別",
-    failureConversionTitle: "轉換流程改變了結果",
-    failureConversionBody: ".pth 模型必須透過 ONNX 與 TensorFlow Lite 進入 Android，同時 PyTorch 與 Android 的 normalization 也必須一致",
-    fixNormalization: "訓練端與 Android 使用同一套 normalization 定義",
-    fixDataset: "增加、清理並重新平衡資料集",
-    fixMetrics: "分析 Precision、Recall 與 confusion matrix，而不只看 accuracy",
-    rebuildDataset: "更大且更平衡的資料集",
-    rebuildUx: "更清楚的交通資訊體驗",
-    rebuildAccident: "事故通知",
-    rebuildCamera: "測速資訊",
-    rebuildAi: "更流暢、更理解情境的 AI 互動",
-    openFullCase: "查看行車助手完整案例",
-    jinhongStoryHeading: "我的第一個真實客戶，<br><em>來自一位朋友</em>",
-    jinhongStoryLede: "朋友家中經營食品機械工廠。當他準備承接家業，希望有一個網站能增加品牌曝光，也讓產品目錄更容易被看見",
-    clientBeforeTitle: "一家擁有專業產品的真實企業，卻沒有清楚的數位入口",
-    clientGoalTitle: "讓品牌被看見，也讓產品目錄更容易理解",
-    clientResearchTitle: "先研究產業，再決定網站結構",
-    clientResearchBody: "我研究同產業網站、產品分類、規格，以及採購者在做決定前需要回答的問題",
-    clientDesignTitle: "把大量機械整理成可以理解與瀏覽的資訊架構",
-    clientBuildBody: "我負責介面設計、前端開發、部署，並持續維護這個網站",
-    usaHeading: "我離開了自己的<br><em>舒適圈</em>",
-    usaSubheading: "我的英文並不好。<br>這正是我想去的原因",
-    usaPhotoStory: "在 South Dakota 的一個夏天，留下這五個畫面",
-    usaPhotoOne: "South Dakota／第一眼",
-    usaPhotoTwo: "以前只在照片裡看過的地方",
-    usaPhotoThree: "願意耐心聽我說話的人",
-    usaPhotoFour: "從不同地方認識的朋友",
-    usaPhotoFive: "又去了新的地方",
-    usaArrivalTitle: "剛到美國，連吃飯都需要適應",
-    usaArrivalBody: "食物又鹹又甜，水有時比汽水還貴；這些小事一直提醒我，我真的離家很遠",
-    usaSsnTitle: "申請 SSN 時，我幾乎聽不懂櫃台在說什麼",
-    usaSsnBody: "我連問題都不知道該怎麼問，最後靠 employer 協助才完成",
-    usaWorkTitle: "在飯店工作，每天都得開口說英文",
-    usaWorkBody: "Kaytlin 會耐心理解我想說什麼，也會直接糾正我；這讓我慢慢敢開口",
-    courageStatement: "我回到家時，<br><em>帶回了更多勇氣</em>",
-    outsideHeading: "那些讓我保持<br><em>好奇與行動的事</em>",
-    natureMemory: "一段至今仍留在心裡的記憶",
-    natureBody: "退伍後，我和朋友去了紐西蘭，站在 Wānaka 山上時，我只想把眼前的風景記住",
-    natureQuote: "看到想去的風景，<br><em>我就會想辦法親自去看看</em>",
-    natureImpression: "朋友看到壯觀的景色時，常會說：「這裡洪戎一定會喜歡」",
-    skillsStoryHeading: "我用的工具，<br><em>都能在作品裡找到</em>",
-    skillEvidenceLabel: "使用於",
-    nextDirection: "我希望往 AI 應用與產品開發前進，尤其是那些從真實使用者問題開始的產品",
-    nextUnderstand: "理解使用者",
-    nextLogic: "設計邏輯",
-    nextBuild: "運用 AI / Web / API 實作",
-    nextUseful: "做出真正有用的產品",
-    usefulCta: "一起打造<br><em>真正有用的產品</em>",
-    contactEndCopy: "我目前開放 Web、AI 應用與產品相關機會，也樂意聊聊一個值得解決的問題",
-    contactFormLink: "聯絡表單 ↗",
-    footerStoryLine: "AI × Web × Product — 從好奇、問題與持續學習的勇氣開始",
-    backToStory: "← 回到故事",
-    projectOriginLabel: "專案起點",
-    myRoleLabel: "我的角色",
-    aiDeepLede: "一個從日常問題開始的五人專題：交通資訊很有用，卻分散在太多不同工具裡",
-    aiOriginTitle: "這個想法不是從 AI 開始，而是從每天上課的道路開始",
-    aiOriginP1: "我每天都會遇到塞車，也常看到台灣道路事故的內容。我開始思考：駕駛本來就需要的資訊，能不能被整理成一個更清楚的體驗？",
-    aiOriginP2: "目標不是再增加一個儀表板，而是減少在導航、路況、停車與搜尋之間切換，同時保留駕駛當下的任務情境",
-    aiRoleIntro: "我帶領團隊，也處理資料、模型、Android 與成員之間必須彼此一致的交界處",
-    aiRoleTeam: "規劃、任務負責、進度追蹤，以及五人團隊的協調",
-    aiRoleApi: "研究 TDX 開放資料、用 Postman 測試 token 與 API，並整理回傳資料",
-    aiRoleData: "蒐集、清理並準備六個交通等級的路況攝影機圖片",
-    aiRoleModel: "模型訓練、評估、類別分析與轉換問題排查",
-    aiRoleAndroid: "把模型與資料服務連接到 Android 的使用體驗",
-    systemFlowLabel: "語音請求 → 停車資料",
-    aiSystemTitle: "從一句語音，到一筆可用的停車資料",
-    aiSystemBody: "語音接收需求，GPT 理解意圖，TDX 回傳剩餘車位",
-    experimentRange: "實驗結果區間",
-    accuracyContext: "這是專題中的約略結果，不是正式產品宣稱。比起單一數字，我更在意各個類別的實際表現",
-    middleClassNote: "中間的交通等級更容易彼此混淆",
-    conversionProblem: "模型在 PyTorch 可以運作，但 Android 需要另一條轉換路徑，而且前處理必須完全一致",
-    whatWeChanged: "我們調整了什麼",
-    rebuildQuestion: "什麼能讓這個原型，成為更好的產品？",
-    jinhongDeepLede: "我第一次為真實企業製作的網站——協助一位準備承接家中食品機械事業的朋友",
-    jinhongOriginTitle: "我的第一個真實客戶，來自一位朋友",
-    jinhongOriginP1: "朋友家中經營食品機械工廠。當他準備承接家業時，希望透過網站增加品牌曝光，也讓客戶能更清楚理解機械產品",
-    jinhongOriginP2: "這改變了工作的責任。我不再只是在完成課堂題目；網站結構、內容與維護決策，都必須對真實企業與真實使用者有意義",
-    beforeInterface: "在介面之前",
-    clientResearchDeepTitle: "先理解產業如何描述產品，以及採購者如何尋找產品",
-    researchPeers: "研究同產業公司與產品分類方式",
-    researchContent: "整理產品型號、規格與服務內容",
-    researchPath: "定義從探索產品到提出詢價的清楚路徑",
-    clientDecisionBody: "視覺只有在訪客能從大分類找到正確機械、比較細節，並知道如何詢問時才真正有用",
-    jinhongBuildDeepTitle: "技術支援企業需求，但技術本身不是故事",
-    jinhongBuildDeepBody: "我使用 React 與 TypeScript 建立可重用的產品呈現、響應式版面與更清楚的維護邊界，再部署到 Cloudflare 並持續維護",
-    jinhongSolutionTitle: "技術真正有價值，是讓龐大產品目錄更容易使用",
-    jinhongSolutionIntro: "系統把真實產品內容整理成從分類、規格到詢價的清楚路徑",
-    jinhongProofCaption: "正式網站產品目錄使用的真實機械照片",
-    jinhongTechReactOutcome: "可重用的產品頁面",
-    jinhongTechReactNote: "同一份資料結構連接分類、詳細頁、型號與規格",
-    jinhongTechRwdOutcome: "每種螢幕都能完成同一件事",
-    jinhongTechRwdNote: "手機版仍能清楚導覽、閱讀產品並進入詢價",
-    jinhongTechStorageOutcome: "先收藏產品，再進行聯絡",
-    jinhongTechStorageNote: "詢價清單不需要帳號或資料庫也能使用",
-    jinhongTechDeployOutcome: "建置、部署與持續維護",
-    jinhongTechDeployNote: "通過驗證的建置結果部署至 Cloudflare Worker",
-    buildReusable: "可重用、由資料驅動的產品呈現",
-    buildResponsive: "響應式版面與無障礙互動",
-    buildDeploy: "Cloudflare 部署與維護",
-    clientNextLabel: "下一步 — SEO / 搜尋曝光",
-    clientSeoTitle: "網站已上線，下一步是讓需要的人找到它",
-    navHome: "首頁",
-    navAbout: "關於我",
-    navWork: "作品",
-    navContact: "聯絡",
-    heroEyebrow: "網頁開發者 — 台灣",
-    heroHello: "嗨，我是 HongRong",
-    heroTitle: "打造清晰、有個性的",
-    heroTitleEm: "數位體驗",
-    heroIntro: "來自台灣的網頁開發者，專注於響應式網站與細膩互動",
-    flipHint: "翻面看看",
-    flipRole: "網頁開發者",
-    flipBack: "回到正面",
-    letsTalk: "聊聊合作",
-    seeWork: "看看我的作品",
-    heroStat: "資訊管理學系<br>畢業",
-    toolkit: "我的工具箱",
-    whatIDo: "我能做什麼",
-    capabilitiesLabel: "專業能力 — 2026",
-    capabilitiesTitle: "專業能力",
-    capWebTitle: "網頁開發",
-    capWebBody: "打造快速、響應式的網站，兼顧清楚結構、細緻互動與可維護的程式碼",
-    capAiTitle: "AI 與 API 整合",
-    capAiBody: "將產品連接到實用的 AI、開放資料與外部服務，同時維持系統簡單、清楚",
-    capAppTitle: "應用程式開發",
-    capAppBody: "整合即時資訊、實用功能與直覺流程，打造易於操作的行動體驗",
-    capUxTitle: "UI / UX 思考",
-    capUxBody: "透過資訊層級、操作回饋與有意識的視覺決策，讓複雜內容更容易理解",
-    aboutKicker: "作品背後",
-    aboutLabel: "關於 HongRong — 2026",
-    aboutTitle: "保持好奇，<br>務實地設計",
-    aboutCardCaption: "用好奇心持續打造",
-    aboutStatement: "我喜歡把混亂的需求，整理成清楚、好用的系統",
-    aboutBody: "我畢業於世新大學資訊管理學系，曾擔任 AI 行車助手專題組長，也透過美國打工旅遊培養跨文化溝通與適應能力",
-    factOneTitle: "跨領域整合",
-    factOneBody: "網頁、App、AI 與數位工具",
-    factTwoTitle: "重視團隊",
-    factTwoBody: "清楚溝通並主動負責",
-    factThreeTitle: "持續學習",
-    factThreeBody: "保持好奇、彈性與動手實作",
-    moreAbout: "更多關於我",
-    inPractice: "實際作品",
-    caseStudiesLabel: "精選作品 — 2026",
-    selectedWork: "精選作品",
-    jinhongTitle: "金虹食品",
-    jinhongSummary: "為台灣食品機械公司打造的多頁式產品形象網站",
-    aiDriverTitle: "AI 行車助手",
-    aiDriverSummary: "整合導航、語音 AI、停車資料與即時路況的大學專題",
-    viewAllWork: "查看所有作品",
-    methodKicker: "方法",
-    processLabel: "我的流程 — 2026",
-    processTitle: "我的工作方式",
-    processOneTime: "從情境開始",
-    processOneTitle: "探索與定義",
-    processOneBody: "理解受眾、真正的問題，以及成功的體驗應該是什麼樣子",
-    processTwoTime: "建立系統",
-    processTwoTitle: "設計與開發",
-    processTwoBody: "建立視覺語言，並將它轉化為響應式、容易維護的程式碼",
-    processThreeTime: "持續變好",
-    processThreeTitle: "測試與優化",
-    processThreeBody: "檢查真實使用體驗、修正細節，並持續改善真正重要的部分",
-    ctaEyebrow: "心中有一個想法嗎？",
-    ctaTitle: "一起打造清楚、<br><em>令人記得的作品</em>",
-    startConversation: "開始聊聊",
-    footerLine: "位於台中、台灣的網頁開發者",
-    backToTop: "回到頂端 ↑",
+// Chinese HTML is the source of the initial view. Only explicit language choices persist.
+const root = document.documentElement;
+const body = document.body;
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const desktopMotion =
+  "(min-width: 960px) and (min-height: 760px) and (prefers-reduced-motion: no-preference)";
+const storageKey = "hongrong-language-choice";
+const storage = {
+  get() {
+    try {
+      return localStorage.getItem(storageKey);
+    } catch {
+      return null;
+    }
+  },
+  set(value) {
+    try {
+      localStorage.setItem(storageKey, value);
+    } catch {
+      /* Storage is optional. */
+    }
+  },
+};
+const textNodes = [...document.querySelectorAll("[data-i18n]")].map((node) => ({
+  node,
+  key: node.dataset.i18n,
+  zh: node.innerHTML,
+}));
+const attributeNodes = ["alt", "aria-label", "placeholder"].flatMap(
+  (attribute) =>
+    [...document.querySelectorAll("[data-i18n-" + attribute + "]")].map(
+      (node) => ({
+        node,
+        attribute,
+        key: node.getAttribute("data-i18n-" + attribute),
+        zh: node.getAttribute(attribute),
+      }),
+    ),
+);
+let language = "zh";
+const chineseTitle = document.title;
+const englishTitles = {
+  "index.html": "HongRong — AI × Web × Product",
+  "about.html": "About — HongRong",
+  "work.html": "Selected work — HongRong",
+  "ai-driving-assistant.html": "AI Driving Assistant — HongRong",
+  "jinhong-foods.html": "Jinhong Foods — HongRong",
+  "contact.html": "Contact — HongRong",
+};
+let sceneTimeline = null;
+let refreshRevision = 0;
+let scrollFrame = 0;
+let prototypeRun = 0;
+let selectedSkill = null;
+const botanicalVines = [];
+let resetPortrait = () => {};
 
-    aboutPageEyebrow: "關於我 — HongRong",
-    aboutPageTitle: "因為好奇而開始，<br><em>因為勇氣而前進</em>",
-    aboutPageIntro: "我在 AI、Web 與產品之間實作。第一個遺失的網站讓我感受到創造；South Dakota 則讓我學會繼續向前",
-    portraitCaption: "HongRong — 網頁開發者",
-    myStory: "我的故事",
-    fromCuriosity: "從好奇走向專業",
-    manifestoTitle: "我喜歡複雜的想法逐漸變得簡單、實用，而且真實可用的那一刻",
-    manifestoP1: "我畢業於世新大學資訊管理學系。我的實作橫跨前端開發、Android 應用程式、AI 服務、API 串接與介面設計",
-    manifestoP2: "擔任 AI 行車助手專題組長時，我規劃里程碑、協調團隊，並參與整合導航、交通開放資料、語音互動與 GPT 對話",
-    manifestoP3: "在南達科他州的打工旅遊經驗，讓我學會跨文化溝通、快速適應，也更能在陌生環境中保持可靠",
-    timelineTitle: "經歷與學歷",
-    deadwoodPlace: "The Lodge at Deadwood",
-    deadwoodRole: "房務團隊成員 — 美國",
-    deadwoodBody: "在南達科他州與國際團隊合作，每天使用英文溝通，並強化適應力、時間管理與責任感",
-    capstonePlace: "大學畢業專題",
-    capstoneRole: "AI 行車助手 — 專題組長",
-    capstoneBody: "帶領專案規劃與團隊協作，並參與 Android 開發、AI 對話、地圖服務、開放資料 API 與 UI / UX",
-    universityPlace: "世新大學",
-    universityRole: "資訊管理學系學士",
-    universityBody: "建立軟體開發、資料、數位工具、專案協作與商業思考的跨領域基礎",
-    skillsKicker: "技能與工具",
-    whatIBring: "我的能力 — 2026",
-    skillsTitle: "務實且持續成長的工具箱",
-    matrixWeb: "網頁",
-    matrixApp: "應用程式",
-    matrixAi: "AI 與資料",
-    matrixPeople: "工作方式",
-    matrixPeopleBody: "專案規劃 · 團隊合作 · 快速學習 · 跨文化溝通",
-    certTitle: "專業認證",
-    nextChapter: "下一個篇章",
-    aboutCtaTitle: "一起打造<br><em>真正有用的產品</em>",
-    getInTouch: "與我聯絡",
-    exploreWork: "瀏覽我的作品",
-
-    workPageEyebrow: "精選作品 — 2026",
-    workPageTitle: "從真實需求出發的<br><em>作品</em>",
-    workPageIntro: "兩個作品：一個畢業專題、一個真實客戶。點進案例，看見作品背後的決策",
-    featuredProject: "精選專案",
-    realClient: "真實客戶",
-    jinhongLongSummary: "為台灣食品機械公司打造的完整產品與企業網站，讓大量技術產品更容易瀏覽、比較與詢價",
-    viewCaseStudy: "查看完整案例",
-    liveWebsite: "瀏覽網站",
-    sourceCode: "查看原始碼",
-    capstoneProject: "大學畢業專題",
-    aiDriverLongSummary: "將導航、語音對話、即時路況與停車位資訊整合到單一駕駛介面的 Android 應用程式",
-    workRoleLabel: "角色",
-    workAiRole: "團隊組長",
-    workSystemLabel: "系統",
-    workModelLabel: "模型",
-    workTeamLabel: "團隊",
-    workAiTeam: "五人團隊",
-    workScopeLabel: "負責",
-    workJinhongScope: "資訊架構 · UI · 前端",
-    workStackLabel: "技術",
-    workDeliveryLabel: "上線",
-    workNextLabel: "下一步",
-    workJinhongNext: "SEO 基礎",
-    throughTheWork: "作品中的原則",
-    principlesLabel: "設計原則 — 2026",
-    principlesTitle: "每個作品都應該做到的事",
-    principleOneTitle: "解決真實問題",
-    principleOneBody: "科技有價值，是因為它讓一件真實任務變得更清楚、更快速或更實用",
-    principleTwoTitle: "尊重使用者",
-    principleTwoBody: "清楚的結構與可預期的互動是產品的一部分，而不只是裝飾",
-    principleThreeTitle: "經得起實際使用",
-    principleThreeBody: "響應式版面、可維護程式碼與仔細測試，讓作品能夠持續發揮作用",
-    nextProject: "下一個專案",
-    workCtaTitle: "有一個值得打造的<br><em>問題嗎？</em>",
-
-    backToWork: "← 回到作品",
-    jinhongCaseLabel: "企業網站 / 2026",
-    jinhongCaseLede: "把龐大的工業產品目錄，轉化為清楚、現代，並支援搜尋、比較與詢價的網站",
-    roleLabel: "角色",
-    jinhongRole: "設計與開發",
-    stackLabel: "技術",
-    outputLabel: "成果",
-    jinhongOutput: "多頁式響應網站",
-    visitLiveSite: "瀏覽正式網站",
-    briefLabel: "專案需求",
-    jinhongBriefTitle: "讓深度技術內容，也能輕鬆瀏覽",
-    jinhongBriefP1: "金虹食品需要的不只是一頁公司介紹。網站必須呈現大量機械、型號、規格與服務內容，同時避免讓訪客迷失",
-    jinhongBriefP2: "解法是一套有結構的產品體驗：清楚分類、強而有力的導覽、聚焦的詳細頁，以及從桌機到手機都好用的詢價工具",
-    solutionLabel: "解決方案",
-    jinhongFeaturesTitle: "以產品決策為核心的設計",
-    megaMenuTitle: "大型選單",
-    megaMenuBody: "讓大量產品分類保持可見，並且容易快速掃描",
-    detailPagesTitle: "產品詳細頁",
-    detailPagesBody: "每台機械都有獨立頁面，整合圖片、規格與不同型號",
-    compareTitle: "型號比較",
-    compareBody: "幫助訪客更快速理解不同設備配置之間的差異",
-    lightboxTitle: "圖片放大",
-    lightboxBody: "訪客可以仔細查看設備照片，同時保留瀏覽情境",
-    inquiryTitle: "詢價清單",
-    inquiryBody: "訪客可先在瀏覽器收集產品，再一次提出詢價",
-    serviceTitle: "維修服務與地圖",
-    serviceBody: "維修實績、服務範圍與地點資訊共同建立信任",
-    buildLabel: "技術實作",
-    jinhongBuildTitle: "使用現代技術，同時保持容易維護",
-    jinhongBuildBody: "專案使用 React 與 TypeScript，搭配相容 Next.js App Router 的架構、Vinext / Vite 建置、響應式 CSS 與 Cloudflare Worker 輸出。產品資料與介面分離，讓目錄能持續成長，不必重寫頁面結構",
-    nextCase: "下一個案例",
-
-    aiCaseLabel: "Android 應用程式 / 畢業專題",
-    aiCaseLede: "把導航、語音 AI、路況與停車資訊整合到單一介面，打造更專注於駕駛安全的體驗",
-    aiRole: "專題組長 / 開發 / UI UX",
-    aiOutput: "可操作的 Android 原型",
-    challengeLabel: "挑戰",
-    aiChallengeTitle: "減少駕駛分心，同時保留有用資訊",
-    aiChallengeP1: "駕駛常在地圖、路況攝影機、停車 App 與搜尋之間切換。這種碎片化體驗，會在最需要專注道路的時候增加認知負擔",
-    aiChallengeP2: "我們的專題探索如何透過語音互動與整合介面，把最實用的行車資訊集中到一個 Android 應用程式",
-    systemLabel: "系統",
-    aiFeaturesTitle: "四項彼此連接的行車工具",
-    navigationTitle: "智慧導航",
-    navigationBody: "以 Google Maps 為基礎的路線搜尋與 App 內導航情境",
-    voiceTitle: "GPT 語音對話",
-    voiceBody: "透過語音轉文字與文字轉語音，讓駕駛以自然語言取得協助",
-    parkingTitle: "停車位資訊",
-    parkingBody: "使用政府開放資料，尋找停車場及剩餘車位",
-    trafficTitle: "即時路況",
-    trafficBody: "以路況攝影機畫面與道路資訊，協助做出更安全的路線決策",
-    myContributionLabel: "我的貢獻",
-    aiContributionTitle: "帶領團隊，同時把系統各部分連接起來",
-    aiContributionBody: "身為專題組長，我協助訂定計畫、分配責任並推動開發；同時參與 Android 實作、外部 API 串接、GPT 對話，以及主要駕駛任務的 UI / UX 流程",
-    aiContributionOne: "專案規劃與團隊協調",
-    aiContributionTwo: "Android 介面與操作流程",
-    aiContributionThree: "GPT、語音、地圖與開放資料整合",
-    aiContributionFour: "系統測試與成果發表",
-    keyLearning: "關鍵學習",
-    learningQuote: "「一個實用的 AI 產品，不只有模型，更包含它周圍完整的系統：情境、資料、互動與信任」",
-    previousCase: "上一個案例",
-
-    contactLabel: "聯絡 — 2026",
-    contactTitle: "一起打造讓人<br><em>記得的作品</em>",
-    contactIntro: "我目前開放網頁開發職缺、接案合作，以及和正在打造實用數位產品的團隊交流",
-    basedIn: "所在地",
-    findMeOnline: "社群連結",
-    contactNote: "只要是一個好想法、一個認真的團隊，或值得解決的問題，我通常都很樂意聊聊",
-    formName: "你的名字",
-    formEmail: "電子郵件",
-    formSubject: "想和我聊什麼？",
-    subjectJob: "工作機會",
-    subjectFreelance: "接案專案",
-    subjectCollab: "合作提案",
-    subjectHello: "單純打個招呼",
-    formMessage: "告訴我更多",
-    sendEmail: "建立 Email",
-    formNote: "送出後會開啟你的 Email 軟體並填入內容；本網站不會儲存任何資料"
-  };
-
-  const elements = [...document.querySelectorAll("[data-i18n]")];
-  elements.forEach((element) => {
-    element.dataset.enHtml = element.innerHTML;
+function scrollToPosition(top, smooth = false) {
+  window.scrollTo({
+    top: Math.max(0, top),
+    behavior: smooth && !reducedMotion.matches ? "smooth" : "auto",
   });
+}
 
-  const safeStorage = {
-    get(key) {
-      try { return localStorage.getItem(key); } catch { return null; }
+function capturePosition() {
+  const trigger = sceneTimeline?.scrollTrigger;
+  if (trigger && scrollY >= trigger.start && scrollY <= trigger.end) {
+    return { scene: trigger.progress };
+  }
+  const candidates = [
+    ...document.querySelectorAll("main > section, main > div, footer"),
+  ];
+  const anchor = candidates.find((node) => {
+    const box = node.getBoundingClientRect();
+    return box.top <= innerHeight * 0.35 && box.bottom > innerHeight * 0.35;
+  });
+  return anchor
+    ? { anchor, offset: anchor.getBoundingClientRect().top }
+    : { top: scrollY };
+}
+
+// One layout update path, cancelled if the user deliberately scrolls while it is pending.
+async function refreshLayout(position = null) {
+  const revision = ++refreshRevision;
+  await (document.fonts?.ready || Promise.resolve());
+  await new Promise(requestAnimationFrame);
+  if (revision !== refreshRevision) return;
+  window.ScrollTrigger?.refresh();
+  if (position?.scene !== undefined && sceneTimeline?.scrollTrigger) {
+    const trigger = sceneTimeline.scrollTrigger;
+    scrollToPosition(
+      trigger.start + position.scene * (trigger.end - trigger.start),
+    );
+  } else if (position?.anchor?.isConnected) {
+    scrollToPosition(
+      scrollY + position.anchor.getBoundingClientRect().top - position.offset,
+    );
+  } else if (position?.top !== undefined) {
+    scrollToPosition(position.top);
+  }
+  window.ScrollTrigger?.update();
+  updateScrollState();
+}
+["wheel", "touchstart", "pointerdown"].forEach((type) =>
+  window.addEventListener(
+    type,
+    () => {
+      refreshRevision += 1;
     },
-    set(key, value) {
-      try { localStorage.setItem(key, value); } catch { /* local file privacy mode */ }
-    }
-  };
+    { passive: true },
+  ),
+);
 
-  const splitScrubText = (language) => {
-    document.querySelectorAll("[data-scrub-en]").forEach((element) => {
-      const text = language === "zh" ? element.dataset.scrubZh : element.dataset.scrubEn;
-      const pieces = language === "zh" ? Array.from(text) : text.split(" ");
-      element.innerHTML = pieces
-        .filter((piece) => piece !== " ")
-        .map((piece) => `<span class="scrub-word">${piece}</span>`)
-        .join("");
-    });
-  };
-
-  const updatePortraitFlipLabel = (button, language) => {
-    const flipped = button.classList.contains("is-flipped");
-    const label = language === "zh"
-      ? (flipped ? "將名片翻回照片正面" : "翻轉照片查看個人名片")
-      : (flipped ? "Flip back to portrait" : "Flip portrait to view profile card");
-    button.setAttribute("aria-label", label);
-    button.setAttribute("aria-pressed", String(flipped));
-    button.querySelector(".portrait-front")?.setAttribute("aria-hidden", String(flipped));
-    button.querySelector(".portrait-back")?.setAttribute("aria-hidden", String(!flipped));
-  };
-
-  const scrollWindowTo = (top, behavior = "auto") => {
-    const nextTop = Math.max(0, top);
-    if (behavior === "smooth") {
-      window.scrollTo({ top: nextTop, behavior: "smooth" });
-      return;
-    }
-
-    const rootStyle = document.documentElement.style;
-    const previousBehavior = rootStyle.scrollBehavior;
-    rootStyle.scrollBehavior = "auto";
-    window.scrollTo(0, nextTop);
-    rootStyle.scrollBehavior = previousBehavior;
-  };
-
-  let languageRefreshFrame = 0;
-  let languageRefreshRevision = 0;
-  const finishLanguageUpdateUi = () => {
-    document.documentElement.classList.remove("language-updating");
-    document.querySelectorAll(".language-toggle").forEach((button) => {
-      button.removeAttribute("aria-busy");
-    });
-  };
-  const cancelLanguageLayoutRefresh = () => {
-    languageRefreshRevision += 1;
-    window.cancelAnimationFrame(languageRefreshFrame);
-    finishLanguageUpdateUi();
-  };
-  const captureLanguageScrollState = () => {
-    const state = { top: window.scrollY, sceneProgress: null };
-    if (!document.body.classList.contains("fathom-home")) return state;
-
-    const triggerStart = homeSceneTrigger?.start;
-    const triggerEnd = homeSceneTrigger?.end;
-    const insideScene = Number.isFinite(triggerStart)
-      && Number.isFinite(triggerEnd)
-      && window.scrollY >= triggerStart - 1
-      && window.scrollY <= triggerEnd + 1;
-    if (insideScene && Number.isFinite(homeSceneTrigger?.progress)) {
-      state.sceneProgress = Math.max(0, Math.min(1, homeSceneTrigger.progress));
-    }
-    return state;
-  };
-  const restoreLanguageScrollState = (state) => {
-    let top = state.top;
-    if (state.sceneProgress !== null
-      && Number.isFinite(homeSceneTrigger?.start)
-      && Number.isFinite(homeSceneTrigger?.end)) {
-      top = homeSceneTrigger.start + (homeSceneTrigger.end - homeSceneTrigger.start) * state.sceneProgress;
-    }
-    scrollWindowTo(top);
-    window.ScrollTrigger?.update();
-    updateActiveScrollNav();
-  };
-  const scheduleLanguageLayoutRefresh = (scrollState) => {
-    const revision = ++languageRefreshRevision;
-    window.cancelAnimationFrame(languageRefreshFrame);
-
-    languageRefreshFrame = window.requestAnimationFrame(() => {
-      languageRefreshFrame = window.requestAnimationFrame(() => {
-        const fontsReady = document.fonts?.ready || Promise.resolve();
-        Promise.resolve(fontsReady).then(() => {
-          if (revision !== languageRefreshRevision) return;
-          if (document.querySelector(".scroll-story")) updateScrub();
-          window.ScrollTrigger?.refresh();
-          languageRefreshFrame = window.requestAnimationFrame(() => {
-            if (revision !== languageRefreshRevision) return;
-            restoreLanguageScrollState(scrollState);
-            finishLanguageUpdateUi();
-          });
-        });
-      });
-    });
-  };
-
-  const applyLanguage = (language) => {
-    const resolved = language === "zh" ? "zh" : "en";
-    const scrollState = captureLanguageScrollState();
-    document.documentElement.classList.add("language-updating");
-    document.documentElement.lang = resolved === "zh" ? "zh-Hant" : "en";
-    document.body.dataset.lang = resolved;
-
-    elements.forEach((element) => {
-      const key = element.dataset.i18n;
-      const nextHtml = resolved === "zh" && zh[key] ? zh[key] : element.dataset.enHtml;
-      if (element.innerHTML !== nextHtml) element.innerHTML = nextHtml;
-    });
-
-    document.querySelectorAll(".language-toggle").forEach((button) => {
-      button.setAttribute("aria-busy", "true");
-      button.textContent = resolved === "zh" ? "EN" : "中文";
-      button.setAttribute("aria-label", resolved === "zh" ? "Switch to English" : "切換至繁體中文");
-    });
-    document.querySelectorAll("[data-usa-carousel]").forEach((carousel) => {
-      const slides = [...carousel.querySelectorAll("[data-usa-slide]")];
-      carousel.setAttribute("aria-label", resolved === "zh" ? "洪戎在 South Dakota 打工旅遊的五張照片" : "Five photos from HongRong's South Dakota Work and Travel summer");
-      carousel.querySelector("[data-usa-carousel-prev]")?.setAttribute("aria-label", resolved === "zh" ? "上一張照片" : "Previous photo");
-      carousel.querySelector("[data-usa-carousel-next]")?.setAttribute("aria-label", resolved === "zh" ? "下一張照片" : "Next photo");
-      carousel.querySelector(".usa-carousel-dots")?.setAttribute("aria-label", resolved === "zh" ? "選擇照片" : "Choose a photo");
-      slides.forEach((slide, index) => slide.setAttribute("aria-label", resolved === "zh" ? `第 ${index + 1} 張，共 ${slides.length} 張` : `Photo ${index + 1} of ${slides.length}`));
-      carousel.querySelectorAll("[data-usa-carousel-dot]").forEach((dot, index) => dot.setAttribute("aria-label", resolved === "zh" ? `查看第 ${index + 1} 張照片` : `View photo ${index + 1}`));
-    });
-    document.querySelectorAll("[data-portrait-flip]").forEach((button) => updatePortraitFlipLabel(button, resolved));
-
-    const message = document.querySelector('textarea[name="message"]');
-    const name = document.querySelector('input[name="name"]');
-    if (message) message.placeholder = resolved === "zh" ? "專案、職缺、時間或想法⋯" : "Project, role, timeline, or idea...";
-    if (name) name.placeholder = resolved === "zh" ? "名字" : "Name";
-
-    splitScrubText(resolved);
-    safeStorage.set("hongrong-language", resolved);
-    scheduleLanguageLayoutRefresh(scrollState);
-  };
-
+function applyLanguage(next, { persist = false, restore = true } = {}) {
+  const position = restore ? capturePosition() : null;
+  language = next === "en" ? "en" : "zh";
+  root.lang = language === "zh" ? "zh-Hant" : "en";
+  body.dataset.lang = language;
+  document.title =
+    language === "zh"
+      ? chineseTitle
+      : englishTitles[location.pathname.split("/").pop() || "index.html"] ||
+        chineseTitle;
+  for (const { node, key, zh } of textNodes) {
+    const value = language === "en" ? (englishCopy[key] ?? zh) : zh;
+    if (node.innerHTML !== value) node.innerHTML = value;
+  }
+  for (const { node, attribute, key, zh } of attributeNodes) {
+    node.setAttribute(
+      attribute,
+      language === "en" ? (englishCopy[key] ?? zh) : zh,
+    );
+  }
   document.querySelectorAll(".language-toggle").forEach((button) => {
-    button.addEventListener("click", () => {
-      applyLanguage(document.body.dataset.lang === "zh" ? "en" : "zh");
-    });
+    button.hidden = false;
+    button.textContent = language === "zh" ? "EN" : "中文";
+    button.lang = language === "zh" ? "en" : "zh-Hant";
+    button.setAttribute(
+      "aria-label",
+      language === "zh" ? "Switch to English" : "切換至繁體中文",
+    );
   });
+  updateMenuLabel();
+  document
+    .querySelectorAll("[data-usa-slide]")
+    .forEach((slide, index) =>
+      slide.setAttribute(
+        "aria-label",
+        language === "zh"
+          ? "第 " + (index + 1) + " 張，共 5 張"
+          : "Photo " + (index + 1) + " of 5",
+      ),
+    );
+  document
+    .querySelectorAll("[data-usa-carousel-dot]")
+    .forEach((dot, index) =>
+      dot.setAttribute(
+        "aria-label",
+        language === "zh"
+          ? "查看第 " + (index + 1) + " 張照片"
+          : "View photo " + (index + 1),
+      ),
+    );
+  const name = document.querySelector('input[name="name"]');
+  const message = document.querySelector('textarea[name="message"]');
+  if (name) name.placeholder = language === "zh" ? "名字" : "Name";
+  if (message)
+    message.placeholder =
+      language === "zh"
+        ? "需求、時程，或想聊的事⋯"
+        : "The need, timeline, or what you have in mind...";
+  if (selectedSkill) showSkill(selectedSkill);
+  setAiState(activeAiState);
+  if (persist) storage.set(language);
+  if (restore) void refreshLayout(position);
+}
+document
+  .querySelectorAll(".language-toggle")
+  .forEach((button) =>
+    button.addEventListener("click", () =>
+      applyLanguage(language === "zh" ? "en" : "zh", { persist: true }),
+    ),
+  );
 
-  function updateScrub() {
-    document.querySelectorAll(".scroll-story").forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      const distance = section.offsetHeight - window.innerHeight;
-      const progress = Math.max(0, Math.min(1, -rect.top / Math.max(distance, 1)));
-      const words = [...section.querySelectorAll(".scrub-word")];
-      words.forEach((word, index) => {
-        const start = index / Math.max(words.length, 1);
-        const local = Math.max(0, Math.min(1, (progress - start * .72) / .16));
-        word.style.opacity = String(.16 + local * .84);
-      });
-    });
+// Mobile menu keeps keyboard focus inside and restores focus to its trigger.
+const menuButton = document.querySelector(".menu-toggle");
+const menu = document.querySelector(".menu-panel");
+const menuQuery = matchMedia("(max-width: 600px)");
+function updateMenuLabel() {
+  const open = menuButton?.getAttribute("aria-expanded") === "true";
+  menuButton?.setAttribute(
+    "aria-label",
+    language === "zh"
+      ? open
+        ? "關閉選單"
+        : "開啟選單"
+      : open
+        ? "Close menu"
+        : "Open menu",
+  );
+}
+function setMenu(open, returnFocus = false) {
+  if (!menu || !menuButton) return;
+  body.classList.toggle("menu-open", open);
+  menu.classList.toggle("is-open", open);
+  menu.inert = !open;
+  menu.setAttribute("aria-hidden", String(!open));
+  menuButton.setAttribute("aria-expanded", String(open));
+  document.querySelector("main")?.toggleAttribute("inert", open);
+  document.querySelector("footer")?.toggleAttribute("inert", open);
+  updateMenuLabel();
+  if (open) menu.querySelector("a")?.focus();
+  else if (returnFocus) menuButton.focus();
+}
+if (menuButton) menuButton.hidden = false;
+menuButton?.addEventListener("click", () =>
+  setMenu(menuButton.getAttribute("aria-expanded") !== "true"),
+);
+menu
+  ?.querySelectorAll("a")
+  .forEach((link) => link.addEventListener("click", () => setMenu(false)));
+menuQuery.addEventListener("change", (event) => {
+  if (!event.matches) setMenu(false);
+});
+document.addEventListener("keydown", (event) => {
+  if (!body.classList.contains("menu-open")) return;
+  if (event.key === "Escape") {
+    setMenu(false, true);
+    return;
   }
-
-  const menuButton = document.querySelector(".menu-toggle");
-  const menuPanel = document.querySelector(".menu-panel");
-  menuPanel?.setAttribute("inert", "");
-  const setMenu = (open) => {
-    if (!menuButton || !menuPanel) return;
-    document.body.classList.toggle("menu-open", open);
-    menuPanel.classList.toggle("is-open", open);
-    menuPanel.setAttribute("aria-hidden", String(!open));
-    menuPanel.toggleAttribute("inert", !open);
-    menuButton.setAttribute("aria-expanded", String(open));
-    menuButton.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    document.querySelector("main")?.toggleAttribute("inert", open);
-    document.querySelector("footer")?.toggleAttribute("inert", open);
-    if (open) window.setTimeout(() => menuPanel.querySelector("a")?.focus(), 40);
-  };
-  menuButton?.addEventListener("click", () => setMenu(menuButton.getAttribute("aria-expanded") !== "true"));
-  menuPanel?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenu(false)));
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && menuButton?.getAttribute("aria-expanded") === "true") {
-      setMenu(false);
-      menuButton.focus();
-    }
-    if (event.key === "Tab" && menuButton?.getAttribute("aria-expanded") === "true") {
-      const focusable = [...document.querySelectorAll(".site-header a, .site-header button, .menu-panel a, .menu-panel button")]
-        .filter((element) => !element.hasAttribute("disabled") && element.getClientRects().length);
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    }
-  });
-
-  const localTimeElements = document.querySelectorAll(".local-time");
-  const updateTime = () => {
-    const time = new Intl.DateTimeFormat("en-GB", {
-      timeZone: "Asia/Taipei",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false
-    }).format(new Date());
-    localTimeElements.forEach((element) => { element.textContent = time; });
-  };
-  updateTime();
-  window.setInterval(updateTime, 1000);
-
-  document.querySelectorAll(".current-year").forEach((element) => {
-    element.textContent = String(new Date().getFullYear());
-  });
-
-  const currentPage = document.body.dataset.page;
-  document.querySelectorAll("[data-nav-page]").forEach((link) => {
-    if (link.dataset.navPage === currentPage) link.classList.add("is-active");
-  });
-
-  const scrollNavLinks = [...document.querySelectorAll("[data-scroll-nav]")];
-  const scrollSections = [...document.querySelectorAll("[data-scroll-section]")];
-  const updateActiveScrollNav = () => {
-    if (!scrollNavLinks.length || !scrollSections.length) return;
-    const marker = window.scrollY + window.innerHeight * .38;
-    let active = "";
-    scrollSections.forEach((section) => {
-      const top = section.getBoundingClientRect().top + window.scrollY;
-      if (top <= marker) active = section.dataset.scrollSection || "";
-    });
-    scrollNavLinks.forEach((link) => {
-      const selected = link.dataset.scrollNav === active;
-      link.classList.toggle("is-active", selected);
-      if (selected) link.setAttribute("aria-current", "location");
-      else link.removeAttribute("aria-current");
-    });
-  };
-
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: .12, rootMargin: "0px 0px -6%" });
-  document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
-
-  document.querySelectorAll(".accordion-trigger").forEach((button) => {
-    button.addEventListener("click", () => {
-      const item = button.closest(".accordion-item");
-      const list = item.parentElement;
-      list.querySelectorAll(".accordion-item").forEach((other) => {
-        const open = other === item ? !other.classList.contains("is-open") : false;
-        other.classList.toggle("is-open", open);
-        other.querySelector(".accordion-trigger").setAttribute("aria-expanded", String(open));
-      });
-    });
-  });
-
-  const header = document.querySelector(".site-header");
-  const finePointer = window.matchMedia("(pointer: fine)");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-  const homeHashTargets = new Set(["#top", "#about", "#work", "#ai-project", "#jinhong-project", "#contact"]);
-  const homeSceneProgress = new Map([
-    ["#top", 0],
-    ["#about", .5],
-    ["#work", .97]
-  ]);
-  let homeSceneTrigger = null;
-  let homeHashFrame = 0;
-
-  if (document.body.classList.contains("fathom-home") && "scrollRestoration" in window.history) {
-    window.history.scrollRestoration = "manual";
-  }
-
-  const getHomeSceneScrollTop = (hash) => {
-    const progress = homeSceneProgress.get(hash);
-    const desktopSceneMotion = window.matchMedia("(min-width: 901px) and (prefers-reduced-motion: no-preference)").matches;
-    if (progress === undefined || !desktopSceneMotion || !window.gsap || !window.ScrollTrigger) return null;
-
-    const sequence = document.querySelector("[data-scene-sequence]");
-    if (!sequence) return null;
-
-    const sequenceTop = sequence.getBoundingClientRect().top + window.scrollY;
-    const fallbackEnd = sequenceTop + Math.max(0, sequence.offsetHeight - window.innerHeight);
-    const triggerStart = Number.isFinite(homeSceneTrigger?.start) ? homeSceneTrigger.start : sequenceTop;
-    const triggerEnd = Number.isFinite(homeSceneTrigger?.end) ? homeSceneTrigger.end : fallbackEnd;
-    return triggerStart + (triggerEnd - triggerStart) * progress;
-  };
-
-  const syncHomeHashPosition = ({ behavior = "auto", forceTopWithoutHash = false } = {}) => {
-    if (!document.body.classList.contains("fathom-home")) return false;
-    const hash = window.location.hash;
-    if (!hash && !forceTopWithoutHash) return false;
-
-    let top = 0;
-    if (hash && hash !== "#top") {
-      if (!homeHashTargets.has(hash)) return false;
-      const sceneTop = getHomeSceneScrollTop(hash);
-      if (sceneTop !== null) {
-        top = sceneTop;
-      } else {
-        const target = document.querySelector(hash);
-        if (!target) return false;
-        top = target.getBoundingClientRect().top + window.scrollY;
-      }
-    }
-
-    window.cancelAnimationFrame(homeHashFrame);
-    scrollWindowTo(top, behavior);
-    homeHashFrame = window.requestAnimationFrame(() => {
-      window.ScrollTrigger?.update();
-      updateActiveScrollNav();
-    });
-    return true;
-  };
-
-  document.querySelectorAll('.fathom-home a[href^="#"]').forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const hash = link.getAttribute("href");
-      if (!homeHashTargets.has(hash)) return;
-      event.preventDefault();
-      cancelLanguageLayoutRefresh();
-      setMenu(false);
-      if (window.location.hash !== hash) window.history.pushState(null, "", hash);
-      syncHomeHashPosition({ behavior: reducedMotion.matches ? "auto" : "smooth" });
-    });
-  });
-
-  let homeRestoreFrame = 0;
-  const restoreHomeScene = (forceTopWithoutHash = false) => {
-    window.cancelAnimationFrame(homeRestoreFrame);
-    homeRestoreFrame = window.requestAnimationFrame(() => {
-      homeRestoreFrame = window.requestAnimationFrame(() => {
-        syncHomeHashPosition({ behavior: "auto", forceTopWithoutHash });
-        window.ScrollTrigger?.refresh();
-      });
-    });
-  };
-  window.addEventListener("hashchange", () => restoreHomeScene(false));
-  window.addEventListener("popstate", () => restoreHomeScene(!window.location.hash));
-  window.addEventListener("pageshow", (event) => {
-    const navigation = window.performance.getEntriesByType?.("navigation")?.[0];
-    const restored = event.persisted || navigation?.type === "back_forward";
-    restoreHomeScene(restored && !window.location.hash);
-  });
-
-  const growthRoute = document.querySelector(".growth-route");
-  const growthPath = document.querySelector("[data-growth-path]");
-  const growthStart = document.querySelector("[data-story-spine-start]");
-  const growthEnd = document.querySelector("[data-story-spine-end]");
-  const growthLeaves = [...document.querySelectorAll("[data-growth-threshold]")];
-  let growthLength = 0;
-  if (growthPath) {
-    growthLength = growthPath.getTotalLength();
-    growthPath.style.strokeDasharray = String(growthLength);
-    growthPath.style.strokeDashoffset = String(growthLength);
-  }
-
-  const updateGrowthRoute = () => {
-    if (!growthRoute || !growthPath || !growthStart || !growthEnd) return;
-    const sequence = growthStart.closest("[data-scene-sequence]");
-    const start = sequence
-      ? sequence.getBoundingClientRect().top + window.scrollY + window.innerHeight * .55
-      : growthStart.getBoundingClientRect().top + window.scrollY;
-    const end = growthEnd.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
-    const progress = reducedMotion.matches ? 1 : Math.max(0, Math.min(1, (window.scrollY - start) / Math.max(end - start, 1)));
-    growthPath.style.strokeDashoffset = String(growthLength * (1 - progress));
-    growthRoute.classList.toggle("is-active", window.scrollY >= start - window.innerHeight * .35 && window.scrollY <= end + window.innerHeight * .65);
-    growthLeaves.forEach((leaf) => leaf.classList.toggle("is-grown", progress >= Number(leaf.dataset.growthThreshold || 0)));
-  };
-
-  const aiSteps = [...document.querySelectorAll("[data-ai-step]")];
-  const aiPanels = [...document.querySelectorAll("[data-ai-panel]")];
-  const phoneState = document.querySelector("[data-phone-state]");
-  const aiVinePath = document.querySelector("[data-ai-vine-path]");
-  const aiVineLeaves = [...document.querySelectorAll("[data-ai-leaf]")];
-  let aiVineLength = 0;
-  if (aiVinePath) {
-    aiVineLength = aiVinePath.getTotalLength();
-    aiVinePath.style.strokeDasharray = String(aiVineLength);
-    aiVinePath.style.strokeDashoffset = String(aiVineLength);
-  }
-  const aiStateNames = ["Login", "Parking", "Navigation", "Live traffic", "Vehicle location"];
-  const setAiState = (index) => {
-    aiSteps.forEach((step) => step.classList.toggle("is-active", Number(step.dataset.aiStep) === index));
-    aiPanels.forEach((panel) => panel.classList.toggle("is-active", Number(panel.dataset.aiPanel) === index));
-    if (phoneState) phoneState.textContent = aiStateNames[index] || aiStateNames[0];
-    if (aiVinePath) {
-      const progress = reducedMotion.matches ? 1 : Math.max(.06, index / Math.max(aiSteps.length - 1, 1));
-      aiVinePath.style.strokeDashoffset = String(aiVineLength * (1 - progress));
-    }
-    aiVineLeaves.forEach((leaf) => {
-      leaf.classList.toggle("is-grown", reducedMotion.matches || index >= Number(leaf.dataset.aiLeaf || 1) - 1);
-    });
-  };
-  if (aiSteps.length) {
-    const aiObserver = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setAiState(Number(visible.target.dataset.aiStep));
-    }, { threshold: [.28, .48, .7], rootMargin: "-25% 0px -35%" });
-    aiSteps.forEach((step) => aiObserver.observe(step));
-    setAiState(0);
-  }
-
-  const initFathomMotion = () => {
-    const sequence = document.querySelector("[data-scene-sequence]");
-    if (!sequence || !window.gsap || !window.ScrollTrigger) return;
-
-    const gsap = window.gsap;
-    gsap.registerPlugin(window.ScrollTrigger);
-    document.documentElement.classList.add("motion-ready");
-    const motion = gsap.matchMedia();
-
-    motion.add("(min-width: 901px) and (prefers-reduced-motion: no-preference)", () => {
-      const hero = sequence.querySelector('[data-scene-panel="hero"]');
-      const about = sequence.querySelector('[data-scene-panel="about"]');
-      const work = sequence.querySelector('[data-scene-panel="work"]');
-      const heroCopy = hero?.querySelector("[data-scene-copy]");
-      const heroVisual = hero?.querySelector("[data-scene-visual]");
-      const heroMeta = hero?.querySelector("[data-scene-meta]");
-      const aboutCopy = about?.querySelector("[data-scene-copy]");
-      const aboutVisual = about?.querySelector("[data-scene-visual]");
-      const aboutTextEffect = about?.querySelector("[data-about-text-effect]");
-      const aboutCta = about?.querySelector("[data-about-cta]");
-      const workCopy = work?.querySelector("[data-scene-copy]");
-      const workVisual = work?.querySelector("[data-scene-visual]");
-
-      gsap.set([about, work], { yPercent: 100 });
-      const sceneTimeline = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: sequence,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: true,
-          invalidateOnRefresh: true
-        }
-      });
-      homeSceneTrigger = sceneTimeline.scrollTrigger;
-
-      sceneTimeline
-        .to(heroCopy, { yPercent: -13, duration: 1 }, 0)
-        .to(heroVisual, { yPercent: -8, scale: .985, duration: 1 }, 0)
-        .to(heroMeta, { yPercent: -18, duration: 1 }, 0)
-        .to(about, { yPercent: 0, duration: 1 }, .18)
-        .fromTo(aboutCopy, { yPercent: 5 }, { yPercent: -7, duration: 1.22 }, .35)
-        .to(aboutVisual, { yPercent: -4, duration: 1.05 }, .53)
-        .fromTo(aboutCta, { yPercent: 18, scale: .97 }, { yPercent: 0, scale: 1, duration: .72 }, .46)
-        .to(about, { yPercent: -16, duration: 1 }, 1.32)
-        .to(work, { yPercent: 0, duration: 1 }, 1.32)
-        .fromTo(workCopy, { yPercent: 5 }, { yPercent: -4, duration: 1 }, 1.34)
-        .fromTo(workVisual, { yPercent: 7 }, { yPercent: -2, duration: 1 }, 1.39);
-
-      if (aboutTextEffect) {
-        sceneTimeline.fromTo(
-          aboutTextEffect,
-          { "--about-text-progress": "0%" },
-          { "--about-text-progress": "100%", duration: .72 },
-          .44
-        );
-      }
-
-      const landscape = document.querySelector("[data-landscape-scene]");
-      if (landscape) {
-        const landscapeImages = landscape.querySelectorAll(".landscape-base, .landscape-foreground img");
-        gsap.fromTo(landscapeImages, { scale: 1.07 }, {
-          scale: 1,
-          ease: "none",
-          scrollTrigger: { trigger: landscape, start: "top bottom", end: "bottom bottom", scrub: .9 }
-        });
-        gsap.fromTo(landscape.querySelector(".landscape-word"), { yPercent: 24 }, {
-          yPercent: -5,
-          ease: "none",
-          scrollTrigger: { trigger: landscape, start: "top bottom", end: "bottom bottom", scrub: .9 }
-        });
-      }
-
-      return () => {
-        if (homeSceneTrigger === sceneTimeline.scrollTrigger) homeSceneTrigger = null;
-        sceneTimeline.scrollTrigger?.kill();
-        sceneTimeline.kill();
-        gsap.set([hero, about, work, heroCopy, heroVisual, heroMeta, aboutCopy, aboutVisual, aboutCta, workCopy, workVisual], { clearProps: "transform" });
-        if (aboutTextEffect) gsap.set(aboutTextEffect, { clearProps: "--about-text-progress" });
-      };
-    });
-
-    window.ScrollTrigger.refresh();
-  };
-
-  const prototypeButton = document.querySelector("[data-prototype-start]");
-  const prototypeFlow = document.querySelector(".prototype-flow");
-  const prototypeNodes = [...document.querySelectorAll(".prototype-flow li")];
-  let prototypeRun = 0;
-  prototypeButton?.addEventListener("click", () => {
-    prototypeRun += 1;
-    const run = prototypeRun;
-    prototypeNodes.forEach((node) => node.classList.remove("is-active"));
-    prototypeButton.disabled = true;
-    prototypeFlow?.setAttribute("aria-busy", "true");
-    prototypeNodes.forEach((node, index) => {
-      const delay = reducedMotion.matches ? 0 : index * 300;
-      window.setTimeout(() => {
-        if (run !== prototypeRun) return;
-        node.classList.add("is-active");
-        if (index === prototypeNodes.length - 1) {
-          prototypeButton.disabled = false;
-          prototypeFlow?.setAttribute("aria-busy", "false");
-        }
-      }, delay);
-    });
-  });
-
-  const usaCarousel = document.querySelector("[data-usa-carousel]");
-  if (usaCarousel) {
-    const viewport = usaCarousel.querySelector("[data-usa-carousel-viewport]");
-    const slides = [...usaCarousel.querySelectorAll("[data-usa-slide]")];
-    const dots = [...usaCarousel.querySelectorAll("[data-usa-carousel-dot]")];
-    const previousButton = usaCarousel.querySelector("[data-usa-carousel-prev]");
-    const nextButton = usaCarousel.querySelector("[data-usa-carousel-next]");
-    const status = usaCarousel.querySelector("[data-usa-carousel-status]");
-    let currentSlide = 0;
-    let carouselFrame = 0;
-
-    const updateCarouselState = (index) => {
-      currentSlide = Math.max(0, Math.min(slides.length - 1, index));
-      slides.forEach((slide, slideIndex) => {
-        const active = slideIndex === currentSlide;
-        slide.classList.toggle("is-active", active);
-        slide.setAttribute("aria-hidden", String(!active));
-      });
-      dots.forEach((dot, dotIndex) => {
-        const active = dotIndex === currentSlide;
-        dot.classList.toggle("is-active", active);
-        if (active) dot.setAttribute("aria-current", "true");
-        else dot.removeAttribute("aria-current");
-      });
-      if (status) status.textContent = `${String(currentSlide + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
-      if (previousButton) previousButton.disabled = currentSlide === 0;
-      if (nextButton) nextButton.disabled = currentSlide === slides.length - 1;
-    };
-
-    const moveToSlide = (index, behavior = reducedMotion.matches ? "auto" : "smooth") => {
-      if (!viewport || !slides.length) return;
-      const nextIndex = Math.max(0, Math.min(slides.length - 1, index));
-      const slide = slides[nextIndex];
-      const left = slide.offsetLeft - (viewport.clientWidth - slide.clientWidth) / 2;
-      updateCarouselState(nextIndex);
-      viewport.scrollTo({ left, behavior });
-    };
-
-    const syncCarouselToScroll = () => {
-      window.cancelAnimationFrame(carouselFrame);
-      carouselFrame = window.requestAnimationFrame(() => {
-        if (!viewport) return;
-        const center = viewport.scrollLeft + viewport.clientWidth / 2;
-        const closest = slides.reduce((best, slide, index) => {
-          const distance = Math.abs(slide.offsetLeft + slide.clientWidth / 2 - center);
-          return distance < best.distance ? { index, distance } : best;
-        }, { index: 0, distance: Number.POSITIVE_INFINITY });
-        if (closest.index !== currentSlide) updateCarouselState(closest.index);
-      });
-    };
-
-    previousButton?.addEventListener("click", () => moveToSlide(currentSlide - 1));
-    nextButton?.addEventListener("click", () => moveToSlide(currentSlide + 1));
-    dots.forEach((dot) => dot.addEventListener("click", () => moveToSlide(Number(dot.dataset.usaCarouselDot))));
-    viewport?.addEventListener("scroll", syncCarouselToScroll, { passive: true });
-    viewport?.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        moveToSlide(currentSlide - 1);
-      } else if (event.key === "ArrowRight") {
-        event.preventDefault();
-        moveToSlide(currentSlide + 1);
-      } else if (event.key === "Home") {
-        event.preventDefault();
-        moveToSlide(0);
-      } else if (event.key === "End") {
-        event.preventDefault();
-        moveToSlide(slides.length - 1);
-      }
-    });
-    window.addEventListener("resize", () => {
-      window.cancelAnimationFrame(carouselFrame);
-      carouselFrame = window.requestAnimationFrame(() => moveToSlide(currentSlide, "auto"));
-    });
-    updateCarouselState(0);
-    window.requestAnimationFrame(() => moveToSlide(0, "auto"));
-  }
-
-  const skillEvidence = document.querySelector("[data-skill-evidence]");
-  const skillButtons = [...document.querySelectorAll("[data-skill-project]")];
-  const showSkillEvidence = (button) => {
-    skillButtons.forEach((item) => item.classList.toggle("is-active", item === button));
-    if (skillEvidence) skillEvidence.textContent = button.dataset.skillProject;
-  };
-  skillButtons.forEach((button) => {
-    button.addEventListener("pointerenter", () => showSkillEvidence(button));
-    button.addEventListener("focus", () => showSkillEvidence(button));
-    button.addEventListener("click", () => showSkillEvidence(button));
-  });
-
-  if (finePointer.matches && !reducedMotion.matches) {
-    document.querySelectorAll(".magnetic-button").forEach((button) => {
-      button.addEventListener("pointermove", (event) => {
-        const rect = button.getBoundingClientRect();
-        const x = (event.clientX - rect.left - rect.width / 2) * .04;
-        const y = (event.clientY - rect.top - rect.height / 2) * .05;
-        button.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      });
-      button.addEventListener("pointerleave", () => { button.style.transform = ""; });
-    });
-  }
-  if (header && finePointer.matches) {
-    header.addEventListener("pointermove", (event) => {
-      const rect = header.getBoundingClientRect();
-      header.style.setProperty("--glass-x", `${event.clientX - rect.left}px`);
-      header.style.setProperty("--glass-y", `${event.clientY - rect.top}px`);
-    });
-    header.addEventListener("pointerleave", () => {
-      header.style.setProperty("--glass-x", "72%");
-      header.style.setProperty("--glass-y", "0%");
-    });
-  }
-
-  if (finePointer.matches && !reducedMotion.matches) {
-    document.querySelectorAll("[data-tilt-card]").forEach((card) => {
-      card.addEventListener("pointermove", (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
-        const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
-        card.style.setProperty("--tilt-x", `${(0.5 - y) * 5}deg`);
-        card.style.setProperty("--tilt-y", `${(x - 0.5) * 6}deg`);
-        card.style.setProperty("--shine-x", `${x * 100}%`);
-        card.style.setProperty("--shine-y", `${y * 100}%`);
-      });
-      card.addEventListener("pointerleave", () => {
-        card.style.setProperty("--tilt-x", "0deg");
-        card.style.setProperty("--tilt-y", "0deg");
-        card.style.setProperty("--shine-x", "62%");
-        card.style.setProperty("--shine-y", "20%");
-      });
-    });
-  }
-
-  document.querySelectorAll("[data-portrait-flip]").forEach((button) => {
-    button.addEventListener("click", () => {
-      button.classList.toggle("is-flipped");
-      updatePortraitFlipLabel(button, document.body.dataset.lang);
-    });
-  });
-
-  const parallaxItems = [...document.querySelectorAll("[data-parallax]")];
-  let ticking = false;
-  const updateScrollEffects = () => {
-    header?.classList.toggle("is-scrolled", window.scrollY > 18);
-    updateActiveScrollNav();
-    updateScrub();
-    updateGrowthRoute();
-    parallaxItems.forEach((element) => {
-      if (!finePointer.matches || reducedMotion.matches) {
-        element.style.transform = "";
-        return;
-      }
-      const speed = Number(element.dataset.parallax || .05);
-      const rect = element.getBoundingClientRect();
-      if (rect.bottom < -80 || rect.top > window.innerHeight + 80) return;
-      const rawOffset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
-      const offset = Math.max(-22, Math.min(22, rawOffset));
-      element.style.transform = `translate3d(0, ${offset}px, 0)`;
-    });
-    ticking = false;
-  };
-  window.addEventListener("scroll", () => {
-    if (!ticking) {
-      window.requestAnimationFrame(updateScrollEffects);
-      ticking = true;
-    }
-  }, { passive: true });
-  window.addEventListener("resize", updateScrollEffects, { passive: true });
-  reducedMotion.addEventListener?.("change", updateScrollEffects);
-  finePointer.addEventListener?.("change", updateScrollEffects);
-  updateScrollEffects();
-  initFathomMotion();
-
-  document.querySelectorAll(".back-to-top").forEach((button) => {
-    button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-  });
-
-  const contactForm = document.querySelector("#contact-form");
-  contactForm?.addEventListener("submit", (event) => {
+  if (event.key !== "Tab") return;
+  const focusable = [
+    ...document.querySelectorAll(
+      ".site-header a, .site-header button, .menu-panel a",
+    ),
+  ].filter(
+    (node) =>
+      !node.hidden &&
+      !node.disabled &&
+      node.getClientRects().length &&
+      getComputedStyle(node).display !== "none",
+  );
+  const first = focusable[0],
+    last = focusable.at(-1);
+  if (event.shiftKey && document.activeElement === first) {
     event.preventDefault();
-    const data = new FormData(contactForm);
-    const language = document.body.dataset.lang;
-    const subject = `${data.get("subject")} — ${data.get("name")}`;
-    const body = language === "zh"
-      ? `你好 HongRong，\n\n${data.get("message")}\n\n聯絡人：${data.get("name")}\nEmail：${data.get("email")}`
-      : `Hi HongRong,\n\n${data.get("message")}\n\nFrom: ${data.get("name")}\nEmail: ${data.get("email")}`;
-    window.location.href = `mailto:zxc1031777@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  });
-
-  document.querySelectorAll("a.transition-link").forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const url = new URL(link.href, window.location.href);
-      if (link.target === "_blank" || url.origin !== window.location.origin || url.hash) return;
-      event.preventDefault();
-      setMenu(false);
-      document.body.classList.add("page-leaving");
-      window.setTimeout(() => { window.location.href = link.href; }, 260);
-    });
-  });
-
-  const storedLanguage = safeStorage.get("hongrong-language") || "en";
-  applyLanguage(storedLanguage);
-
-  const loader = document.querySelector(".loader");
-  let visited = false;
-  try {
-    visited = sessionStorage.getItem("hongrong-visited") === "yes";
-    sessionStorage.setItem("hongrong-visited", "yes");
-  } catch { /* file protocol privacy mode */ }
-
-  let openingFailsafe = 0;
-  const finishOpening = () => {
-    if (openingFailsafe) window.clearTimeout(openingFailsafe);
-    loader?.classList.add("is-hidden");
-    document.body.classList.remove("opening-active");
-    window.ScrollTrigger?.refresh();
-    restoreHomeScene(false);
-  };
-
-  if (loader?.matches("[data-opening]") && window.gsap && !reducedMotion.matches) {
-    const gsap = window.gsap;
-    const openingMark = loader.querySelector("[data-opening-mark]");
-    const markLetters = loader.querySelectorAll("[data-opening-letter]");
-    const titleLines = document.querySelectorAll("[data-opening-line]");
-    const portraitLine = document.querySelector("[data-portrait-draw]");
-    document.body.classList.add("opening-active");
-    openingFailsafe = window.setTimeout(finishOpening, 5000);
-    gsap.set(loader, { animation: "none", yPercent: 0, autoAlpha: 1 });
-    if (openingMark) gsap.set(openingMark, { animation: "none" });
-    gsap.set(markLetters, { autoAlpha: .001, x: 50, filter: "blur(24px)" });
-    gsap.set(titleLines, { yPercent: 112 });
-    if (portraitLine) {
-      const portraitLength = portraitLine.getTotalLength();
-      gsap.set(portraitLine, { strokeDasharray: portraitLength, strokeDashoffset: portraitLength });
-    }
-
-    if (visited) {
-      gsap.timeline({ onComplete: finishOpening })
-        .to(markLetters, { autoAlpha: 1, x: 0, y: 0, filter: "blur(0px)", duration: .52, stagger: .035, ease: "power3.out" }, .08)
-        .to(markLetters, { autoAlpha: 0, x: -24, y: -4, filter: "blur(15px)", duration: .46, stagger: .02, ease: "power2.in" }, 1.04)
-        .to(loader, { yPercent: -100, duration: .8, ease: "power4.inOut" }, 1.5)
-        .to(titleLines, { yPercent: 0, duration: .74, stagger: .045, ease: "power3.out" }, 1.68)
-        .to(portraitLine, { strokeDashoffset: 0, duration: .8, ease: "power2.out" }, 1.7);
-    } else {
-      gsap.timeline({ onComplete: finishOpening })
-        .to(markLetters, { autoAlpha: 1, x: 0, y: 0, filter: "blur(0px)", duration: .68, stagger: .045, ease: "power3.out" }, .16)
-        .to(markLetters, { autoAlpha: 0, x: -28, y: -5, filter: "blur(17px)", duration: .56, stagger: .025, ease: "power2.in" }, 1.45)
-        .to(loader, { yPercent: -100, duration: .92, ease: "power4.inOut" }, 1.98)
-        .to(titleLines, { yPercent: 0, duration: .88, stagger: .06, ease: "power3.out" }, 2.22)
-        .to(portraitLine, { strokeDashoffset: 0, duration: 1.08, ease: "power2.out" }, 2.25);
-    }
-  } else {
-    document.querySelectorAll("[data-opening-line]").forEach((line) => { line.style.transform = "none"; });
-    if (loader) window.setTimeout(finishOpening, reducedMotion.matches ? 0 : 420);
+    last?.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first?.focus();
   }
-})();
+});
+
+// Native cross-page links are intentional. No exit-opacity class or delayed navigation.
+function sameDocument(url) {
+  if (url.origin !== location.origin || url.search !== location.search)
+    return false;
+  const normalize = (path) =>
+    path.replace(/index\.html$/, "").replace(/\/$/, "");
+  return normalize(url.pathname) === normalize(location.pathname);
+}
+function hashPosition(hash) {
+  if (hash === "#top") return 0;
+  const trigger = sceneTimeline?.scrollTrigger;
+  const label = hash.slice(1);
+  if (trigger && sceneTimeline.labels[label] !== undefined) {
+    return (
+      trigger.start +
+      (sceneTimeline.labels[label] / sceneTimeline.duration()) *
+        (trigger.end - trigger.start)
+    );
+  }
+  const target = document.getElementById(label);
+  return target
+    ? target.getBoundingClientRect().top +
+        scrollY -
+        (target.matches(".scene-panel") ? 0 : 96)
+    : null;
+}
+function goToHash(hash, smooth = false) {
+  const top = hashPosition(hash);
+  if (top === null) return;
+  refreshRevision += 1;
+  scrollToPosition(top, smooth);
+  window.ScrollTrigger?.update();
+  updateScrollState();
+}
+document.addEventListener("click", (event) => {
+  const link = event.target.closest("a[href]");
+  if (
+    !link ||
+    event.defaultPrevented ||
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.altKey ||
+    event.shiftKey ||
+    link.hasAttribute("download") ||
+    (link.target && link.target !== "_self")
+  )
+    return;
+  const url = new URL(link.href);
+  if (!sameDocument(url) || !url.hash) return;
+  const target = document.getElementById(url.hash.slice(1));
+  if (!target) return;
+  event.preventDefault();
+  setMenu(false);
+  if (location.hash !== url.hash) history.pushState(null, "", url.hash);
+  goToHash(url.hash, true);
+  // Skip links retain their expected keyboard semantics.
+  if (link.classList.contains("skip-link"))
+    target.focus({ preventScroll: true });
+});
+window.addEventListener("hashchange", () => goToHash(location.hash || "#top"));
+document.querySelectorAll(".back-to-top").forEach((button) =>
+  button.addEventListener("click", () => {
+    if (body.dataset.page === "home") {
+      if (location.hash !== "#top") history.pushState(null, "", "#top");
+    }
+    scrollToPosition(0, true);
+  }),
+);
+
+// Explicit from/to values survive refresh, localization and reverse scrolling.
+function initScenes() {
+  const sequence = document.querySelector("[data-scene-sequence]");
+  if (!sequence || !window.gsap || !window.ScrollTrigger) return;
+  const gsap = window.gsap;
+  gsap.registerPlugin(window.ScrollTrigger);
+  const motion = gsap.matchMedia();
+  motion.add(desktopMotion, () => {
+    const hero = sequence.querySelector('[data-scene-panel="hero"]');
+    const about = sequence.querySelector('[data-scene-panel="about"]');
+    const work = sequence.querySelector('[data-scene-panel="work"]');
+    const panels = [hero, about, work];
+    sequence.classList.add("scene-enhanced");
+    gsap.set(hero, { yPercent: 0 });
+    gsap.set([about, work], { yPercent: 100 });
+    const timeline = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: sequence,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        onUpdate: () => {
+          updateSceneAccess();
+          requestScrollState();
+        },
+      },
+    });
+    sceneTimeline = timeline;
+    timeline
+      .fromTo(
+        hero,
+        { yPercent: 0 },
+        { yPercent: -34, duration: 1.3, immediateRender: false },
+        0,
+      )
+      .fromTo(
+        hero.querySelector("[data-scene-copy]"),
+        { yPercent: 0 },
+        { yPercent: -5, duration: 1.3, immediateRender: false },
+        0,
+      )
+      .fromTo(
+        about,
+        { yPercent: 100 },
+        { yPercent: 0, duration: 1, immediateRender: false },
+        0.16,
+      )
+      .addLabel("about", 1.16)
+      // A real reading pause keeps the centered story CTA visible.
+      .fromTo(
+        about.querySelector("[data-about-text-effect]"),
+        { "--about-text-progress": "0%" },
+        {
+          "--about-text-progress": "100%",
+          duration: 0.7,
+          immediateRender: false,
+        },
+        0.5,
+      )
+      .fromTo(
+        about,
+        { yPercent: 0 },
+        { yPercent: -22, duration: 1, immediateRender: false },
+        1.75,
+      )
+      .fromTo(
+        work,
+        { yPercent: 100 },
+        { yPercent: 0, duration: 1, immediateRender: false },
+        1.75,
+      )
+      .addLabel("work", 2.75);
+    updateSceneAccess();
+    return () => {
+      sceneTimeline = null;
+      sequence.classList.remove("scene-enhanced");
+      panels.forEach((panel) => {
+        panel.inert = false;
+        panel.removeAttribute("aria-hidden");
+      });
+      timeline.scrollTrigger?.kill();
+      timeline.kill();
+    };
+  });
+}
+function updateSceneAccess() {
+  if (!sceneTimeline) return;
+  const time = sceneTimeline.time();
+  const active = time < 1.06 ? "hero" : time < 2.64 ? "about" : "work";
+  document.querySelectorAll("[data-scene-panel]").forEach((panel) => {
+    const inactive = panel.dataset.scenePanel !== active;
+    panel.inert = inactive;
+    panel.setAttribute("aria-hidden", String(inactive));
+  });
+}
+
+// One scroll controller chooses the nearest phone step, including reverse and large jumps.
+const aiSteps = [...document.querySelectorAll("[data-ai-step]")];
+const aiPanels = [...document.querySelectorAll("[data-ai-panel]")];
+const phoneState = document.querySelector("[data-phone-state]");
+const aiVine = document.querySelector("[data-ai-vine-path]");
+const aiVineLength = aiVine?.getTotalLength() || 0;
+let activeAiState = 0;
+if (aiVine) aiVine.style.strokeDasharray = String(aiVineLength);
+function setAiState(index) {
+  activeAiState = index;
+  aiSteps.forEach((step, i) => step.classList.toggle("is-active", i === index));
+  aiPanels.forEach((panel, i) => {
+    panel.classList.toggle("is-active", i === index);
+    panel.setAttribute("aria-hidden", String(i !== index));
+  });
+  if (phoneState)
+    phoneState.textContent = (
+      language === "zh"
+        ? ["登入", "剩餘車位", "導航", "即時路況", "車輛位置"]
+        : ["Login", "Parking", "Navigation", "Live traffic", "Vehicle location"]
+    )[index];
+  if (aiVine)
+    aiVine.style.strokeDashoffset = String(
+      aiVineLength *
+        (reducedMotion.matches ? 0 : 1 - Math.max(0.08, index / 4)),
+    );
+  document
+    .querySelectorAll("[data-ai-leaf]")
+    .forEach((leaf) =>
+      leaf.classList.toggle(
+        "is-grown",
+        reducedMotion.matches || index >= Number(leaf.dataset.aiLeaf) - 1,
+      ),
+    );
+}
+function updateAiStory() {
+  if (!aiSteps.length) return;
+  const closest = aiSteps.reduce(
+    (best, step, index) => {
+      const box = step.getBoundingClientRect();
+      const distance = Math.abs(box.top + box.height / 2 - innerHeight * 0.5);
+      return distance < best.distance ? { index, distance } : best;
+    },
+    { index: 0, distance: Infinity },
+  );
+  if (closest.index !== activeAiState) setAiState(closest.index);
+}
+function updateNavigation() {
+  if (body.dataset.page !== "home") return;
+  const sequence = document.querySelector("[data-scene-sequence]");
+  let active = "";
+  const contact = document.getElementById("contact");
+  const ai = document.getElementById("ai-project");
+  if (contact && contact.getBoundingClientRect().top < innerHeight * 0.45)
+    active = "contact";
+  else if (ai && ai.getBoundingClientRect().top < innerHeight * 0.45)
+    active = "work";
+  else if (sceneTimeline) {
+    active =
+      sceneTimeline.time() >= 2.64
+        ? "work"
+        : sceneTimeline.time() >= 1.06
+          ? "about"
+          : "";
+  } else if (sequence) {
+    ["about", "work"].forEach((id) => {
+      if (
+        document.getElementById(id)?.getBoundingClientRect().top <
+        innerHeight * 0.45
+      )
+        active = id;
+    });
+  }
+  document.querySelectorAll("[data-nav-page]").forEach((link) => {
+    if (link.dataset.navPage === active)
+      link.setAttribute("aria-current", "location");
+    else link.removeAttribute("aria-current");
+  });
+}
+function updateScrollState() {
+  scrollFrame = 0;
+  document
+    .querySelector(".site-header")
+    ?.classList.toggle("is-scrolled", scrollY > 18);
+  updateAiStory();
+  updateNavigation();
+  updateBotanicalGrowth();
+}
+
+// Decorative enhancement shares the existing scroll frame and follows progress in both directions.
+function initBotanicalGrowth() {
+  for (const [selector, variant] of [
+    [".hero-visual", "portrait"],
+    [".about-scene", "edge"],
+    [".work-scene", "transition"],
+    [".jinhong-editorial", "transition"],
+    [".page-hero", "edge"],
+    [".case-hero", "edge"],
+    [".contact-main", "edge"],
+  ]) {
+    document.querySelectorAll(selector).forEach((region) => {
+      region.classList.add("botanical-region");
+      const vine = document.createElement("div");
+      vine.className = "growth-vine growth-vine--" + variant;
+      vine.setAttribute("aria-hidden", "true");
+      region.append(vine);
+      botanicalVines.push({ region, vine, progress: -1 });
+    });
+  }
+}
+function updateBotanicalGrowth() {
+  const updates = botanicalVines.map((item) => {
+    const box = item.region.getBoundingClientRect();
+    const travel = innerHeight + Math.min(box.height * 0.35, innerHeight * 0.4);
+    const progress = reducedMotion.matches
+      ? 1000
+      : Math.round(
+          Math.max(0, Math.min(1, (innerHeight - box.top) / travel)) * 1000,
+        );
+    return { item, progress };
+  });
+  updates.forEach(({ item, progress }) => {
+    if (item.progress === progress) return;
+    item.progress = progress;
+    item.vine.style.setProperty("--vine-progress", progress / 10 + "%");
+  });
+}
+function requestScrollState() {
+  if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollState);
+}
+
+// Pointer movement reverses naturally; the same native button supports touch and keyboard.
+function initPortraitFlip() {
+  const button = document.querySelector("[data-portrait-flip]");
+  if (!button) return;
+  const hover = matchMedia("(hover: hover) and (pointer: fine)");
+  const front = button.querySelector(".portrait-face-front");
+  const back = button.querySelector(".portrait-face-back");
+  let flipped = false;
+  const setFlipped = (next) => {
+    flipped = next;
+    button.classList.toggle("is-flipped", flipped);
+    button.closest(".hero-visual").classList.toggle("is-portrait-flipped", flipped);
+    button.setAttribute("aria-pressed", String(flipped));
+    front.setAttribute("aria-hidden", String(flipped));
+    back.setAttribute("aria-hidden", String(!flipped));
+  };
+  resetPortrait = () => setFlipped(false);
+  button.disabled = false;
+  document.getElementById("portrait-flip-hint").hidden = false;
+  button.addEventListener("pointerenter", (event) => {
+    if (hover.matches && event.pointerType === "mouse") setFlipped(true);
+  });
+  button.addEventListener("pointerleave", (event) => {
+    if (event.pointerType === "mouse") resetPortrait();
+  });
+  button.addEventListener("pointercancel", resetPortrait);
+  button.addEventListener("click", (event) => {
+    if (event.detail === 0 || !hover.matches || event.pointerType === "touch")
+      setFlipped(!flipped);
+  });
+  button.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") resetPortrait();
+  });
+  button.addEventListener("blur", resetPortrait);
+  hover.addEventListener("change", resetPortrait);
+}
+window.addEventListener("scroll", requestScrollState, { passive: true });
+window.addEventListener("resize", requestScrollState, { passive: true });
+reducedMotion.addEventListener("change", () => {
+  setAiState(activeAiState);
+  requestScrollState();
+});
+
+// Native scroll-snap carousel, no autoplay, and no cropping of the original photographs.
+function initCarousel() {
+  const carousel = document.querySelector("[data-usa-carousel]");
+  if (!carousel) return;
+  const viewport = carousel.querySelector("[data-usa-carousel-viewport]");
+  const slides = [...carousel.querySelectorAll("[data-usa-slide]")];
+  const dots = [...carousel.querySelectorAll("[data-usa-carousel-dot]")];
+  const previous = carousel.querySelector("[data-usa-carousel-prev]");
+  const next = carousel.querySelector("[data-usa-carousel-next]");
+  const status = carousel.querySelector("[data-usa-carousel-status]");
+  let current = 0,
+    frame = 0;
+  function setCurrent(index) {
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    slides.forEach((slide, i) =>
+      slide.classList.toggle("is-active", i === current),
+    );
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("is-active", i === current);
+      if (i === current) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
+    previous.disabled = current === 0;
+    next.disabled = current === slides.length - 1;
+    status.textContent = String(current + 1).padStart(2, "0") + " / 05";
+    carousel.style.setProperty(
+      "--photo-control-width",
+      slides[current].clientWidth + 52 + "px",
+    );
+  }
+  function slideLeft(slide) {
+    return (
+      viewport.scrollLeft +
+      slide.getBoundingClientRect().left -
+      viewport.getBoundingClientRect().left -
+      (viewport.clientWidth - slide.clientWidth) / 2
+    );
+  }
+  function go(index, smooth = true) {
+    setCurrent(index);
+    viewport.scrollTo({
+      left: slideLeft(slides[current]),
+      behavior: smooth && !reducedMotion.matches ? "smooth" : "auto",
+    });
+  }
+  previous.addEventListener("click", () => go(current - 1));
+  next.addEventListener("click", () => go(current + 1));
+  dots.forEach((dot, i) => dot.addEventListener("click", () => go(i)));
+  viewport.addEventListener(
+    "scroll",
+    () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const index = slides.reduce(
+          (best, slide, i) => {
+            const distance = Math.abs(slideLeft(slide) - viewport.scrollLeft);
+            return distance < best.distance ? { index: i, distance } : best;
+          },
+          { index: 0, distance: Infinity },
+        ).index;
+        setCurrent(index);
+      });
+    },
+    { passive: true },
+  );
+  viewport.addEventListener("keydown", (event) => {
+    const targets = {
+      ArrowLeft: current - 1,
+      ArrowRight: current + 1,
+      Home: 0,
+      End: slides.length - 1,
+    };
+    if (targets[event.key] === undefined) return;
+    event.preventDefault();
+    go(targets[event.key]);
+  });
+  function sizeFrames() {
+    slides.forEach((slide) => {
+      const media = slide.querySelector(".usa-photo-media");
+      const image = media.querySelector("img");
+      const style = getComputedStyle(media);
+      const paddingY =
+        parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+      const paddingX =
+        parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+      const ratio =
+        Number(image.getAttribute("width")) /
+        Number(image.getAttribute("height"));
+      const width = Math.min(
+        viewport.clientWidth,
+        (media.clientHeight - paddingY) * ratio + paddingX,
+      );
+      slide.style.flexBasis = width + "px";
+    });
+    const edge = Math.max(
+      0,
+      (viewport.clientWidth - slides[0].clientWidth) / 2,
+    );
+    carousel.querySelector(".usa-carousel-track").style.paddingInline =
+      edge + "px";
+    go(current, false);
+  }
+  const resize = new ResizeObserver(sizeFrames);
+  resize.observe(viewport);
+  sizeFrames();
+}
+
+// Skills support hover, keyboard focus and taps, with factual project mappings.
+function showSkill(button) {
+  selectedSkill = button;
+  document.querySelectorAll("[data-skill-project]").forEach((node) => {
+    node.classList.toggle("is-active", node === button);
+    node.setAttribute("aria-pressed", String(node === button));
+  });
+  const evidence = document.querySelector("[data-skill-evidence]");
+  if (evidence)
+    evidence.textContent =
+      language === "zh"
+        ? button.dataset.skillProjectZh
+        : button.dataset.skillProject;
+}
+document.querySelectorAll("[data-skill-project]").forEach((button) => {
+  button.setAttribute("aria-pressed", "false");
+  ["pointerenter", "focus", "click"].forEach((event) =>
+    button.addEventListener(event, () => showSkill(button)),
+  );
+});
+
+// Clearly simulated API walkthrough. It never requests microphone or network access.
+const prototypeButton = document.querySelector("[data-prototype-start]");
+prototypeButton?.addEventListener("click", async () => {
+  const run = ++prototypeRun;
+  const nodes = [...document.querySelectorAll("[data-prototype-node]")];
+  const status = document.querySelector("[data-prototype-status]");
+  nodes.forEach((node) => node.classList.remove("is-active"));
+  prototypeButton.disabled = true;
+  prototypeButton.setAttribute("aria-busy", "true");
+  if (status)
+    status.textContent =
+      language === "zh"
+        ? "正在示範語音到停車資料的流程…"
+        : "Showing the request moving through the system…";
+  for (const node of nodes) {
+    if (!reducedMotion.matches)
+      await new Promise((resolve) => setTimeout(resolve, 260));
+    if (run !== prototypeRun) return;
+    node.classList.add("is-active");
+  }
+  prototypeButton.disabled = false;
+  prototypeButton.removeAttribute("aria-busy");
+  if (status)
+    status.textContent =
+      language === "zh"
+        ? "示意完成：整理停車資訊，再回覆使用者（非即時資料）"
+        : "Walkthrough complete: parking information is prepared for the response. This is not live data.";
+});
+
+// Reveal only supporting visuals; reading never depends on an observer firing.
+if (!reducedMotion.matches && "IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.removeAttribute("data-reveal-pending");
+        observer.unobserve(entry.target);
+      }),
+    { threshold: 0.08 },
+  );
+  document
+    .querySelectorAll("figure.reveal, .browser-preview")
+    .forEach((node) => {
+      if (node.getBoundingClientRect().top < innerHeight) return;
+      node.setAttribute("data-reveal-pending", "");
+      observer.observe(node);
+    });
+}
+
+// Keep the glass highlight restrained, and avoid hover motion on touch/reduced-motion devices.
+const header = document.querySelector(".site-header");
+if (header && matchMedia("(pointer: fine)").matches && !reducedMotion.matches) {
+  header.addEventListener("pointermove", (event) => {
+    const box = header.getBoundingClientRect();
+    header.style.setProperty("--glass-x", event.clientX - box.left + "px");
+    header.style.setProperty("--glass-y", event.clientY - box.top + "px");
+  });
+}
+
+const form = document.getElementById("contact-form");
+if (form) {
+  form.hidden = false;
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const values = new FormData(form);
+    const subject =
+      form.querySelector('select[name="subject"] option:checked').textContent +
+      " — " +
+      values.get("name");
+    const message =
+      language === "zh"
+        ? "你好 HongRong，\n\n" +
+          values.get("message") +
+          "\n\n聯絡人：" +
+          values.get("name") +
+          "\nEmail：" +
+          values.get("email")
+        : "Hi HongRong,\n\n" +
+          values.get("message") +
+          "\n\nFrom: " +
+          values.get("name") +
+          "\nEmail: " +
+          values.get("email");
+    location.href =
+      "mailto:zxc1031777@gmail.com?subject=" +
+      encodeURIComponent(subject) +
+      "&body=" +
+      encodeURIComponent(message);
+  });
+}
+document.querySelectorAll(".current-year").forEach((node) => {
+  node.textContent = String(new Date().getFullYear());
+});
+
+initBotanicalGrowth();
+initPortraitFlip();
+applyLanguage(storage.get() || "zh", { restore: false });
+initScenes();
+initCarousel();
+setAiState(0);
+updateScrollState();
+
+// BFCache restores real documents, including DOM classes. Always release transient UI.
+window.addEventListener("pageshow", (event) => {
+  if (!event.persisted) return;
+  resetPortrait();
+  body.classList.remove("page-leaving", "opening-active");
+  setMenu(false);
+  void refreshLayout();
+});
+window.addEventListener("pagehide", () => {
+  resetPortrait();
+  refreshRevision += 1;
+  prototypeRun += 1;
+  if (prototypeButton) {
+    prototypeButton.disabled = false;
+    prototypeButton.removeAttribute("aria-busy");
+  }
+  body.classList.remove("page-leaving", "opening-active");
+});
+
+async function startOpening() {
+  const opening = document.querySelector("[data-opening]");
+  const navigation = performance.getEntriesByType("navigation")[0];
+  const skip =
+    !opening ||
+    reducedMotion.matches ||
+    navigation?.type === "back_forward" ||
+    (location.hash && location.hash !== "#top");
+  await refreshLayout();
+  if (location.hash) goToHash(location.hash);
+  if (skip || !window.gsap) {
+    if (opening) opening.hidden = true;
+    return;
+  }
+  let seen = false;
+  try {
+    seen = sessionStorage.getItem("hongrong-opening") === "seen";
+    sessionStorage.setItem("hongrong-opening", "seen");
+  } catch {
+    /* Optional. */
+  }
+  // Revisiting the homepage shouldn't replay a blocking intro.
+  if (seen) {
+    opening.hidden = true;
+    return;
+  }
+  const mark = opening.querySelector("[data-opening-mark]");
+  body.classList.add("opening-active");
+  const finish = () => {
+    body.classList.remove("opening-active");
+    opening.hidden = true;
+  };
+  const failsafe = setTimeout(finish, 4000);
+  window.gsap
+    .timeline({
+      onComplete() {
+        clearTimeout(failsafe);
+        finish();
+      },
+    })
+    .fromTo(
+      mark,
+      { opacity: 0, y: 12, filter: "blur(12px)" },
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.8,
+        ease: "power2.out",
+      },
+    )
+    .to(
+      mark,
+      {
+        opacity: 0,
+        y: -12,
+        filter: "blur(10px)",
+        duration: 0.85,
+        ease: "power2.in",
+      },
+      1.15,
+    )
+    .to(
+      opening,
+      { yPercent: -100, duration: 0.85, ease: "power3.inOut" },
+      1.65,
+    );
+}
+void startOpening();

@@ -1,137 +1,709 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI Driving Assistant case study by HongRong — Android, GPT, Google Maps, live traffic, parking data, and voice interaction.">
-  <meta name="theme-color" content="#ebe7da">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="AI Driving Assistant — HongRong Case Study">
-  <meta property="og:description" content="How a five-person capstone connected TDX traffic data, voice AI, Android, and a six-level ResNet-18 model — including what failed and what I learned.">
-  <meta property="og:url" content="https://lawrencetwt.github.io/hongrong-website/ai-driving-assistant.html">
-  <link rel="canonical" href="https://lawrencetwt.github.io/hongrong-website/ai-driving-assistant.html">
-  <title>AI Driving Assistant — HongRong</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/gensen-rounded-tw-regular.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css"><script src="js/main.js" defer></script>
-</head>
-<body data-page="work" class="case-deep ai-case-page">
-  <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
-  <div class="loader" aria-hidden="true"><div class="loader-mark">HongRong<sup>®</sup></div><div class="loader-line"><span></span></div></div>
-  <header class="site-header"><a class="brand transition-link" href="index.html#top">HongRong<sup>®</sup></a><div class="availability"><span class="status-dot"></span><span data-i18n="availability">Available — Taichung</span><span class="availability-separator">/</span><span data-i18n="localTime">Local Time:</span><time class="local-time">--:--:--</time></div><nav class="desktop-nav"><a class="transition-link" href="about.html" data-nav-page="about" data-i18n="navAbout">About</a><a class="transition-link" href="work.html" data-nav-page="work" data-i18n="navWork">Work</a><a class="transition-link" href="contact.html" data-nav-page="contact" data-i18n="navContact">Contact</a></nav><div class="header-actions"><button class="language-toggle" type="button">中文</button><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button></div></header>
-  <div class="menu-panel" aria-hidden="true"><nav><span class="menu-index">/ 01 /</span><a class="transition-link" href="index.html#top" data-i18n="navHome">Home</a><span class="menu-index">/ 02 /</span><a class="transition-link" href="about.html" data-i18n="navAbout">About</a><span class="menu-index">/ 03 /</span><a class="transition-link" href="work.html" data-i18n="navWork">Work</a><span class="menu-index">/ 04 /</span><a class="transition-link" href="contact.html" data-i18n="navContact">Contact</a></nav><div class="menu-panel-footer"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div></div>
 
-  <main id="main-content">
-    <section class="case-hero section-pad">
-      <div class="case-breadcrumb reveal"><a class="transition-link" href="index.html#ai-project" data-i18n="backToStory">← Back to the story</a><span>CASE 01 / CAPSTONE</span></div>
-      <div class="case-title-grid"><div><p class="eyebrow reveal" data-i18n="aiCaseLabel">Android application / Capstone</p><h1 class="reveal" data-i18n="aiDriverTitle">AI Driving Assistant</h1></div><p class="case-lede reveal" data-i18n="aiDeepLede">A five-person project that began with a daily problem: traffic information was useful, but fragmented across too many tools.</p></div>
-      <div class="case-meta reveal">
-        <div><span data-i18n="roleLabel">Role</span><strong>TEAM LEAD / API / RESNET / ANDROID</strong></div>
-        <div><span data-i18n="teamLabel">Team</span><strong>5 PEOPLE</strong></div>
-        <div><span data-i18n="systemLabel">System</span><strong>GPT / TDX / MAPS / STT / TTS</strong></div>
-      </div>
-      <div class="case-cover ai-cover reveal">
-        <div class="phone-stack phone-stack-five">
-          <figure><img src="assets/images/ai-screen-login.webp" width="520" height="1080" alt="AI Driving Assistant login screen"><figcaption>01 / LOGIN</figcaption></figure>
-          <figure><img src="assets/images/ai-screen-parking.webp" width="370" height="796" alt="AI Driving Assistant showing parking spaces remaining"><figcaption>02 / PARKING</figcaption></figure>
-          <figure class="phone-main"><img src="assets/images/ai-screen-navigation.webp" width="525" height="1166" alt="AI Driving Assistant navigation route screen"><figcaption>03 / NAVIGATION</figcaption></figure>
-          <figure><img src="assets/images/ai-screen-traffic.webp" width="470" height="1043" alt="AI Driving Assistant traffic camera and traffic classification screen"><figcaption>04 / TRAFFIC</figcaption></figure>
-          <figure><img src="assets/images/ai-screen-vehicle-location.webp" width="434" height="964" alt="AI Driving Assistant parked vehicle location screen"><figcaption>05 / LOCATION</figcaption></figure>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta
+      content="五人團隊的 AI 行車助手專題：TDX API、Android、ResNet-18 訓練資料與整合經驗"
+      name="description"
+    />
+    <meta content="#eeeadd" name="theme-color" />
+    <meta content="article" property="og:type" />
+    <meta content="AI 行車助手 — HongRong" property="og:title" />
+    <meta
+      content="五人團隊的 AI 行車助手專題：TDX API、Android、ResNet-18 訓練資料與整合經驗"
+      property="og:description"
+    />
+    <meta
+      content="https://lawrencetwt.github.io/hongrong-website/ai-driving-assistant.html"
+      property="og:url"
+    />
+    <link
+      href="https://lawrencetwt.github.io/hongrong-website/ai-driving-assistant.html"
+      rel="canonical"
+    />
+    <title>AI 行車助手 — HongRong</title>
+    <link href="assets/favicon.svg" rel="icon" type="image/svg+xml" />
+    <link
+      as="font"
+      crossorigin=""
+      href="assets/fonts/gensen-rounded-tw-regular.woff"
+      rel="preload"
+      type="font/woff"
+    />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="js/main.js" type="module"></script>
+    <meta
+      content="https://lawrencetwt.github.io/hongrong-website/assets/images/new-zealand-wanaka.webp"
+      property="og:image"
+    />
+    <meta content="zh_TW" property="og:locale" />
+  </head>
+  <body class="case-deep ai-case-page" data-lang="zh" data-page="work">
+    <a class="skip-link" data-i18n="skipContent" href="#main-content"
+      >跳到主要內容</a
+    >
+    <!-- shared:header:start -->
+<header class="site-header" data-site-header>
+  <a
+    class="brand"
+    href="index.html#top"
+    aria-label="HongRong 首頁"
+    data-i18n-aria-label="homeLinkLabel"
+    >HongRong<sup>®</sup></a
+  >
+  <nav
+    class="desktop-nav"
+    aria-label="主要導覽"
+    data-i18n-aria-label="primaryNavLabel"
+  >
+    <a href="about.html" data-nav-page="about" data-i18n="navAbout">關於我</a>
+    <a href="work.html" data-nav-page="work" data-i18n="navWork" aria-current="page">作品</a>
+    <a href="contact.html" data-nav-page="contact" data-i18n="navContact"
+      >聯絡</a
+    >
+  </nav>
+  <div class="header-actions">
+    <button
+      class="language-toggle"
+      type="button"
+      aria-label="Switch to English"
+      lang="en"
+      hidden
+    >
+      EN
+    </button>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="開啟選單"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      hidden
+    >
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="menu-panel" id="site-menu" aria-hidden="true" inert>
+  <nav aria-label="行動版導覽" data-i18n-aria-label="mobileNavLabel">
+    <span class="menu-index">01</span
+    ><a href="index.html#top" data-i18n="navHome">首頁</a>
+    <span class="menu-index">02</span
+    ><a href="about.html" data-nav-page="about" data-i18n="navAbout">關於我</a>
+    <span class="menu-index">03</span
+    ><a href="work.html" data-nav-page="work" data-i18n="navWork" aria-current="page">作品</a>
+    <span class="menu-index">04</span
+    ><a href="contact.html" data-nav-page="contact" data-i18n="navContact"
+      >聯絡</a
+    >
+  </nav>
+  <div class="menu-panel-footer">
+    <a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer"
+      >GitHub ↗</a
+    ><a href="mailto:zxc1031777@gmail.com">Email ↗</a>
+  </div>
+</div>
+<noscript
+  ><nav class="no-js-nav" aria-label="頁面導覽">
+    <a href="about.html">關於我</a><a href="work.html">作品</a
+    ><a href="contact.html">聯絡</a>
+  </nav></noscript
+>
+<!-- shared:header:end -->
+    <main id="main-content" tabindex="-1">
+      <section class="case-hero section-pad">
+        <div class="case-breadcrumb reveal">
+          <a data-i18n="backToStory" href="work.html">← 回到作品</a
+          ><span data-i18n="aiBreadcrumbLabel">案例 01 / 大學專題</span>
         </div>
-        <span class="cover-caption">LOGIN → PARKING → NAVIGATION → LIVE TRAFFIC → VEHICLE LOCATION</span>
-      </div>
-    </section>
-
-    <section class="case-narrative section-pad">
-      <div class="case-section-label reveal"><span>01</span><span data-i18n="projectOriginLabel">The origin</span></div>
-      <div class="case-two-col"><h2 class="reveal" data-i18n="aiOriginTitle">The idea did not begin with AI. It began with the road to class.</h2><div class="body-copy reveal"><p data-i18n="aiOriginP1">I dealt with traffic every day and often saw stories about road accidents in Taiwan. I started asking whether the information drivers already needed could be gathered into one clearer experience.</p><p data-i18n="aiOriginP2">The goal was not to add another dashboard. It was to reduce switching between navigation, traffic, parking, and search while keeping the driver’s task in context.</p></div></div>
-    </section>
-
-    <section class="case-role-story section-pad">
-      <div class="case-section-label reveal"><span>02</span><span data-i18n="myRoleLabel">My role</span></div>
-      <div class="role-ledger">
-        <p class="role-ledger-intro reveal" data-i18n="aiRoleIntro">I led the team and worked across the seams where data, models, Android, and people had to agree.</p>
-        <ol>
-          <li class="reveal"><span>01</span><strong>TEAM LEAD</strong><small data-i18n="aiRoleTeam">Planning, task ownership, progress, and coordination across five people.</small></li>
-          <li class="reveal"><span>02</span><strong>API / TDX</strong><small data-i18n="aiRoleApi">TDX open-data research, Postman token tests, endpoints, and response mapping.</small></li>
-          <li class="reveal"><span>03</span><strong>DATASET</strong><small data-i18n="aiRoleData">Collecting, cleaning, and preparing traffic-camera images for six classes.</small></li>
-          <li class="reveal"><span>04</span><strong>RESNET-18</strong><small data-i18n="aiRoleModel">Training, evaluation, class-level analysis, and conversion troubleshooting.</small></li>
-          <li class="reveal"><span>05</span><strong>ANDROID</strong><small data-i18n="aiRoleAndroid">Connecting the model and data services to the mobile experience.</small></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="case-system-story section-pad">
-      <div class="case-section-label reveal"><span>03</span><span data-i18n="systemFlowLabel">VOICE REQUEST → PARKING DATA</span></div>
-      <div class="case-system-heading reveal"><h2 data-i18n="aiSystemTitle">From a spoken request to usable parking data.</h2><p data-i18n="aiSystemBody">Speech captures the request. GPT understands it. TDX returns available spaces.</p></div>
-      <ol class="case-system-flow reveal" aria-label="AI Driving Assistant system components">
-        <li><span>01</span><strong>NAVIGATION</strong><small>Google Maps</small></li>
-        <li><span>02</span><strong>PARKING</strong><small>TDX open data</small></li>
-        <li><span>03</span><strong>TRAFFIC</strong><small>Camera + road data</small></li>
-        <li><span>04</span><strong>AI</strong><small>GPT / STT / TTS</small></li>
-        <li><span>05</span><strong>MODEL</strong><small>ResNet-18 / 6 levels</small></li>
-      </ol>
-      <div class="prototype-lab case-prototype-lab reveal">
-        <div class="prototype-copy"><p class="story-index">INTERACTIVE PROTOTYPE — SIMULATED</p><h3 data-i18n="prototypeTitle">Try asking:<br>“Find parking near me”</h3><p data-i18n="prototypeBody">Watch the request move through speech recognition, GPT, and TDX. No live API is connected.</p><button class="button button-light prototype-trigger" type="button" data-prototype-start><span data-i18n="prototypeButton">Run the simulated request</span><span aria-hidden="true">→</span></button></div>
-        <ol class="prototype-flow" aria-label="Simulated parking request flow">
-          <li><span>01</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg></i><strong>VOICE</strong><small data-i18n="prototypeVoice">Driver request</small></li>
-          <li><span>02</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9v6M8 6v12M12 3v18M16 7v10M20 10v4"/></svg></i><strong>STT</strong><small data-i18n="prototypeStt">Speech to text</small></li>
-          <li><span>03</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 1.4 4.2L18 9l-4.6 1.8L12 15l-1.4-4.2L6 9l4.6-1.8L12 3Z"/><path d="m18.5 14 .8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"/></svg></i><strong>GPT</strong><small data-i18n="prototypeGpt">Understand intent</small></li>
-          <li><span>04</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></i><strong>TDX API</strong><small data-i18n="prototypeTdx">Open data</small></li>
-          <li><span>05</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M10 17V7h3.2a3.2 3.2 0 0 1 0 6H10"/></svg></i><strong>PARKING</strong><small data-i18n="prototypeData">Available spaces</small></li>
-          <li><span>06</span><i class="prototype-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v11H9l-4 4V5Z"/><path d="m9 11 2 2 4-4"/></svg></i><strong>RESPONSE</strong><small data-i18n="prototypeResponse">Speak result</small></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="case-model-deep section-pad">
-      <div class="case-section-label reveal"><span>04</span><span>MODEL / REALITY</span></div>
-      <div class="model-deep-heading reveal"><p class="eyebrow">RESNET-18 / SIX TRAFFIC LEVELS</p><h2 data-i18n="modelRealityTitle">The evidence mattered more than<br><em>one accuracy number.</em></h2></div>
-
-      <div class="model-proof-grid">
-        <section class="model-proof model-proof-source reveal" aria-label="Six real traffic-level samples">
-          <div class="model-level-grid">
-            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-1.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 1 free-flow road-camera sample"><figcaption><b>L1</b><span data-i18n="modelLevel1">Free flow</span></figcaption></figure>
-            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-2.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 2 smooth-traffic road-camera sample"><figcaption><b>L2</b><span data-i18n="modelLevel2">Smooth</span></figcaption></figure>
-            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-3.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 3 normal-traffic road-camera sample"><figcaption><b>L3</b><span data-i18n="modelLevel3">Normal</span></figcaption></figure>
-            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-4.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 4 congested road-camera sample"><figcaption><b>L4</b><span data-i18n="modelLevel4">Congested</span></figcaption></figure>
-            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-5.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 5 severely congested road-camera sample"><figcaption><b>L5</b><span data-i18n="modelLevel5">Heavy</span></figcaption></figure>
-            <figure class="model-level-card"><img src="assets/images/ai-traffic-level-6.webp" width="640" height="640" loading="lazy" decoding="async" alt="Level 6 gridlock road-camera sample"><figcaption><b>L6</b><span data-i18n="modelLevel6">Gridlock</span></figcaption></figure>
+        <div class="case-title-grid">
+          <div>
+            <p class="eyebrow reveal" data-i18n="aiCaseLabel">
+              Android 應用程式 / 畢業專題
+            </p>
+            <h1 class="reveal" data-i18n="aiDriverTitle">AI 行車助手</h1>
           </div>
-          <div class="model-proof-caption"><span class="proof-label"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="6" height="6"/><rect x="12" y="2" width="6" height="6"/><rect x="2" y="12" width="6" height="6"/><rect x="12" y="12" width="6" height="6"/></svg>01 / TRAINING DATA</span><p data-i18n="modelSourceCaption">Real road-camera samples.</p></div>
-        </section>
-        <figure class="model-proof model-proof-prediction reveal">
-          <div class="model-proof-image"><img src="assets/images/ai-prediction-samples.webp" width="1104" height="1095" loading="lazy" decoding="async" alt="Validation samples comparing true and predicted traffic levels"></div>
-          <figcaption><span class="proof-label"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="m6 10 2.5 2.5L14.5 7"/></svg>02 / VALIDATION</span><p data-i18n="modelPredictionCaption">Adjacent levels were confused.</p></figcaption>
-        </figure>
-        <figure class="model-proof model-proof-curve reveal">
-          <div class="model-proof-image"><img src="assets/images/ai-precision-recall.webp" width="1372" height="1098" loading="lazy" decoding="async" alt="Original Precision-Recall curve for the six traffic classes"></div>
-          <figcaption><span class="proof-label"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 17V3M2 17h16M5 13l4-4 3 2 5-6"/></svg>03 / CLASS AP</span><p data-i18n="modelCurveCaption">L4 / L5 were weakest.</p></figcaption>
-        </figure>
-      </div>
+          <p class="case-lede reveal" data-i18n="aiDeepLede">
+            每天上下課塞車，讓我想把分散的停車、導航與路況資訊放在同一個 App
+          </p>
+        </div>
+        <div class="case-meta reveal">
+          <div>
+            <span data-i18n="roleLabel">角色</span
+            ><strong data-i18n="aiResponsibilities"
+              >團隊帶領 / API / 模型 / Android</strong
+            >
+          </div>
+          <div>
+            <span data-i18n="teamLabel">團隊</span
+            ><strong data-i18n="fivePeople">5 人團隊</strong>
+          </div>
+          <div>
+            <span data-i18n="systemLabel">系統</span
+            ><strong>GPT / TDX / MAPS / STT / TTS</strong>
+          </div>
+        </div>
+        <div class="case-cover ai-cover reveal">
+          <div class="phone-stack phone-stack-five">
+            <figure>
+              <img
+                alt="AI 行車助手的登入畫面"
+                data-i18n-alt="imageAiScreenLogin"
+                height="1080"
+                src="assets/images/ai-screen-login.webp"
+                width="520"
+              />
+              <figcaption data-i18n="aiState0">01 / 登入</figcaption>
+            </figure>
+            <figure>
+              <img
+                alt="AI 行車助手查詢文山區剩餘停車位的畫面"
+                data-i18n-alt="imageAiScreenParking"
+                height="796"
+                src="assets/images/ai-screen-parking.webp"
+                width="370"
+              />
+              <figcaption data-i18n="aiState1">02 / 剩餘車位</figcaption>
+            </figure>
+            <figure class="phone-main">
+              <img
+                alt="AI 行車助手接上 Google Maps 的導航路線"
+                data-i18n-alt="imageAiScreenNavigation"
+                height="1166"
+                src="assets/images/ai-screen-navigation.webp"
+                width="525"
+              />
+              <figcaption data-i18n="aiState2">03 / 導航</figcaption>
+            </figure>
+            <figure>
+              <img
+                alt="林口路況攝影機影像與車流分類結果"
+                data-i18n-alt="imageAiScreenTraffic"
+                height="1043"
+                src="assets/images/ai-screen-traffic.webp"
+                width="470"
+              />
+              <figcaption data-i18n="aiState3">04 / 即時路況</figcaption>
+            </figure>
+            <figure>
+              <img
+                alt="AI 行車助手記錄車輛停放位置的畫面"
+                data-i18n-alt="imageAiScreenVehicleLocation"
+                height="964"
+                src="assets/images/ai-screen-vehicle-location.webp"
+                width="434"
+              />
+              <figcaption data-i18n="aiState4">05 / 車輛位置</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+      <section class="case-narrative section-pad">
+        <div class="case-section-label reveal">
+          <span>01</span><span data-i18n="projectOriginLabel">專案起點</span>
+        </div>
+        <div class="case-two-col">
+          <h2 class="reveal" data-i18n="aiOriginTitle">
+            出發點，是每天上下課的路
+          </h2>
+          <div class="body-copy reveal">
+            <p data-i18n="aiOriginP1">
+              每天塞車，加上常看到台灣交通事故的消息，我想試著整合駕駛需要的資訊
+            </p>
+            <p data-i18n="aiOriginP2">
+              少切換幾個工具，就能多一點時間專注在路上
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="case-role-story section-pad">
+        <div class="case-section-label reveal">
+          <span>02</span><span data-i18n="myRoleLabel">我的角色</span>
+        </div>
+        <h2 class="case-role-heading" data-i18n="myResponsibilitiesTitle">
+          我在團隊裡做什麼
+        </h2>
+        <div class="role-ledger">
+          <p class="role-ledger-intro reveal" data-i18n="aiRoleIntro">
+            我帶領五人團隊，負責 API
+            串接、資料準備與模型整合，也協調每個人的工作
+          </p>
+          <ol>
+            <li class="reveal">
+              <span>01</span
+              ><strong data-i18n="teamLeadShort">團隊負責人</strong
+              ><small data-i18n="aiRoleTeam"
+                >規劃、任務負責、進度追蹤，以及五人團隊的協調</small
+              >
+            </li>
+            <li class="reveal">
+              <span>02</span><strong>API / TDX</strong
+              ><small data-i18n="aiRoleApi"
+                >研究 TDX 開放資料、用 Postman 測試 token 與
+                API，並整理回傳資料</small
+              >
+            </li>
+            <li class="reveal">
+              <span>03</span><strong data-i18n="datasetLabel">訓練資料</strong
+              ><small data-i18n="aiRoleData"
+                >蒐集、清理並準備六個交通等級的路況攝影機圖片</small
+              >
+            </li>
+            <li class="reveal">
+              <span>04</span><strong>RESNET-18</strong
+              ><small data-i18n="aiRoleModel"
+                >模型訓練、評估、類別分析與轉換問題排查</small
+              >
+            </li>
+            <li class="reveal">
+              <span>05</span><strong>ANDROID</strong
+              ><small data-i18n="aiRoleAndroid"
+                >把模型與資料服務連接到 Android 的使用體驗</small
+              >
+            </li>
+          </ol>
+        </div>
+      </section>
+      <section class="case-system-story section-pad">
+        <div class="case-section-label reveal">
+          <span>03</span
+          ><span data-i18n="systemFlowLabel">語音請求 → 停車資料</span>
+        </div>
+        <div class="case-system-heading reveal">
+          <h2 data-i18n="aiSystemTitle">
+            停車查詢，<br /><em>背後怎麼運作</em>
+          </h2>
+          <p data-i18n="aiSystemBody">
+            語音辨識接收需求，GPT 理解意圖，再向 TDX 查詢資料
+          </p>
+        </div>
+        <ol
+          aria-label="行車助手的系統功能"
+          class="case-system-flow reveal"
+          data-i18n-aria-label="systemComponentsAria"
+        >
+          <li>
+            <span>01</span><strong data-i18n="navigationLabel">導航</strong
+            ><small>Google Maps</small>
+          </li>
+          <li>
+            <span>02</span><strong data-i18n="parkingLabel">停車資訊</strong
+            ><small data-i18n="tdxDataLabel">TDX 開放資料</small>
+          </li>
+          <li>
+            <span>03</span><strong data-i18n="trafficLabel">即時路況</strong
+            ><small data-i18n="cameraRoadLabel">攝影機影像與道路資料</small>
+          </li>
+          <li>
+            <span>04</span><strong>AI</strong><small>GPT / STT / TTS</small>
+          </li>
+          <li>
+            <span>05</span
+            ><strong data-i18n="modelFunctionLabel">車流模型</strong
+            ><small data-i18n="modelSixLevels">ResNet-18 / 六級車流</small>
+          </li>
+        </ol>
+        <div class="prototype-lab case-prototype-lab reveal">
+          <div class="prototype-copy">
+            <p class="story-index" data-i18n="prototypeLabel">
+              互動流程示意 / 模擬
+            </p>
+            <h3 data-i18n="prototypeTitle">
+              試著問：<br />「附近哪裡能停車？」
+            </h3>
+            <p data-i18n="prototypeBody">
+              點擊播放資料流示意，沒有連接即時 API
+            </p>
+            <button
+              class="button button-light prototype-trigger"
+              data-prototype-start=""
+              type="button"
+            >
+              <span data-i18n="prototypeButton">播放查詢流程</span
+              ><span aria-hidden="true">→</span>
+            </button>
+            <p
+              aria-live="polite"
+              class="prototype-status"
+              data-prototype-status=""
+              role="status"
+            ></p>
+          </div>
+          <ol
+            aria-label="模擬停車查詢的資料流"
+            class="prototype-flow"
+            data-i18n-aria-label="prototypeFlowAria"
+          >
+            <li data-prototype-node="">
+              <span>01</span
+              ><i aria-hidden="true" class="prototype-icon"
+                ><svg viewbox="0 0 24 24">
+                  <rect height="11" rx="3" width="6" x="9" y="3"></rect>
+                  <path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"></path></svg></i
+              ><strong data-i18n="voiceLabel">語音</strong
+              ><small data-i18n="prototypeVoice">駕駛提出需求</small>
+            </li>
+            <li data-prototype-node="">
+              <span>02</span
+              ><i aria-hidden="true" class="prototype-icon"
+                ><svg viewbox="0 0 24 24">
+                  <path
+                    d="M4 9v6M8 6v12M12 3v18M16 7v10M20 10v4"
+                  ></path></svg></i
+              ><strong>STT</strong
+              ><small data-i18n="prototypeStt">語音轉成文字</small>
+            </li>
+            <li data-prototype-node="">
+              <span>03</span
+              ><i aria-hidden="true" class="prototype-icon"
+                ><svg viewbox="0 0 24 24">
+                  <path
+                    d="m12 3 1.4 4.2L18 9l-4.6 1.8L12 15l-1.4-4.2L6 9l4.6-1.8L12 3Z"
+                  ></path>
+                  <path
+                    d="m18.5 14 .8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"
+                  ></path></svg></i
+              ><strong>GPT</strong
+              ><small data-i18n="prototypeGpt">理解使用意圖</small>
+            </li>
+            <li data-prototype-node="">
+              <span>04</span
+              ><i aria-hidden="true" class="prototype-icon"
+                ><svg viewbox="0 0 24 24">
+                  <ellipse cx="12" cy="5" rx="7" ry="3"></ellipse>
+                  <path
+                    d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"
+                  ></path></svg></i
+              ><strong>TDX API</strong
+              ><small data-i18n="prototypeTdx">開放資料</small>
+            </li>
+            <li data-prototype-node="">
+              <span>05</span
+              ><i aria-hidden="true" class="prototype-icon"
+                ><svg viewbox="0 0 24 24">
+                  <rect height="18" rx="3" width="16" x="4" y="3"></rect>
+                  <path d="M10 17V7h3.2a3.2 3.2 0 0 1 0 6H10"></path></svg></i
+              ><strong data-i18n="parkingLabel">停車資訊</strong
+              ><small data-i18n="prototypeData">剩餘車位</small>
+            </li>
+            <li data-prototype-node="">
+              <span>06</span
+              ><i aria-hidden="true" class="prototype-icon"
+                ><svg viewbox="0 0 24 24">
+                  <path d="M5 5h14v11H9l-4 4V5Z"></path>
+                  <path d="m9 11 2 2 4-4"></path></svg></i
+              ><strong data-i18n="responseLabel">回覆</strong
+              ><small data-i18n="prototypeResponse">語音回覆</small>
+            </li>
+          </ol>
+        </div>
+      </section>
+      <section class="case-model-deep section-pad">
+        <div class="case-section-label reveal">
+          <span>04</span
+          ><span data-i18n="modelEvidenceLabel">訓練資料與結果</span>
+        </div>
+        <div class="model-deep-heading reveal">
+          <p class="eyebrow" data-i18n="sixLevelsLabel">
+            ResNet-18 / 六級車流分類
+          </p>
+          <h2 data-i18n="modelRealityTitle">
+            用真實資料<br /><em>看模型表現</em>
+          </h2>
+        </div>
+        <div class="model-proof-grid">
+          <section
+            aria-label="六個車流等級的原始資料"
+            class="model-proof model-proof-source reveal"
+            data-i18n-aria-label="trafficSamplesAria"
+          >
+            <div class="model-level-grid">
+              <figure class="model-level-card">
+                <img
+                  alt="第 1 級車流的原始道路攝影機樣本"
+                  data-i18n-alt="trafficSampleAlt1"
+                  decoding="async"
+                  height="640"
+                  loading="lazy"
+                  src="assets/images/ai-traffic-level-1.webp"
+                  width="640"
+                />
+                <figcaption>
+                  <b data-i18n="levelNumber1">第 1 級</b
+                  ><span data-i18n="modelLevel1">非常通暢</span>
+                </figcaption>
+              </figure>
+              <figure class="model-level-card">
+                <img
+                  alt="第 2 級車流的原始道路攝影機樣本"
+                  data-i18n-alt="trafficSampleAlt2"
+                  decoding="async"
+                  height="640"
+                  loading="lazy"
+                  src="assets/images/ai-traffic-level-2.webp"
+                  width="640"
+                />
+                <figcaption>
+                  <b data-i18n="levelNumber2">第 2 級</b
+                  ><span data-i18n="modelLevel2">順暢</span>
+                </figcaption>
+              </figure>
+              <figure class="model-level-card">
+                <img
+                  alt="第 3 級車流的原始道路攝影機樣本"
+                  data-i18n-alt="trafficSampleAlt3"
+                  decoding="async"
+                  height="640"
+                  loading="lazy"
+                  src="assets/images/ai-traffic-level-3.webp"
+                  width="640"
+                />
+                <figcaption>
+                  <b data-i18n="levelNumber3">第 3 級</b
+                  ><span data-i18n="modelLevel3">一般</span>
+                </figcaption>
+              </figure>
+              <figure class="model-level-card">
+                <img
+                  alt="第 4 級車流的原始道路攝影機樣本"
+                  data-i18n-alt="trafficSampleAlt4"
+                  decoding="async"
+                  height="640"
+                  loading="lazy"
+                  src="assets/images/ai-traffic-level-4.webp"
+                  width="640"
+                />
+                <figcaption>
+                  <b data-i18n="levelNumber4">第 4 級</b
+                  ><span data-i18n="modelLevel4">擁擠</span>
+                </figcaption>
+              </figure>
+              <figure class="model-level-card">
+                <img
+                  alt="第 5 級車流的原始道路攝影機樣本"
+                  data-i18n-alt="trafficSampleAlt5"
+                  decoding="async"
+                  height="640"
+                  loading="lazy"
+                  src="assets/images/ai-traffic-level-5.webp"
+                  width="640"
+                />
+                <figcaption>
+                  <b data-i18n="levelNumber5">第 5 級</b
+                  ><span data-i18n="modelLevel5">嚴重擁擠</span>
+                </figcaption>
+              </figure>
+              <figure class="model-level-card">
+                <img
+                  alt="第 6 級車流的原始道路攝影機樣本"
+                  data-i18n-alt="trafficSampleAlt6"
+                  decoding="async"
+                  height="640"
+                  loading="lazy"
+                  src="assets/images/ai-traffic-level-6.webp"
+                  width="640"
+                />
+                <figcaption>
+                  <b data-i18n="levelNumber6">第 6 級</b
+                  ><span data-i18n="modelLevel6">堵塞</span>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="model-proof-caption">
+              <span class="proof-label" data-i18n="trainingDataCaption"
+                ><svg aria-hidden="true" viewbox="0 0 20 20">
+                  <rect height="6" width="6" x="2" y="2"></rect>
+                  <rect height="6" width="6" x="12" y="2"></rect>
+                  <rect height="6" width="6" x="2" y="12"></rect>
+                  <rect height="6" width="6" x="12" y="12"></rect></svg
+                >01 / 訓練資料</span
+              >
+              <p data-i18n="modelSourceCaption">真實道路攝影機樣本</p>
+            </div>
+          </section>
+          <figure class="model-proof model-proof-prediction reveal">
+            <div class="model-proof-image">
+              <img
+                alt="原始驗證樣本，比較真實車流等級與模型預測"
+                data-i18n-alt="imageAiPredictionSamples"
+                decoding="async"
+                height="1095"
+                loading="lazy"
+                src="assets/images/ai-prediction-samples.webp"
+                width="1104"
+              />
+            </div>
+            <figcaption>
+              <span class="proof-label" data-i18n="validationCaption"
+                ><svg aria-hidden="true" viewbox="0 0 20 20">
+                  <circle cx="10" cy="10" r="8"></circle>
+                  <path d="m6 10 2.5 2.5L14.5 7"></path></svg
+                >02 / 驗證結果</span
+              >
+              <p data-i18n="modelPredictionCaption">相鄰車流等級最容易混淆</p>
+            </figcaption>
+          </figure>
+          <figure class="model-proof model-proof-curve reveal">
+            <div class="model-proof-image">
+              <img
+                alt="專題原始的六個車流類別 Precision-Recall 曲線"
+                data-i18n-alt="imageAiPrecisionRecall"
+                decoding="async"
+                height="1098"
+                loading="lazy"
+                src="assets/images/ai-precision-recall.webp"
+                width="1372"
+              />
+            </div>
+            <figcaption>
+              <span class="proof-label" data-i18n="classApCaption"
+                ><svg aria-hidden="true" viewbox="0 0 20 20">
+                  <path d="M2 17V3M2 17h16M5 13l4-4 3 2 5-6"></path></svg
+                >03 / 各級 AP</span
+              >
+              <p data-i18n="modelCurveCaption">L4／L5 表現最弱</p>
+            </figcaption>
+          </figure>
+        </div>
+        <dl
+          aria-label="各車流類別的平均精確率"
+          class="model-ap-rail reveal"
+          data-i18n-aria-label="averagePrecisionAria"
+        >
+          <div>
+            <dt>L1</dt>
+            <dd>.81</dd>
+          </div>
+          <div>
+            <dt>L2</dt>
+            <dd>.65</dd>
+          </div>
+          <div>
+            <dt>L3</dt>
+            <dd>.76</dd>
+          </div>
+          <div class="is-weak">
+            <dt>L4</dt>
+            <dd>.38</dd>
+          </div>
+          <div class="is-weak">
+            <dt>L5</dt>
+            <dd>.40</dd>
+          </div>
+          <div>
+            <dt>L6</dt>
+            <dd>.78</dd>
+          </div>
+        </dl>
+        <p class="model-source-note reveal" data-i18n="modelSourceNote">
+          專題原始研究素材 · ResNet-18 · 80% 訓練／20% 驗證
+        </p>
+        <div class="model-findings">
+          <article class="reveal">
+            <span data-i18n="datasetFindingLabel">01 / 資料集</span
+            ><strong data-i18n="datasetSplit">六級車流 / 80:20</strong>
+            <p data-i18n="modelFindingData">
+              資料結構已分成六級，但仍需要更多天候、距離與攝影機差異
+            </p>
+          </article>
+          <article class="reveal">
+            <span data-i18n="classFindingLabel">02 / 分類表現</span
+            ><strong>L4 .38 / L5 .40</strong>
+            <p data-i18n="modelFindingClass">
+              這兩個相鄰交通狀態，是模型最難區分的類別
+            </p>
+          </article>
+          <article class="reveal">
+            <span data-i18n="deploymentFindingLabel">03 / 模型部署</span
+            ><strong>.PTH → ONNX → TFLITE</strong>
+            <p data-i18n="modelFindingDeploy">
+              Normalization 必須從 PyTorch 到 Android 全程一致
+            </p>
+          </article>
+        </div>
+        <div class="model-action-rail reveal">
+          <p class="eyebrow" data-i18n="whatWeChanged">我們調整了什麼</p>
+          <ul>
+            <li data-i18n="modelActionNormalize">統一 normalization</li>
+            <li data-i18n="modelActionData">重新整理資料集</li>
+            <li data-i18n="modelActionMetrics">逐類別分析 Precision／Recall</li>
+          </ul>
+        </div>
+      </section>
+      <section class="case-rebuild-deep section-pad">
+        <div class="case-section-label reveal">
+          <span>05</span><span data-i18n="rebuildLabel">下一次會怎麼做</span>
+        </div>
+        <div class="rebuild-deep-grid">
+          <h2 class="reveal" data-i18n="rebuildQuestion">
+            如果重做，<br /><em>我會先改這些</em>
+          </h2>
+          <ol>
+            <li class="reveal">
+              <span>01</span
+              ><strong data-i18n="rebuildDataset">更大且更平衡的資料集</strong>
+            </li>
+            <li class="reveal">
+              <span>02</span
+              ><strong data-i18n="rebuildUx">更清楚的交通資訊體驗</strong>
+            </li>
+            <li class="reveal">
+              <span>03</span
+              ><strong data-i18n="rebuildAccident">事故通知</strong>
+            </li>
+            <li class="reveal">
+              <span>04</span><strong data-i18n="rebuildCamera">測速資訊</strong>
+            </li>
+            <li class="reveal">
+              <span>05</span
+              ><strong data-i18n="rebuildAi"
+                >更流暢、更理解情境的 AI 互動</strong
+              >
+            </li>
+          </ol>
+        </div>
+      </section>
+      <section class="next-case section-pad">
+        <p class="eyebrow reveal" data-i18n="nextCase">下一個案例</p>
+        <a class="reveal" href="jinhong-foods.html"
+          ><span data-i18n="jinhongTitle">金虹食品</span><span>02 →</span></a
+        >
+      </section>
+    </main>
+    <!-- shared:footer:start -->
+<footer class="site-footer">
+  <div class="footer-inner section-pad">
+    <div class="footer-top">
+      <a class="brand" href="index.html#top">HongRong<sup>®</sup></a>
+      <p data-i18n="footerLine">AI 應用與網頁開發 · 台中，台灣</p>
+      <a class="footer-email" href="mailto:zxc1031777@gmail.com"
+        >zxc1031777@gmail.com ↗</a
+      >
+    </div>
+    <div class="footer-bottom">
+      <span>© <span class="current-year">2026</span> HongRong</span>
+      <nav aria-label="社群連結" data-i18n-aria-label="socialNavLabel">
+        <a
+          href="https://github.com/LawrenceTWT"
+          target="_blank"
+          rel="noreferrer"
+          >GitHub ↗</a
+        ><a
+          href="https://www.instagram.com/lawrence31_/"
+          target="_blank"
+          rel="noreferrer"
+          >Instagram ↗</a
+        >
+      </nav>
+      <button class="back-to-top" type="button" data-i18n="backToTop">
+        回到頁首 ↑
+      </button>
+    </div>
+  </div>
 
-      <dl class="model-ap-rail reveal" aria-label="Average Precision by traffic class">
-        <div><dt>L1</dt><dd>.81</dd></div><div><dt>L2</dt><dd>.65</dd></div><div><dt>L3</dt><dd>.76</dd></div><div class="is-weak"><dt>L4</dt><dd>.38</dd></div><div class="is-weak"><dt>L5</dt><dd>.40</dd></div><div><dt>L6</dt><dd>.78</dd></div>
-      </dl>
-      <p class="model-source-note reveal" data-i18n="modelSourceNote">Original capstone material · ResNet-18 · 80% training / 20% validation</p>
-
-      <div class="model-findings">
-        <article class="reveal"><span>01 / DATASET</span><strong>6 LEVELS / 80:20</strong><p data-i18n="modelFindingData">The structure was clear, but more weather, distance, and camera variation was still needed.</p></article>
-        <article class="reveal"><span>02 / CLASS-LEVEL AP</span><strong>L4 .38 / L5 .40</strong><p data-i18n="modelFindingClass">These adjacent traffic conditions were the hardest for the model to separate.</p></article>
-        <article class="reveal"><span>03 / DEPLOYMENT</span><strong>.PTH → ONNX → TFLITE</strong><p data-i18n="modelFindingDeploy">Normalization had to remain identical from PyTorch to Android.</p></article>
-      </div>
-      <div class="model-action-rail reveal"><p class="eyebrow" data-i18n="whatWeChanged">What we changed</p><ul><li data-i18n="modelActionNormalize">Unified normalization</li><li data-i18n="modelActionData">Reorganized the dataset</li><li data-i18n="modelActionMetrics">Read Precision / Recall by class</li></ul></div>
-    </section>
-
-    <section class="case-rebuild-deep section-pad">
-      <div class="case-section-label reveal"><span>05</span><span>IF I BUILT IT AGAIN</span></div>
-      <div class="rebuild-deep-grid"><h2 class="reveal" data-i18n="rebuildQuestion">What would turn the prototype into a better product?</h2><ol><li class="reveal"><span>01</span><strong data-i18n="rebuildDataset">A larger, better-balanced dataset</strong></li><li class="reveal"><span>02</span><strong data-i18n="rebuildUx">A clearer traffic experience</strong></li><li class="reveal"><span>03</span><strong data-i18n="rebuildAccident">Accident notifications</strong></li><li class="reveal"><span>04</span><strong data-i18n="rebuildCamera">Speed-camera information</strong></li><li class="reveal"><span>05</span><strong data-i18n="rebuildAi">Smoother, more contextual AI interaction</strong></li></ol></div>
-    </section>
-
-    <section class="learning-band section-pad"><p class="eyebrow reveal" data-i18n="keyLearning">Key learning</p><blockquote class="reveal" data-i18n="learningQuote">“A useful AI product is not just the model. It is the full system around it — context, data, interaction, and trust.”</blockquote></section>
-
-    <section class="next-case section-pad"><p class="eyebrow reveal" data-i18n="nextCase">Next case study</p><a class="transition-link reveal" href="jinhong-foods.html"><span data-i18n="jinhongTitle">Jinhong Foods</span><span>02 →</span></a></section>
-  </main>
-  <footer class="site-footer"><div><a class="brand transition-link" href="index.html#top">HongRong<sup>®</sup></a><p data-i18n="footerLine">Web developer based in Taichung, Taiwan.</p></div><div class="footer-links"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div><div class="footer-bottom"><span>© <span class="current-year"></span> HongRong</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div></footer>
-</body>
+</footer>
+<!-- shared:footer:end -->
+  </body>
 </html>

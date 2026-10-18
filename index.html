@@ -1,214 +1,809 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="HongRong designs and builds useful digital products with AI, web technology, APIs, and product thinking.">
-  <meta name="theme-color" content="#191816">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="HongRong — AI × Web × Product">
-  <meta property="og:description" content="Selected work in AI applications, web products, and real-world digital experiences.">
-  <meta property="og:url" content="https://lawrencetwt.github.io/hongrong-website/">
-  <meta property="og:image" content="https://lawrencetwt.github.io/hongrong-website/assets/images/hongrong-canyon.webp">
-  <link rel="canonical" href="https://lawrencetwt.github.io/hongrong-website/">
-  <title>HongRong — AI × Web × Product</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/libre-caslon-condensed-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/gensen-rounded-tw-regular.woff" as="font" type="font/woff" crossorigin>
-  <link rel="preload" href="assets/images/hongrong-portrait.webp" as="image" type="image/webp">
-  <link rel="stylesheet" href="css/styles.css">
-  <script src="assets/vendor/gsap.min.js" defer></script>
-  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="js/main.js" defer></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "HongRong",
-    "url": "https://lawrencetwt.github.io/hongrong-website/",
-    "homeLocation": { "@type": "Place", "name": "Taichung, Taiwan" },
-    "sameAs": [
-      "https://github.com/LawrenceTWT",
-      "https://www.instagram.com/lawrence31_/"
-    ],
-    "knowsAbout": ["Web Development", "AI Applications", "Product Development", "REST APIs", "Android"]
-  }
-  </script>
-</head>
-<body data-page="home" class="story-home fathom-home">
-  <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
 
-  <div class="loader fathom-opening" data-opening aria-hidden="true">
-    <div class="opening-mark" data-opening-mark aria-label="HongRong">
-      <span class="opening-word" aria-hidden="true"><span data-opening-letter>H</span><span data-opening-letter>o</span><span data-opening-letter>n</span><span data-opening-letter>g</span><span class="opening-italic"><span data-opening-letter>R</span><span data-opening-letter>o</span><span data-opening-letter>n</span><span data-opening-letter>g</span><sup data-opening-letter>®</sup></span></span>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta
+      content="洪戎的個人作品集，分享 AI 行車助手、金虹食品網站與實際開發經驗"
+      name="description"
+    />
+    <meta content="#eeeadd" name="theme-color" />
+    <meta content="website" property="og:type" />
+    <meta content="洪戎 HongRong — AI 應用與網頁開發" property="og:title" />
+    <meta
+      content="洪戎的個人作品集，分享 AI 行車助手、金虹食品網站與實際開發經驗"
+      property="og:description"
+    />
+    <meta
+      content="https://lawrencetwt.github.io/hongrong-website/"
+      property="og:url"
+    />
+    <meta
+      content="https://lawrencetwt.github.io/hongrong-website/assets/images/new-zealand-wanaka.webp"
+      property="og:image"
+    />
+    <link
+      href="https://lawrencetwt.github.io/hongrong-website/"
+      rel="canonical"
+    />
+    <title>洪戎 HongRong — AI 應用與網頁開發</title>
+    <link href="assets/favicon.svg" rel="icon" type="image/svg+xml" />
+    <link
+      as="font"
+      crossorigin=""
+      href="assets/fonts/libre-caslon-condensed-regular.woff2"
+      rel="preload"
+      type="font/woff2"
+    />
+    <link
+      as="font"
+      crossorigin=""
+      href="assets/fonts/gensen-rounded-tw-regular.woff"
+      rel="preload"
+      type="font/woff"
+    />
+    <link
+      as="image"
+      href="assets/images/hongrong-formal.webp"
+      rel="preload"
+      type="image/webp"
+    />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script defer="" src="assets/vendor/gsap.min.js"></script>
+    <script defer="" src="assets/vendor/ScrollTrigger.min.js"></script>
+    <script src="js/main.js" type="module"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "HongRong",
+        "url": "https://lawrencetwt.github.io/hongrong-website/",
+        "homeLocation": { "@type": "Place", "name": "Taichung, Taiwan" },
+        "sameAs": [
+          "https://github.com/LawrenceTWT",
+          "https://www.instagram.com/lawrence31_/"
+        ],
+        "knowsAbout": [
+          "Web Development",
+          "AI Applications",
+          "Product Development",
+          "REST APIs",
+          "Android"
+        ]
+      }
+    </script>
+    <meta content="zh_TW" property="og:locale" />
+  </head>
+  <body class="story-home fathom-home" data-lang="zh" data-page="home">
+    <a class="skip-link" data-i18n="skipContent" href="#main-content"
+      >跳到主要內容</a
+    >
+    <div aria-hidden="true" class="loader fathom-opening" data-opening="">
+      <div aria-label="HongRong" class="opening-mark" data-opening-mark="">
+        <span aria-hidden="true" class="opening-word"
+          ><span data-opening-letter="">H</span
+          ><span data-opening-letter="">o</span
+          ><span data-opening-letter="">n</span
+          ><span data-opening-letter="">g</span
+          ><span class="opening-italic"
+            ><span data-opening-letter="">R</span
+            ><span data-opening-letter="">o</span
+            ><span data-opening-letter="">n</span
+            ><span data-opening-letter="">g</span
+            ><sup data-opening-letter="">®</sup></span
+          ></span
+        >
+      </div>
     </div>
+    <!-- shared:header:start -->
+<header class="site-header" data-site-header>
+  <a
+    class="brand"
+    href="index.html#top"
+    aria-label="HongRong 首頁"
+    data-i18n-aria-label="homeLinkLabel"
+    >HongRong<sup>®</sup></a
+  >
+  <nav
+    class="desktop-nav"
+    aria-label="主要導覽"
+    data-i18n-aria-label="primaryNavLabel"
+  >
+    <a href="about.html" data-nav-page="about" data-i18n="navAbout">關於我</a>
+    <a href="work.html" data-nav-page="work" data-i18n="navWork">作品</a>
+    <a href="contact.html" data-nav-page="contact" data-i18n="navContact"
+      >聯絡</a
+    >
+  </nav>
+  <div class="header-actions">
+    <button
+      class="language-toggle"
+      type="button"
+      aria-label="Switch to English"
+      lang="en"
+      hidden
+    >
+      EN
+    </button>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="開啟選單"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      hidden
+    >
+      <span></span><span></span>
+    </button>
   </div>
-
-  <header class="site-header story-header" data-site-header>
-    <a class="brand" href="#top" aria-label="HongRong home">HongRong<sup>®</sup></a>
-    <nav class="desktop-nav story-nav" aria-label="Primary navigation">
-      <a href="#about" data-scroll-nav="about" data-i18n="navAbout">About</a>
-      <a href="#work" data-scroll-nav="work" data-i18n="navWork">Work</a>
-      <a href="#contact" data-scroll-nav="contact" data-i18n="navContact">Contact</a>
-    </nav>
-    <div class="header-actions">
-      <button class="language-toggle" type="button" aria-label="Switch language">中文</button>
-      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-    </div>
-  </header>
-
-  <div class="menu-panel story-menu" aria-hidden="true">
-    <nav aria-label="Mobile navigation">
-      <span class="menu-index">/ 01 /</span><a href="#about" data-scroll-nav="about" data-i18n="navAbout">About</a>
-      <span class="menu-index">/ 02 /</span><a href="#work" data-scroll-nav="work" data-i18n="navWork">Work</a>
-      <span class="menu-index">/ 03 /</span><a href="#contact" data-scroll-nav="contact" data-i18n="navContact">Contact</a>
-    </nav>
-    <div class="menu-panel-footer"><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</header>
+<div class="menu-panel" id="site-menu" aria-hidden="true" inert>
+  <nav aria-label="行動版導覽" data-i18n-aria-label="mobileNavLabel">
+    <span class="menu-index">01</span
+    ><a href="index.html#top" data-i18n="navHome">首頁</a>
+    <span class="menu-index">02</span
+    ><a href="about.html" data-nav-page="about" data-i18n="navAbout">關於我</a>
+    <span class="menu-index">03</span
+    ><a href="work.html" data-nav-page="work" data-i18n="navWork">作品</a>
+    <span class="menu-index">04</span
+    ><a href="contact.html" data-nav-page="contact" data-i18n="navContact"
+      >聯絡</a
+    >
+  </nav>
+  <div class="menu-panel-footer">
+    <a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer"
+      >GitHub ↗</a
+    ><a href="mailto:zxc1031777@gmail.com">Email ↗</a>
   </div>
-
-  <div class="growth-route" aria-hidden="true">
-    <svg viewBox="0 0 104 820" role="presentation">
-      <path class="growth-route-shadow" d="M78 814C24 739 85 666 46 586C13 518 84 453 49 377C17 308 82 245 51 174C32 130 31 80 46 8"/>
-      <path class="growth-route-stem" data-growth-path d="M78 814C24 739 85 666 46 586C13 518 84 453 49 377C17 308 82 245 51 174C32 130 31 80 46 8"/>
-      <g class="growth-leaf" data-growth-threshold="0.12" transform="translate(51 700) rotate(-25)"><path d="M0 0C-23-18-42-6-40 18C-20 20-7 13 0 0Z"/><path d="M0 0-28 14"/></g>
-      <g class="growth-leaf" data-growth-threshold="0.28" transform="translate(53 575) rotate(32)"><path d="M0 0C22-23 44-13 44 12C24 19 8 12 0 0Z"/><path d="M0 0 31 9"/></g>
-      <g class="growth-leaf" data-growth-threshold="0.48" transform="translate(50 421) rotate(-34)"><path d="M0 0C-23-21-44-9-43 15C-22 20-8 13 0 0Z"/><path d="M0 0-31 12"/></g>
-      <g class="growth-leaf" data-growth-threshold="0.68" transform="translate(53 270) rotate(29)"><path d="M0 0C22-24 44-13 44 12C24 19 8 12 0 0Z"/><path d="M0 0 31 9"/></g>
-      <g class="growth-leaf" data-growth-threshold="0.86" transform="translate(48 112) rotate(-30)"><path d="M0 0C-21-23-43-12-42 13C-23 19-8 12 0 0Z"/><path d="M0 0-30 10"/></g>
-    </svg>
-  </div>
-
-  <main id="main-content">
-    <section class="scene-sequence" id="top" data-scene-sequence>
-      <span class="sequence-anchor sequence-anchor-about" id="about" data-scroll-section="about" aria-hidden="true"></span>
-      <span class="sequence-anchor sequence-anchor-work" id="work" data-scroll-section="work" aria-hidden="true"></span>
-      <div class="scene-sequence-pin">
-      <section class="scene-panel hero-panel" data-scene-panel="hero">
-        <div class="hero-scene section-pad">
-          <div class="hero-scene-copy" data-scene-copy>
-            <p class="scene-kicker" data-i18n="homeHeroKicker">AI × WEB × PRODUCT</p>
-            <h1 aria-label="Ideas into useful products"><span class="title-mask"><span data-opening-line data-i18n="homeHeroTitleOne">IDEAS INTO</span></span><span class="title-mask"><span data-opening-line data-i18n="homeHeroTitleTwo">USEFUL <em>PRODUCTS.</em></span></span></h1>
-            <p class="hero-scene-intro" data-i18n="homeHeroIntro">I design the logic and build with AI, web, and APIs.</p>
-            <a class="scene-arrow" href="#work"><span data-i18n="homeHeroCta">See the work</span><span aria-hidden="true">↘</span></a>
-          </div>
-
-          <figure class="hero-art" data-scene-visual>
-            <div class="hero-art-wash" aria-hidden="true"></div>
-            <div class="hero-art-mask"><img src="assets/images/hongrong-portrait.webp" width="499" height="738" fetchpriority="high" alt="HongRong sitting by the sea under a blue sky"></div>
-            <svg class="hero-art-line" viewBox="0 0 520 700" aria-hidden="true"><path data-portrait-draw d="M113 642C37 567 44 417 79 288C112 165 194 58 326 69C452 79 493 198 463 331C434 460 361 635 225 656C179 663 141 657 113 642Z"/><path class="hero-art-sprig" d="M77 458C26 414 33 350 8 305M47 387C17 374 3 345 8 317M44 386C66 361 73 333 68 305M26 349C8 337 0 317 2 297"/></svg>
-            <figcaption><span>HONG RONG</span><span>TAICHUNG — TAIWAN</span><span>2026</span></figcaption>
-          </figure>
-
-          <p class="hero-scene-index" data-scene-meta>01 / PORTFOLIO</p>
+</div>
+<noscript
+  ><nav class="no-js-nav" aria-label="頁面導覽">
+    <a href="about.html">關於我</a><a href="work.html">作品</a
+    ><a href="contact.html">聯絡</a>
+  </nav></noscript
+>
+<!-- shared:header:end -->
+    <main id="main-content" tabindex="-1">
+      <section class="scene-sequence" data-scene-sequence="" id="top">
+        <div class="scene-sequence-pin">
+          <section class="scene-panel hero-panel" data-scene-panel="hero">
+            <div class="hero-scene section-pad">
+              <div class="hero-scene-copy" data-scene-copy="">
+                <p class="scene-kicker" data-i18n="homeHeroKicker">
+                  AI × WEB × PRODUCT
+                </p>
+                <h1>
+                  <span class="title-mask"
+                    ><span data-i18n="homeHeroTitleOne" data-opening-line=""
+                      >嗨！我是紅龍</span
+                    ></span
+                  ><span class="title-mask"
+                    ><span data-i18n="homeHeroTitleTwo" data-opening-line=""
+                      ><em>是個喜歡攝影的工程師</em></span
+                    ></span
+                  >
+                </h1>
+                <p class="hero-scene-intro" data-i18n="homeHeroIntro">
+                  AI 應用 · 網頁開發 · API 串接
+                </p>
+                <a class="scene-arrow" href="#work"
+                  ><span data-i18n="homeHeroCta">往下看作品</span
+                  ><span aria-hidden="true">↘</span></a
+                >
+              </div>
+              <div class="hero-visual" data-scene-visual="">
+                <figure class="hero-art portrait-study">
+                  <button
+                    class="portrait-flip"
+                    type="button"
+                    data-portrait-flip=""
+                    aria-label="切換正式照與冰川旅行照"
+                    data-i18n-aria-label="portraitFlipLabel"
+                    aria-pressed="false"
+                    aria-describedby="portrait-flip-hint"
+                    disabled
+                  >
+                    <span class="portrait-flip-inner">
+                      <span class="portrait-face portrait-face-front" aria-hidden="false">
+                        <img
+                          alt="紅龍穿著黑色襯衫的正式照"
+                          data-i18n-alt="imageHongrongFormal"
+                          fetchpriority="high"
+                          height="890"
+                          src="assets/images/hongrong-formal.webp"
+                          width="700"
+                        />
+                      </span>
+                      <span class="portrait-face portrait-face-back" aria-hidden="true">
+                        <svg
+                          class="portrait-waterlines"
+                          viewBox="0 0 360 460"
+                          aria-hidden="true"
+                          focusable="false"
+                        >
+                          <defs>
+                            <linearGradient id="portrait-flow-ink" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0" stop-color="#afc2c0" stop-opacity="0" />
+                              <stop offset="0.24" stop-color="#789398" stop-opacity="0.8" />
+                              <stop offset="0.58" stop-color="#536f74" stop-opacity="0.95" />
+                              <stop offset="0.82" stop-color="#8ba5a6" stop-opacity="0.65" />
+                              <stop offset="1" stop-color="#c8d3cb" stop-opacity="0" />
+                            </linearGradient>
+                            <linearGradient id="portrait-flow-light" x1="0" y1="0" x2="1" y2="1">
+                              <stop offset="0" stop-color="#d9e1da" stop-opacity="0" />
+                              <stop offset="0.42" stop-color="#f8f5e9" stop-opacity="0.9" />
+                              <stop offset="0.72" stop-color="#b4c8c6" stop-opacity="0.7" />
+                              <stop offset="1" stop-color="#e4e9de" stop-opacity="0" />
+                            </linearGradient>
+                          </defs>
+                          <g fill="none" stroke="url(#portrait-flow-ink)" stroke-linecap="round" stroke-linejoin="round">
+                            <path class="water-depth" pathLength="1" d="M297 14C269 75 337 113 315 176S279 267 310 326 328 398 301 446" />
+                            <path class="water-current" pathLength="1" d="M297 14C269 75 337 113 315 176S279 267 310 326 328 398 301 446" />
+                            <path class="water-glint" stroke="url(#portrait-flow-light)" pathLength="1" d="M299 18C272 77 340 114 317 178S282 267 312 326 330 397 303 441" />
+                            <path class="water-echo" pathLength="1" d="M318 40C293 96 354 126 332 190S301 278 329 338 345 410 325 437" />
+                            <path class="water-fine" pathLength="1" d="M331 79C321 127 355 154 340 201S319 276 341 316" />
+                            <path class="water-echo" pathLength="1" d="M278 86C269 122 302 146 291 183S275 238 287 262" />
+                            <path class="water-current" pathLength="1" d="M58 244C29 279 65 309 47 344S28 397 50 424" />
+                            <path class="water-glint" stroke="url(#portrait-flow-light)" pathLength="1" d="M60 247C32 279 68 310 49 345S31 397 52 420" />
+                            <path class="water-echo" pathLength="1" d="M39 278C21 301 43 324 29 353S16 389 27 407" />
+                          </g>
+                        </svg>
+                        <img
+                          alt="紅龍穿著紅色外套與冰爪，站在藍色冰川之間"
+                          data-i18n-alt="imageHongrongGlacier"
+                          decoding="async"
+                          height="1422"
+                          src="assets/images/hongrong-glacier.webp"
+                          width="800"
+                        />
+                      </span>
+                    </span>
+                  </button>
+                  <figcaption>
+                    <span>HONG RONG</span
+                    ><span data-i18n="taichungLabel">台中，台灣</span
+                    ><span>2026</span>
+                  </figcaption>
+                  <p class="portrait-flip-hint" id="portrait-flip-hint" hidden>
+                    <span aria-hidden="true">↻</span>
+                    <span class="portrait-hint-hover" data-i18n="portraitHoverHint">滑過照片，看看另一面</span>
+                    <span class="portrait-hint-tap" data-i18n="portraitTapHint">點一下，看看另一面</span>
+                  </p>
+                </figure>
+              </div>
+              <p
+                class="hero-scene-index"
+                data-i18n="portfolioLabel"
+                data-scene-meta=""
+              >
+                洪戎 / 個人作品
+              </p>
+            </div>
+          </section>
+          <section
+            class="scene-panel about-panel"
+            data-scene-panel="about"
+            data-story-spine-start=""
+            id="about"
+          >
+            <div class="about-scene section-pad">
+              <p class="scene-index" data-i18n="homeAboutLabel">01 — 關於我</p>
+              <div class="about-scene-statement" data-scene-copy="">
+                <h2 data-about-text-effect="" data-i18n="homeAboutTitle">
+                  理解真實問題<br /><em>做出有人需要的產品</em>
+                </h2>
+                <p data-i18n="homeAboutBody">
+                  從需求、邏輯到實作，AI 是我理解問題的工具
+                </p>
+              </div>
+              <a
+                class="about-more story-cta story-cta-dark"
+                data-about-cta=""
+                href="about.html"
+                ><span data-i18n="homeAboutMore">了解我的故事</span
+                ><span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </section>
+          <section
+            class="scene-panel work-panel"
+            data-scene-panel="work"
+            id="work"
+          >
+            <div class="work-scene section-pad">
+              <p class="scene-index" data-i18n="selectedWorkLabel">
+                02 — 精選作品
+              </p>
+              <h2 data-i18n="selectedWorkTitle" data-scene-copy="">
+                做過的<em>作品</em>
+              </h2>
+              <p class="work-scene-intro" data-i18n="selectedWorkIntro">
+                一個大學專題，一次真實客戶合作
+              </p>
+              <nav
+                aria-label="精選專案"
+                class="work-branches portfolio-grid"
+                data-i18n-aria-label="selectedProjectsAria"
+                data-scene-visual=""
+              >
+                <a
+                  class="project-teaser"
+                  href="ai-driving-assistant.html"
+                  aria-labelledby="home-ai-title"
+                  aria-describedby="home-ai-summary"
+                >
+                  <div class="project-teaser-image project-teaser-image--app">
+                    <div class="app-preview-screens" aria-hidden="true">
+                      <img src="assets/images/ai-screen-login.webp" width="520" height="1080" alt="" loading="lazy" decoding="async" />
+                      <img src="assets/images/ai-screen-parking.webp" width="370" height="796" alt="" loading="lazy" decoding="async" />
+                      <img src="assets/images/ai-screen-traffic.webp" width="470" height="1043" alt="" loading="lazy" decoding="async" />
+                    </div>
+                  </div>
+                  <div class="project-teaser-copy">
+                    <small>01 / AI · API · ANDROID</small>
+                    <h3 id="home-ai-title" data-i18n="aiDriverTitle">
+                      AI 行車助手
+                    </h3>
+                    <p id="home-ai-summary" data-i18n="aiDriverLongSummary">
+                      五人團隊的大學專題，整合停車、導航、路況與語音互動
+                    </p>
+                    <span class="project-teaser-cta"
+                      ><span data-i18n="viewCaseStudy">查看完整案例</span
+                      ><span aria-hidden="true">↗</span></span
+                    >
+                  </div>
+                </a>
+                <a
+                  class="project-teaser project-teaser-client"
+                  href="jinhong-foods.html"
+                  aria-labelledby="home-jinhong-title"
+                  aria-describedby="home-jinhong-summary"
+                >
+                  <div class="project-teaser-image project-teaser-image--web">
+                    <img
+                      src="assets/images/jinhong-live-home.jpg"
+                      width="1348"
+                      height="926"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div class="project-teaser-copy">
+                    <small>02 / REACT · TYPESCRIPT</small>
+                    <h3 id="home-jinhong-title" data-i18n="jinhongTitle">
+                      金虹食品
+                    </h3>
+                    <p id="home-jinhong-summary" data-i18n="jinhongLongSummary">
+                      替食品機械工廠整理產品資訊，建立能瀏覽規格與提出詢價的企業網站
+                    </p>
+                    <span class="project-teaser-cta"
+                      ><span data-i18n="viewCaseStudy">查看完整案例</span
+                      ><span aria-hidden="true">↗</span></span
+                    >
+                  </div>
+                </a>
+              </nav>
+            </div>
+          </section>
         </div>
       </section>
-
-      <section class="scene-panel about-panel" data-scene-panel="about" data-story-spine-start>
-        <div class="about-scene section-pad">
-          <p class="scene-index" data-i18n="homeAboutLabel">01 — ABOUT</p>
-          <div class="about-scene-statement" data-scene-copy>
-            <h2 data-i18n="homeAboutTitle" data-about-text-effect>I turn real problems into<br><em>products people can use.</em></h2>
-            <p data-i18n="homeAboutBody">AI helps me understand the problem. I remain responsible for the logic, structure, and decisions.</p>
+      <section
+        class="ai-chapter fathom-ai"
+        data-scroll-section="work"
+        id="ai-project"
+      >
+        <header class="ai-chapter-intro section-pad reveal">
+          <p class="story-index" data-i18n="aiProjectLabel">01 — AI 行車助手</p>
+          <h2 data-i18n="homeAiHeading">AI 行車助手</h2>
+          <p class="chapter-lede" data-i18n="homeAiLede">
+            帶領五人團隊，將停車、導航與路況整合到一個 Android App
+          </p>
+        </header>
+        <ul
+          aria-label="專案資料"
+          class="project-meta-line section-pad reveal"
+          data-i18n-aria-label="projectFactsAria"
+        >
+          <li>
+            <small data-i18n="roleLabel">角色</small
+            ><strong data-i18n="teamLeadShort">團隊負責人</strong>
+          </li>
+          <li>
+            <small data-i18n="teamLabel">團隊</small
+            ><strong data-i18n="fivePeople">5 人團隊</strong>
+          </li>
+          <li>
+            <small data-i18n="connectLabel">串接</small
+            ><strong>API / TDX</strong>
+          </li>
+          <li>
+            <small data-i18n="modelLabel">模型</small><strong>RESNET-18</strong>
+          </li>
+          <li>
+            <small data-i18n="buildLabel">開發</small><strong>ANDROID</strong>
+          </li>
+        </ul>
+        <div class="ai-scroll-layout section-pad">
+          <div class="ai-steps">
+            <article class="ai-step is-active" data-ai-step="0">
+              <span data-i18n="aiState0">01 / 登入</span>
+              <h3 data-i18n="aiStepLoginTitle">登入，開始使用</h3>
+              <p data-i18n="aiStepLoginBody">從同一個入口使用行車功能</p>
+              <img
+                alt="AI 行車助手的登入畫面"
+                class="ai-mobile-screen"
+                data-i18n-alt="imageAiScreenLogin"
+                decoding="async"
+                height="1080"
+                loading="lazy"
+                src="assets/images/ai-screen-login.webp"
+                width="520"
+              />
+            </article>
+            <article class="ai-step" data-ai-step="1">
+              <span data-i18n="aiState1">02 / 剩餘車位</span>
+              <h3 data-i18n="aiStepParkingTitle">查詢一區，找到剩餘車位</h3>
+              <p data-i18n="aiStepParkingBody">
+                串接 TDX 停車資料，查看指定區域的停車資訊
+              </p>
+              <img
+                alt="AI 行車助手查詢文山區剩餘停車位的畫面"
+                class="ai-mobile-screen"
+                data-i18n-alt="imageAiScreenParking"
+                decoding="async"
+                height="796"
+                loading="lazy"
+                src="assets/images/ai-screen-parking.webp"
+                width="370"
+              />
+            </article>
+            <article class="ai-step" data-ai-step="2">
+              <span data-i18n="aiState2">03 / 導航</span>
+              <h3 data-i18n="aiStepNavigationTitle">找到目的地，接著導航</h3>
+              <p data-i18n="aiStepNavigationBody">
+                接上 Google Maps，規劃前往目的地的路線
+              </p>
+              <img
+                alt="AI 行車助手接上 Google Maps 的導航路線"
+                class="ai-mobile-screen"
+                data-i18n-alt="imageAiScreenNavigation"
+                decoding="async"
+                height="1166"
+                loading="lazy"
+                src="assets/images/ai-screen-navigation.webp"
+                width="525"
+              />
+            </article>
+            <article class="ai-step" data-ai-step="3">
+              <span data-i18n="aiState3">04 / 即時路況</span>
+              <h3 data-i18n="aiStepTrafficTitle">看即時影像，判斷車流</h3>
+              <p data-i18n="aiStepTrafficBody">
+                結合 TDX 路況影像與 ResNet-18 車流分類
+              </p>
+              <img
+                alt="林口路況攝影機影像與車流分類結果"
+                class="ai-mobile-screen"
+                data-i18n-alt="imageAiScreenTraffic"
+                decoding="async"
+                height="1043"
+                loading="lazy"
+                src="assets/images/ai-screen-traffic.webp"
+                width="470"
+              />
+            </article>
+            <article class="ai-step" data-ai-step="4">
+              <span data-i18n="aiState4">05 / 車輛位置</span>
+              <h3 data-i18n="aiStepVehicleTitle">記住車子停在哪</h3>
+              <p data-i18n="aiStepVehicleBody">
+                記錄停車位置，回程時再找回車子
+              </p>
+              <img
+                alt="AI 行車助手記錄車輛停放位置的畫面"
+                class="ai-mobile-screen"
+                data-i18n-alt="imageAiScreenVehicleLocation"
+                decoding="async"
+                height="964"
+                loading="lazy"
+                src="assets/images/ai-screen-vehicle-location.webp"
+                width="434"
+              />
+            </article>
           </div>
-          <div class="about-signature" aria-hidden="true" data-scene-visual>
-            <svg viewBox="0 0 710 420"><path d="M14 346C115 375 198 333 265 269C349 189 379 60 515 45C599 35 654 75 694 132"/><path d="M210 309C178 263 183 227 206 193"/><path d="M444 86C407 120 391 159 396 203"/><g><path d="M204 220C169 193 139 211 145 247C175 251 195 241 204 220Z"/><path d="M448 89C478 53 516 65 516 104C488 119 463 110 448 89Z"/></g></svg>
+          <div class="phone-story">
+            <svg
+              aria-hidden="true"
+              class="ai-phone-vine"
+              viewbox="0 0 540 1040"
+            >
+              <path
+                d="M46 1003C14 895 119 836 69 725C25 626 137 548 84 442C41 357 135 265 105 167C89 113 103 68 147 27"
+                data-ai-vine-path=""
+              ></path>
+              <g data-ai-leaf="1" transform="translate(76 832) rotate(-25)">
+                <path d="M0 0C-28-25-55-12-52 20C-27 26-9 17 0 0Z"></path>
+              </g>
+              <g data-ai-leaf="2" transform="translate(82 686) rotate(35)">
+                <path d="M0 0C27-29 56-15 55 18C30 27 10 18 0 0Z"></path>
+              </g>
+              <g data-ai-leaf="3" transform="translate(88 526) rotate(-30)">
+                <path d="M0 0C-29-27-57-13-54 21C-28 27-10 18 0 0Z"></path>
+              </g>
+              <g data-ai-leaf="4" transform="translate(101 359) rotate(32)">
+                <path d="M0 0C27-29 55-15 55 18C30 27 10 18 0 0Z"></path>
+              </g>
+              <g data-ai-leaf="5" transform="translate(113 191) rotate(-28)">
+                <path d="M0 0C-28-26-56-13-53 20C-28 26-10 17 0 0Z"></path>
+              </g>
+            </svg>
+            <div class="phone-device">
+              <div
+                class="phone-panel phone-image-panel is-active"
+                data-ai-panel="0"
+              >
+                <img
+                  alt="AI 行車助手的登入畫面"
+                  data-i18n-alt="imageAiScreenLogin"
+                  decoding="async"
+                  height="1080"
+                  loading="lazy"
+                  src="assets/images/ai-screen-login.webp"
+                  width="520"
+                /><span class="phone-screen-label" data-i18n="phoneState0"
+                  >登入</span
+                >
+              </div>
+              <div class="phone-panel phone-image-panel" data-ai-panel="1">
+                <img
+                  alt="AI 行車助手查詢文山區剩餘停車位的畫面"
+                  data-i18n-alt="imageAiScreenParking"
+                  decoding="async"
+                  height="796"
+                  loading="lazy"
+                  src="assets/images/ai-screen-parking.webp"
+                  width="370"
+                /><span class="phone-screen-label" data-i18n="phoneState1"
+                  >剩餘車位 / TDX</span
+                >
+              </div>
+              <div class="phone-panel phone-image-panel" data-ai-panel="2">
+                <img
+                  alt="AI 行車助手接上 Google Maps 的導航路線"
+                  data-i18n-alt="imageAiScreenNavigation"
+                  decoding="async"
+                  height="1166"
+                  loading="lazy"
+                  src="assets/images/ai-screen-navigation.webp"
+                  width="525"
+                /><span class="phone-screen-label" data-i18n="phoneState2"
+                  >Google Maps 導航</span
+                >
+              </div>
+              <div class="phone-panel phone-image-panel" data-ai-panel="3">
+                <img
+                  alt="林口路況攝影機影像與車流分類結果"
+                  data-i18n-alt="imageAiScreenTraffic"
+                  decoding="async"
+                  height="1043"
+                  loading="lazy"
+                  src="assets/images/ai-screen-traffic.webp"
+                  width="470"
+                /><span class="phone-screen-label" data-i18n="phoneState3"
+                  >路況 / TDX / ResNet</span
+                >
+              </div>
+              <div class="phone-panel phone-image-panel" data-ai-panel="4">
+                <img
+                  alt="AI 行車助手記錄車輛停放位置的畫面"
+                  data-i18n-alt="imageAiScreenVehicleLocation"
+                  decoding="async"
+                  height="964"
+                  loading="lazy"
+                  src="assets/images/ai-screen-vehicle-location.webp"
+                  width="434"
+                /><span class="phone-screen-label" data-i18n="phoneState4"
+                  >車輛位置</span
+                >
+              </div>
+            </div>
+            <p class="phone-state-label">
+              <span data-phone-state="">Login</span
+              ><small data-i18n="realScreensLabel"
+                >往下滑動 / 實際 App 畫面</small
+              >
+            </p>
           </div>
-          <a class="about-more story-cta story-cta-dark transition-link" href="about.html" data-about-cta><span data-i18n="homeAboutMore">Explore my story</span><span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="ai-case-exit section-pad reveal">
+          <p data-i18n="homeAiExit">API 串接、模型訓練與整合過程</p>
+          <a class="story-cta story-cta-light" href="ai-driving-assistant.html"
+            ><span data-i18n="openFullCase">看行車助手完整案例</span
+            ><span aria-hidden="true">↗</span></a
+          >
         </div>
       </section>
-
-      <section class="scene-panel work-panel" data-scene-panel="work">
-        <div class="work-scene section-pad">
-          <p class="scene-index" data-i18n="selectedWorkLabel">02 — SELECTED WORK</p>
-          <h2 data-scene-copy data-i18n="selectedWorkTitle"><span>SELECTED</span><em>WORK.</em></h2>
-          <p class="work-scene-intro" data-i18n="selectedWorkIntro">Two projects, each shaped by a real problem.</p>
-          <nav class="work-branches" aria-label="Selected projects" data-scene-visual>
-            <a href="#ai-project"><span>01</span><strong>AI DRIVING ASSISTANT</strong><small>AI / API / ANDROID</small></a>
-            <a href="#jinhong-project"><span>02</span><strong>JIN HONG FOODS</strong><small>REAL CLIENT / WEB</small></a>
+      <section
+        class="jinhong-editorial"
+        data-scroll-section="work"
+        id="jinhong-project"
+      >
+        <header class="jinhong-section-head section-pad reveal">
+          <p class="story-index" data-i18n="clientProjectLabel">
+            02 — 真實客戶網站
+          </p>
+          <span>/ 02 / ©</span>
+        </header>
+        <div class="jinhong-feature section-pad">
+          <div class="jinhong-feature-visual reveal">
+            <a
+              aria-label="查看金虹食品網站案例"
+              class="jinhong-browser-story"
+              data-i18n-aria-label="openJinhongCase"
+              href="jinhong-foods.html"
+              ><div class="browser-preview">
+                <div aria-hidden="true" class="browser-preview-bar">
+                  <i></i><i></i><i></i
+                  ><span>jinhong-foods.lucky1228.workers.dev</span>
+                </div>
+                <img
+                  alt="金虹食品正式網站的首頁截圖"
+                  data-i18n-alt="jinhongHomeAlt"
+                  decoding="async"
+                  height="926"
+                  loading="lazy"
+                  src="assets/images/jinhong-live-home.jpg"
+                  width="1348"
+                /></div
+            ></a>
+            <p class="jinhong-feature-note" data-i18n="homeJinhongNote">
+              正式網站 / 首頁實際畫面
+            </p>
+          </div>
+          <div class="jinhong-feature-copy reveal">
+            <p class="jinhong-project-number">
+              <span>02</span> JIN HONG FOODS / 2026
+            </p>
+            <h2 data-i18n="homeJinhongTitle">金虹食品</h2>
+            <p data-i18n="homeJinhongLede">
+              為食品機械工廠建立網站，讓客戶能瀏覽設備、比較規格並提出詢價
+            </p>
+            <div class="jinhong-actions">
+              <a class="story-cta story-cta-dark" href="jinhong-foods.html"
+                ><span data-i18n="viewCaseStudy">查看完整案例</span
+                ><span aria-hidden="true">↗</span></a
+              ><a
+                class="story-cta story-cta-outline"
+                href="https://jinhong-foods.lucky1228.workers.dev/"
+                rel="noreferrer"
+                target="_blank"
+                ><span data-i18n="visitLiveSite">瀏覽正式網站</span
+                ><span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="final-contact section-pad"
+        data-scroll-section="contact"
+        data-story-spine-end=""
+        id="contact"
+      >
+        <p class="scene-index reveal" data-i18n="contactChapterLabel">
+          03 — 聯絡
+        </p>
+        <h2 class="reveal" data-i18n="homeContactTitle">
+          一起做點<br /><em>有用的東西</em>
+        </h2>
+        <div class="final-contact-bottom reveal">
+          <p data-i18n="homeContactBody">
+            想找我合作，或聊聊 AI 應用與網頁產品，歡迎聯絡
+          </p>
+          <nav aria-label="聯絡方式" data-i18n-aria-label="contactLinksAria">
+            <a href="mailto:zxc1031777@gmail.com">EMAIL ↗</a
+            ><a
+              href="https://github.com/LawrenceTWT"
+              rel="noreferrer"
+              target="_blank"
+              >GITHUB ↗</a
+            ><a
+              href="https://www.instagram.com/lawrence31_/"
+              rel="noreferrer"
+              target="_blank"
+              >INSTAGRAM ↗</a
+            >
           </nav>
         </div>
       </section>
-      </div>
-    </section>
-
-    <section class="ai-chapter fathom-ai" id="ai-project" data-scroll-section="work">
-      <div class="organic-transition organic-transition-dark" aria-hidden="true"></div>
-      <header class="ai-chapter-intro section-pad reveal">
-        <p class="story-index">PROJECT 01 — AI DRIVING ASSISTANT</p>
-        <h2 data-i18n="homeAiHeading">Fewer apps.<br><em>More focus on the road.</em></h2>
-        <p class="chapter-lede" data-i18n="homeAiLede">We put navigation, parking, live traffic, and voice controls into one Android app.</p>
-      </header>
-
-      <ul class="project-meta-line section-pad reveal" aria-label="Project facts">
-        <li><small data-i18n="roleLabel">Role</small><strong>TEAM LEAD</strong></li>
-        <li><small data-i18n="teamLabel">Team</small><strong>5 PEOPLE</strong></li>
-        <li><small>CONNECT</small><strong>API / TDX</strong></li>
-        <li><small>MODEL</small><strong>RESNET-18</strong></li>
-        <li><small>BUILD</small><strong>ANDROID</strong></li>
-      </ul>
-
-      <div class="ai-scroll-layout section-pad">
-        <div class="ai-steps">
-          <article class="ai-step is-active" data-ai-step="0"><span>01 / LOGIN</span><h3 data-i18n="aiStepLoginTitle">Start from one driving assistant.</h3><p data-i18n="aiStepLoginBody">Sign in once, then keep the useful driving tools inside the same experience.</p></article>
-          <article class="ai-step" data-ai-step="1"><span>02 / PARKING</span><h3 data-i18n="aiStepParkingTitle">Ask an area. See the spaces that remain.</h3><p data-i18n="aiStepParkingBody">The assistant connects the request to open parking data and returns available spaces.</p></article>
-          <article class="ai-step" data-ai-step="2"><span>03 / NAVIGATION</span><h3 data-i18n="aiStepNavigationTitle">Turn the selected place into a route.</h3><p data-i18n="aiStepNavigationBody">The destination moves directly into navigation without breaking the driving context.</p></article>
-          <article class="ai-step" data-ai-step="3"><span>04 / LIVE TRAFFIC</span><h3 data-i18n="aiStepTrafficTitle">Read the road before reaching it.</h3><p data-i18n="aiStepTrafficBody">TDX camera imagery and the traffic model help classify the current flow.</p></article>
-          <article class="ai-step" data-ai-step="4"><span>05 / VEHICLE LOCATION</span><h3 data-i18n="aiStepVehicleTitle">Remember where the car was left.</h3><p data-i18n="aiStepVehicleBody">Save a parking position and return to it later instead of relying on memory.</p></article>
-        </div>
-
-        <div class="phone-story" aria-live="polite">
-          <svg class="ai-phone-vine" viewBox="0 0 540 1040" aria-hidden="true"><path data-ai-vine-path d="M46 1003C14 895 119 836 69 725C25 626 137 548 84 442C41 357 135 265 105 167C89 113 103 68 147 27"/><g data-ai-leaf="1" transform="translate(76 832) rotate(-25)"><path d="M0 0C-28-25-55-12-52 20C-27 26-9 17 0 0Z"/></g><g data-ai-leaf="2" transform="translate(82 686) rotate(35)"><path d="M0 0C27-29 56-15 55 18C30 27 10 18 0 0Z"/></g><g data-ai-leaf="3" transform="translate(88 526) rotate(-30)"><path d="M0 0C-29-27-57-13-54 21C-28 27-10 18 0 0Z"/></g><g data-ai-leaf="4" transform="translate(101 359) rotate(32)"><path d="M0 0C27-29 55-15 55 18C30 27 10 18 0 0Z"/></g><g data-ai-leaf="5" transform="translate(113 191) rotate(-28)"><path d="M0 0C-28-26-56-13-53 20C-28 26-10 17 0 0Z"/></g></svg>
-          <div class="phone-device">
-            <div class="phone-panel phone-image-panel is-active" data-ai-panel="0"><img src="assets/images/ai-screen-login.webp" width="520" height="1080" loading="lazy" decoding="async" alt="AI Driving Assistant login screen"><span class="phone-screen-label">LOGIN</span></div>
-            <div class="phone-panel phone-image-panel" data-ai-panel="1"><img src="assets/images/ai-screen-parking.webp" width="370" height="796" loading="lazy" decoding="async" alt="AI Driving Assistant showing remaining parking spaces in Wenshan District"><span class="phone-screen-label">PARKING / OPEN DATA</span></div>
-            <div class="phone-panel phone-image-panel" data-ai-panel="2"><img src="assets/images/ai-screen-navigation.webp" width="525" height="1166" loading="lazy" decoding="async" alt="AI Driving Assistant navigation route screen"><span class="phone-screen-label">NAVIGATION</span></div>
-            <div class="phone-panel phone-image-panel" data-ai-panel="3"><img src="assets/images/ai-screen-traffic.webp" width="470" height="1043" loading="lazy" decoding="async" alt="AI Driving Assistant showing a Linkou traffic camera and classified traffic flow"><span class="phone-screen-label">TRAFFIC / TDX / RESNET</span></div>
-            <div class="phone-panel phone-image-panel" data-ai-panel="4"><img src="assets/images/ai-screen-vehicle-location.webp" width="434" height="964" loading="lazy" decoding="async" alt="AI Driving Assistant screen for saving a parked vehicle location"><span class="phone-screen-label">VEHICLE LOCATION</span></div>
-          </div>
-          <p class="phone-state-label"><span data-phone-state>Login</span><small>SCROLL STORY / REAL SCREENS</small></p>
-        </div>
-      </div>
-
-      <div class="ai-case-exit section-pad reveal"><p data-i18n="homeAiExit">ROLE / API / MODEL / NEXT ITERATION</p><a class="story-cta story-cta-light transition-link" href="ai-driving-assistant.html"><span data-i18n="openFullCase">Explore the full case study</span><span aria-hidden="true">↗</span></a></div>
-    </section>
-
-    <section class="jinhong-editorial" id="jinhong-project" data-scroll-section="work">
-      <div class="organic-transition organic-transition-light" aria-hidden="true"></div>
-      <header class="jinhong-section-head section-pad reveal"><p class="story-index">PROJECT 02 — REAL CLIENT</p><span>/ 02 / ©</span></header>
-      <div class="jinhong-feature section-pad">
-        <div class="jinhong-feature-visual reveal">
-          <a class="jinhong-browser-story" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer" aria-label="Visit the live Jinhong Foods website">
-          <div class="browser-story-bar"><span></span><span></span><span></span><strong>jinhong-foods.lucky1228.workers.dev</strong><small data-i18n="liveWebsite">Live website</small></div>
-          <div class="browser-story-page"><div class="browser-story-nav"><b>金虹食品</b><span>產品介紹　關於我們　服務維修　聯絡我們</span></div><div class="browser-story-hero"><small>FOOD MACHINERY / TAIWAN</small><h3>讓每一道加工流程<br>更穩定、更有效率</h3><p>專業食品加工設備</p></div><div class="browser-product-row"><figure><img src="assets/images/jinhong-slicer.webp" width="276" height="447" loading="lazy" decoding="async" alt="Jinhong automatic meat slicer"><figcaption>全自動切片機</figcaption></figure><figure><img src="assets/images/jinhong-bone-saw.webp" width="1019" height="1543" loading="lazy" decoding="async" alt="Jinhong high-speed bone saw"><figcaption>高速鋸骨機</figcaption></figure><figure><img src="assets/images/jinhong-vacuum.webp" width="440" height="283" loading="lazy" decoding="async" alt="Jinhong double-chamber vacuum packing machine"><figcaption>真空包裝機</figcaption></figure></div></div>
-          </a>
-          <p class="jinhong-feature-note" data-i18n="homeJinhongNote">A real business need, translated into a clearer digital storefront.</p>
-        </div>
-        <div class="jinhong-feature-copy reveal">
-          <p class="jinhong-project-number"><span>02</span> JIN HONG FOODS / 2026</p>
-          <h2 data-i18n="homeJinhongTitle">A real client.<br><em>A clearer digital presence.</em></h2>
-          <p data-i18n="homeJinhongLede">My first website for a real business — built to make a food-machinery brand and its products easier to discover.</p>
-          <dl><div><dt>ROLE</dt><dd>RESEARCH / DESIGN / BUILD</dd></div><div><dt>STACK</dt><dd>REACT / TYPESCRIPT</dd></div><div><dt>NEXT</dt><dd>SEO / SEARCH CONSOLE</dd></div></dl>
-          <div class="jinhong-actions"><a class="story-cta story-cta-dark transition-link" href="jinhong-foods.html"><span data-i18n="viewCaseStudy">Explore the case study</span><span aria-hidden="true">↗</span></a><a class="story-cta story-cta-outline" href="https://jinhong-foods.lucky1228.workers.dev/" target="_blank" rel="noreferrer"><span data-i18n="visitLiveSite">Visit live site</span><span aria-hidden="true">↗</span></a></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="final-contact section-pad" id="contact" data-scroll-section="contact" data-story-spine-end>
-      <p class="scene-index reveal">03 — CONTACT</p>
-      <h2 class="reveal" data-i18n="homeContactTitle">LET'S MAKE<br><em>THE NEXT IDEA REAL.</em></h2>
-      <div class="final-contact-bottom reveal"><p data-i18n="homeContactBody">Interested in AI applications, web products, and work that begins with a real user problem.</p><nav aria-label="Contact links"><a href="mailto:zxc1031777@gmail.com">EMAIL ↗</a><a href="https://github.com/LawrenceTWT" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="https://www.instagram.com/lawrence31_/" target="_blank" rel="noreferrer">INSTAGRAM ↗</a></nav></div>
-    </section>
-  </main>
-
-  <footer class="landscape-footer" aria-label="Horseshoe Bend in the United States photographed by HongRong">
-    <div class="landscape-scene" data-landscape-scene>
-      <img class="landscape-base" src="assets/images/hongrong-canyon.webp" width="720" height="960" loading="lazy" decoding="async" alt="HongRong overlooking Horseshoe Bend in the United States">
-      <div class="landscape-grade" aria-hidden="true"></div>
-      <p class="landscape-word" aria-hidden="true">HongRong</p>
-      <div class="landscape-foreground" aria-hidden="true"><img src="assets/images/hongrong-canyon.webp" width="720" height="960" loading="lazy" decoding="async" alt=""></div>
-      <p class="landscape-caption" data-i18n="landscapeCaption">USA / HORSESHOE BEND</p>
-      <div class="landscape-meta"><span>© <span class="current-year"></span> HONG RONG</span><button class="back-to-top" type="button" data-i18n="backToTop">Back to top ↑</button></div>
+    </main>
+    <!-- shared:footer:start -->
+<footer class="site-footer">
+  <div class="footer-inner section-pad">
+    <div class="footer-top">
+      <a class="brand" href="index.html#top">HongRong<sup>®</sup></a>
+      <p data-i18n="footerLine">AI 應用與網頁開發 · 台中，台灣</p>
+      <a class="footer-email" href="mailto:zxc1031777@gmail.com"
+        >zxc1031777@gmail.com ↗</a
+      >
     </div>
-  </footer>
-</body>
+    <div class="footer-bottom">
+      <span>© <span class="current-year">2026</span> HongRong</span>
+      <nav aria-label="社群連結" data-i18n-aria-label="socialNavLabel">
+        <a
+          href="https://github.com/LawrenceTWT"
+          target="_blank"
+          rel="noreferrer"
+          >GitHub ↗</a
+        ><a
+          href="https://www.instagram.com/lawrence31_/"
+          target="_blank"
+          rel="noreferrer"
+          >Instagram ↗</a
+        >
+      </nav>
+      <button class="back-to-top" type="button" data-i18n="backToTop">
+        回到頁首 ↑
+      </button>
+    </div>
+  </div>
+  <div
+  class="landscape-scene"
+  data-landscape-scene
+  role="img"
+  aria-label="洪戎拍攝的紐西蘭 Wānaka 湖與山稜，HongRong 字樣位於山景後方"
+  data-i18n-aria-label="landscapeAlt"
+>
+  <svg
+    class="landscape-art"
+    viewBox="0 0 1536 1152"
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <defs>
+      <!-- Traced from the Wānaka photograph. The foreground and base share one coordinate system. -->
+      <clipPath id="wanaka-ridgeline">
+        <path
+          d="M0 540 18 542 27 535 42 540 54 535 66 544 79 545 90 554 98 550 109 555 119 548 131 557 144 548 161 554 179 558 190 553 203 559 221 545 238 551 252 548 268 556 281 548 299 553 319 547 335 551 351 545 365 551 380 549 395 554 415 550 433 553 449 550 467 556 484 552 501 556 523 552 543 558 566 556 591 561 614 559 637 563 659 560 680 565 705 559 729 564 752 558 779 561 800 559 825 564 849 562 874 566 897 561 922 566 949 560 975 566 1002 560 1025 565 1052 558 1077 563 1105 559 1131 564 1158 557 1186 562 1211 556 1239 563 1264 556 1290 563 1314 556 1339 561 1367 557 1395 564 1421 560 1446 566 1474 559 1497 566 1517 562 1536 568V1152H0Z"
+        />
+      </clipPath>
+      <linearGradient id="landscape-shade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#273e37" stop-opacity=".08" />
+        <stop offset="1" stop-color="#182d23" stop-opacity=".25" />
+      </linearGradient>
+    </defs>
+    <image
+      class="landscape-image"
+      href="assets/images/new-zealand-wanaka.webp"
+      width="1536"
+      height="1152"
+    />
+    <text
+      class="landscape-word"
+      x="768"
+      y="574"
+      text-anchor="middle"
+      textLength="1410"
+      lengthAdjust="spacingAndGlyphs"
+    >
+      HongRong
+    </text>
+    <image
+      class="landscape-image"
+      href="assets/images/new-zealand-wanaka.webp"
+      width="1536"
+      height="1152"
+      clip-path="url(#wanaka-ridgeline)"
+    />
+    <path d="M0 0H1536V1152H0Z" fill="url(#landscape-shade)" />
+  </svg>
+  <p class="landscape-caption">
+    <span>WĀNAKA, NEW ZEALAND</span
+    ><span data-i18n="landscapeCredit">攝影 / 洪戎</span>
+  </p>
+</div>
+</footer>
+<!-- shared:footer:end -->
+  </body>
 </html>
