@@ -120,7 +120,7 @@ for (const file of pages) {
   const title = document.title;
   const links = [...document.querySelectorAll("a[href]")].map((node) => [node, node.getAttribute("href")]);
   const controls = [...document.querySelectorAll("button, input, select, textarea, [data-usa-slide], [data-ai-panel]")];
-  const icons = [...document.querySelectorAll(".skill-icon, .portrait-waterlines, .growth-vine")];
+  const icons = [...document.querySelectorAll(".skill-icon, .growth-vine")];
   assert.equal(document.documentElement.lang, "zh-Hant", file + ": Chinese-first default");
   assert.equal(page.saved.size, 0, "initial language must not persist an unsolicited choice");
   for (const { node, key } of translated) {

@@ -10,7 +10,7 @@ The existing 800 × 1422 glacier photograph was inspected alongside the 700 × 8
 
 The glacier image uses `object-position: 50% 86%` and inherits the same 18px frame radius. At the fixed frame ratio, the visible source rectangle is approximately x 0–800, y 363–1363. Visual inspection of the original identifies the person and crampons within roughly x 190–640, y 640–1300; these bounds fit within the calculated crop. Upper sky is removed while the person remains in view
 
-The source photograph is unchanged. No new or edited raster image, border mat or extra bitmap download is introduced. Layered water contours sit above the image at its edges and can still extend outside the transparent reverse face, rather than becoming hidden behind the wider crop. Hover, touch, keyboard and reduced-motion behavior retain the existing control
+The source photograph is unchanged. No new or edited raster image, border mat or extra bitmap download is introduced. The water contours present in this revision were subsequently removed at the user's request; see `docs/scene-boundaries-2026-10-19.md`. Hover, touch, keyboard and reduced-motion behavior retain the existing control
 
 ## One entry clock
 

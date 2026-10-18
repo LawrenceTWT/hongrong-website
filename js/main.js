@@ -54,9 +54,13 @@ const metadataNodes = [
   return node ? [{ node, field, zh: node.content }] : [];
 });
 let sceneTimeline = null;
+let landscapeTimeline = null;
 let openingAnimation = null;
 const aboutText = document.querySelector("[data-about-text-effect]");
 const aboutRegion = aboutText?.closest("[data-scene-panel]");
+const aboutContent = document.querySelector("[data-about-content]");
+let aboutBoundary = null;
+let aboutHoldShift = null;
 let aboutTextProgress = -1;
 const scenePacing = { aboutIn: 0.12, about: 1.4, workIn: 2.1, work: 3.4 };
 let refreshRevision = 0;
@@ -121,10 +125,12 @@ async function refreshLayout(position = null) {
 
 // Layout restoration is immediate; only deliberate scrolling gets scrub inertia.
 function settleScene() {
-  const trigger = sceneTimeline?.scrollTrigger;
-  if (!trigger) return;
-  trigger.getTween()?.progress(1);
-  sceneTimeline.progress(trigger.progress);
+  for (const timeline of [sceneTimeline, landscapeTimeline]) {
+    const trigger = timeline?.scrollTrigger;
+    if (!trigger) continue;
+    trigger.getTween()?.progress(1);
+    timeline.progress(trigger.progress);
+  }
   updateSceneAccess();
 }
 function cancelLayoutRestore(event) {
@@ -364,6 +370,21 @@ document.querySelectorAll(".back-to-top").forEach((button) =>
   }),
 );
 
+// Match the scene's sine easing when other layers use its progress.
+function sceneTransitionProgress(time, start, end) {
+  return (1 - Math.cos(Math.PI * progressBetween(time, start, end))) / 2;
+}
+
+// Measure in layout coordinates: transforms must not feed back into the boundary.
+function measureAboutBoundary() {
+  if (!aboutContent || !aboutRegion) return;
+  aboutBoundary = {
+    height: aboutRegion.clientHeight,
+    bottom: aboutContent.offsetTop + aboutContent.offsetHeight,
+    gap: Math.min(40, Math.max(24, aboutRegion.clientHeight * 0.03)),
+  };
+}
+
 // Explicit from/to values survive refresh, localization and reverse scrolling.
 function initScenes() {
   const sequence = document.querySelector("[data-scene-sequence]");
@@ -379,11 +400,13 @@ function initScenes() {
     sequence.classList.add("scene-enhanced");
     gsap.set(hero, { yPercent: 0 });
     gsap.set([about, work], { yPercent: 100 });
+    measureAboutBoundary();
     const timeline = gsap.timeline({
-      defaults: { ease: "none" },
+      defaults: { ease: "sine.inOut" },
       onUpdate() {
         if (sceneTimeline !== this) return;
         updateSceneAccess();
+        updateAboutHold();
         requestScrollState();
       },
       scrollTrigger: {
@@ -391,6 +414,10 @@ function initScenes() {
         start: "top top",
         end: "bottom bottom",
         scrub: 0.8,
+        onRefresh() {
+          measureAboutBoundary();
+          requestScrollState();
+        },
       },
     });
     sceneTimeline = timeline;
@@ -444,11 +471,49 @@ function initScenes() {
     updateSceneAccess();
     return () => {
       sceneTimeline = null;
+      aboutBoundary = null;
+      aboutHoldShift = null;
+      aboutContent?.style.removeProperty("--about-hold-y");
       sequence.classList.remove("scene-enhanced");
       panels.forEach((panel) => {
         panel.inert = false;
         panel.removeAttribute("aria-hidden");
       });
+      timeline.scrollTrigger?.kill();
+      timeline.kill();
+    };
+  });
+}
+
+// The name rises from behind the traced ridge as the landscape enters the view.
+// Base and foreground remain one SVG, so their photographic edges stay aligned.
+function initLandscape() {
+  const scene = document.querySelector("[data-landscape-scene]");
+  if (!scene || !window.gsap || !window.ScrollTrigger) return;
+  const gsap = window.gsap;
+  gsap.registerPlugin(window.ScrollTrigger);
+  const motion = gsap.matchMedia();
+  motion.add("(prefers-reduced-motion: no-preference)", () => {
+    const timeline = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: scene,
+        start: "top bottom",
+        end: "bottom bottom",
+        scrub: 0.8,
+        invalidateOnRefresh: true,
+      },
+    });
+    landscapeTimeline = timeline;
+    timeline
+      .fromTo(scene.querySelector(".landscape-art"),
+        { scale: 1.035 }, { scale: 1, duration: 1 }, 0)
+      .fromTo(scene.querySelector(".landscape-word"),
+        { y: 260 }, { y: 0, duration: 0.9 }, 0.1)
+      .fromTo(scene.querySelector(".landscape-caption"),
+        { y: 12 }, { y: 0, duration: 0.65 }, 0.35);
+    return () => {
+      landscapeTimeline = null;
       timeline.scrollTrigger?.kill();
       timeline.kill();
     };
@@ -565,7 +630,7 @@ function getSectionEntryProgress(region, scene) {
       scene === "about"
         ? [scenePacing.aboutIn, scenePacing.about]
         : [scenePacing.workIn, scenePacing.work];
-    return progressBetween(sceneTimeline.time(), ...range);
+    return sceneTransitionProgress(sceneTimeline.time(), ...range);
   }
   const box = region.getBoundingClientRect();
   const distance = Math.max(1, Math.min(box.height, innerHeight));
@@ -582,6 +647,22 @@ function updateAboutText() {
   aboutTextProgress = rounded;
   aboutText.style.setProperty("--about-text-progress", rounded / 10 + "%");
 }
+
+// Stay centered until the following scene reaches the content's lower boundary.
+// Then leave with that edge; the CTA travels with its own heading.
+function updateAboutHold() {
+  if (!aboutContent || !sceneTimeline || !aboutBoundary) return;
+  const progress = sceneTransitionProgress(
+    sceneTimeline.time(), scenePacing.workIn, scenePacing.work,
+  );
+  const { height, bottom, gap } = aboutBoundary;
+  const nextEdge = height * (1 - progress);
+  const exit = Math.min(0, nextEdge - bottom - gap);
+  const shift = Math.round((height * 0.2 * progress + exit) * 100) / 100;
+  if (shift === aboutHoldShift) return;
+  aboutHoldShift = shift;
+  aboutContent.style.setProperty("--about-hold-y", shift + "px");
+}
 function updateScrollState() {
   scrollFrame = 0;
   document
@@ -590,6 +671,7 @@ function updateScrollState() {
   updateAiStory();
   updateNavigation();
   updateAboutText();
+  updateAboutHold();
   updateBotanicalGrowth();
 }
 
@@ -926,6 +1008,7 @@ initBotanicalGrowth();
 initPortraitFlip();
 applyLanguage(storage.get() || "zh", { restore: false });
 initScenes();
+initLandscape();
 initCarousel();
 setAiState(0);
 updateScrollState();

@@ -705,49 +705,6 @@ nav,
   border-radius: inherit;
   box-shadow: 0 12px 32px rgb(36 59 45 / 0.08);
 }
-.portrait-waterlines {
-  grid-area: 1/1;
-  z-index: 1;
-  align-self: center;
-  justify-self: center;
-  width: 112%;
-  max-width: none;
-  height: 110%;
-  overflow: visible;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s;
-}
-.portrait-waterlines path {
-  stroke-width: 1.15;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  transition: stroke-dashoffset 0.9s var(--ease-out);
-}
-.portrait-waterlines .water-depth {
-  stroke-width: 4.5;
-  opacity: 0.12;
-}
-.portrait-waterlines .water-current {
-  stroke-width: 1.4;
-}
-.portrait-waterlines .water-glint {
-  stroke-width: 0.85;
-}
-.portrait-waterlines .water-echo {
-  stroke-width: 0.65;
-  opacity: 0.6;
-}
-.portrait-waterlines .water-fine {
-  stroke-width: 0.4;
-  opacity: 0.35;
-}
-.portrait-flip.is-flipped .portrait-waterlines {
-  opacity: 0.8;
-}
-.portrait-flip.is-flipped .portrait-waterlines path {
-  stroke-dashoffset: 0;
-}
 .portrait-study figcaption {
   display: flex;
   justify-content: space-between;
@@ -821,13 +778,23 @@ nav,
 }
 .about-scene {
   position: relative;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr;
   text-align: center;
-  padding-bottom: 85px;
+  padding-block: 132px;
 }
 .about-scene > .scene-index {
+  position: absolute;
+  top: 108px;
+  inset-inline-start: var(--page-inset);
+}
+.about-scene-content {
   grid-column: 1/-1;
-  justify-self: start;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 4svh, 44px);
+  width: 100%;
 }
 .about-scene-statement {
   grid-column: 1/-1;
@@ -860,11 +827,9 @@ nav,
   -webkit-text-fill-color: transparent;
 }
 .about-more {
-  grid-column: 1/-1;
-  justify-self: center;
   position: relative;
   z-index: 2;
-  margin-top: 24px;
+  margin-top: 0;
 }
 .work-scene {
   grid-template-rows: auto auto 1fr;
@@ -1130,6 +1095,10 @@ nav,
 .scene-enhanced .about-panel {
   --scene-edge: var(--sage-mist);
   z-index: 2;
+}
+.scene-enhanced .about-scene-content {
+  transform: translate3d(0, var(--about-hold-y, 0px), 0);
+  will-change: transform;
 }
 .scene-enhanced .work-panel {
   --scene-edge: var(--paper);
@@ -3275,7 +3244,11 @@ h1 em,
     padding-block: 80px;
   }
   .about-scene > .scene-index {
+    position: static;
     align-self: flex-start;
+  }
+  .about-scene-content {
+    gap: 32px;
   }
   .about-scene-statement h2 {
     font-size: clamp(28px, 6.5vw, 42px);
@@ -3758,9 +3731,7 @@ h1 em,
   .ai-phone-vine g path {
     transform: none;
   }
-  .portrait-flip-inner,
-  .portrait-waterlines,
-  .portrait-waterlines path {
+  .portrait-flip-inner {
     transition: none !important;
   }
   .project-teaser:is(:hover, :focus-visible),

@@ -216,39 +216,6 @@
                         />
                       </span>
                       <span class="portrait-face portrait-face-back" aria-hidden="true">
-                        <svg
-                          class="portrait-waterlines"
-                          viewBox="0 0 360 460"
-                          aria-hidden="true"
-                          focusable="false"
-                        >
-                          <defs>
-                            <linearGradient id="portrait-flow-ink" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0" stop-color="#afc2c0" stop-opacity="0" />
-                              <stop offset="0.24" stop-color="#789398" stop-opacity="0.8" />
-                              <stop offset="0.58" stop-color="#536f74" stop-opacity="0.95" />
-                              <stop offset="0.82" stop-color="#8ba5a6" stop-opacity="0.65" />
-                              <stop offset="1" stop-color="#c8d3cb" stop-opacity="0" />
-                            </linearGradient>
-                            <linearGradient id="portrait-flow-light" x1="0" y1="0" x2="1" y2="1">
-                              <stop offset="0" stop-color="#d9e1da" stop-opacity="0" />
-                              <stop offset="0.42" stop-color="#f8f5e9" stop-opacity="0.9" />
-                              <stop offset="0.72" stop-color="#b4c8c6" stop-opacity="0.7" />
-                              <stop offset="1" stop-color="#e4e9de" stop-opacity="0" />
-                            </linearGradient>
-                          </defs>
-                          <g fill="none" stroke="url(#portrait-flow-ink)" stroke-linecap="round" stroke-linejoin="round">
-                            <path class="water-depth" pathLength="1" d="M297 14C269 75 337 113 315 176S279 267 310 326 328 398 301 446" />
-                            <path class="water-current" pathLength="1" d="M297 14C269 75 337 113 315 176S279 267 310 326 328 398 301 446" />
-                            <path class="water-glint" stroke="url(#portrait-flow-light)" pathLength="1" d="M299 18C272 77 340 114 317 178S282 267 312 326 330 397 303 441" />
-                            <path class="water-echo" pathLength="1" d="M318 40C293 96 354 126 332 190S301 278 329 338 345 410 325 437" />
-                            <path class="water-fine" pathLength="1" d="M331 79C321 127 355 154 340 201S319 276 341 316" />
-                            <path class="water-echo" pathLength="1" d="M278 86C269 122 302 146 291 183S275 238 287 262" />
-                            <path class="water-current" pathLength="1" d="M58 244C29 279 65 309 47 344S28 397 50 424" />
-                            <path class="water-glint" stroke="url(#portrait-flow-light)" pathLength="1" d="M60 247C32 279 68 310 49 345S31 397 52 420" />
-                            <path class="water-echo" pathLength="1" d="M39 278C21 301 43 324 29 353S16 389 27 407" />
-                          </g>
-                        </svg>
                         <img
                           alt="紅龍穿著紅色外套與冰爪，站在藍色冰川之間"
                           data-i18n-alt="imageHongrongGlacier"
@@ -289,21 +256,23 @@
           >
             <div class="about-scene section-pad">
               <p class="scene-index" data-i18n="homeAboutLabel">01 — 關於我</p>
-              <div class="about-scene-statement" data-scene-copy="">
-                <h2 data-about-text-effect="" data-i18n="homeAboutTitle">
-                  <span class="about-copy-line">天生帶點冒險精神，</span>
-                  <span class="about-copy-line">喜歡走出舒適圈，</span>
-                  <span class="about-copy-line">相信人生最精彩的部分，</span>
-                  <em class="about-copy-line">往往發生在計畫之外</em>
-                </h2>
+              <div class="about-scene-content" data-about-content>
+                <div class="about-scene-statement" data-scene-copy="">
+                  <h2 data-about-text-effect="" data-i18n="homeAboutTitle">
+                    <span class="about-copy-line">天生帶點冒險精神，</span>
+                    <span class="about-copy-line">喜歡走出舒適圈，</span>
+                    <span class="about-copy-line">相信人生最精彩的部分，</span>
+                    <em class="about-copy-line">往往發生在計畫之外</em>
+                  </h2>
+                </div>
+                <a
+                  class="about-more story-cta story-cta-dark"
+                  data-about-cta=""
+                  href="about.html"
+                  ><span data-i18n="homeAboutMore">了解我的故事</span
+                  ><span aria-hidden="true">↗</span></a
+                >
               </div>
-              <a
-                class="about-more story-cta story-cta-dark"
-                data-about-cta=""
-                href="about.html"
-                ><span data-i18n="homeAboutMore">了解我的故事</span
-                ><span aria-hidden="true">↗</span></a
-              >
             </div>
           </section>
           <section

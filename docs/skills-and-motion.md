@@ -48,7 +48,9 @@ Original artwork sources:
 
 The homepage statement now uses HongRong's supplied introduction about adventure, leaving his comfort zone and life outside the plan. Four centered lines replace the product slogan and its AI paragraph; the final line retains the reversible color sweep. Chinese keeps the existing no-terminal-full-stop convention, and English carries the same meaning
 
-The color sweep no longer depends on enabling desktop scene pinning. Text and plants share `getSectionEntryProgress`: enhanced scenes use the actual scrubbed entry timeline; normal flow uses the section's visible extent, including short desktop and mobile viewports. The final-line sweep starts in the latter part of entry and completes with the scene, leaving the reading pause static. One existing animation-frame controller writes progress only when it changes. Reduced motion keeps the final text fully colored; no-JavaScript CSS remains readable
+The color sweep no longer depends on enabling desktop scene pinning. Text and plants share `getSectionEntryProgress`: enhanced scenes use the actual scrubbed entry timeline and the same sine easing as their panels; normal flow uses the section's visible extent, including short desktop and mobile viewports. The final-line sweep starts in the latter part of entry and completes with the scene, leaving the reading pause static. One existing animation-frame controller writes progress only when it changes. Reduced motion keeps the final text fully colored; no-JavaScript CSS remains readable
+
+About now holds its statement and CTA at the center until the next scene reaches their lower boundary. The landscape wordmark uses a separate reversible scrubbed reveal behind the registered ridge; language/layout restoration settles both timelines. See `docs/scene-boundaries-2026-10-19.md` for boundary and motion details
 
 ## Verification scope
 
