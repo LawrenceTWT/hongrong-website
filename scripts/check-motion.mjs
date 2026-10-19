@@ -100,11 +100,11 @@ try {
  landscapeCleanup();
  let sectionTop=0,sectionHeight=900,textWrites=0;
  const aboutText={style:{setProperty(name,value){this[name]=value;textWrites++}}};
- const aboutRegion={getBoundingClientRect:()=>({top:sectionTop,height:sectionHeight})};
+ const aboutRegion={style:{setProperty(name,value){this[name]=value}},getBoundingClientRect:()=>({top:sectionTop,height:sectionHeight})};
  const entrySource=source.slice(source.indexOf('function getSectionEntryProgress('),source.indexOf('function updateAboutText()'));
  const textEffect={aboutText,aboutRegion,reducedMotion:{matches:false},progressBetween,innerHeight:900,Math,sceneTimeline:timeline,sceneTransitionProgress:sandbox.sceneTransitionProgress};
  vm.createContext(textEffect);
- vm.runInContext('let aboutTextProgress=-1;'+source.match(/const scenePacing = [^;]+;/)[0]+entrySource+source.slice(source.indexOf('function updateAboutText()'),source.indexOf('function updateScrollState()')),textEffect);
+ vm.runInContext('let aboutTextProgress=-1,aboutShadeProgress=-1;'+source.match(/const scenePacing = [^;]+;/)[0]+source.match(/const aboutRevealPacing = [^;]+;/)[0]+entrySource+source.slice(source.indexOf('function updateAboutText()'),source.indexOf('function updateScrollState()')),textEffect);
  for(const time of [.12,.35,.9,1.2,1.4]) {
   timeline.time(time);
   assert.ok(Math.abs(textEffect.getSectionEntryProgress(aboutRegion,'about')-(1-panels[1].yPercent/100))<1e-5,'About plant/text clock must match the eased panel, not linear timeline time');
@@ -115,16 +115,20 @@ try {
  }
  const textProgress=()=>parseFloat(aboutText.style['--about-text-progress']);
  const textFrames=[];
- for(const time of [0,.5,1,1.2,1.4,1.8,2.1,3.4]){
-  timeline.time(time);textEffect.updateAboutText();textFrames.push({time,progress:textProgress()});
+ for(const time of [0,.5,.95,1,1.2,1.4,1.8,1.85,2.1,3.4]){
+  timeline.time(time);textEffect.updateAboutText();textFrames.push({time,progress:textProgress(),shade:aboutRegion.style['--about-shade'],label:aboutRegion.style['--about-label-progress']});
  }
  assert.equal(textFrames[0].progress,0,'text must start before its color sweep');
  const enteringText=textFrames.find(frame=>frame.time===1.2).progress;
- assert.ok(enteringText>0&&enteringText<100,'text should change while About enters');
- assert.equal(textFrames.find(frame=>frame.time===1.4).progress,100,'text must complete exactly when About arrives');
- assert.equal(textFrames.find(frame=>frame.time===1.8).progress,100,'the reading pause must retain complete text');
+ assert.ok(enteringText>100&&enteringText<200,'the second of four lines should be revealing during late entry');
+ assert.ok(textFrames.find(frame=>frame.time===1.4).progress>100&&textFrames.find(frame=>frame.time===1.4).progress<300,'text continues revealing while centered');
+ assert.equal(textFrames.find(frame=>frame.time===1.4).shade,'100%','the scene must be dark before its centered reading phase');
+ assert.ok(textFrames.find(frame=>frame.time===1.8).progress>300&&textFrames.find(frame=>frame.time===1.8).progress<400,'the fourth line should still be completing');
+ assert.equal(textFrames.find(frame=>frame.time===1.85).progress,400,'all four lines finish before the next scene moves');
+ assert.equal(textFrames.find(frame=>frame.time===2.1).progress,400,'complete text remains during the reading pause');
+ assert.ok(textFrames.filter(frame=>frame.progress>0).every(frame=>parseFloat(frame.shade)>=80),'white text must wait for a sufficiently dark surface');
  for(const frame of textFrames.slice().reverse()){
-  timeline.time(frame.time);textEffect.updateAboutText();assert.equal(textProgress(),frame.progress,'reverse scene scroll must restore text progress');
+  timeline.time(frame.time);textEffect.updateAboutText();assert.equal(textProgress(),frame.progress,'reverse scene scroll must restore text progress');assert.equal(aboutRegion.style['--about-shade'],frame.shade);assert.equal(aboutRegion.style['--about-label-progress'],frame.label);
  }
  const writes=textWrites;textEffect.updateAboutText();assert.equal(textWrites,writes,'an unchanged frame should not write the same style again');
  textEffect.sceneTimeline=null;
@@ -139,14 +143,14 @@ try {
    }
    assert.equal(frames[0].progress,0);
    assert.equal(frames[1].progress,0,'the text starts before its scene enters');
-   assert.ok(frames[2].progress>0&&frames[2].progress<100,'normal-flow text must change as its scene enters');
-   assert.equal(frames[3].progress,100,'normal-flow text must complete when the scene fits, or at its first full viewport');
+   assert.ok(frames[2].progress>0&&frames[2].progress<400,'normal-flow text must reveal across four line ranges');
+   assert.equal(frames[3].progress,400,'normal-flow text must complete when the scene fits, or at its first full viewport');
    for(const frame of frames.slice().reverse()){
     sectionTop=frame.top;textEffect.updateAboutText();assert.equal(textProgress(),frame.progress,'normal-flow reverse scroll must restore text progress');
    }
   }
  }
- textEffect.reducedMotion.matches=true;textEffect.updateAboutText();assert.equal(textProgress(),100,'reduced motion should show the complete emphasized line');
+ textEffect.reducedMotion.matches=true;textEffect.updateAboutText();assert.equal(textProgress(),400,'reduced motion should show all four complete lines');assert.equal(aboutRegion.style['--about-shade'],'100%');
  textEffect.aboutText=null;assert.doesNotThrow(()=>textEffect.updateAboutText(),'other routes have no homepage About text');
  const regions=['hero','about','about','work',null].map((scene,index)=>({scene,delay:index===2?.16:index===3?.2:0,progress:-1,region:{getBoundingClientRect:()=>({top:700,height:700})},vine:{style:{setProperty(name,value){this[name]=value}}}}));
  const growth={botanicalVines:regions,reducedMotion:{matches:false},progressBetween,innerHeight:900,Math,sceneTimeline:timeline,sceneTransitionProgress:sandbox.sceneTransitionProgress};

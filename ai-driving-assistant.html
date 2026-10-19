@@ -218,52 +218,76 @@
           </div>
         </div>
       </section>
-      <section class="case-role-story section-pad">
+      <section
+        class="case-team-story section-pad"
+        aria-labelledby="case-team-title"
+      >
         <div class="case-section-label reveal">
-          <span>02</span><span data-i18n="myRoleLabel">我的角色</span>
+          <span>02</span><span data-i18n="aiTeamGalleryLabel">團隊紀錄</span>
         </div>
-        <h2 class="case-role-heading" data-i18n="myResponsibilitiesTitle">
-          我在團隊裡做什麼
+        <h2
+          class="case-team-heading reveal"
+          id="case-team-title"
+          data-i18n="aiTeamGalleryTitle"
+        >
+          一起完成的畢業專題
         </h2>
-        <div class="role-ledger">
-          <p class="role-ledger-intro reveal" data-i18n="aiRoleIntro">
-            我帶領五人團隊，負責 API
-            串接、資料準備與模型整合，也協調每個人的工作
-          </p>
-          <ol>
-            <li class="reveal">
-              <span>01</span
-              ><strong data-i18n="teamLeadShort">團隊負責人</strong
-              ><small data-i18n="aiRoleTeam"
-                >規劃、任務負責、進度追蹤，以及五人團隊的協調</small
-              >
-            </li>
-            <li class="reveal">
-              <span>02</span><strong>API / TDX</strong
-              ><small data-i18n="aiRoleApi"
-                >研究 TDX 開放資料、用 Postman 測試 token 與
-                API，並整理回傳資料</small
-              >
-            </li>
-            <li class="reveal">
-              <span>03</span><strong data-i18n="datasetLabel">訓練資料</strong
-              ><small data-i18n="aiRoleData"
-                >蒐集、清理並準備六個交通等級的路況攝影機圖片</small
-              >
-            </li>
-            <li class="reveal">
-              <span>04</span><strong>RESNET-18</strong
-              ><small data-i18n="aiRoleModel"
-                >模型訓練、評估、類別分析與轉換問題排查</small
-              >
-            </li>
-            <li class="reveal">
-              <span>05</span><strong>ANDROID</strong
-              ><small data-i18n="aiRoleAndroid"
-                >把模型與資料服務連接到 Android 的使用體驗</small
-              >
-            </li>
-          </ol>
+        <div class="case-team-gallery">
+          <figure class="case-team-photo reveal">
+            <div class="case-team-frame">
+              <img
+                src="assets/images/ai-team-exhibition.webp"
+                width="1600"
+                height="1200"
+                alt="AI 行車助手五人團隊在世新大學資管系畢業專題展合照"
+                data-i18n-alt="aiTeamExhibitionAlt"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <figcaption data-i18n="aiTeamExhibitionCaption">
+              五人團隊｜畢業專題展
+            </figcaption>
+          </figure>
+          <figure class="case-team-poster reveal">
+            <a
+              class="case-team-poster-link"
+              href="assets/images/ai-project-poster.webp"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="在新分頁查看 AI 行車助手專題海報原圖"
+              data-i18n-aria-label="aiTeamPosterOpenLabel"
+            >
+              <span class="case-team-frame">
+                <img
+                  src="assets/images/ai-project-poster.webp"
+                  width="1108"
+                  height="1477"
+                  alt="AI 行車助手專題展海報，包含團隊介紹與功能說明"
+                  data-i18n-alt="aiTeamPosterAlt"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="case-team-caption">
+                <span data-i18n="aiTeamPosterCaption">專題海報</span>
+                <span class="case-team-open">
+                  <span data-i18n="aiTeamPosterOpen">查看大圖</span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    aria-hidden="true"
+                  >
+                    <path d="M6 18 18 6M6 6h12v12" />
+                  </svg>
+                </span>
+              </span>
+            </a>
+          </figure>
         </div>
       </section>
       <section class="case-system-story section-pad">

@@ -766,11 +766,17 @@ nav,
   letter-spacing: 0.1em;
 }
 .about-panel {
-  color: var(--forest-deep);
-  background: var(--sage-mist);
+  --about-surface: var(--forest-deep);
+  color: var(--paper-soft);
+  background: var(--about-surface);
   background-image:
     var(--paper-grain),
     radial-gradient(ellipse at 0 100%, rgb(126 148 102 / 0.2), transparent 58%);
+}
+@supports (background: color-mix(in srgb, black, white)) {
+  .about-panel {
+    --about-surface: color-mix(in srgb, var(--forest-deep) var(--about-shade, 100%), var(--paper));
+  }
 }
 .about-scene {
   position: relative;
@@ -782,6 +788,8 @@ nav,
   position: absolute;
   top: 108px;
   inset-inline-start: var(--page-inset);
+  color: var(--paper-soft);
+  opacity: var(--about-label-progress, 1);
 }
 .about-scene-content {
   grid-column: 1/-1;
@@ -806,21 +814,26 @@ nav,
   line-height: 1.65;
 }
 .about-copy-line {
+  --line-index: 0;
+  --line-reveal: clamp(0%, calc((var(--about-text-progress, 400%) - var(--line-index) * 100%) * 1.08), 108%);
   display: block;
-}
-.about-scene-statement em {
   width: fit-content;
   max-width: 100%;
   margin-inline: auto;
-  color: #4a5937;
   background: linear-gradient(
     90deg,
-    var(--forest) var(--about-text-progress, 100%),
-    #4a5937 var(--about-text-progress, 100%)
+    currentColor calc(var(--line-reveal) - 4%),
+    transparent var(--line-reveal)
   );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.about-copy-line:nth-child(2) { --line-index: 1; }
+.about-copy-line:nth-child(3) { --line-index: 2; }
+.about-copy-line:nth-child(4) { --line-index: 3; }
+.about-scene-statement em {
+  color: var(--sage-mist);
 }
 .about-more {
   align-self: center;
@@ -828,6 +841,13 @@ nav,
   z-index: 2;
   margin-inline: auto;
   margin-top: 0;
+  color: var(--forest-deep);
+  background: var(--paper-soft);
+  border-color: var(--paper-soft);
+}
+.about-more:focus-visible {
+  outline-color: var(--paper-soft);
+  outline-offset: 6px;
 }
 .work-scene {
   grid-template-rows: auto auto 1fr;
@@ -861,12 +881,15 @@ nav,
 }
 .portfolio-grid {
   display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 28px;
-  align-items: start;
+  align-items: stretch;
 }
 .project-teaser {
-  display: block;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
   overflow: hidden;
   border-radius: 22px;
   background: var(--paper-deep);
@@ -875,7 +898,6 @@ nav,
     box-shadow 0.25s;
 }
 .project-teaser-client {
-  margin-top: 28px;
   background: #e3e6d9;
 }
 .project-teaser-image {
@@ -920,6 +942,8 @@ nav,
   border-radius: 7px;
 }
 .project-teaser-copy {
+  display: flex;
+  flex-direction: column;
   padding: 20px 24px;
 }
 .project-teaser-copy > small {
@@ -950,7 +974,8 @@ nav,
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-top: 18px;
+  margin-top: auto;
+  padding-top: 18px;
   color: var(--forest);
   font: 600 11px/1.5 var(--sans);
 }
@@ -1091,7 +1116,7 @@ nav,
   z-index: 1;
 }
 .scene-enhanced .about-panel {
-  --scene-edge: var(--sage-mist);
+  --scene-edge: var(--about-surface);
   z-index: 2;
 }
 .scene-enhanced .about-scene-content {
@@ -1584,7 +1609,7 @@ h1 em,
   text-align: center;
 }
 .case-narrative,
-.case-role-story,
+.case-team-story,
 .case-system-story,
 .case-model-deep,
 .case-rebuild-deep,
@@ -1617,36 +1642,79 @@ h1 em,
 .case-two-col h2 {
   font-size: var(--type-section);
 }
-.role-ledger {
+.case-team-gallery {
   display: grid;
-  grid-template-columns: 1fr 1.8fr;
-  gap: 10%;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(20px, 3vw, 36px);
 }
-.role-ledger-intro {
-  max-width: 38ch;
-  color: var(--muted);
-}
-.case-role-heading {
+.case-team-heading {
   margin-bottom: 36px;
 }
-.role-ledger li {
-  display: grid;
-  grid-template-columns: 24px minmax(100px, 0.6fr) 1.3fr;
-  gap: 20px;
-  padding-block: 22px;
-  border-bottom: 1px solid var(--line);
-  align-items: baseline;
+.case-team-gallery figure {
+  min-width: 0;
 }
-.role-ledger li > span {
-  color: var(--olive);
-  font-size: 11px;
+.case-team-frame {
+  display: block;
+  padding: clamp(7px, 1vw, 12px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper-soft);
+  box-shadow: 0 16px 32px -24px rgb(24 45 35 / 0.25);
 }
-.role-ledger strong {
-  font: 500 14px var(--sans);
+.case-team-frame img {
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
 }
-.role-ledger small {
+.case-team-photo figcaption,
+.case-team-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.case-team-poster-link {
+  display: block;
+  border-radius: 10px;
+}
+.case-team-poster-link .case-team-frame {
+  transition: border-color 220ms ease, box-shadow 220ms ease;
+}
+.case-team-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  color: var(--forest);
+}
+.case-team-open svg {
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition: transform 220ms ease;
+}
+.case-team-poster-link:is(:hover, :focus-visible) .case-team-frame {
+  border-color: var(--olive);
+  box-shadow: 0 18px 34px -22px rgb(24 45 35 / 0.35);
+}
+.case-team-poster-link:is(:hover, :focus-visible) .case-team-open svg {
+  transform: rotate(45deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-team-poster-link .case-team-frame,
+  .case-team-open svg {
+    transition: none;
+  }
+  .case-team-poster-link:is(:hover, :focus-visible) .case-team-open svg {
+    transform: none;
+  }
 }
 .case-system-story {
   background: var(--sage-mist);
@@ -2059,12 +2127,23 @@ h1 em,
   gap: 12%;
   align-items: center;
 }
+.about-story-hero-copy {
+  min-width: 0;
+  container-type: inline-size;
+}
 .about-story-hero-copy h1 {
   font-size: var(--type-title);
 }
+:lang(zh-Hant) .about-story-hero-copy h1 em {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: min(0.92em, 10.3cqi);
+  letter-spacing: 0.035em;
+}
 .about-story-hero-copy .page-hero-intro {
   margin-top: 32px;
-  max-width: 48ch;
+  max-width: none;
+  font-size: clamp(14px, 3.15cqi, 16px);
 }
 .about-motto {
   margin-top: 32px;
@@ -2642,6 +2721,14 @@ h1 em,
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .about-panel {
+    --about-shade: 100% !important;
+    --about-label-progress: 1 !important;
+  }
+  .about-copy-line {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+  }
   .skill-tile,
   .skill-words button,
   .credential,
@@ -2850,7 +2937,7 @@ h1 em,
   text-shadow: 0 1px 4px rgb(0 0 0 / 0.6);
 }
 
-/* Opening cannot hide a page unless its own JS has successfully started. */
+/* The small head gate covers the first paint; the module takes over this curtain. */
 .fathom-opening {
   display: none;
   position: fixed;
@@ -2940,13 +3027,6 @@ h1 em,
   .prototype-flow strong {
     font-size: 15px;
   }
-  .role-ledger {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .role-ledger-intro {
-    max-width: 70ch;
-  }
   .ai-visual {
     min-height: 460px;
   }
@@ -2996,6 +3076,14 @@ h1 em,
   .contact-title-grid {
     grid-template-columns: 1fr;
     row-gap: 28px;
+  }
+  .case-team-gallery {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .case-team-poster {
+    width: min(100%, 400px);
+    justify-self: center;
   }
   .ai-chapter-intro .chapter-lede {
     max-width: 56ch;
@@ -3438,7 +3526,7 @@ h1 em,
     gap: 22px;
   }
   .case-narrative,
-  .case-role-story,
+  .case-team-story,
   .case-system-story,
   .case-model-deep,
   .case-rebuild-deep,
@@ -3453,15 +3541,6 @@ h1 em,
   .case-section-label {
     margin-bottom: 32px;
   }
-  .role-ledger li {
-    grid-template-columns: 20px 1fr;
-    gap: 12px 20px;
-  }
-  .role-ledger small {
-    grid-column: 2;
-    font-size: 13px;
-  }
-  .role-ledger-intro,
   .body-copy {
     font-size: 14px;
   }

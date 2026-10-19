@@ -62,7 +62,10 @@ const aboutContent = document.querySelector("[data-about-content]");
 let aboutBoundary = null;
 let aboutHoldShift = null;
 let aboutTextProgress = -1;
+let aboutShadeProgress = -1;
 const scenePacing = { aboutIn: 0.12, about: 1.4, workIn: 2.1, work: 3.4 };
+const aboutRevealPacing = { shadeIn: 0.35, shade: 1.15, textIn: 0.95, text: 1.85 };
+let finishOpening = () => releaseOpeningGate();
 let refreshRevision = 0;
 let languageRefreshRevision = 0;
 let pendingLanguagePosition = null;
@@ -623,7 +626,7 @@ function updateNavigation() {
     else link.removeAttribute("aria-current");
   });
 }
-// One entry clock: the scene, its text and its plants finish arriving together.
+// One entry clock keeps scene movement and decorative plants in step.
 function getSectionEntryProgress(region, scene) {
   if (sceneTimeline && (scene === "about" || scene === "work")) {
     const range =
@@ -638,14 +641,29 @@ function getSectionEntryProgress(region, scene) {
 }
 function updateAboutText() {
   if (!aboutText || !aboutRegion) return;
-  // Start the emphasis once the lower line is entering, then finish at arrival.
-  const progress = reducedMotion.matches
-    ? 1
-    : progressBetween(getSectionEntryProgress(aboutRegion, "about"), 0.55, 1);
+  let shade = 1, progress = 1;
+  if (!reducedMotion.matches) {
+    if (sceneTimeline) {
+      const time = sceneTimeline.time();
+      shade = sceneTransitionProgress(time, aboutRevealPacing.shadeIn, aboutRevealPacing.shade);
+      progress = progressBetween(time, aboutRevealPacing.textIn, aboutRevealPacing.text);
+    } else {
+      const entry = getSectionEntryProgress(aboutRegion, "about");
+      shade = progressBetween(entry, 0.1, 0.65);
+      progress = progressBetween(entry, 0.6, 1);
+    }
+  }
+  const tone = Math.round(shade * 1000);
+  if (tone !== aboutShadeProgress) {
+    aboutShadeProgress = tone;
+    aboutRegion.style.setProperty("--about-shade", tone / 10 + "%");
+    aboutRegion.style.setProperty("--about-label-progress", String(progressBetween(shade, 0.8, 1)));
+  }
   const rounded = Math.round(progress * 1000);
   if (rounded === aboutTextProgress) return;
   aboutTextProgress = rounded;
-  aboutText.style.setProperty("--about-text-progress", rounded / 10 + "%");
+  // Four 100% line ranges keep the real, translatable heading intact.
+  aboutText.style.setProperty("--about-text-progress", rounded / 2.5 + "%");
 }
 
 // Stay centered until the following scene reaches the content's lower boundary.
@@ -786,7 +804,10 @@ function initPortraitFlip() {
 window.addEventListener("scroll", requestScrollState, { passive: true });
 window.addEventListener("resize", requestScrollState, { passive: true });
 reducedMotion.addEventListener("change", () => {
-  if (reducedMotion.matches) openingAnimation?.progress(1);
+  if (reducedMotion.matches) {
+    openingAnimation?.progress(1);
+    finishOpening();
+  }
   setAiState(activeAiState);
   requestScrollState();
 });
@@ -1042,12 +1063,14 @@ updateScrollState();
 window.addEventListener("pageshow", (event) => {
   if (!event.persisted) return;
   resetPortrait();
+  finishOpening();
   body.classList.remove("page-leaving", "opening-active");
   setMenu(false);
   void refreshLayout();
 });
 window.addEventListener("pagehide", () => {
   resetPortrait();
+  finishOpening();
   cancelLayoutRestore();
   prototypeRun += 1;
   prototypeState = "idle";
@@ -1099,43 +1122,63 @@ function createOpeningTimeline(opening, mark, onComplete) {
     );
 }
 
+function releaseOpeningGate() {
+  root.classList.remove("opening-pending");
+  clearTimeout(window.hongrongOpeningFallback);
+}
+
 async function startOpening() {
   const opening = document.querySelector("[data-opening]");
   const navigation = performance.getEntriesByType("navigation")[0];
-  const skip =
-    !opening ||
-    reducedMotion.matches ||
-    navigation?.type === "back_forward" ||
-    (location.hash && location.hash !== "#top");
-  await refreshLayout();
-  if (location.hash) goToHash(location.hash);
-  if (skip || !window.gsap) {
-    if (opening) opening.hidden = true;
-    return;
-  }
   let seen = false;
   try {
     seen = sessionStorage.getItem("hongrong-opening-2-5s") === "seen";
-    sessionStorage.setItem("hongrong-opening-2-5s", "seen");
-  } catch {
-    /* Optional. */
-  }
-  // Revisiting the homepage shouldn't replay a blocking intro.
-  if (seen) {
-    opening.hidden = true;
+  } catch { /* Storage is optional. */ }
+  const skip =
+    !opening ||
+    seen ||
+    window.hongrongOpeningExpired ||
+    !window.gsap ||
+    reducedMotion.matches ||
+    navigation?.type === "back_forward" ||
+    (location.hash && location.hash !== "#top");
+  if (skip) {
+    releaseOpeningGate();
+    if (opening) opening.hidden = true;
+    await refreshLayout();
+    if (location.hash) goToHash(location.hash);
     return;
   }
-  const mark = opening.querySelector("[data-opening-mark]");
+  // Establish the curtain before waiting for fonts or a layout frame.
   body.classList.add("opening-active");
+  releaseOpeningGate();
+  let finished = false;
+  let failsafe = 0;
   const finish = () => {
+    if (finished) return;
+    finished = true;
+    clearTimeout(failsafe);
     body.classList.remove("opening-active");
     opening.hidden = true;
+    openingAnimation?.kill();
     openingAnimation = null;
   };
-  const failsafe = setTimeout(finish, 5000);
-  openingAnimation = createOpeningTimeline(opening, mark, () => {
+  finishOpening = finish;
+  failsafe = setTimeout(finish, 5000);
+  // Fonts/layout can settle behind the opaque curtain without delaying its wordmark.
+  void refreshLayout().catch(finish);
+  try {
+    sessionStorage.setItem("hongrong-opening-2-5s", "seen");
+  } catch { /* Storage is optional. */ }
+  const mark = opening.querySelector("[data-opening-mark]");
+  try {
+    openingAnimation = createOpeningTimeline(opening, mark, () => {
+      clearTimeout(failsafe);
+      finish();
+    });
+  } catch {
     clearTimeout(failsafe);
     finish();
-  });
+  }
 }
 void startOpening();

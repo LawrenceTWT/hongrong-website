@@ -46,9 +46,9 @@ Original artwork sources:
 
 ## About copy and scroll feedback
 
-The homepage statement now uses HongRong's supplied introduction about adventure, leaving his comfort zone and life outside the plan. Four centered lines replace the product slogan and its AI paragraph; the final line retains the reversible color sweep. Chinese keeps the existing no-terminal-full-stop convention, and English carries the same meaning
+The homepage statement now uses HongRong's supplied introduction about adventure, leaving his comfort zone and life outside the plan. Four centered lines replace the product slogan and its AI paragraph. The later reveal revision progressively reveals all four lines over a warm-ivory to deep-forest transition. Chinese keeps the existing no-terminal-full-stop convention, and English carries the same meaning
 
-The color sweep no longer depends on enabling desktop scene pinning. Text and plants share `getSectionEntryProgress`: enhanced scenes use the actual scrubbed entry timeline and the same sine easing as their panels; normal flow uses the section's visible extent, including short desktop and mobile viewports. The final-line sweep starts in the latter part of entry and completes with the scene, leaving the reading pause static. One existing animation-frame controller writes progress only when it changes. Reduced motion keeps the final text fully colored; no-JavaScript CSS remains readable
+The reveal does not depend on desktop pinning. Panels and plants share their eased entry progress. The four-line text reveal uses the same scrubbed timeline but intentionally continues into the centered reading pause, completing at 1.85 before Work starts at 2.1. Normal flow uses the section's visible extent, including short desktop and mobile viewports. One existing animation-frame controller writes progress only when it changes. Reduced motion shows the complete ivory statement on a deep forest surface; no-JavaScript CSS remains readable
 
 About now holds its statement and CTA at the center until the next scene reaches their lower boundary. The landscape wordmark uses a separate reversible scrubbed reveal behind the registered ridge; language/layout restoration settles both timelines. See `docs/scene-boundaries-2026-10-19.md` for boundary and motion details
 
@@ -57,3 +57,5 @@ About now holds its statement and CTA at the center until the next scene reaches
 Production build checks local assets, Chinese font coverage, translations, shared layout and the motion regression suite. The latter samples the actual GSAP opening timeline, first-frame vine state, earlier lower-page growth, forward/reverse states, scene restoration and the five real phone screens. About text tests cover both pinned and normal-flow progress, reverse scrolling, reduced motion, unchanged frames and pages without the component
 
 Browser visual QA is unavailable because the managed preview's required `control-browser` capability is not installed. Source/logic checks do not replace checking real desktop/mobile composition, focus behavior and scroll pacing in a browser
+
+The first-paint opening gate, equal project cards and updated return-home copy are documented in `docs/about-reveal-opening-2026-10-19.md`.
