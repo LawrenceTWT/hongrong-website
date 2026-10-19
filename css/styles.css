@@ -1609,7 +1609,7 @@ h1 em,
   text-align: center;
 }
 .case-narrative,
-.case-role-story,
+.case-team-story,
 .case-system-story,
 .case-model-deep,
 .case-rebuild-deep,
@@ -1642,36 +1642,79 @@ h1 em,
 .case-two-col h2 {
   font-size: var(--type-section);
 }
-.role-ledger {
+.case-team-gallery {
   display: grid;
-  grid-template-columns: 1fr 1.8fr;
-  gap: 10%;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(20px, 3vw, 36px);
 }
-.role-ledger-intro {
-  max-width: 38ch;
-  color: var(--muted);
-}
-.case-role-heading {
+.case-team-heading {
   margin-bottom: 36px;
 }
-.role-ledger li {
-  display: grid;
-  grid-template-columns: 24px minmax(100px, 0.6fr) 1.3fr;
-  gap: 20px;
-  padding-block: 22px;
-  border-bottom: 1px solid var(--line);
-  align-items: baseline;
+.case-team-gallery figure {
+  min-width: 0;
 }
-.role-ledger li > span {
-  color: var(--olive);
-  font-size: 11px;
+.case-team-frame {
+  display: block;
+  padding: clamp(7px, 1vw, 12px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper-soft);
+  box-shadow: 0 16px 32px -24px rgb(24 45 35 / 0.25);
 }
-.role-ledger strong {
-  font: 500 14px var(--sans);
+.case-team-frame img {
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
 }
-.role-ledger small {
+.case-team-photo figcaption,
+.case-team-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.case-team-poster-link {
+  display: block;
+  border-radius: 10px;
+}
+.case-team-poster-link .case-team-frame {
+  transition: border-color 220ms ease, box-shadow 220ms ease;
+}
+.case-team-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  color: var(--forest);
+}
+.case-team-open svg {
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition: transform 220ms ease;
+}
+.case-team-poster-link:is(:hover, :focus-visible) .case-team-frame {
+  border-color: var(--olive);
+  box-shadow: 0 18px 34px -22px rgb(24 45 35 / 0.35);
+}
+.case-team-poster-link:is(:hover, :focus-visible) .case-team-open svg {
+  transform: rotate(45deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-team-poster-link .case-team-frame,
+  .case-team-open svg {
+    transition: none;
+  }
+  .case-team-poster-link:is(:hover, :focus-visible) .case-team-open svg {
+    transform: none;
+  }
 }
 .case-system-story {
   background: var(--sage-mist);
@@ -2973,13 +3016,6 @@ h1 em,
   .prototype-flow strong {
     font-size: 15px;
   }
-  .role-ledger {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .role-ledger-intro {
-    max-width: 70ch;
-  }
   .ai-visual {
     min-height: 460px;
   }
@@ -3029,6 +3065,14 @@ h1 em,
   .contact-title-grid {
     grid-template-columns: 1fr;
     row-gap: 28px;
+  }
+  .case-team-gallery {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .case-team-poster {
+    width: min(100%, 400px);
+    justify-self: center;
   }
   .ai-chapter-intro .chapter-lede {
     max-width: 56ch;
@@ -3471,7 +3515,7 @@ h1 em,
     gap: 22px;
   }
   .case-narrative,
-  .case-role-story,
+  .case-team-story,
   .case-system-story,
   .case-model-deep,
   .case-rebuild-deep,
@@ -3486,15 +3530,6 @@ h1 em,
   .case-section-label {
     margin-bottom: 32px;
   }
-  .role-ledger li {
-    grid-template-columns: 20px 1fr;
-    gap: 12px 20px;
-  }
-  .role-ledger small {
-    grid-column: 2;
-    font-size: 13px;
-  }
-  .role-ledger-intro,
   .body-copy {
     font-size: 14px;
   }

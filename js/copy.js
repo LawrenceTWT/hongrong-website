@@ -20,19 +20,16 @@ export const englishCopy = {
   aiOriginP1:
     "Traffic on my commute and frequent road-accident reports made me think about the information drivers need.",
   aiOriginP2: "The idea was to spend less time switching between tools.",
-  myRoleLabel: "My role",
-  aiRoleIntro:
-    "I led five people, integrated APIs, prepared data, helped connect the model to Android and coordinated the work.",
-  aiRoleTeam:
-    "Planning, task ownership, progress, and coordination across five people.",
-  aiRoleApi:
-    "TDX open-data research, Postman token tests, endpoints, and response mapping.",
-  aiRoleData:
-    "Collecting, cleaning, and preparing traffic-camera images for six classes.",
-  aiRoleModel:
-    "Training, evaluation, class-level analysis, and conversion troubleshooting.",
-  aiRoleAndroid:
-    "Connecting the model and data services to the mobile experience.",
+  aiTeamGalleryLabel: "The team",
+  aiTeamGalleryTitle: "Our capstone project",
+  aiTeamExhibitionAlt:
+    "The five-person AI Driving Assistant team at Shih Hsin University’s Information Management capstone exhibition",
+  aiTeamExhibitionCaption: "Five people / Capstone exhibition",
+  aiTeamPosterAlt:
+    "The original AI Driving Assistant exhibition poster with the team and app features",
+  aiTeamPosterCaption: "Project poster",
+  aiTeamPosterOpen: "View full size",
+  aiTeamPosterOpenLabel: "Open the original AI Driving Assistant poster in a new tab",
   systemFlowLabel: "VOICE REQUEST → PARKING DATA",
   aiSystemTitle: "How a parking<br><em>request works.</em>",
   aiSystemBody:
@@ -412,7 +409,6 @@ export const englishCopy = {
   datasetSplit: "6 LEVELS / 80:20",
   classFindingLabel: "02 / CLASS-LEVEL AP",
   deploymentFindingLabel: "03 / DEPLOYMENT",
-  myResponsibilitiesTitle: "My work in the team",
   realClientWeb: "REAL CLIENT / WEB",
   jinhongHomeAlt: "Actual Jinhong Foods website homepage",
   workKaytlinLabel: "WORK / KAYTLIN",

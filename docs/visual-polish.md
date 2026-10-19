@@ -44,11 +44,24 @@ PR #3 follow-up, 2026-10-18. This direction replaces the earlier generated artwo
 | `assets/images/ai-screen-login.webp` | 520 × 1080 | Real capstone login screen |
 | `assets/images/ai-screen-parking.webp` | 370 × 796 | Real capstone parking screen |
 | `assets/images/ai-screen-traffic.webp` | 470 × 1043 | Real capstone traffic screen |
+| `assets/images/ai-team-exhibition.webp` | 1600 × 1200 | User's five-person capstone exhibition photograph, supplied 2026-10-19 |
+| `assets/images/ai-project-poster.webp` | 1108 × 1477 | User's photograph of the original capstone poster, supplied 2026-10-19 |
 | `assets/images/jinhong-live-home.jpg` | 1348 × 926 | Actual live homepage capture, 2026-10-17 |
 | `assets/images/botanical-vine.svg` | Vector | Existing code-native decorative ivy |
 | `assets/images/paper-grain.svg` | 180 × 180 | Lightweight code-native paper grain |
 
 The two supplied source photographs remain unchanged, without raster cropping or AI editing; together they are 156,924 bytes. Only the glacier face's CSS display crop changed. Case-study evidence and the five-state sticky phone remain unchanged.
+
+## AI case-study team photographs, 2026-10-19
+
+- Replace the text-heavy role ledger on `ai-driving-assistant.html` with a team-photo section after the origin and before the system flow. The user approved both real photographs and explicitly omitted role tags and explanatory role copy
+- Desktop uses a 2:1 photo/poster grid within the existing 1080px page shell. At 800px and below the images stack, with the poster centered and capped at 400px. Both display their complete original aspect ratios, without crops, rotation, overlap or overlaid text
+- Use restrained ivory mats, small corners and subtle shadows. Each image has only a short caption. The poster is a native keyboard-accessible link to its full-size image in a new tab, with a visible action and hover/focus arrow response; it also works without JavaScript
+- The team image comes from `image(20261019-020221).png` (2048 × 1536); the poster comes from `image(20261019-020227).png` (1108 × 1477). Conversion to WebP only resizes the team photograph and compresses both files; no content, colors or perspective are reconstructed. The outputs total 423,594 bytes
+- Captions, image alternatives and the poster-link accessible name are translated by the existing Chinese-first language system
+- Rebuilt both existing Chinese font subsets from their verified original sources to include the new exhibition/poster vocabulary; the coverage manifest is regenerated with the emitted font hashes
+- This change does not edit `index.html`, `js/main.js`, `js/botanical.js`, the phone-story CSS or existing phone screenshots. The scroll-linked five-screen homepage story is retained
+- Browser visual QA remains unavailable because the required control-browser capability is missing. Build, language, asset/font and existing motion checks verify source/DOM state; they do not establish browser rendering or scroll feel
 
 ## Verification
 
