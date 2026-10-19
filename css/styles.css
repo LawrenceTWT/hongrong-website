@@ -15,6 +15,20 @@
   font-display: swap;
 }
 @font-face {
+  font-family: "Opening Caslon";
+  src: url("../assets/fonts/opening-caslon-regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Opening Caslon";
+  src: url("../assets/fonts/opening-caslon-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
   font-family: "Geist";
   src: url("../assets/fonts/geist-medium.woff2") format("woff2");
   font-weight: 400 500;
@@ -39,6 +53,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Noto Sans JP";
+  src: url("../assets/fonts/noto-sans-jp.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 /* One content width and type scale, shared by all six routes. */
 :root {
   --paper: #eeeadd;
@@ -57,6 +79,7 @@
   --serif: "Libre Caslon Condensed", Georgia, serif;
   --sans: "Geist", "GenSen Rounded TW", Arial, sans-serif;
   --zh: "GenSen Rounded TW", sans-serif;
+  --ja: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
   --display: var(--serif);
   --title-leading: 1.06;
   --title-tracking: -0.025em;
@@ -75,7 +98,7 @@
   --header-pad: clamp(18px, 3vw, 44px);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
-html:lang(zh-Hant) {
+html:is(:lang(zh-Hant), :lang(ja)) {
   --display: var(--zh);
   --title-leading: 1.35;
   --title-tracking: 0.035em;
@@ -83,6 +106,12 @@ html:lang(zh-Hant) {
   --type-title: clamp(40px, 4.5vw, 64px);
   --type-section: clamp(32px, 3.6vw, 50px);
   --type-subtitle: clamp(24px, 2.5vw, 34px);
+}
+html:lang(ja) {
+  --display: var(--ja);
+  --sans: "Geist", var(--ja);
+  --title-tracking: 0.015em;
+  line-break: strict;
 }
 *,
 *::before,
@@ -101,8 +130,11 @@ body {
   font: 400 16px/1.75 var(--sans);
   -webkit-font-smoothing: antialiased;
 }
-body:lang(zh-Hant) {
+body:is(:lang(zh-Hant), :lang(ja)) {
   font-family: var(--zh);
+}
+body:lang(ja) {
+  font-family: var(--ja);
 }
 body.menu-open {
   overflow: hidden;
@@ -180,7 +212,7 @@ h3 {
 em {
   font-weight: inherit;
 }
-:lang(zh-Hant) em {
+:is(:lang(zh-Hant), :lang(ja)) em {
   font-style: normal;
 }
 :focus-visible {
@@ -352,21 +384,62 @@ nav,
   align-items: center;
 }
 .language-toggle {
-  min-width: 50px;
+  width: 100px;
   min-height: 40px;
-  padding: 0 12px;
+  padding: 0 26px 0 14px;
   border: 1px solid rgb(27 26 23 / 0.13);
   border-radius: 999px;
+  appearance: none;
   background: rgb(255 255 255 / 0.16);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3' fill='none' stroke='%2365695d' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.44);
-  font: 500 12px/1 var(--sans);
+  font: 500 12px/1.5 var(--sans);
+  cursor: pointer;
   transition:
     color 0.2s,
     background 0.2s;
 }
 .language-toggle:hover {
   color: var(--paper-soft);
-  background: var(--forest);
+  background-color: var(--forest);
+}
+.language-toggle option {
+  color: var(--ink);
+  background: var(--paper-soft);
+}
+/* Translations may wrap, but must not widen their editorial grid tracks. */
+.hero-scene-copy,
+.project-teaser-copy,
+.project-index-copy,
+.jinhong-feature-copy,
+.prototype-copy,
+.prototype-flow li > *,
+.skill-evidence strong {
+  min-width: 0;
+}
+.prototype-flow strong,
+.case-system-flow strong {
+  overflow-wrap: anywhere;
+}
+.button,
+.story-cta,
+.project-editorial-link {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.page-hero-top,
+.case-breadcrumb,
+.section-kicker,
+.case-team-caption,
+.model-level-card figcaption,
+.project-number,
+.skill-evidence {
+  flex-wrap: wrap;
+}
+:lang(ja) .prototype-flow strong {
+  line-height: 1.5;
 }
 .menu-toggle {
   display: none;
@@ -590,7 +663,7 @@ nav,
 .hero-scene h1 {
   font-size: clamp(52px, 5.6vw, 78px);
 }
-:lang(zh-Hant) .hero-scene h1 {
+:is(:lang(zh-Hant), :lang(ja)) .hero-scene h1 {
   font-size: clamp(36px, 3.6vw, 52px);
   letter-spacing: 0.025em;
 }
@@ -609,7 +682,7 @@ nav,
   font-size: clamp(30px, 3.2vw, 44px);
   line-height: 1.25;
 }
-:lang(zh-Hant) .hero-scene h1 .title-mask + .title-mask {
+:is(:lang(zh-Hant), :lang(ja)) .hero-scene h1 .title-mask + .title-mask {
   font-size: clamp(24px, 2.5vw, 36px);
   line-height: 1.65;
 }
@@ -809,7 +882,7 @@ nav,
   font-size: clamp(36px, 4.6vw, 64px);
   line-height: 1.3;
 }
-:lang(zh-Hant) .about-scene-statement h2 {
+:is(:lang(zh-Hant), :lang(ja)) .about-scene-statement h2 {
   font-size: clamp(28px, 3.4vw, 46px);
   line-height: 1.65;
 }
@@ -864,7 +937,7 @@ nav,
 .work-scene > h2 em {
   color: var(--forest);
 }
-:lang(zh-Hant) .work-scene > h2 {
+:is(:lang(zh-Hant), :lang(ja)) .work-scene > h2 {
   font-size: 34px;
 }
 .work-scene-intro {
@@ -958,8 +1031,8 @@ nav,
   font-size: 34px;
   line-height: 1.2;
 }
-:lang(zh-Hant) .project-teaser-copy h2,
-:lang(zh-Hant) .project-teaser-copy h3 {
+:is(:lang(zh-Hant), :lang(ja)) .project-teaser-copy h2,
+:is(:lang(zh-Hant), :lang(ja)) .project-teaser-copy h3 {
   font-size: 27px;
   line-height: 1.5;
 }
@@ -1211,7 +1284,7 @@ nav,
   margin-block: 24px;
   font-size: clamp(34px, 4vw, 54px);
 }
-:lang(zh-Hant) .ai-step h3 {
+:is(:lang(zh-Hant), :lang(ja)) .ai-step h3 {
   font-size: clamp(28px, 3vw, 42px);
   line-height: 1.6;
 }
@@ -1448,9 +1521,9 @@ nav,
 .case-title-grid h1 {
   max-width: 14ch;
 }
-:lang(zh-Hant) .page-hero-grid h1,
-:lang(zh-Hant) .contact-title-grid h1,
-:lang(zh-Hant) .case-title-grid h1 {
+:is(:lang(zh-Hant), :lang(ja)) .page-hero-grid h1,
+:is(:lang(zh-Hant), :lang(ja)) .contact-title-grid h1,
+:is(:lang(zh-Hant), :lang(ja)) .case-title-grid h1 {
   max-width: none;
 }
 h1 em,
@@ -1475,7 +1548,7 @@ h1 em,
 .project-index-copy h2 {
   font-size: clamp(36px, 4vw, 56px);
 }
-:lang(zh-Hant) .project-index-copy h2 {
+:is(:lang(zh-Hant), :lang(ja)) .project-index-copy h2 {
   font-size: clamp(28px, 3.1vw, 42px);
 }
 .project-index-copy > p {
@@ -1769,7 +1842,7 @@ h1 em,
 .prototype-copy h3 {
   font-size: 32px;
 }
-:lang(zh-Hant) .prototype-copy h3 {
+:is(:lang(zh-Hant), :lang(ja)) .prototype-copy h3 {
   font-size: 26px;
 }
 .prototype-copy > p:not(.story-index) {
@@ -2134,7 +2207,7 @@ h1 em,
 .about-story-hero-copy h1 {
   font-size: var(--type-title);
 }
-:lang(zh-Hant) .about-story-hero-copy h1 em {
+:is(:lang(zh-Hant), :lang(ja)) .about-story-hero-copy h1 em {
   display: inline-block;
   white-space: nowrap;
   font-size: min(0.92em, 10.3cqi);
@@ -2435,7 +2508,7 @@ h1 em,
   font-size: 25px;
   margin-top: 20px;
 }
-:lang(zh-Hant) .usa-field-notes h3 {
+:is(:lang(zh-Hant), :lang(ja)) .usa-field-notes h3 {
   font-size: 21px;
   line-height: 1.6;
 }
@@ -2484,7 +2557,7 @@ h1 em,
   font-size: 32px;
   margin-block: 32px;
 }
-:lang(zh-Hant) .nature-copy blockquote {
+:is(:lang(zh-Hant), :lang(ja)) .nature-copy blockquote {
   font-size: 26px;
   line-height: 1.6;
 }
@@ -2950,9 +3023,10 @@ h1 em,
 }
 .opening-active .fathom-opening {
   display: grid;
+  will-change: transform;
 }
 .opening-mark {
-  font: 400 clamp(42px, 8.1vw, 108px) / 1 var(--serif);
+  font: 400 clamp(42px, 8.1vw, 108px) / 1 "Opening Caslon", var(--serif);
   letter-spacing: -0.035em;
 }
 .opening-word {
@@ -2968,6 +3042,9 @@ h1 em,
 }
 [data-opening-letter] {
   display: inline-block;
+}
+.opening-active [data-opening-letter] {
+  will-change: transform, opacity, filter;
 }
 .reveal {
   opacity: 1;
@@ -2997,7 +3074,7 @@ h1 em,
   .hero-scene h1 {
     font-size: 62px;
   }
-  :lang(zh-Hant) .hero-scene h1 {
+  :is(:lang(zh-Hant), :lang(ja)) .hero-scene h1 {
     font-size: clamp(32px, 4.1vw, 42px);
   }
   .work-scene > h2 {
@@ -3045,7 +3122,7 @@ h1 em,
     --type-section: clamp(36px, 6vw, 48px);
     --page-gutter: 28px;
   }
-  html:lang(zh-Hant) {
+  html:is(:lang(zh-Hant), :lang(ja)) {
     --type-hero: clamp(36px, 6vw, 48px);
     --type-title: clamp(36px, 5.6vw, 46px);
     --type-section: clamp(28px, 4.6vw, 36px);
@@ -3250,7 +3327,7 @@ h1 em,
     --type-section: 42px;
     --type-subtitle: 30px;
   }
-  html:lang(zh-Hant) {
+  html:is(:lang(zh-Hant), :lang(ja)) {
     --type-hero: clamp(34px, 8.8vw, 46px);
     --type-title: clamp(32px, 8.2vw, 44px);
     --type-section: clamp(27px, 7vw, 34px);
@@ -3266,6 +3343,11 @@ h1 em,
   }
   .brand {
     font-size: 26px;
+  }
+  .language-toggle {
+    width: 92px;
+    padding-inline: 12px 24px;
+    background-position: right 8px center;
   }
   .desktop-nav {
     display: none;
@@ -3292,7 +3374,7 @@ h1 em,
   .hero-scene h1 {
     font-size: clamp(48px, 10.6vw, 66px);
   }
-  :lang(zh-Hant) .hero-scene h1 {
+  :is(:lang(zh-Hant), :lang(ja)) .hero-scene h1 {
     font-size: var(--type-hero);
   }
   .hero-scene-intro {
@@ -3339,7 +3421,7 @@ h1 em,
   .about-scene-statement h2 {
     font-size: clamp(28px, 6.5vw, 42px);
   }
-  :lang(zh-Hant) .about-scene-statement h2 {
+  :is(:lang(zh-Hant), :lang(ja)) .about-scene-statement h2 {
     font-size: clamp(22px, 5.9vw, 30px);
     line-height: 1.7;
     letter-spacing: 0.02em;
@@ -3359,7 +3441,7 @@ h1 em,
   .work-scene > h2 em {
     display: inline;
   }
-  :lang(zh-Hant) .work-scene > h2 {
+  :is(:lang(zh-Hant), :lang(ja)) .work-scene > h2 {
     font-size: 30px;
   }
   .work-scene-intro {
@@ -3384,8 +3466,8 @@ h1 em,
   .project-teaser-copy h3 {
     font-size: 30px;
   }
-  :lang(zh-Hant) .project-teaser-copy h2,
-  :lang(zh-Hant) .project-teaser-copy h3 {
+  :is(:lang(zh-Hant), :lang(ja)) .project-teaser-copy h2,
+  :is(:lang(zh-Hant), :lang(ja)) .project-teaser-copy h3 {
     font-size: 24px;
   }
   .growth-vine--portrait {
@@ -3426,7 +3508,7 @@ h1 em,
     font-size: 26px;
     line-height: 1.3;
   }
-  :lang(zh-Hant) .ai-step h3 {
+  :is(:lang(zh-Hant), :lang(ja)) .ai-step h3 {
     font-size: 24px;
     line-height: 1.5;
   }
@@ -3496,7 +3578,7 @@ h1 em,
   .project-index-copy h2 {
     font-size: 38px;
   }
-  :lang(zh-Hant) .project-index-copy h2 {
+  :is(:lang(zh-Hant), :lang(ja)) .project-index-copy h2 {
     font-size: 30px;
   }
   .project-index-copy > p {
@@ -3620,7 +3702,7 @@ h1 em,
   .next-case > a {
     font-size: 30px;
   }
-  :lang(zh-Hant) .next-case > a {
+  :is(:lang(zh-Hant), :lang(ja)) .next-case > a {
     font-size: 24px;
   }
   .about-story-hero-grid {

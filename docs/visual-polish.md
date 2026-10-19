@@ -23,6 +23,8 @@ PR #3 follow-up, 2026-10-18. This direction replaces the earlier generated artwo
 
 - The opening wordmark now takes 2.5 seconds through appearance, a clear reading pause, per-letter blur/dissolve from right to left, and curtain departure. It is reduced by another 25% from the PR #4 size, using `clamp(42px, 8.1vw, 108px)`. The supplied reference is a still image; the sequence follows its presentation rather than claiming a measured frame-for-frame match
 - The letter-dissolve intro retains its session key and skips repeat visits, deep links, browser restoration and reduced motion. A small inline head gate now covers the first paint before deferred scripts run; the wordmark begins without waiting for font/layout promises. Gate and animation failures release the page, and an expired gate cannot replay a late intro
+- Opening now uses 7,140 bytes of regular/italic subsets from the same licensed Caslon faces. Both are preloaded and preserve the original glyph outlines and advances
+- On first visits, the wordmark starts before the SVG/scene/page measurements. Those enhancements initialize once in the original reading pause; the explicit font-driven layout refresh follows opening cleanup. All skip paths still initialize immediately. Appearance, dissolve and total 2.5-second timing remain unchanged
 - Hero → About → Work remains a reversible scroll-controlled composition. GSAP uses sine easing, 0.8-second scrub smoothing, a shared timing map and a reading pause; it does not intercept the wheel or snap to sections. Plants use that same eased entry curve; the four-line About reveal shares the timeline and continues into its centered reading pause
 - Access and navigation state follow the animation's update callback, so they continue to settle while scrub catches up after the scroll input stops
 - Language/layout restoration settles the scrub immediately at the saved logical progress. Explicit from/to coordinates preserve the return to the hero
@@ -70,3 +72,5 @@ The About-page wording is unchanged in both languages. Chinese 「像水一樣�
 Build and Chinese font coverage checks pass. Historical Chrome results and their commit scope are recorded in `docs/qa-2026-10-18.md`. The latest crop-geometry and scene-clock checks, including current browser limits, are in `docs/portrait-scene-sync-2026-10-19.md` and `docs/scene-boundaries-2026-10-19.md`.
 
 The newest About reveal and first-paint gate checks are recorded in `docs/about-reveal-opening-2026-10-19.md`.
+
+First-display initialization and opening-font checks are in `docs/opening-startup-2026-10-19.md`, including the limit that no browser performance trace was available.

@@ -217,9 +217,12 @@ try {
  vm.createContext(openingSandbox);
  vm.runInContext(source.slice(source.indexOf('function createOpeningTimeline('),source.indexOf('async function startOpening(')),openingSandbox);
  const letters=Array.from({length:9},()=>({opacity:0,x:0,y:0,filter:'blur(10px)'}));
- const curtain={yPercent:0};let completed=0;
- const opening=openingSandbox.createOpeningTimeline(curtain,{querySelectorAll:()=>letters},()=>completed++);
+ const curtain={yPercent:0};let completed=0,prepared=0;
+ const opening=openingSandbox.createOpeningTimeline(curtain,{querySelectorAll:()=>letters},()=>completed++,()=>prepared++);
+ opening.time(.3,false);assert.equal(prepared,0,'page preparation must not share the first visible opening frames');
+ opening.time(.64,false);assert.equal(prepared,0,'page preparation waits until the letter entrance is complete');
  opening.time(.8,false);assert.ok(letters.every(letter=>letter.opacity===1),'whole name needs a clear reading pause');
+ assert.equal(prepared,1,'prepare in the existing reading pause, without changing the entrance or dissolve pacing');
  opening.time(1.1,false);assert.ok(letters[0].opacity>letters.at(-1).opacity,'right-hand letters must dissolve before the left');
  assert.equal(letters[0].filter,'blur(0px)');
  assert.equal(curtain.yPercent,0,'curtain should wait for the word to dissolve');

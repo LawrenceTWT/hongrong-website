@@ -1,6 +1,8 @@
 import { access, readFile, readdir } from "node:fs/promises";
 import { join, resolve, sep } from "node:path";
 import { englishCopy } from "../js/copy.js";
+import { japaneseCopy, japanesePageMetadata } from "../js/copy-ja.js";
+import { languageSettings } from "../js/languages.js";
 import { createHash } from "node:crypto";
 
 const root = process.cwd();
@@ -106,6 +108,10 @@ for (const [file, html] of sources) {
   }
   if (header.includes('href="#about"') || header.includes('href="#work"'))
     fail("global navigation must use page routes");
+  for (const code of ["zh", "en", "ja"])
+    if (!header.includes('value="' + code + '"')) fail("missing language option " + code);
+  if (!japanesePageMetadata[file]?.title || !japanesePageMetadata[file]?.description)
+    fail("missing Japanese page metadata");
   if (
     /class="[^"]*loader(?![^"]*fathom-opening)/.test(html) &&
     file !== "index.html"
@@ -167,6 +173,11 @@ for (const [file, html] of sources) {
 }
 for (const key of keys)
   if (!(key in englishCopy)) errors.push("Missing English translation: " + key);
+for (const key of keys)
+  if (!(key in japaneseCopy)) errors.push("Missing Japanese translation: " + key);
+for (const value of Object.values(japaneseCopy))
+  if (/<(?:script|a|button|input|select|textarea)\b/i.test(value))
+    errors.push("Japanese copy must not introduce scripts or replace controls");
 for (const file of ["robots.txt", "sitemap.xml"]) {
   try {
     await access(join(root, file));
@@ -184,7 +195,8 @@ const coverage = JSON.parse(
   await readFile(join(root, "assets/fonts/gensen-coverage.json"), "utf8"),
 );
 const chineseCharacters = new Set(
-  [...([...sources.values()].join("") + js)].filter((character) =>
+  [...([...sources.values()].join("") + js + JSON.stringify([languageSettings.zh,
+    languageSettings.zh.photo(12345, 12345), languageSettings.zh.photoChoice(12345)]))].filter((character) =>
     /[\u3400-\u9fff]/.test(character),
   ),
 );
@@ -204,6 +216,16 @@ for (const [weight, font] of Object.entries(coverage.fonts)) {
         "; run scripts/subset-fonts.py",
     );
 }
+const japaneseFont = JSON.parse(await readFile(join(root, "assets/fonts/noto-jp-coverage.json"), "utf8"));
+const japaneseData = await readFile(join(root, "assets/fonts", japaneseFont.file));
+if (createHash("sha256").update(japaneseData).digest("hex") !== japaneseFont.sha256)
+  errors.push("Japanese font does not match its coverage manifest");
+const japaneseText = JSON.stringify([japaneseCopy, japanesePageMetadata, languageSettings.ja,
+  languageSettings.ja.photo(12345, 12345), languageSettings.ja.photoChoice(12345)]);
+const supportedJapanese = new Set(japaneseFont.characters);
+const missingJapanese = [...new Set([...japaneseText].filter((char) => char.codePointAt(0) >= 0x3000 && !supportedJapanese.has(char.codePointAt(0))))];
+if (missingJapanese.length)
+  errors.push("Japanese font is missing glyphs: " + missingJapanese.join("") + "; run scripts/subset-japanese.py");
 if (/classList\.add\("page-leaving"\)/.test(js))
   errors.push("Opacity-based page exits break browser restoration");
 if (errors.length) {
@@ -215,5 +237,5 @@ console.log(
     files.length +
     " Chinese-first pages, " +
     keys.size +
-    " English mappings, shared navigation and local assets.",
+    " English and Japanese mappings, shared navigation, font coverage and local assets.",
 );

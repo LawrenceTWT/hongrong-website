@@ -1,0 +1,35 @@
+{
+  "text": "HongRong®",
+  "faces": [
+    {
+      "style": "regular",
+      "file": "opening-caslon-regular.woff2",
+      "sha256": "4af147e1ad331311c680796ac59cc05e0db76ce698a4a97c1a81df9957aba8bf",
+      "characters": [
+        72,
+        82,
+        103,
+        110,
+        111,
+        174
+      ],
+      "source_file": "libre-caslon-condensed-regular.woff2",
+      "source_sha256": "62433cdbbb0eaaa96dc1e2bd3446236d74fc8ec36a0814bbebe1f486522550b4"
+    },
+    {
+      "style": "italic",
+      "file": "opening-caslon-italic.woff2",
+      "sha256": "f53c6fa3500f9fb6236b78c83897c4fcb8055a08e35bf0b1c36ab46318e4183c",
+      "characters": [
+        72,
+        82,
+        103,
+        110,
+        111,
+        174
+      ],
+      "source_file": "libre-caslon-condensed-italic.woff2",
+      "source_sha256": "b3a695d07ca423edae3cdf9f5e245eb516d35d8672d0f085330f997432d897a9"
+    }
+  ]
+}
