@@ -94,6 +94,8 @@ npm run validate
 
 The script verifies the upstream source font hashes, rebuilds only the required glyphs and updates `assets/fonts/gensen-coverage.json`. The full upstream OTF files are not served.
 
+The opening uses a separate 7 KB pair of subsets from the existing Caslon fonts. To regenerate those, install `fonttools[woff2]` in your Python environment and run `python scripts/subset-opening-fonts.py`. The script checks glyph outlines and advances against the originals and writes `assets/fonts/opening-coverage.json`; build validation checks coverage, source hashes and preload references. This is an asset-generation step, not a new website runtime dependency.
+
 ## Redesign and media
 
 - Current decisions and verification scope: `docs/ux-redesign.md`

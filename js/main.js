@@ -66,6 +66,7 @@ let aboutShadeProgress = -1;
 const scenePacing = { aboutIn: 0.12, about: 1.4, workIn: 2.1, work: 3.4 };
 const aboutRevealPacing = { shadeIn: 0.35, shade: 1.15, textIn: 0.95, text: 1.85 };
 let finishOpening = () => releaseOpeningGate();
+let pageInitialized = false;
 let refreshRevision = 0;
 let languageRefreshRevision = 0;
 let pendingLanguagePosition = null;
@@ -985,7 +986,8 @@ prototypeButton?.addEventListener("click", async () => {
 });
 
 // Reveal only supporting visuals; reading never depends on an observer firing.
-if (!reducedMotion.matches && "IntersectionObserver" in window) {
+function initImageReveal() {
+  if (reducedMotion.matches || !("IntersectionObserver" in window)) return;
   const observer = new IntersectionObserver(
     (entries) =>
       entries.forEach((entry) => {
@@ -1050,14 +1052,20 @@ document.querySelectorAll(".current-year").forEach((node) => {
   node.textContent = String(new Date().getFullYear());
 });
 
-initBotanicalGrowth();
-initPortraitFlip();
-applyLanguage(storage.get() || "zh", { restore: false });
-initScenes();
-initLandscape();
-initCarousel();
-setAiState(0);
-updateScrollState();
+// Keep SVG creation and layout/ScrollTrigger work out of the wordmark's entrance.
+function initializePage() {
+  if (pageInitialized) return;
+  pageInitialized = true;
+  initBotanicalGrowth();
+  initPortraitFlip();
+  applyLanguage(storage.get() || "zh", { restore: false });
+  initScenes();
+  initLandscape();
+  initCarousel();
+  initImageReveal();
+  setAiState(0);
+  updateScrollState();
+}
 
 // BFCache restores real documents, including DOM classes. Always release transient UI.
 window.addEventListener("pageshow", (event) => {
@@ -1085,7 +1093,7 @@ window.addEventListener("pagehide", () => {
   body.classList.remove("page-leaving", "opening-active");
 });
 
-function createOpeningTimeline(opening, mark, onComplete) {
+function createOpeningTimeline(opening, mark, onComplete, preparePage = () => {}) {
   const letters = [...mark.querySelectorAll("[data-opening-letter]")];
   const targets = letters.length ? letters : [mark];
   return window.gsap
@@ -1103,6 +1111,8 @@ function createOpeningTimeline(opening, mark, onComplete) {
       },
       0,
     )
+    // All nine letters are visible here; use the existing reading pause to prepare the page.
+    .call(preparePage, [], 0.65)
     .to(
       targets,
       {
@@ -1145,6 +1155,7 @@ async function startOpening() {
   if (skip) {
     releaseOpeningGate();
     if (opening) opening.hidden = true;
+    initializePage();
     await refreshLayout();
     if (location.hash) goToHash(location.hash);
     return;
@@ -1158,15 +1169,20 @@ async function startOpening() {
     if (finished) return;
     finished = true;
     clearTimeout(failsafe);
-    body.classList.remove("opening-active");
-    opening.hidden = true;
-    openingAnimation?.kill();
-    openingAnimation = null;
+    try {
+      // An interrupted or failed intro still leaves a fully initialized page.
+      initializePage();
+    } finally {
+      body.classList.remove("opening-active");
+      opening.hidden = true;
+      openingAnimation?.kill();
+      openingAnimation = null;
+      // Font-driven global remeasurement must not interrupt the opening letters.
+      void refreshLayout().catch(() => {});
+    }
   };
   finishOpening = finish;
   failsafe = setTimeout(finish, 5000);
-  // Fonts/layout can settle behind the opaque curtain without delaying its wordmark.
-  void refreshLayout().catch(finish);
   try {
     sessionStorage.setItem("hongrong-opening-2-5s", "seen");
   } catch { /* Storage is optional. */ }
@@ -1175,7 +1191,7 @@ async function startOpening() {
     openingAnimation = createOpeningTimeline(opening, mark, () => {
       clearTimeout(failsafe);
       finish();
-    });
+    }, initializePage);
   } catch {
     clearTimeout(failsafe);
     finish();

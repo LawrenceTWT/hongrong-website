@@ -15,6 +15,20 @@
   font-display: swap;
 }
 @font-face {
+  font-family: "Opening Caslon";
+  src: url("../assets/fonts/opening-caslon-regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Opening Caslon";
+  src: url("../assets/fonts/opening-caslon-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
   font-family: "Geist";
   src: url("../assets/fonts/geist-medium.woff2") format("woff2");
   font-weight: 400 500;
@@ -2950,9 +2964,10 @@ h1 em,
 }
 .opening-active .fathom-opening {
   display: grid;
+  will-change: transform;
 }
 .opening-mark {
-  font: 400 clamp(42px, 8.1vw, 108px) / 1 var(--serif);
+  font: 400 clamp(42px, 8.1vw, 108px) / 1 "Opening Caslon", var(--serif);
   letter-spacing: -0.035em;
 }
 .opening-word {
@@ -2968,6 +2983,9 @@ h1 em,
 }
 [data-opening-letter] {
   display: inline-block;
+}
+.opening-active [data-opening-letter] {
+  will-change: transform, opacity, filter;
 }
 .reveal {
   opacity: 1;
