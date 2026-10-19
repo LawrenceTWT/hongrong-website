@@ -65,6 +65,8 @@ The two supplied source photographs remain unchanged, without raster cropping or
 
 ## Verification
 
+The About-page wording is unchanged in both languages. Chinese 「像水一樣，流向未知」 stays on one line with a font size bounded by its own text column (`min(0.92em, 10.3cqi)`), so the nine-character phrase cannot force the grid wider. The introduction retains its original two explicit line breaks and all original wording. Removing its former 48ch cap and using a 14–16px column-aware font lets the three original Chinese sentences occupy three lines at standard desktop widths. Smaller screens and text enlargement may wrap body text for readability. English remains normally wrappable. No photo, grid track, global typography or animation rule is changed by this refinement.
+
 Build and Chinese font coverage checks pass. Historical Chrome results and their commit scope are recorded in `docs/qa-2026-10-18.md`. The latest crop-geometry and scene-clock checks, including current browser limits, are in `docs/portrait-scene-sync-2026-10-19.md` and `docs/scene-boundaries-2026-10-19.md`.
 
 The newest About reveal and first-paint gate checks are recorded in `docs/about-reveal-opening-2026-10-19.md`.

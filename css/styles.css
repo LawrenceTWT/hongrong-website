@@ -2127,12 +2127,23 @@ h1 em,
   gap: 12%;
   align-items: center;
 }
+.about-story-hero-copy {
+  min-width: 0;
+  container-type: inline-size;
+}
 .about-story-hero-copy h1 {
   font-size: var(--type-title);
 }
+:lang(zh-Hant) .about-story-hero-copy h1 em {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: min(0.92em, 10.3cqi);
+  letter-spacing: 0.035em;
+}
 .about-story-hero-copy .page-hero-intro {
   margin-top: 32px;
-  max-width: 48ch;
+  max-width: none;
+  font-size: clamp(14px, 3.15cqi, 16px);
 }
 .about-motto {
   margin-top: 32px;
