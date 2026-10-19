@@ -15,15 +15,15 @@ PR #3 follow-up, 2026-10-18. This direction replaces the earlier generated artwo
 - Keyboard focus is indicated on the hint below the photo; reduced motion skips the flip transition
 - Short, translated hover/tap hints explain the interaction. The current side is reflected in `aria-pressed` and only that face is exposed to assistive technology
 - Reduced motion removes the animated turn while retaining access to both photographs
-- Homepage and Work retain their two image/title/summary/case-link cards, AI first and Jinhong second. Their imagery is now actual app/website evidence
+- Homepage and Work retain their two image/title/summary/case-link cards, AI first and Jinhong second. Equal columns, stretched rows and flex copy now align both card frames and their CTAs without the former second-card offset. Their imagery is now actual app/website evidence
 - The AI preview combines the original login, parking and traffic screens in CSS. Jinhong uses its actual homepage capture. No generated interface or conceptual machinery is shown
 - All three generated bitmap assets and their obsolete preview screenshots have been removed. Botanical growth now reuses the original SVG leaf geometry in `js/botanical.js`: the stem draws from its lower endpoint, then each attached leaf unfolds. A local SVG mask softly fades the root into the page
 
 ## Scroll and landscape refinement
 
 - The opening wordmark now takes 2.5 seconds through appearance, a clear reading pause, per-letter blur/dissolve from right to left, and curtain departure. It is reduced by another 25% from the PR #4 size, using `clamp(42px, 8.1vw, 108px)`. The supplied reference is a still image; the sequence follows its presentation rather than claiming a measured frame-for-frame match
-- The letter-dissolve intro uses a new session key so a visitor who saw the previous version can see this revision once. It still skips repeat visits, deep links and reduced motion; switching to reduced motion during the intro completes it immediately
-- Hero → About → Work remains a reversible scroll-controlled composition. GSAP uses sine easing, 0.8-second scrub smoothing, a shared timing map and a reading pause; it does not intercept the wheel or snap to sections. Text and vines use that same eased entry curve
+- The letter-dissolve intro retains its session key and skips repeat visits, deep links, browser restoration and reduced motion. A small inline head gate now covers the first paint before deferred scripts run; the wordmark begins without waiting for font/layout promises. Gate and animation failures release the page, and an expired gate cannot replay a late intro
+- Hero → About → Work remains a reversible scroll-controlled composition. GSAP uses sine easing, 0.8-second scrub smoothing, a shared timing map and a reading pause; it does not intercept the wheel or snap to sections. Plants use that same eased entry curve; the four-line About reveal shares the timeline and continues into its centered reading pause
 - Access and navigation state follow the animation's update callback, so they continue to settle while scrub catches up after the scroll input stops
 - Language/layout restoration settles the scrub immediately at the saved logical progress. Explicit from/to coordinates preserve the return to the hero
 - Hero vines are complete from their first frame, including the normal-flow mobile hero. Later vines share their section's entry progress. Pinned About and Work plants complete exactly as their scene reaches its full composition; normal-flow plants complete once a shorter section fits or a tall section reaches its first full viewport. These later vines shrink back along the same path on reverse scrolling, without a second CSS transition lag
@@ -31,7 +31,7 @@ PR #3 follow-up, 2026-10-18. This direction replaces the earlier generated artwo
 - Child-page opening plants are also complete from their first frame. The plant and margin windows cannot create horizontal document overflow; small screens retain only a narrow edge accent
 - The phone keeps the real five-screen sequence, with a 240ms crossfade. Its line-art vine now grows between screen changes instead of advancing only at five thresholds
 - The Wānaka container has an explicit full width and height. Its SVG fills that box absolutely, avoiding the auto-width/aspect-ratio/max-height combination that can leave a blank strip on a wide display
-- About groups its centered statement and story CTA into one composition. During Work entry, it holds that composition still until the incoming edge meets its lower safety gap, then carries it out along that edge. Layout coordinates are remeasured after refresh/font/language changes; the counter-transform is removed in normal flow
+- About transitions from ivory to deep forest, then progressively reveals its four real text lines in ivory/sage. Label and text appear after the surface has darkened. Reduced motion and no-JavaScript views remain complete. About groups its centered statement and story CTA into one composition. During Work entry, it holds that composition still until the incoming edge meets its lower safety gap, then carries it out along that edge. Layout coordinates are remeasured after refresh/font/language changes; the counter-transform is removed in normal flow
 - The name is shifted slightly right and given more horizontal safety space. As the landscape enters, HongRong rises from behind the ridge and the complete SVG settles from 1.035× to 1×. Base and foreground remain in one coordinate system; reverse scroll restores the same image and type positions
 - The six-page glass navigation, 1080px content token, bilingual copy, actual photographs and project evidence are unchanged
 
@@ -53,3 +53,5 @@ The two supplied source photographs remain unchanged, without raster cropping or
 ## Verification
 
 Build and Chinese font coverage checks pass. Historical Chrome results and their commit scope are recorded in `docs/qa-2026-10-18.md`. The latest crop-geometry and scene-clock checks, including current browser limits, are in `docs/portrait-scene-sync-2026-10-19.md` and `docs/scene-boundaries-2026-10-19.md`.
+
+The newest About reveal and first-paint gate checks are recorded in `docs/about-reveal-opening-2026-10-19.md`.

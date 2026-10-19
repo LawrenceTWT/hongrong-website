@@ -3,6 +3,36 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="utf-8" />
+    <style>
+      html.opening-pending::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 299;
+        background: #182d23;
+        pointer-events: none;
+      }
+      html.opening-pending .fathom-opening { display: grid; }
+      html.opening-pending [data-opening-letter] { opacity: 0; }
+    </style>
+    <script data-opening-boot>
+      (() => {
+        const root = document.documentElement;
+        const navigation = performance.getEntriesByType("navigation")[0];
+        let seen = false;
+        try {
+          seen = sessionStorage.getItem("hongrong-opening-2-5s") === "seen";
+        } catch { /* Storage is optional. */ }
+        if (seen || matchMedia("(prefers-reduced-motion: reduce)").matches ||
+            navigation?.type === "back_forward" ||
+            (location.hash && location.hash !== "#top")) return;
+        root.classList.add("opening-pending");
+        window.hongrongOpeningFallback = setTimeout(() => {
+          window.hongrongOpeningExpired = true;
+          root.classList.remove("opening-pending");
+        }, 5000);
+      })();
+    </script>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta
       content="洪戎的個人作品集，分享 AI 行車助手、金虹食品網站與實際開發經驗"

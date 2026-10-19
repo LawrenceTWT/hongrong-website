@@ -11,8 +11,9 @@
     "prebuild": "npm run sync && npm run validate",
     "build": "node scripts/build.mjs",
     "test:motion": "node scripts/check-motion.mjs",
+    "test:opening": "node scripts/check-opening.mjs",
     "test:language": "node scripts/check-language.mjs",
-    "validate": "node scripts/sync-layout.mjs --check && node --check js/main.js && node --check js/copy.js && node --check js/botanical.js && node scripts/validate.mjs && npm run test:motion && npm run test:language"
+    "validate": "node scripts/sync-layout.mjs --check && node --check js/main.js && node --check js/copy.js && node --check js/botanical.js && node scripts/validate.mjs && npm run test:motion && npm run test:opening && npm run test:language"
   },
   "devDependencies": {
     "linkedom": "0.18.13"

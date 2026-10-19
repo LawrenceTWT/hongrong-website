@@ -167,7 +167,7 @@ export const englishCopy = {
   usaWorkTitle: "Work meant speaking English every day",
   usaWorkBody:
     "Kaytlin listened patiently and corrected me. It made speaking a little less intimidating.",
-  courageStatement: "I came home<br><em>with more courage.</em>",
+  courageStatement: "I came home<br><em>braver than I used to be.</em>",
   outsideHeading: "Away from the screen.",
   natureBody:
     "After military service, I visited New Zealand with friends. I still remember the view above Wānaka.",
