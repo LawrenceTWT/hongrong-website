@@ -6,6 +6,7 @@ import { languageSettings } from "../js/languages.js";
 import { createHash } from "node:crypto";
 
 const root = process.cwd();
+const siteRoot = "https://lawrencetwt.github.io/";
 const files = (await readdir(root)).filter((name) => name.endsWith(".html"));
 const errors = [];
 const keys = new Set();
@@ -24,6 +25,7 @@ const sources = new Map(
 );
 for (const [file, html] of sources) {
   const fail = (message) => errors.push(file + ": " + message);
+  const pageUrl = new URL(file === "index.html" ? "" : file, siteRoot).href;
   const tags = [...html.matchAll(/<[a-zA-Z][^>]*>/g)].map((match) => ({
     markup: match[0],
     attributes: attrs(match[0]),
@@ -48,12 +50,14 @@ for (const [file, html] of sources) {
     !tags.some(
       (tag) =>
         tag.attributes.rel === "canonical" &&
-        tag.attributes.href?.startsWith(
-          "https://lawrencetwt.github.io/hongrong-website/",
-        ),
+        tag.attributes.href === pageUrl,
     )
   )
-    fail("missing canonical");
+    fail("canonical must use the current root site and page path");
+  if (!tags.some((tag) => tag.attributes.property === "og:url" && tag.attributes.content === pageUrl))
+    fail("Open Graph URL must match the canonical page URL");
+  if (html.includes(siteRoot + "hongrong-website/"))
+    fail("old project-site URL remains in public markup");
   if (!tags.some((tag) => tag.attributes.property === "og:image"))
     fail("missing social image");
   if (
@@ -185,6 +189,14 @@ for (const file of ["robots.txt", "sitemap.xml"]) {
     errors.push("Missing " + file);
   }
 }
+const sitemap = await readFile(join(root, "sitemap.xml"), "utf8");
+const indexed = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+const expectedUrls = files.map((file) => new URL(file === "index.html" ? "" : file, siteRoot).href);
+if (indexed.length !== expectedUrls.length || expectedUrls.some((url) => !indexed.includes(url)))
+  errors.push("Sitemap must list all six current root-site URLs exactly once");
+const robots = await readFile(join(root, "robots.txt"), "utf8");
+if (!robots.split(/\r?\n/).includes("Sitemap: " + siteRoot + "sitemap.xml"))
+  errors.push("robots.txt must reference the root-site sitemap");
 const css = await readFile(join(root, "css/styles.css"), "utf8");
 if ((css.match(/{/g) || []).length !== (css.match(/}/g) || []).length)
   errors.push("CSS braces are unbalanced");
