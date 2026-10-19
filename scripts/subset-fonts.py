@@ -7,6 +7,7 @@ The full originals are intentionally not shipped to visitors.
 import argparse
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 from fontTools import subset
 from fontTools.ttLib import TTFont
@@ -16,8 +17,9 @@ parser.add_argument("--regular", required=True, type=Path)
 parser.add_argument("--bold", required=True, type=Path)
 args = parser.parse_args()
 root = Path(__file__).resolve().parent.parent
-sources = list(root.glob("*.html")) + list((root / "js").glob("*.js")) + list((root / "partials").glob("*.html"))
+sources = list(root.glob("*.html")) + [path for path in (root / "js").glob("*.js") if path.name not in ("copy-ja.js", "languages.js")] + list((root / "partials").glob("*.html"))
 text = "".join(path.read_text(encoding="utf-8") for path in sources)
+text += subprocess.check_output(["node", "--input-type=module", "-e", "import {languageSettings} from './js/languages.js'; const zh=languageSettings.zh; console.log(JSON.stringify([zh,zh.photo(12345,12345),zh.photoChoice(12345)]))"], cwd=root, text=True)
 expected = {ord(char) for char in text if 0x3400 <= ord(char) <= 0x9FFF}
 manifest = {"source": "ButTaiwan/gensen-font@d347d3fffcb45e08857052433a0b432ed4f7ace8", "fonts": {}}
 for weight, original, expected_blob in [

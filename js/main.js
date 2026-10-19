@@ -1,4 +1,6 @@
 import { englishCopy, englishPageMetadata } from "./copy.js";
+import { japaneseCopy, japanesePageMetadata } from "./copy-ja.js";
+import { languageSettings } from "./languages.js";
 import { botanicalPlacements, createVine, progressBetween } from "./botanical.js";
 
 // Chinese HTML is the source of the initial view. Only explicit language choices persist.
@@ -42,8 +44,9 @@ const attributeNodes = ["alt", "aria-label", "placeholder"].flatMap(
 );
 let language = "zh";
 const chineseTitle = document.title;
-const englishMetadata =
-  englishPageMetadata[location.pathname.split("/").pop() || "index.html"];
+const pageName = location.pathname.split("/").pop() || "index.html";
+const translations = { en: englishCopy, ja: japaneseCopy };
+const pageMetadata = { en: englishPageMetadata, ja: japanesePageMetadata };
 const metadataNodes = [
   ['meta[name="description"]', "description"],
   ['meta[property="og:title"]', "title"],
@@ -106,6 +109,9 @@ function capturePosition() {
 // One layout update path, cancelled if the user deliberately scrolls while it is pending.
 async function refreshLayout(position = null) {
   const revision = ++refreshRevision;
+  // Let the new :lang styles request their font before reading fonts.ready.
+  await new Promise(requestAnimationFrame);
+  if (revision !== refreshRevision) return;
   await (document.fonts?.ready || Promise.resolve());
   await new Promise(requestAnimationFrame);
   if (revision !== refreshRevision) return;
@@ -150,39 +156,39 @@ function applyLanguage(next, { persist = false, restore = true } = {}) {
   const position = restore
     ? pendingLanguagePosition || capturePosition()
     : null;
-  language = next === "en" ? "en" : "zh";
-  root.lang = language === "zh" ? "zh-Hant" : "en";
+  language = Object.hasOwn(languageSettings, next) ? next : "zh";
+  const labels = languageSettings[language];
+  const copy = translations[language];
+  const metadata = pageMetadata[language]?.[pageName];
+  root.lang = labels.htmlLang;
   body.dataset.lang = language;
   document.title =
     language === "zh"
       ? chineseTitle
-      : englishMetadata?.title || chineseTitle;
+      : metadata?.title || chineseTitle;
   for (const { node, field, zh } of metadataNodes) {
     node.content =
       language === "zh"
         ? zh
         : field === "locale"
-          ? "en_US"
-          : englishMetadata?.[field] || zh;
+          ? labels.locale
+          : metadata?.[field] || zh;
   }
   for (const { node, key, zh } of textNodes) {
-    const value = language === "en" ? (englishCopy[key] ?? zh) : zh;
+    const value = copy?.[key] ?? zh;
     if (node.innerHTML !== value) node.innerHTML = value;
   }
   for (const { node, attribute, key, zh } of attributeNodes) {
     node.setAttribute(
       attribute,
-      language === "en" ? (englishCopy[key] ?? zh) : zh,
+      copy?.[key] ?? zh,
     );
   }
-  document.querySelectorAll(".language-toggle").forEach((button) => {
-    button.hidden = false;
-    button.textContent = language === "zh" ? "EN" : "中文";
-    button.lang = language === "zh" ? "en" : "zh-Hant";
-    button.setAttribute(
-      "aria-label",
-      language === "zh" ? "Switch to English" : "切換至繁體中文",
-    );
+  document.querySelectorAll(".language-toggle").forEach((select) => {
+    select.hidden = false;
+    select.value = language;
+    select.lang = labels.htmlLang;
+    select.setAttribute("aria-label", labels.selectLabel);
   });
   updateMenuLabel();
   document
@@ -190,9 +196,7 @@ function applyLanguage(next, { persist = false, restore = true } = {}) {
     .forEach((slide, index) =>
       slide.setAttribute(
         "aria-label",
-        language === "zh"
-          ? "第 " + (index + 1) + " 張，共 5 張"
-          : "Photo " + (index + 1) + " of 5",
+        labels.photo(index + 1, document.querySelectorAll("[data-usa-slide]").length),
       ),
     );
   document
@@ -200,19 +204,13 @@ function applyLanguage(next, { persist = false, restore = true } = {}) {
     .forEach((dot, index) =>
       dot.setAttribute(
         "aria-label",
-        language === "zh"
-          ? "查看第 " + (index + 1) + " 張照片"
-          : "View photo " + (index + 1),
+        labels.photoChoice(index + 1),
       ),
     );
   const name = document.querySelector('input[name="name"]');
   const message = document.querySelector('textarea[name="message"]');
-  if (name) name.placeholder = language === "zh" ? "名字" : "Name";
-  if (message)
-    message.placeholder =
-      language === "zh"
-        ? "需求、時程，或想聊的事⋯"
-        : "The need, timeline, or what you have in mind...";
+  if (name) name.placeholder = labels.namePlaceholder;
+  if (message) message.placeholder = labels.messagePlaceholder;
   if (selectedSkill) showSkill(selectedSkill);
   setAiState(activeAiState);
   updatePrototypeStatus();
@@ -227,9 +225,9 @@ function applyLanguage(next, { persist = false, restore = true } = {}) {
 }
 document
   .querySelectorAll(".language-toggle")
-  .forEach((button) =>
-    button.addEventListener("click", () =>
-      applyLanguage(language === "zh" ? "en" : "zh", { persist: true }),
+  .forEach((select) =>
+    select.addEventListener("change", () =>
+      applyLanguage(select.value, { persist: true }),
     ),
   );
 
@@ -241,13 +239,7 @@ function updateMenuLabel() {
   const open = menuButton?.getAttribute("aria-expanded") === "true";
   menuButton?.setAttribute(
     "aria-label",
-    language === "zh"
-      ? open
-        ? "關閉選單"
-        : "開啟選單"
-      : open
-        ? "Close menu"
-        : "Open menu",
+    languageSettings[language][open ? "menuClose" : "menuOpen"],
   );
 }
 function setMenu(open, returnFocus = false) {
@@ -282,7 +274,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key !== "Tab") return;
   const focusable = [
     ...document.querySelectorAll(
-      ".site-header a, .site-header button, .menu-panel a",
+      ".site-header a, .site-header button, .site-header select, .menu-panel a",
     ),
   ].filter(
     (node) =>
@@ -558,11 +550,7 @@ function setAiState(index) {
     panel.setAttribute("aria-hidden", String(i !== index));
   });
   if (phoneState)
-    phoneState.textContent = (
-      language === "zh"
-        ? ["登入", "剩餘車位", "導航", "即時路況", "車輛位置"]
-        : ["Login", "Parking", "Navigation", "Live traffic", "Vehicle location"]
-    )[index];
+    phoneState.textContent = languageSettings[language].phoneStates[index];
 }
 function updateAiStory() {
   if (!aiSteps.length) return;
@@ -930,17 +918,18 @@ function showSkill(button) {
   });
   const evidence = document.querySelector("[data-skill-evidence]");
   const label = document.querySelector("[data-skill-evidence-label]");
+  const labels = languageSettings[language];
   if (label) {
     if (button.hasAttribute("data-skill-learning"))
-      label.textContent = language === "zh" ? "學習紀錄" : "Learning record";
+      label.textContent = labels.learningLabel;
     else
-      label.textContent = language === "zh" ? "使用於" : englishCopy.skillEvidenceLabel;
+      label.textContent = labels.evidenceLabel;
   }
   if (evidence)
     evidence.textContent =
       language === "zh"
         ? button.dataset.skillProjectZh
-        : button.dataset.skillProject;
+        : labels.skillProjects?.[button.dataset.skillProject] || button.dataset.skillProject;
 }
 document.querySelectorAll("[data-skill-project]").forEach((button) => {
   button.setAttribute("aria-pressed", "false");
@@ -956,13 +945,9 @@ function updatePrototypeStatus() {
   if (!status) return;
   status.textContent =
     prototypeState === "running"
-      ? language === "zh"
-        ? "正在示範語音到停車資料的流程…"
-        : englishCopy.prototypeRunning
+      ? languageSettings[language].prototypeRunning
       : prototypeState === "complete"
-        ? language === "zh"
-          ? "示意完成：整理停車資訊，再回覆使用者（非即時資料）"
-          : englishCopy.prototypeComplete
+        ? languageSettings[language].prototypeComplete
         : "";
 }
 prototypeButton?.addEventListener("click", async () => {
@@ -1027,20 +1012,9 @@ if (form) {
       form.querySelector('select[name="subject"] option:checked').textContent +
       " — " +
       values.get("name");
-    const message =
-      language === "zh"
-        ? "你好 HongRong，\n\n" +
-          values.get("message") +
-          "\n\n聯絡人：" +
-          values.get("name") +
-          "\nEmail：" +
-          values.get("email")
-        : "Hi HongRong,\n\n" +
-          values.get("message") +
-          "\n\nFrom: " +
-          values.get("name") +
-          "\nEmail: " +
-          values.get("email");
+    const labels = languageSettings[language];
+    const message = labels.greeting + "\n\n" + values.get("message") +
+      "\n\n" + labels.sender + values.get("name") + "\n" + labels.email + values.get("email");
     location.href =
       "mailto:zxc1031777@gmail.com?subject=" +
       encodeURIComponent(subject) +
