@@ -15,9 +15,9 @@ const source = (await readFile(new URL("js/main.js", root), "utf8"))
 const pages = (await readdir(root)).filter((name) => name.endsWith(".html"));
 const cjk = /[\u3400-\u9fff]/;
 
-async function loadPage(file, { stored = null, storageBlocked = false, height = 900, portraitReady = true } = {}) {
+async function loadPage(file, { stored = null, storageBlocked = false, height = 900, portraitReady = true, basePath = "/", homeAlias = false } = {}) {
   const { document, Event } = parseHTML(await readFile(new URL(file, root), "utf8"));
-  const url = new URL(file, "https://example.test/hongrong-website/");
+  const url = new URL(homeAlias && file === "index.html" ? "" : file, "https://example.test" + basePath);
   const events = document.createElement("span");
   const frames = [], timers = [], rectangles = new Map();
   const saved = new Map(stored ? [["hongrong-language-choice", stored]] : []);
@@ -95,7 +95,7 @@ async function loadPage(file, { stored = null, storageBlocked = false, height = 
   vm.createContext(sandbox);
   vm.runInContext(source + `
     globalThis.testAPI = {
-      applyLanguage, capturePosition, cancelLayoutRestore, goToHash, setAiState, setMenu, showSkill,
+      applyLanguage, capturePosition, cancelLayoutRestore, goToHash, sameDocument, setAiState, setMenu, showSkill,
       setScene(value) { sceneTimeline = value; },
       state() { return { language, prototypeState, pendingLanguagePosition }; }
     };`, sandbox, { filename: "main.js" });
@@ -208,6 +208,21 @@ for (const file of pages) {
   assert.equal(blocked.document.documentElement.lang, "en", file + ": blocked storage must not break language changes");
   blocked.chooseLanguage("ja");
   assert.equal(blocked.document.documentElement.lang, "ja", file + ": Japanese must work without storage");
+}
+
+// The root landing URL and its index.html alias must remain one document.
+for (const basePath of ["/", "/hongrong-website/"]) {
+  const landing = await loadPage("index.html", { basePath, homeAlias: true, stored: "ja" });
+  assert.equal(landing.document.documentElement.lang, "ja");
+  assert.equal(landing.document.title, japanesePageMetadata["index.html"].title);
+  assert.equal(landing.sameDocument(new URL(landing.document.querySelector(".brand").href)), true);
+  assert.equal(landing.sameDocument(new URL("about.html", landing.sandbox.location.href)), false);
+  const photo = landing.document.querySelector(".portrait-face-front img");
+  assert.equal(new URL(photo.getAttribute("src"), landing.sandbox.location.href).pathname, basePath + "assets/images/hongrong-formal.webp");
+  landing.sandbox.scrollY = 1500;
+  landing.goToHash("#top");
+  await landing.flush();
+  assert.equal(landing.sandbox.scrollY, 0, "root/index aliases must still return to the hero");
 }
 
 const about = await loadPage("about.html");

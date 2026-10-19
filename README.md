@@ -1,6 +1,18 @@
 # HongRong Portfolio
 
-A bilingual personal portfolio website for HongRong, inspired by editorial design and smooth scroll-led interactions.
+A Chinese-first personal portfolio with English and Japanese versions, inspired by editorial design and smooth scroll-led interactions.
+
+## GitHub Pages address
+
+The intended public address is `https://lawrencetwt.github.io/`. To publish there, rename this repository to `lawrencetwt.github.io` in GitHub Settings and retain the existing Pages publishing source (`main`, repository root). The URL migration is complete only after the repository rename and a successful Pages deployment; changing canonical tags alone does not change the hosting address.
+
+After the rename, update existing local clones:
+
+```sh
+git remote set-url origin https://github.com/LawrenceTWT/lawrencetwt.github.io.git
+```
+
+All six pages, social image URLs, structured data, sitemap and robots reference the root address. Images, scripts and page links remain relative, so they work at the root and in local previews. The historical project-site URL is not automatically redirected by a repository rename.
 
 ## Pages
 
@@ -14,7 +26,7 @@ A bilingual personal portfolio website for HongRong, inspired by editorial desig
 ## Folder structure
 
 ```text
-hongrong-portfolio/
+lawrencetwt.github.io/
 ├─ index.html
 ├─ about.html
 ├─ work.html
